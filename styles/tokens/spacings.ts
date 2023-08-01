@@ -1,7 +1,7 @@
 const SPACING = {
-	SMALLEST: '.25rem',
-	SMALLER: '.5rem',
-	SMALL: '.75rem',
+	SMALLEST: '0.25rem',
+	SMALLER: '0.5rem',
+	SMALL: '0.75rem',
 	STANDARD: '1rem',
 	BIG: '1.5rem',
 	BIGGER: '2rem',

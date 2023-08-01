@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import TOKENS from '../../styles/tokens';
 
 const Container = styled.div`
 	height: 100%;
@@ -7,36 +6,42 @@ const Container = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	border: 1px solid black;
+	background-color: azure;
 `;
 const FrameWrapper = styled.div`
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	max-width: ${TOKENS.SPACING.LAYOUT.FRAME_MAX_WIDTH};
+	align-items: top;
+	max-width: ${({ theme: { SPACING } }) => SPACING.LAYOUT.FRAME_MAX_WIDTH};
+	border: 1px solid ${({ theme: { COLOR } }) => COLOR.GREY.BASE};
+	background-color: ${({ theme: { COLOR } }) => COLOR.WHITE};
 `;
 const Menu = styled.div`
 	height: 100%;
-	width: ${TOKENS.SPACING.LAYOUT.MENU_WIDTH};
+	width: ${({ theme: { SPACING } }) => SPACING.LAYOUT.MENU_WIDTH};
+	border: 1px solid lightgrey;
 `;
 const ContentWrapper = styled.div`
 	height: 100%;
 	width: 100%;
-	min-width: ${TOKENS.SPACING.LAYOUT.CONTENT_MIN_WIDTH};
+	min-width: ${({ theme: { SPACING } }) => SPACING.LAYOUT.CONTENT_MIN_WIDTH};
+	border: 1px solid grey;
 `;
 const Header = styled.div`
-	height: ${TOKENS.SPACING.LAYOUT.HEADER_HEIGHT};
+	height: ${({ theme: { SPACING } }) => SPACING.LAYOUT.HEADER_HEIGHT};
 	width: 100%;
+	border: 1px solid lightgrey;
 `;
 const Content = styled.div`
-	height: calc(
-		100% - ${TOKENS.SPACING.LAYOUT.FOOTER_HEIGHT} -
-			${TOKENS.SPACING.LAYOUT.HEADER_HEIGHT}
-	);
+	height: 100%;
 	width: 100%;
+	border: 1px solid lightgrey;
 `;
 const Footer = styled.div`
-	height: ${TOKENS.SPACING.LAYOUT.FOOTER_HEIGHT}};
+	height: ${({ theme: { SPACING } }) => SPACING.LAYOUT.FOOTER_HEIGHT}};
 	width: 100%;
+	border: 1px solid lightgrey;
 `;
 
 export default function AppFrame({ menu, header, footer, children }) {
