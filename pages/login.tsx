@@ -10,6 +10,7 @@ const Container = styled.div`
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
+	width: 100vw;
 `;
 
 export default function Login() {
