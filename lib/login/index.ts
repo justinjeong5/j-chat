@@ -9,7 +9,7 @@ const useLogin = () => {
 		jUserDb?.id === jUser?.id && jUserDb?.pw === jUser?.pw
 	);
 
-	const signIn = (username: string, password: string) => {
+	const signUp = (username: string, password: string) => {
 		const userInfo = [
 			username,
 			hash.sha256().update(password).digest('hex'),
@@ -38,7 +38,7 @@ const useLogin = () => {
 		isLoggedIn,
 		login,
 		logout,
-		signIn,
+		signUp,
 	};
 };
 

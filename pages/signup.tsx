@@ -12,10 +12,10 @@ const Container = styled.div`
     width: 100vw;
 `;
 
-export default function SignIn() {
+export default function SignUp () {
 	const router = useRouter();
 
-	const { isLoggedIn, signIn } = useLogin();
+	const { isLoggedIn, signUp } = useLogin();
 	useEffect(() => {
 		if (isLoggedIn) {
 			router.push('/');
@@ -23,7 +23,7 @@ export default function SignIn() {
 	}, [isLoggedIn]);
 
 	const onFinish = (values: any) => {
-		signIn(values.username, values.password);
+		signUp(values.username, values.password);
 		router.push('/');
 	};
 

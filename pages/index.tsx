@@ -1,32 +1,13 @@
 import AppFrame from '../components/layout/AppFrame';
-import useLogin from '../lib/login';
-import { Button } from 'antd';
-import { PoweroffOutlined } from '@ant-design/icons';
-
-import { useRouter } from 'next/router';
+import Menu from '../components/navigation/Menu';
 
 export default function Page() {
-	const router = useRouter();
-
-	const { isLoggedIn, logout } = useLogin();
-	if (!isLoggedIn) {
-		router.push('/login');
-	}
-
 	return (
 		<AppFrame
-			menu={
-				<div>
-					<Button
-						type='primary'
-						icon={<PoweroffOutlined />}
-						onClick={logout}
-					/>
-				</div>
-			}
+			menu={<Menu />}
 			header={<div>Header</div>}
 			footer={<div>Footer</div>}>
-			<div>Content</div>
+			<div style={{ minHeight: '500px' }}>Content</div>
 		</AppFrame>
 	);
 }
