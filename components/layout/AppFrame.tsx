@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-	height: 100%;
+	height: calc(100vh - 18px);
 	width: 100%;
 	display: flex;
 	justify-content: center;
@@ -23,25 +23,28 @@ const Menu = styled.div`
 	border: 1px solid lightgrey;
 `;
 const ContentWrapper = styled.div`
-	height: 100%;
+	height: calc(100vh - 40px);
 	width: 100%;
 	min-width: ${({ theme: { SPACING } }) => SPACING.LAYOUT.CONTENT_MIN_WIDTH};
 	border: 1px solid grey;
 `;
 const Header = styled.div`
 	height: ${({ theme: { SPACING } }) => SPACING.LAYOUT.HEADER_HEIGHT};
-	width: 100%;
+	width: auto;
 	border: 1px solid lightgrey;
+	padding: ${({ theme: { SPACING } }) => SPACING.STANDARD};
 `;
 const Content = styled.div`
-	height: 100%;
-	width: 100%;
+	height: calc(100% - 338px);
+	width: auto;
 	border: 1px solid lightgrey;
+	padding: ${({ theme: { SPACING } }) => SPACING.STANDARD};
 `;
 const Footer = styled.div`
-	height: ${({ theme: { SPACING } }) => SPACING.LAYOUT.FOOTER_HEIGHT}};
-	width: 100%;
+	height: ${({ theme: { SPACING } }) => SPACING.LAYOUT.FOOTER_HEIGHT};
+	width: auto;
 	border: 1px solid lightgrey;
+	padding: ${({ theme: { SPACING } }) => SPACING.STANDARD};
 `;
 
 export default function AppFrame({ menu, header, footer, children }) {

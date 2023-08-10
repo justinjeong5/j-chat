@@ -7,38 +7,13 @@ import {
 import styled from 'styled-components';
 import Profile from '../structure/Profile';
 import userData from '../../db/user.json';
-import { v4 as uuidv4 } from 'uuid';
-
-import type { MenuProps } from 'antd';
-
-type MenuItem = Required<MenuProps>['items'][number];
+import { MenuProps, getItem } from '../../lib/menu';
 
 const Container = styled.div`
 	padding: ${({ theme: { SPACING } }) => SPACING.STANDARD};
 `;
 
 export default function Page() {
-	const getItem = (
-		label: React.ReactNode,
-		{
-			icon = null,
-			children,
-			type = "item",
-		}: {
-			icon?: React.ReactNode;
-			children?: MenuItem[];
-			type?: "group" | "item" | "divider";
-		} = {}
-	): MenuItem => {
-		return {
-			key: uuidv4(),
-			icon,
-			children,
-			label,
-			type,
-		} as MenuItem;
-	}
-
 	const items: MenuProps['items'] = [
 		getItem('Navigation One', {
 			icon: <MailOutlined />,
