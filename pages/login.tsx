@@ -1,9 +1,11 @@
 import { useRouter } from 'next/router';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Card, Form, Input, Checkbox } from 'antd';
 import styled from 'styled-components';
 import useLogin from '../lib/login';
-import hash from 'hash.js';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
+import useRemember from '../lib/login/remember';
+import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 const Container = styled.div`
 	display: flex;
@@ -13,9 +15,18 @@ const Container = styled.div`
 	width: 100vw;
 `;
 
+const CardWrapper = styled(Card)`
+	width: 500px;
+`;
+const SpaceWrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;
+
 export default function Login() {
 	const router = useRouter();
 
+	const { userEmail, remember, forget, checked, setChecked } = useRemember();
 	const { isLoggedIn, login } = useLogin();
 	useEffect(() => {
 		if (isLoggedIn) {
@@ -23,44 +34,78 @@ export default function Login() {
 		}
 	}, [isLoggedIn]);
 
-	const onFinish = (values: any) => {
-		login(values.username, values.password);
+	const handleFinish = (values: any) => {
+		login(values.email, values.password);
+		if (checked) {
+			remember(values.email);
+		} else {
+			forget();
+		}
 	};
 
+	const handleRemember = (e: CheckboxChangeEvent) => {
+		setChecked(e.target.checked);
+	};
+
+	const initialValues = useMemo(() => {
+		if (!checked) {
+			return {
+				remember: false,
+				email: null,
+			};
+		}
+		return {
+			remember: true,
+			email: userEmail,
+		};
+	}, [checked, userEmail]);
+
 	type FieldType = {
-		username?: string;
+		email?: string;
 		password?: string;
 	};
 
 	return (
 		<Container>
-			<Form
-				name='basic'
-				labelCol={{ span: 8 }}
-				wrapperCol={{ span: 16 }}
-				style={{ maxWidth: 600 }}
-				onFinish={onFinish}
-				autoComplete='off'>
-				<Form.Item<FieldType>
-					label='Username'
-					name='username'
-					rules={[{ required: true, message: 'Please input your username!' }]}>
-					<Input />
-				</Form.Item>
+			<CardWrapper>
+				<Form
+					name='normal_login'
+					initialValues={initialValues}
+					onFinish={handleFinish}>
+					<Form.Item<FieldType>
+						name='email'
+						rules={[{ required: true, message: '이메일을 입력해 주세요.' }]}>
+						<Input prefix={<UserOutlined />} placeholder='Email' />
+					</Form.Item>
+					<Form.Item
+						name='password'
+						rules={[
+							{ required: true, message: 'Please input your Password!' },
+						]}>
+						<Input
+							prefix={<LockOutlined />}
+							type='password'
+							placeholder='Password'
+						/>
+					</Form.Item>
+					<Form.Item>
+						<SpaceWrapper>
+							<Form.Item name='remember' valuePropName='checked' noStyle>
+								<Checkbox onChange={handleRemember}>Remember me</Checkbox>
+							</Form.Item>
 
-				<Form.Item<FieldType>
-					label='Password'
-					name='password'
-					rules={[{ required: true, message: 'Please input your password!' }]}>
-					<Input.Password />
-				</Form.Item>
+							<a href='/signup'>Forgot password</a>
+						</SpaceWrapper>
+					</Form.Item>
 
-				<Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-					<Button type='primary' htmlType='submit'>
-						Login
-					</Button>
-				</Form.Item>
-			</Form>
+					<Form.Item>
+						<Button type='primary' htmlType='submit' style={{ width: '100%' }}>
+							Log in
+						</Button>
+						Or <a href='/signup'>register now!</a>
+					</Form.Item>
+				</Form>
+			</CardWrapper>
 		</Container>
 	);
 }

@@ -1,7 +1,7 @@
 import ILogin from './login.type';
 
 class LocalStorage {
-	static getItem(item: string): ILogin {
+	static getUser(item: string): ILogin {
 		if (typeof window !== 'undefined') {
 			const str = localStorage.getItem(item);
 			if (!str) {
@@ -9,6 +9,12 @@ class LocalStorage {
 			}
 			const [id, pw] = str.split('*');
 			return { id, pw };
+		}
+	}
+
+	static getItem(item: string): string {
+		if (typeof window !== 'undefined') {
+			return localStorage.getItem(item);
 		}
 	}
 

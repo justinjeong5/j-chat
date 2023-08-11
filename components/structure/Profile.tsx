@@ -1,11 +1,17 @@
-import { Avatar } from 'antd';
+import { Avatar, Button, Space } from 'antd';
 import { styled } from 'styled-components';
 import md5 from 'md5';
+import { useRouter } from 'next/router';
+import useLogin from '../../lib/login';
+import WithAuth from '../../hoc/WithAuth';
 
-const Container = styled.div`
+const Container = styled.div``;
+
+const Wrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-bottom: ${({ theme: { SPACING } }) => SPACING.SMALL};
 	gap: ${({ theme: { SPACING } }) => SPACING.STANDARD};
 `;
 
@@ -13,15 +19,38 @@ const UserName = styled.div`
 	font: ${({ theme: { FONT } }) => FONT.FAMILY};
 `;
 
+const SpaceWrapper = styled(Space)`
+	display: flex;
+	justify-content: end;
+`;
+
 export default function Profile({ user }) {
+	const router = useRouter();
+	const { logout } = useLogin();
+
+	const handleLogout = () => {
+		logout();
+		router.push('/login');
+	};
+
 	const getAvatarImage = (userToken) => {
 		return `https://gravatar.com/avatar/${md5(userToken)}?d=identicon`;
 	};
 
 	return (
 		<Container>
-			<Avatar src={getAvatarImage(user.email)} />
-			<UserName>{user.email}</UserName>
+			<Wrapper>
+				<Avatar src={getAvatarImage(user.email)} />
+				<UserName>{user.email}</UserName>
+			</Wrapper>
+			<SpaceWrapper>
+				<Space>
+					<Button type='primary'>Edit Profile</Button>
+					<Button type='primary' onClick={handleLogout}>
+						Log Out
+					</Button>
+				</Space>
+			</SpaceWrapper>
 		</Container>
 	);
 }

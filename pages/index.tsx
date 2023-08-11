@@ -1,8 +1,9 @@
 import AppFrame from '../components/layout/AppFrame';
 import Menu from '../components/navigation/Menu';
 import Chat from '../components/structure/chat/Chat';
+import WithAuth from '../hoc/WithAuth';
 
-export default function Page() {
+function Page() {
 	return (
 		<AppFrame
 			menu={<Menu />}
@@ -12,3 +13,5 @@ export default function Page() {
 		</AppFrame>
 	);
 }
+
+export default WithAuth(Page);

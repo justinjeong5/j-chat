@@ -23,12 +23,12 @@ export default function SignUp () {
 	}, [isLoggedIn]);
 
 	const onFinish = (values: any) => {
-		signUp(values.username, values.password);
+		signUp(values.email, values.password);
 		router.push('/');
 	};
 
 	type FieldType = {
-		username?: string;
+		email?: string;
 		password?: string;
 	};
 
@@ -42,9 +42,9 @@ export default function SignUp () {
 				onFinish={onFinish}
 				autoComplete='off'>
 				<Form.Item<FieldType>
-					label='Username'
-					name='username'
-					rules={[{ required: true, message: 'Please input your username!' }]}>
+					label='Email'
+					name='email'
+					rules={[{ required: true, message: 'Please input your email!' }]}>
 					<Input />
 				</Form.Item>
 
