@@ -3,7 +3,6 @@ import { styled } from 'styled-components';
 import md5 from 'md5';
 import { useRouter } from 'next/router';
 import useLogin from '../../lib/login';
-import WithAuth from '../../hoc/WithAuth';
 
 const Container = styled.div``;
 
