@@ -1,6 +1,6 @@
 interface ILogin {
-  id: string;
-  pw: string;
+    id: string;
+    pw: string;
 }
 
 export default ILogin;

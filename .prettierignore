@@ -19,3 +19,7 @@ coverage
 .vscode/*
 tsconfig.json
 *.md
+package.json
+package-lock.json
+next-env.d.ts
+```

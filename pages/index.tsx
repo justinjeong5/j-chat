@@ -4,11 +4,11 @@ import Chat from "components/structure/chat/Chat";
 import WithAuth from "hoc/WithAuth";
 
 function Page() {
-  return (
-    <AppFrame menu={<Menu />} header={<div>Header</div>}>
-      <Chat />
-    </AppFrame>
-  );
+    return (
+        <AppFrame menu={<Menu />} header={<div>Header</div>}>
+            <Chat />
+        </AppFrame>
+    );
 }
 
 export default WithAuth(Page);

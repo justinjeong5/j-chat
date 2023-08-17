@@ -1,3 +1,3 @@
 export default function ContentFrame() {
-  return <div>ContentFrame</div>;
+    return <div>ContentFrame</div>;
 }

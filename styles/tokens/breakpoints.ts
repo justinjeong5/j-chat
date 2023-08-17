@@ -1,5 +1,5 @@
 const BREAKPOINT = {
-  MOBILE: "768px",
+    MOBILE: "768px",
 };
 
 export default BREAKPOINT;
