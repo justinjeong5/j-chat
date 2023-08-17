@@ -15,9 +15,7 @@ coverage
 **/.hg
 
 .next
-.eslintrc.json
 .vscode/*
-tsconfig.json
 *.md
 package.json
 package-lock.json
