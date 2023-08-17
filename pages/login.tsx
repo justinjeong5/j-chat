@@ -2,9 +2,9 @@ import { useRouter } from 'next/router';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Card, Form, Input, Checkbox } from 'antd';
 import styled from 'styled-components';
-import useLogin from '../lib/login';
+import useLogin from 'lib/login';
 import { useEffect, useMemo } from 'react';
-import useRemember from '../lib/login/remember';
+import useRemember from 'lib/login/remember';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 const Container = styled.div`

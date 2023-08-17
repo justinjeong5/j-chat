@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import LocalStorage from './localStorage';
+import LocalStorage from 'lib/login/localStorage';
 
 const useRemember = () => {
 	const userEmail = LocalStorage.getItem('j-user-remember');

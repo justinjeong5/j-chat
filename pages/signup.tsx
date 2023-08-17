@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { Button, Form, Input } from 'antd';
 import styled from 'styled-components';
-import useLogin from '../lib/login';
+import useLogin from 'lib/login';
 import { useEffect } from 'react';
 
 const Container = styled.div`
