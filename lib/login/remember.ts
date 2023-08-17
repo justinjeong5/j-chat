@@ -20,9 +20,9 @@ const useRemember = () => {
         LocalStorage.removeItem("j-user-remember");
     };
 
-    const setChecked = checked => {
-        internalSetChecked(checked);
-        LocalStorage.setItem("j-user-remember-checked", checked);
+    const setChecked = v => {
+        internalSetChecked(v);
+        LocalStorage.setItem("j-user-remember-checked", v);
     };
 
     return {
