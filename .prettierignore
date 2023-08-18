@@ -17,7 +17,6 @@ coverage
 .next
 .vscode/*
 *.md
-package.json
 package-lock.json
 next-env.d.ts
 ```

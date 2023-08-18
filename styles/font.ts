@@ -1,7 +1,7 @@
 import { css } from "styled-components";
 import TOKENS from "styles/tokens";
 
-export const FONT = {
+const FONT = {
     HEADING: {
         h1: css`
             font-family: ${TOKENS.FONT.FAMILY};
@@ -86,3 +86,5 @@ export const FONT = {
         `,
     },
 };
+
+export default FONT;

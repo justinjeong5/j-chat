@@ -1,9 +1,9 @@
+import useLogin from "lib/login";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import useLogin from "lib/login";
 
 export default function WithAuth(WrappedComponent) {
-    return props => {
+    return function ChildComponent(props) {
         const router = useRouter();
         const { isLoggedIn } = useLogin();
 

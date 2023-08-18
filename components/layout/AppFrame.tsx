@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -43,16 +44,20 @@ const Content = styled.div`
 
 export default function AppFrame({ menu, header, children }) {
     return (
-        <>
-            <Container>
-                <FrameWrapper>
-                    <Menu>{menu}</Menu>
-                    <ContentWrapper>
-                        <Header>{header} </Header>
-                        <Content>{children}</Content>
-                    </ContentWrapper>
-                </FrameWrapper>
-            </Container>
-        </>
+        <Container>
+            <FrameWrapper>
+                <Menu>{menu}</Menu>
+                <ContentWrapper>
+                    <Header>{header} </Header>
+                    <Content>{children}</Content>
+                </ContentWrapper>
+            </FrameWrapper>
+        </Container>
     );
 }
+
+AppFrame.propTypes = {
+    menu: PropTypes.element.isRequired,
+    header: PropTypes.element.isRequired,
+    children: PropTypes.element.isRequired,
+};

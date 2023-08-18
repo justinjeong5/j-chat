@@ -1,8 +1,9 @@
 import { Avatar, Button, Space } from "antd";
-import { styled } from "styled-components";
+import useLogin from "lib/login";
 import md5 from "md5";
 import { useRouter } from "next/router";
-import useLogin from "lib/login";
+import PropTypes from "prop-types";
+import { styled } from "styled-components";
 
 const Container = styled.div``;
 
@@ -52,3 +53,9 @@ export default function Profile({ user }) {
         </Container>
     );
 }
+
+Profile.propTypes = {
+    user: PropTypes.shape({
+        email: PropTypes.string.isRequired,
+    }).isRequired,
+};

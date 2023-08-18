@@ -1,6 +1,6 @@
+import { Divider } from "antd";
 import Dialog from "components/structure/chat/Dialog";
 import Textator from "components/structure/chat/Textator";
-import { Divider } from "antd";
 import styled from "styled-components";
 
 const Container = styled.div`

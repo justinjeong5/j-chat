@@ -1,8 +1,8 @@
 import { Divider, Menu } from "antd";
-import styled from "styled-components";
 import Profile from "components/structure/Profile";
 import userData from "db/user.json";
 import { MenuProps } from "lib/menu";
+import styled from "styled-components";
 
 const Container = styled.div`
     padding: ${({ theme: { SPACING } }) => SPACING.STANDARD};

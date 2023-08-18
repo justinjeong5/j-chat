@@ -1,6 +1,6 @@
-import { useState } from "react";
-import LocalStorage from "lib/login/localStorage";
 import hash from "hash.js";
+import LocalStorage from "lib/login/localStorage";
+import { useState } from "react";
 
 const useLogin = () => {
     const jUserDb = LocalStorage.getUser("j-user-db");
@@ -8,6 +8,11 @@ const useLogin = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(
         jUserDb?.id === jUser?.id && jUserDb?.pw === jUser?.pw,
     );
+
+    const logout = () => {
+        LocalStorage.removeItem("j-user");
+        setIsLoggedIn(false);
+    };
 
     const signUp = (email: string, password: string) => {
         const userInfo = [
@@ -25,13 +30,7 @@ const useLogin = () => {
             const userInfo = [email, hashedPw].join("*");
             LocalStorage.setItem("j-user", userInfo);
             setIsLoggedIn(true);
-            return;
         }
-    };
-
-    const logout = () => {
-        LocalStorage.removeItem("j-user");
-        setIsLoggedIn(false);
     };
 
     return {

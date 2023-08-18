@@ -1,6 +1,6 @@
+import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Avatar, List, Space } from "antd";
 import React from "react";
-import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -8,12 +8,14 @@ const Container = styled.div`
     overflow: scroll;
 `;
 
-const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
-    <Space>
-        {React.createElement(icon)}
-        {text}
-    </Space>
-);
+function IconText({ icon, text }: { icon: React.FC; text: string }) {
+    return (
+        <Space>
+            {React.createElement(icon)}
+            {text}
+        </Space>
+    );
+}
 
 export default function Dialog() {
     const data = Array.from({ length: 23 }).map((_, i) => ({

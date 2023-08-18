@@ -1,4 +1,4 @@
-import { Button, Space, Input } from "antd";
+import { Button, Input, Space } from "antd";
 import styled from "styled-components";
 
 const { TextArea } = Input;

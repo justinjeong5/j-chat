@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
 import type { MenuProps } from "antd";
+import { v4 as uuidv4 } from "uuid";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -24,4 +24,4 @@ const getItem = (
     } as MenuItem;
 };
 
-export { MenuProps, getItem };
+export { getItem, MenuProps };
