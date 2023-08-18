@@ -1,9 +1,4 @@
-import { MenuProps, getItem } from "lib/menu/index";
-import {
-    AppstoreOutlined,
-    MailOutlined,
-    SettingOutlined,
-} from "@ant-design/icons";
+import { getItem, MenuProps } from "lib/menu/index";
 
 const useRooms = () => {
     const rooms: MenuProps["items"] = [
@@ -16,11 +11,9 @@ const useRooms = () => {
                     children: [getItem("Option 3"), getItem("Option 4")],
                 }),
             ],
-            icon: <MailOutlined />,
         }),
         getItem("Navigation Two", {
             children: [getItem("Option 5"), getItem("Option 6")],
-            icon: <AppstoreOutlined />,
         }),
         getItem(null, { type: "divider" }),
         getItem("Navigation Three", {
@@ -30,7 +23,6 @@ const useRooms = () => {
                 getItem("Option 11"),
                 getItem("Option 12"),
             ],
-            icon: <SettingOutlined />,
         }),
         getItem("Group", {
             children: [getItem("Option 13"), getItem("Option 14")],
