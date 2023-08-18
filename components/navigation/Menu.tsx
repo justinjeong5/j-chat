@@ -1,7 +1,8 @@
 import { Divider, Menu } from "antd";
 import Profile from "components/structure/Profile";
-import userData from "db/user.json";
+import client from "lib/api";
 import { MenuProps } from "lib/menu";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -9,6 +10,21 @@ const Container = styled.div`
 `;
 
 export default function Page() {
+    const [user, setUser] = useState({ email: "" });
+    useEffect(() => {
+        (async () => {
+            try {
+                const userData = await client.get("users/1");
+                console.log(userData);
+                console.log("=====");
+                console.log(userData.data);
+                setUser(userData.data);
+            } catch (e) {
+                console.log(e);
+            }
+        })();
+    }, []);
+
     const items = [];
     const onClick: MenuProps["onClick"] = e => {
         console.log("click ", e);
@@ -16,7 +32,7 @@ export default function Page() {
 
     return (
         <Container>
-            <Profile user={userData} />
+            <Profile user={user} />
             <Divider />
             <Menu
                 items={items}

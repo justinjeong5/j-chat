@@ -33,7 +33,7 @@ export default function Profile({ user }) {
         router.push("/login");
     };
 
-    const getAvatarImage = userToken =>
+    const getAvatarImage = (userToken = "") =>
         `https://gravatar.com/avatar/${md5(userToken)}?d=identicon`;
 
     return (

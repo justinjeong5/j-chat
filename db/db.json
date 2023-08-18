@@ -1,0 +1,12 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "email": "justin.jeong5@gmail.com",
+            "username": "justin",
+            "isStaff": true,
+            "country": "KR",
+            "language": "ko"
+        }
+    ]
+}
