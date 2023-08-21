@@ -24,6 +24,6 @@ const createAPIClient = (config = { baseURL: "" }, ...args) => {
     );
 };
 
-export { createAPIClient, createClient, withQS };
+export { createAPIClient, createClient, withAPI, withQS };
 
 export default createClient({ baseURL: API });

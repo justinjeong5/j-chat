@@ -1,5 +1,5 @@
 import hash from "hash.js";
-import LocalStorage from "lib/login/localStorage";
+import LocalStorage from "hooks/login/localStorage";
 import { useState } from "react";
 
 const useLogin = () => {

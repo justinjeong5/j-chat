@@ -1,4 +1,4 @@
-import { getItem, MenuProps } from "lib/menu/index";
+import { getItem, MenuProps } from "hooks/menu/index";
 
 const useRooms = () => {
     const rooms: MenuProps["items"] = [

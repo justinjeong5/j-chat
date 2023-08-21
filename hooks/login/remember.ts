@@ -1,5 +1,5 @@
-import LocalStorage from "lib/login/localStorage";
-import { useEffect, useState } from "react";
+import LocalStorage from "hooks/login/localStorage";
+import { useState } from "react";
 
 const useRemember = () => {
     const userEmail = LocalStorage.getItem("j-user-remember");
@@ -8,10 +8,6 @@ const useRemember = () => {
     const [checked, internalSetChecked] = useState(
         localStorageChecked === "true",
     );
-
-    useEffect(() => {
-        console.log({ checked });
-    }, [checked]);
 
     const remember = (email: string) => {
         LocalStorage.setItem("j-user-remember", email);

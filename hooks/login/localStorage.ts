@@ -1,4 +1,4 @@
-import ILogin from "lib/login/login.type";
+import ILogin from "hooks/login/login.type";
 
 class LocalStorage {
     static getUser(item: string): ILogin {
