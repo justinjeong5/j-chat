@@ -6,7 +6,7 @@ const Container = styled.div`
     height: 100%;
 `;
 
-export default function Chat({ dialog, textator }) {
+export default function ChatFrame({ dialog, textator }) {
     return (
         <Container>
             {dialog}
@@ -16,7 +16,7 @@ export default function Chat({ dialog, textator }) {
     );
 }
 
-Chat.prototype = {
+ChatFrame.prototype = {
     dialog: PropTypes.element.isRequired,
     textator: PropTypes.element.isRequired,
 };
