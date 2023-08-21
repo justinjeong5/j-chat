@@ -16,7 +16,7 @@ export default function ChatFrame({ dialog, textator }) {
     );
 }
 
-ChatFrame.prototype = {
+ChatFrame.propTypes = {
     dialog: PropTypes.element.isRequired,
     textator: PropTypes.element.isRequired,
 };
