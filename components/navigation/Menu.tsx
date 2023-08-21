@@ -1,6 +1,7 @@
 import { Divider, Menu } from "antd";
 import Profile from "components/structure/Profile";
 import { MenuProps } from "hooks/menu";
+import useRooms from "hooks/menu/rooms";
 import useNotice from "hooks/notice/notice";
 import client from "lib/api";
 import { useEffect, useState } from "react";
@@ -13,6 +14,7 @@ const Container = styled.div`
 export default function Page() {
     const [user, setUser] = useState({ email: "" });
     const { errorHandler, contextHolder } = useNotice();
+    const { rooms } = useRooms();
 
     useEffect(() => {
         (async () => {
@@ -25,7 +27,6 @@ export default function Page() {
         })();
     }, []);
 
-    const items = [];
     const onClick: MenuProps["onClick"] = e => {
         console.log("click ", e);
     };
@@ -36,7 +37,7 @@ export default function Page() {
             <Profile user={user} />
             <Divider />
             <Menu
-                items={items}
+                items={rooms}
                 mode="inline"
                 style={{ width: 256 }}
                 onClick={onClick}

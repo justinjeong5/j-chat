@@ -1,12 +1,14 @@
 import AppFrame from "components/layout/AppFrame";
+import ChatFrame from "components/layout/ChatFrame";
 import Menu from "components/navigation/Menu";
-import Chat from "components/structure/chat/Chat";
+import Dialog from "components/structure/Dialog";
+import Textator from "components/structure/Textator";
 import WithAuth from "hoc/WithAuth";
 
 function Page() {
     return (
         <AppFrame menu={<Menu />} header={<div>Header</div>}>
-            <Chat />
+            <ChatFrame dialog={<Dialog />} textator={<Textator />} />
         </AppFrame>
     );
 }

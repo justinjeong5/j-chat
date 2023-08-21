@@ -1,7 +1,8 @@
 import axios from "axios";
 import qs from "qs";
 
-const { API } = process.env;
+// const { API } = process.env;
+const API = "http://localhost:3004";
 
 const withAPI = (path = "") => API + path;
 
