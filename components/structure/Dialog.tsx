@@ -1,8 +1,10 @@
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
-import { Avatar, List, Space } from "antd";
+import { Avatar, Empty, List, Space } from "antd";
 import useMobile from "hooks/layout/device";
+import useNotice from "hooks/notice/notice";
+import client from "lib/api";
 import Diaglog from "models/Dialog";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -13,93 +15,103 @@ const TextWrapper = styled.div`
     margin-top: ${({ theme: { SPACING } }) => SPACING.STANDARD};
     font: ${({ theme: { FONT } }) => FONT.FAMILY};
 `;
+const EmptyWrapper = styled.div`
+    height: calc(100vh - 364px);
+    width: ${({ theme: { SPACING } }) => SPACING.LAYOUT.CONTENT_MIN_WIDTH};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
 
-function IconText({ icon, text }: { icon: React.FC; text: string }) {
-    return (
-        <Space>
-            {React.createElement(icon)}
-            {text}
-        </Space>
-    );
-}
+const ActionItems = ({
+    stars,
+    likes,
+    comments,
+}: {
+    stars: string;
+    likes: string;
+    comments: string;
+}) => [
+    <Space>
+        <StarOutlined />
+        {stars}
+    </Space>,
+    <Space>
+        <LikeOutlined />
+        {likes}
+    </Space>,
+    <Space>
+        <MessageOutlined />
+        {comments}
+    </Space>,
+];
 
 export default function Dialog() {
+    const [dialogs, setDialogs] = useState([]);
     const isMobile = useMobile();
+    const { errorHandler, contextHolder } = useNotice();
 
-    const data = Array.from({ length: 23 }).map((_, i) => {
-        return new Diaglog({
-            id: i,
-            name: `ant design part ${i}`,
-            avatar: `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${i}`,
-            description:
-                "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            content:
-                "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            created_at: new Date(),
-            updated_at: new Date(),
-        });
-    });
+    useEffect(() => {
+        (async () => {
+            try {
+                const { data } = await client.get("dialogs");
+                setDialogs(data.map((dialog: Diaglog) => new Diaglog(dialog)));
+            } catch (e) {
+                errorHandler(e);
+            }
+        })();
+    }, []);
 
     return (
         <Container>
-            <List
-                itemLayout="vertical"
-                size="large"
-                dataSource={data}
-                renderItem={item => (
-                    <List.Item
-                        key={item.name}
-                        actions={[
-                            <IconText
-                                icon={StarOutlined}
-                                text="156"
-                                key="list-vertical-star-o"
-                            />,
-                            <IconText
-                                icon={LikeOutlined}
-                                text="156"
-                                key="list-vertical-like-o"
-                            />,
-                            <IconText
-                                icon={MessageOutlined}
-                                text="2"
-                                key="list-vertical-message"
-                            />,
-                        ]}
-                        extra={
-                            !isMobile && (
-                                <img
-                                    style={{
-                                        maxWidth: "31vw",
-                                        minWidth: "100px",
-                                    }}
-                                    width={272}
-                                    alt="logo"
-                                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                                />
-                            )
-                        }
-                    >
-                        <List.Item.Meta
-                            avatar={<Avatar src={item.avatar} />}
-                            title={<a href={item.href}>{item.name}</a>}
-                            description={item.description}
-                        />
-                        {isMobile && (
-                            <img
-                                style={{
-                                    maxWidth: "30vw",
-                                    minWidth: "100px",
-                                }}
-                                width={272}
-                                alt="logo"
-                                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+            {contextHolder}
+
+            {dialogs.length ? (
+                <List
+                    itemLayout="vertical"
+                    size="large"
+                    dataSource={dialogs}
+                    renderItem={item => (
+                        <List.Item
+                            key={item.name}
+                            actions={ActionItems({
+                                stars: item.stars,
+                                likes: item.likes,
+                                comments: item.comments,
+                            })}
+                            extra={
+                                !isMobile && (
+                                    <img
+                                        style={{ maxWidth: "24vw" }}
+                                        width="272px"
+                                        alt="userImage"
+                                        src={item.image}
+                                    />
+                                )
+                            }
+                        >
+                            <List.Item.Meta
+                                avatar={<Avatar src={item.avatar} />}
+                                title={<a href={item.href}>{item.name}</a>}
+                                description={item.description}
                             />
-                        )}
-                        <TextWrapper>{item.content}</TextWrapper>
-                    </List.Item>
-                )}
-            />
+                            {isMobile && (
+                                <img
+                                    style={{ maxWidth: "24vw" }}
+                                    width="272px"
+                                    alt="userImage"
+                                    src={item.image}
+                                />
+                            )}
+                            <TextWrapper>{item.content}</TextWrapper>
+                        </List.Item>
+                    )}
+                />
+            ) : (
+                <EmptyWrapper>
+                    <Empty description="No dialogs" />
+                </EmptyWrapper>
+            )}
         </Container>
     );
 }

@@ -16,11 +16,8 @@ const FrameWrapper = styled.div`
     justify-content: center;
     align-items: top;
     max-width: ${({ theme: { SPACING } }) => SPACING.LAYOUT.FRAME_MAX_WIDTH};
+    min-width: 600px;
 `;
-// const Menu = styled.div`
-//     height: 100%;
-//     width: ${({ theme: { SPACING } }) => SPACING.LAYOUT.MENU_WIDTH};
-// `;
 const ContentWrapper = styled.div`
     height: calc(100vh - 40px);
     width: 100%;
