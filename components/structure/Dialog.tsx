@@ -70,7 +70,7 @@ export default function Dialog() {
                             !isMobile && (
                                 <img
                                     style={{
-                                        maxWidth: "31vw",
+                                        maxWidth: "30vw",
                                         minWidth: "100px",
                                     }}
                                     width={272}
