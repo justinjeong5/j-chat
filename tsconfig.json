@@ -21,7 +21,8 @@
             "lib/*": ["lib/*"],
             "hooks/*": ["hooks/*"],
             "hoc/*": ["hoc/*"],
-            "db/*": ["db/*"]
+            "db/*": ["db/*"],
+            "models/*": ["models/*"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

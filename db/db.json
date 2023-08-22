@@ -3,10 +3,15 @@
         {
             "id": 1,
             "email": "justin.jeong5@gmail.com",
-            "username": "justin",
+            "name": "justin",
             "isStaff": true,
             "country": "KR",
             "language": "ko"
+        }
+    ],
+    "dialogs": [
+        {
+            "id": 1
         }
     ]
 }

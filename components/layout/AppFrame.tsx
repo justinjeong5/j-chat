@@ -1,5 +1,8 @@
+import { Layout } from "antd";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+
+const { Sider } = Layout;
 
 const Container = styled.div`
     height: calc(100vh - 18px);
@@ -14,14 +17,13 @@ const FrameWrapper = styled.div`
     align-items: top;
     max-width: ${({ theme: { SPACING } }) => SPACING.LAYOUT.FRAME_MAX_WIDTH};
 `;
-const Menu = styled.div`
-    height: 100%;
-    width: ${({ theme: { SPACING } }) => SPACING.LAYOUT.MENU_WIDTH};
-`;
+// const Menu = styled.div`
+//     height: 100%;
+//     width: ${({ theme: { SPACING } }) => SPACING.LAYOUT.MENU_WIDTH};
+// `;
 const ContentWrapper = styled.div`
     height: calc(100vh - 40px);
     width: 100%;
-    min-width: ${({ theme: { SPACING } }) => SPACING.LAYOUT.CONTENT_MIN_WIDTH};
 `;
 const Header = styled.div`
     height: ${({ theme: { SPACING } }) => SPACING.LAYOUT.HEADER_HEIGHT};
@@ -38,7 +40,9 @@ export default function AppFrame({ menu, header, children }) {
     return (
         <Container>
             <FrameWrapper>
-                <Menu>{menu}</Menu>
+                <Sider breakpoint="md" collapsedWidth="0" width={300}>
+                    {menu}
+                </Sider>
                 <ContentWrapper>
                     <Header>{header} </Header>
                     <Content>{children}</Content>

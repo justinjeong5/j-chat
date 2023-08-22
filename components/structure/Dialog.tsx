@@ -1,5 +1,6 @@
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Avatar, List, Space } from "antd";
+import Diaglog from "models/Dialog";
 import React from "react";
 import styled from "styled-components";
 
@@ -18,15 +19,19 @@ function IconText({ icon, text }: { icon: React.FC; text: string }) {
 }
 
 export default function Dialog() {
-    const data = Array.from({ length: 23 }).map((_, i) => ({
-        href: "https://ant.design",
-        title: `ant design part ${i}`,
-        avatar: `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${i}`,
-        description:
-            "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-        content:
-            "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-    }));
+    const data = Array.from({ length: 23 }).map((_, i) => {
+        return new Diaglog({
+            id: i,
+            name: `ant design part ${i}`,
+            avatar: `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${i}`,
+            description:
+                "Ant Design, a design language for background applications, is refined by Ant UED Team.",
+            content:
+                "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
+            created_at: new Date(),
+            updated_at: new Date(),
+        });
+    });
 
     return (
         <Container>
@@ -34,14 +39,9 @@ export default function Dialog() {
                 itemLayout="vertical"
                 size="large"
                 dataSource={data}
-                footer={
-                    <div>
-                        <b>ant design</b> footer part
-                    </div>
-                }
                 renderItem={item => (
                     <List.Item
-                        key={item.title}
+                        key={item.name}
                         actions={[
                             <IconText
                                 icon={StarOutlined}
@@ -61,6 +61,7 @@ export default function Dialog() {
                         ]}
                         extra={
                             <img
+                                style={{ maxWidth: "30vw", minWidth: "100px" }}
                                 width={272}
                                 alt="logo"
                                 src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
@@ -69,7 +70,7 @@ export default function Dialog() {
                     >
                         <List.Item.Meta
                             avatar={<Avatar src={item.avatar} />}
-                            title={<a href={item.href}>{item.title}</a>}
+                            title={<a href={item.href}>{item.name}</a>}
                             description={item.description}
                         />
                         {item.content}

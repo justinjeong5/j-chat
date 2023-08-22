@@ -8,7 +8,8 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-    padding: ${({ theme: { SPACING } }) => SPACING.STANDARD};
+    margin: ${({ theme: { SPACING } }) => SPACING.STANDARD};
+    overflow: hidden;
 `;
 
 export default function Page() {

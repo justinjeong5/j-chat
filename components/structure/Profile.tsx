@@ -7,21 +7,21 @@ import { styled } from "styled-components";
 
 const Container = styled.div``;
 
-const Wrapper = styled.div`
+const LayoutWrapper = styled.div`
     display: flex;
-    justify-content: center;
     align-items: center;
-    margin-bottom: ${({ theme: { SPACING } }) => SPACING.SMALL};
+    margin-bottom: ${({ theme: { SPACING } }) => SPACING.SMALLER};
     gap: ${({ theme: { SPACING } }) => SPACING.STANDARD};
 `;
 
-const UserName = styled.div`
+const TextWrapper = styled.div`
     font: ${({ theme: { FONT } }) => FONT.FAMILY};
 `;
 
 const SpaceWrapper = styled(Space)`
     display: flex;
     justify-content: end;
+    margin-top: ${({ theme: { SPACING } }) => SPACING.STANDARD};
 `;
 
 export default function Profile({ user }) {
@@ -38,10 +38,11 @@ export default function Profile({ user }) {
 
     return (
         <Container>
-            <Wrapper>
+            <LayoutWrapper>
                 <Avatar src={getAvatarImage(user.email)} />
-                <UserName>{user.email}</UserName>
-            </Wrapper>
+                <TextWrapper>{user.name}</TextWrapper>
+            </LayoutWrapper>
+            <TextWrapper>{user.email}</TextWrapper>
             <SpaceWrapper>
                 <Space>
                     <Button type="primary">Edit Profile</Button>
@@ -56,6 +57,7 @@ export default function Profile({ user }) {
 
 Profile.propTypes = {
     user: PropTypes.shape({
+        name: PropTypes.string.isRequired,
         email: PropTypes.string.isRequired,
     }).isRequired,
 };
