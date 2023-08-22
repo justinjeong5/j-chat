@@ -1,5 +1,6 @@
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Avatar, List, Space } from "antd";
+import useMobile from "hooks/layout/device";
 import Diaglog from "models/Dialog";
 import React from "react";
 import styled from "styled-components";
@@ -7,6 +8,10 @@ import styled from "styled-components";
 const Container = styled.div`
     height: calc(100% - 174px);
     overflow: scroll;
+`;
+const TextWrapper = styled.div`
+    margin-top: ${({ theme: { SPACING } }) => SPACING.STANDARD};
+    font: ${({ theme: { FONT } }) => FONT.FAMILY};
 `;
 
 function IconText({ icon, text }: { icon: React.FC; text: string }) {
@@ -19,6 +24,8 @@ function IconText({ icon, text }: { icon: React.FC; text: string }) {
 }
 
 export default function Dialog() {
+    const isMobile = useMobile();
+
     const data = Array.from({ length: 23 }).map((_, i) => {
         return new Diaglog({
             id: i,
@@ -60,12 +67,17 @@ export default function Dialog() {
                             />,
                         ]}
                         extra={
-                            <img
-                                style={{ maxWidth: "30vw", minWidth: "100px" }}
-                                width={272}
-                                alt="logo"
-                                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                            />
+                            !isMobile && (
+                                <img
+                                    style={{
+                                        maxWidth: "30vw",
+                                        minWidth: "100px",
+                                    }}
+                                    width={272}
+                                    alt="logo"
+                                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                                />
+                            )
                         }
                     >
                         <List.Item.Meta
@@ -73,7 +85,18 @@ export default function Dialog() {
                             title={<a href={item.href}>{item.name}</a>}
                             description={item.description}
                         />
-                        {item.content}
+                        {isMobile && (
+                            <img
+                                style={{
+                                    maxWidth: "30vw",
+                                    minWidth: "100px",
+                                }}
+                                width={272}
+                                alt="logo"
+                                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                            />
+                        )}
+                        <TextWrapper>{item.content}</TextWrapper>
                     </List.Item>
                 )}
             />

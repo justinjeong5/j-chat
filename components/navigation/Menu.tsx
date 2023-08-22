@@ -13,7 +13,7 @@ const Container = styled.div`
 `;
 
 export default function Page() {
-    const [user, setUser] = useState({ email: "" });
+    const [user, setUser] = useState({ name: "", email: "" });
     const { errorHandler, contextHolder } = useNotice();
     const { rooms } = useRooms();
 
