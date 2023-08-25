@@ -1,10 +1,9 @@
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Avatar, Empty, List, Space } from "antd";
 import useMobile from "hooks/layout/device";
-import useNotice from "hooks/notice/notice";
-import client from "lib/api";
-import Diaglog from "models/Dialog";
-import React, { useEffect, useState } from "react";
+import DialogModel from "models/Dialog";
+import PropTypes from "prop-types";
+import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -46,26 +45,11 @@ const ActionItems = ({
     </Space>,
 ];
 
-export default function Dialog() {
-    const [dialogs, setDialogs] = useState([]);
+export default function Dialog({ dialogs }) {
     const isMobile = useMobile();
-    const { errorHandler, contextHolder } = useNotice();
-
-    useEffect(() => {
-        (async () => {
-            try {
-                const { data } = await client.get("dialogs");
-                setDialogs(data.map((dialog: Diaglog) => new Diaglog(dialog)));
-            } catch (e) {
-                errorHandler(e);
-            }
-        })();
-    }, []);
 
     return (
         <Container>
-            {contextHolder}
-
             {dialogs.length ? (
                 <List
                     itemLayout="vertical"
@@ -75,9 +59,9 @@ export default function Dialog() {
                         <List.Item
                             key={item.name}
                             actions={ActionItems({
-                                stars: item.stars,
-                                likes: item.likes,
-                                comments: item.comments,
+                                stars: item.stars.length,
+                                likes: item.likes.length,
+                                comments: item.comments.length,
                             })}
                             extra={
                                 !isMobile && (
@@ -115,3 +99,7 @@ export default function Dialog() {
         </Container>
     );
 }
+
+Dialog.propTypes = {
+    dialogs: PropTypes.arrayOf(PropTypes.instanceOf(DialogModel)).isRequired,
+};

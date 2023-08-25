@@ -4,7 +4,7 @@
             "id": 1,
             "email": "justin.jeong5@gmail.com",
             "name": "justin",
-            "isStaff": true,
+            "is_staff": true,
             "country": "KR",
             "language": "ko"
         }
@@ -12,6 +12,7 @@
     "dialogs": [
         {
             "id": 0,
+            "room_id": 1,
             "name": "ant design part 0",
             "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
             "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=0",
@@ -19,12 +20,13 @@
             "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
             "created_at": null,
             "updated_at": null,
-            "stars": 31,
-            "likes": 89,
-            "comments": 49
+            "stars": [1, 2, 3],
+            "likes": [1, 2],
+            "comments": [1, 2, 3, 4]
         },
         {
             "id": 1,
+            "room_id": 1,
             "name": "ant design part 1",
             "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
             "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=1",
@@ -32,12 +34,13 @@
             "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
             "created_at": null,
             "updated_at": null,
-            "stars": 59,
-            "likes": 98,
-            "comments": 13
+            "stars": [1, 2, 3],
+            "likes": [1, 2],
+            "comments": [1, 2, 3, 4]
         },
         {
             "id": 2,
+            "room_id": 2,
             "name": "ant design part 2",
             "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
             "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=2",
@@ -45,12 +48,13 @@
             "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
             "created_at": null,
             "updated_at": null,
-            "stars": 71,
-            "likes": 46,
-            "comments": 19
+            "stars": [1, 2, 3],
+            "likes": [1, 2],
+            "comments": [1, 2, 3, 4]
         },
         {
             "id": 3,
+            "room_id": 2,
             "name": "ant design part 3",
             "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
             "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=3",
@@ -58,12 +62,13 @@
             "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
             "created_at": null,
             "updated_at": null,
-            "stars": 40,
-            "likes": 40,
-            "comments": 39
+            "stars": [1, 2, 3],
+            "likes": [1, 2],
+            "comments": [1, 2, 3, 4]
         },
         {
             "id": 4,
+            "room_id": 3,
             "name": "ant design part 4",
             "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
             "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=4",
@@ -71,12 +76,13 @@
             "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
             "created_at": null,
             "updated_at": null,
-            "stars": 96,
-            "likes": 26,
-            "comments": 38
+            "stars": [1, 2, 3],
+            "likes": [1, 2],
+            "comments": [1, 2, 3, 4]
         },
         {
             "id": 5,
+            "room_id": 4,
             "name": "ant design part 5",
             "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
             "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=5",
@@ -84,12 +90,13 @@
             "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
             "created_at": null,
             "updated_at": null,
-            "stars": 53,
-            "likes": 21,
-            "comments": 86
+            "stars": [1, 2, 3],
+            "likes": [1, 2],
+            "comments": [1, 2, 3, 4]
         },
         {
             "id": 6,
+            "room_id": 1,
             "name": "ant design part 6",
             "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
             "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=6",
@@ -97,12 +104,13 @@
             "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
             "created_at": null,
             "updated_at": null,
-            "stars": 42,
-            "likes": 22,
-            "comments": 61
+            "stars": [1, 2, 3],
+            "likes": [1, 2],
+            "comments": [1, 2, 3, 4]
         },
         {
             "id": 7,
+            "room_id": 1,
             "name": "ant design part 7",
             "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
             "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=7",
@@ -110,12 +118,13 @@
             "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
             "created_at": null,
             "updated_at": null,
-            "stars": 33,
-            "likes": 52,
-            "comments": 24
+            "stars": [1, 2, 3],
+            "likes": [1, 2],
+            "comments": [1, 2, 3, 4]
         },
         {
             "id": 8,
+            "room_id": 2,
             "name": "ant design part 8",
             "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
             "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=8",
@@ -123,12 +132,13 @@
             "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
             "created_at": null,
             "updated_at": null,
-            "stars": 100,
-            "likes": 93,
-            "comments": 74
+            "stars": [1, 2, 3],
+            "likes": [1, 2],
+            "comments": [1, 2, 3, 4]
         },
         {
             "id": 9,
+            "room_id": 3,
             "name": "ant design part 9",
             "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
             "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=9",
@@ -136,12 +146,13 @@
             "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
             "created_at": null,
             "updated_at": null,
-            "stars": 92,
-            "likes": 26,
-            "comments": 97
+            "stars": [1, 2, 3],
+            "likes": [1, 2],
+            "comments": [1, 2, 3, 4]
         },
         {
             "id": 10,
+            "room_id": 4,
             "name": "ant design part 10",
             "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
             "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=10",
@@ -149,165 +160,72 @@
             "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
             "created_at": "2023-08-22T01:00:00.000Z",
             "updated_at": "2023-08-22T01:30:00.000Z",
-            "stars": 80,
-            "likes": 60,
-            "comments": 49
+            "stars": [1, 2, 3],
+            "likes": [1, 2],
+            "comments": [1, 2, 3, 4]
+        }
+    ],
+    "rooms": [
+        {
+            "id": 1,
+            "room_id": 1,
+            "title": "Room 1",
+            "description": "Room 1",
+            "type": "public",
+            "created_at": null,
+            "updated_at": null,
+            "users": [1],
+            "dialogs": [1]
         },
         {
-            "id": 11,
-            "name": "ant design part 11",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=11",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": "2023-08-22T02:00:00.000Z",
-            "updated_at": "2023-08-22T02:30:00.000Z",
-            "stars": 88,
-            "likes": 70,
-            "comments": 95
+            "id": 2,
+            "title": "Room 2",
+            "description": "Room 2",
+            "type": "public",
+            "created_at": null,
+            "updated_at": null,
+            "users": [1],
+            "dialogs": [1]
         },
         {
-            "id": 12,
-            "name": "ant design part 12",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=12",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": "2023-08-22T03:00:00.000Z",
-            "updated_at": "2023-08-22T03:30:00.000Z",
-            "stars": 22,
-            "likes": 61,
-            "comments": 82
+            "id": 3,
+            "title": "Room 3",
+            "description": "Room 3",
+            "type": "star",
+            "created_at": null,
+            "updated_at": null,
+            "users": [1],
+            "dialogs": [1]
         },
         {
-            "id": 13,
-            "name": "ant design part 13",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=13",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": "2023-08-22T04:00:00.000Z",
-            "updated_at": "2023-08-22T04:30:00.000Z",
-            "stars": 69,
-            "likes": 42,
-            "comments": 106
+            "id": 4,
+            "title": "Room 4",
+            "description": "Room 4",
+            "type": "star",
+            "created_at": null,
+            "updated_at": null,
+            "users": [1],
+            "dialogs": [1]
         },
         {
-            "id": 14,
-            "name": "ant design part 14",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=14",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": "2023-08-22T05:00:00.000Z",
-            "updated_at": "2023-08-22T05:30:00.000Z",
-            "stars": 97,
-            "likes": 89,
-            "comments": 90
+            "id": 5,
+            "title": "Room 5",
+            "description": "Room 5",
+            "type": "direct",
+            "created_at": null,
+            "updated_at": null,
+            "users": [1],
+            "dialogs": [1]
         },
         {
-            "id": 15,
-            "name": "ant design part 15",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=15",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": "2023-08-22T06:00:00.000Z",
-            "updated_at": "2023-08-22T06:30:00.000Z",
-            "stars": 49,
-            "likes": 73,
-            "comments": 16
-        },
-        {
-            "id": 16,
-            "name": "ant design part 16",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=16",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": "2023-08-22T07:00:00.000Z",
-            "updated_at": "2023-08-22T07:30:00.000Z",
-            "stars": 20,
-            "likes": 44,
-            "comments": 63
-        },
-        {
-            "id": 17,
-            "name": "ant design part 17",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=17",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": "2023-08-22T08:00:00.000Z",
-            "updated_at": "2023-08-22T08:30:00.000Z",
-            "stars": 10,
-            "likes": 92,
-            "comments": 86
-        },
-        {
-            "id": 18,
-            "name": "ant design part 18",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=18",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": "2023-08-22T09:00:00.000Z",
-            "updated_at": "2023-08-22T09:30:00.000Z",
-            "stars": 57,
-            "likes": 100,
-            "comments": 77
-        },
-        {
-            "id": 19,
-            "name": "ant design part 19",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=19",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": "2023-08-22T10:00:00.000Z",
-            "updated_at": "2023-08-22T10:30:00.000Z",
-            "stars": 30,
-            "likes": 70,
-            "comments": 88
-        },
-        {
-            "id": 20,
-            "name": "ant design part 20",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=20",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": "2023-08-22T11:00:00.000Z",
-            "updated_at": "2023-08-22T11:30:00.000Z",
-            "stars": 106,
-            "likes": 28,
-            "comments": 99
-        },
-        {
-            "id": 21,
-            "name": "ant design part 21",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=21",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": "2023-08-22T12:00:00.000Z",
-            "updated_at": "2023-08-22T12:30:00.000Z",
-            "stars": 69,
-            "likes": 80,
-            "comments": 108
-        },
-        {
-            "id": 22,
-            "name": "ant design part 22",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=22",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": "2023-08-22T13:00:00.000Z",
-            "updated_at": "2023-08-22T13:30:00.000Z",
-            "stars": 80,
-            "likes": 109,
-            "comments": 100
+            "id": 6,
+            "title": "Room 6",
+            "description": "Room 6",
+            "type": "direct",
+            "created_at": null,
+            "updated_at": null,
+            "users": [1],
+            "dialogs": [1]
         }
     ]
 }

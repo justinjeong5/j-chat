@@ -19,11 +19,11 @@ export default class Dialog {
 
     updated_at: Date;
 
-    stars: number;
+    stars: Array<object>;
 
-    likes: number;
+    likes: Array<object>;
 
-    comments: number;
+    comments: Array<object>;
 
     constructor(config) {
         this.id = config.id || null;
@@ -36,8 +36,8 @@ export default class Dialog {
         this.content = config.content || null;
         this.created_at = new Date(config.created_at || null);
         this.updated_at = new Date(config.updated_at || null);
-        this.stars = config.stars || null;
-        this.likes = config.likes || null;
-        this.comments = config.comments || null;
+        this.stars = config.stars || [];
+        this.likes = config.likes || [];
+        this.comments = config.comments || [];
     }
 }

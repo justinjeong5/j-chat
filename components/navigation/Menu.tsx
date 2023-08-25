@@ -4,6 +4,7 @@ import { MenuProps } from "hooks/menu";
 import useRooms from "hooks/menu/rooms";
 import useNotice from "hooks/notice/notice";
 import client from "lib/api";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -13,9 +14,21 @@ const Container = styled.div`
 `;
 
 export default function Page() {
+    const router = useRouter();
     const [user, setUser] = useState({ name: "", email: "" });
+    const [rooms, setRooms] = useState([]);
     const { errorHandler, contextHolder } = useNotice();
-    const { rooms } = useRooms();
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const { rooms: roomsData } = await useRooms();
+                setRooms(roomsData);
+            } catch (e) {
+                errorHandler(e);
+            }
+        })();
+    }, []);
 
     useEffect(() => {
         (async () => {
@@ -29,7 +42,7 @@ export default function Page() {
     }, []);
 
     const onClick: MenuProps["onClick"] = e => {
-        console.log("click ", e);
+        router.push(`/rooms/${e.key}`);
     };
 
     return (

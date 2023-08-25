@@ -1,35 +1,42 @@
-import { getItem, MenuProps } from "hooks/menu/index";
+import { getItem } from "hooks/menu/index";
+import client from "lib/api";
+import Room from "models/Room";
+import { v4 as uuidv4 } from "uuid";
 
-const useRooms = () => {
-    const rooms: MenuProps["items"] = [
-        getItem("Public Rooms", {
-            // children: [
-            //     getItem("Item 1", {
-            //         children: [getItem("Option 1"), getItem("Option 2")],
-            //     }),
-            //     getItem("Item 2", {
-            //         children: [getItem("Option 3"), getItem("Option 4")],
-            //     }),
-            // ],
-            children: [
-                getItem("Option 1"),
-                getItem("Option 2"),
-                getItem("Option 3"),
-            ],
+const composeRooms = rooms => {
+    return [
+        getItem({
+            id: uuidv4(),
+            title: "Public Rooms",
+            type: "group",
+            children: rooms
+                .filter(({ type }) => type === "public")
+                .map(getItem),
         }),
-        getItem("Starred Rooms", {
-            children: [
-                getItem("Option 4"),
-                getItem("Option 5"),
-                getItem("Option 6"),
-            ],
+        getItem({
+            id: uuidv4(),
+            title: "Starred Rooms",
+            type: "group",
+            children: rooms.filter(({ type }) => type === "star").map(getItem),
         }),
-        getItem(null, { type: "divider" }),
-        getItem("Direct Messages", {
-            children: [getItem("Option 7"), getItem("Option 8")],
+        getItem({
+            id: uuidv4(),
+            type: "divider",
+        }),
+        getItem({
+            id: uuidv4(),
+            title: "Direct Messages",
+            type: "group",
+            children: rooms
+                .filter(({ type }) => type === "direct")
+                .map(getItem),
         }),
     ];
+};
 
+const useRooms = async () => {
+    const { data } = await client.get("/rooms");
+    const rooms = composeRooms(data.map(r => new Room(r)));
     return {
         rooms,
     };
