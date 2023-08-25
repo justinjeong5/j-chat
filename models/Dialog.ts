@@ -1,4 +1,6 @@
-export default class Dialog {
+import IDialog from "models/Dialog.type";
+
+export default class Dialog implements IDialog {
     id: number;
 
     name: string;

@@ -2,6 +2,7 @@ import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Avatar, Empty, List, Space } from "antd";
 import useMobile from "hooks/layout/device";
 import DialogModel from "models/Dialog";
+import IDialog from "models/Dialog.type";
 import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
@@ -27,9 +28,9 @@ const ActionItems = ({
     likes,
     comments,
 }: {
-    stars: string;
-    likes: string;
-    comments: string;
+    stars: number;
+    likes: number;
+    comments: number;
 }) => [
     <Space>
         <StarOutlined />
@@ -55,7 +56,7 @@ export default function Dialog({ dialogs }) {
                     itemLayout="vertical"
                     size="large"
                     dataSource={dialogs}
-                    renderItem={item => (
+                    renderItem={(item: IDialog) => (
                         <List.Item
                             key={item.name}
                             actions={ActionItems({
