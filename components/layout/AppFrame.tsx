@@ -1,4 +1,5 @@
 import { Layout } from "antd";
+import useMobile from "hooks/layout/device";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
@@ -11,12 +12,10 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
 `;
-const FrameWrapper = styled.div`
+const FrameWrapper = styled.div<{ isMobile }>`
     display: flex;
-    justify-content: center;
-    align-items: top;
     max-width: ${({ theme: { SPACING } }) => SPACING.LAYOUT.FRAME_MAX_WIDTH};
-    min-width: 600px;
+    min-width: ${({ isMobile }) => (isMobile ? "100%" : "600px")};
 `;
 const ContentWrapper = styled.div`
     height: calc(100vh - 40px);
@@ -34,9 +33,10 @@ const Content = styled.div`
 `;
 
 export default function AppFrame({ menu, header, children }) {
+    const isMobile = useMobile();
     return (
         <Container>
-            <FrameWrapper>
+            <FrameWrapper isMobile={isMobile}>
                 <Sider breakpoint="md" collapsedWidth="0" width={300}>
                     {menu}
                 </Sider>

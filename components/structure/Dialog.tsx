@@ -8,8 +8,10 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-    height: calc(100% - 174px);
     overflow: scroll;
+    height: calc(100% - 174px);
+    width: ${({ theme: { SPACING } }) => SPACING.LAYOUT.CONTENT_MIN_WIDTH};
+    max-width: 100%;
 `;
 const TextWrapper = styled.div`
     margin-top: ${({ theme: { SPACING } }) => SPACING.STANDARD};
@@ -17,7 +19,6 @@ const TextWrapper = styled.div`
 `;
 const EmptyWrapper = styled.div`
     height: calc(100vh - 364px);
-    width: ${({ theme: { SPACING } }) => SPACING.LAYOUT.CONTENT_MIN_WIDTH};
     display: flex;
     justify-content: center;
     align-items: center;
