@@ -1,7 +1,7 @@
 import {
-    HomeOutlined,
+    CoffeeOutlined,
     PlusOutlined,
-    StarOutlined,
+    PushpinOutlined,
     UserOutlined,
 } from "@ant-design/icons";
 import { Button, Layout } from "antd";
@@ -22,7 +22,7 @@ const MenuWrapper = styled(Layout)`
 
 export default function Page() {
     const [user, setUser] = useState({ name: "", email: "" });
-    const [rooms, setRooms] = useState({ public: [], star: [], direct: [] });
+    const [rooms, setRooms] = useState({ public: {}, star: {}, direct: {} });
     const [fetchingRooms, setFetchingRooms] = useState(false);
     const { errorHandler, contextHolder } = useNotice();
 
@@ -34,7 +34,34 @@ export default function Page() {
                     useRooms(),
                     delay(2000),
                 ]);
-                setRooms(roomsData.rooms);
+
+                // rooms를 추가로 가공하지 않고 바로 사용가능하도록 가공하기
+                setRooms({
+                    public: {
+                        key: "public",
+                        label: "Public Rooms",
+                        icon: <CoffeeOutlined />,
+                        children: roomsData.rooms.filter(
+                            ({ type }) => type === "public",
+                        ),
+                    },
+                    star: {
+                        key: "star",
+                        label: "Starred Rooms",
+                        icon: <PushpinOutlined />,
+                        children: roomsData.rooms.filter(
+                            ({ type }) => type === "star",
+                        ),
+                    },
+                    direct: {
+                        key: "direct",
+                        label: "Direct Messages",
+                        icon: <UserOutlined />,
+                        children: roomsData.rooms.filter(
+                            ({ type }) => type === "direct",
+                        ),
+                    },
+                });
             } catch (e) {
                 errorHandler(e);
             } finally {
@@ -69,24 +96,8 @@ export default function Page() {
                     <Button block type="text" onClick={handleClickAdd}>
                         <PlusOutlined /> Add Room
                     </Button>
-                    <Rooms
-                        title="Public Rooms"
-                        icon={<HomeOutlined />}
-                        loading={fetchingRooms}
-                        rooms={rooms.public}
-                    />
-                    <Rooms
-                        title="Starred Rooms"
-                        icon={<StarOutlined />}
-                        loading={fetchingRooms}
-                        rooms={rooms.star}
-                    />
-                    <Rooms
-                        title="Direct Messages"
-                        icon={<UserOutlined />}
-                        loading={fetchingRooms}
-                        rooms={rooms.direct}
-                    />
+                    <Rooms loading={fetchingRooms} rooms={rooms} />
+                    {/* rooms를 추가로 가공하지 않고 바로 사용가능하도록 전달하기 */}
                 </MenuWrapper>
             </MenuFrame>
         </>
