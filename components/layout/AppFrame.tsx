@@ -1,50 +1,50 @@
-import { Layout } from "antd";
-import useMobile from "hooks/layout/device";
+import { Layout as antdLayout } from "antd";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const { Sider } = Layout;
-
 const Container = styled.div`
-    height: calc(100vh - 18px);
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
-const FrameWrapper = styled.div<{ isMobile }>`
-    display: flex;
+    margin: 0 auto;
     max-width: ${({ theme: { SPACING } }) => SPACING.LAYOUT.FRAME_MAX_WIDTH};
-    min-width: ${({ isMobile }) => (isMobile ? "100%" : "600px")};
 `;
-const ContentWrapper = styled.div`
-    height: calc(100vh - 40px);
-    width: 100%;
+const Layout = styled(antdLayout)`
+    background: white;
 `;
-const Header = styled.div`
-    height: ${({ theme: { SPACING } }) => SPACING.LAYOUT.HEADER_HEIGHT};
-    width: auto;
-    padding: ${({ theme: { SPACING } }) => SPACING.STANDARD};
+const Sider = styled(antdLayout.Sider)`
+    && {
+        background: white;
+    }
+    overflow: auto;
+    height: calc(100vh - 1rem);
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
 `;
-const Content = styled.div`
-    height: calc(100% - 150px);
-    width: auto;
-    padding: ${({ theme: { SPACING } }) => SPACING.STANDARD};
+const Content = styled(antdLayout.Content)`
+    background: white;
+    margin: ${({ theme: { SPACING } }) => SPACING.STANDARD};
+`;
+const Header = styled(antdLayout.Header)`
+    background: white;
 `;
 
 export default function AppFrame({ menu, header, children }) {
-    const isMobile = useMobile();
     return (
         <Container>
-            <FrameWrapper isMobile={isMobile}>
-                <Sider breakpoint="md" collapsedWidth="0" width={300}>
+            <Layout hasSider>
+                <Sider
+                    width={300}
+                    theme="light"
+                    breakpoint="md"
+                    collapsedWidth={0}
+                >
                     {menu}
                 </Sider>
-                <ContentWrapper>
-                    <Header>{header} </Header>
+                <Layout>
+                    <Header>{header}</Header>
                     <Content>{children}</Content>
-                </ContentWrapper>
-            </FrameWrapper>
+                </Layout>
+            </Layout>
         </Container>
     );
 }

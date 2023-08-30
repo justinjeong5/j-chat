@@ -10,7 +10,7 @@ const SPACING = {
     LAYOUT: {
         HEADER_HEIGHT: "82px",
         MENU_WIDTH: "300px",
-        FRAME_MAX_WIDTH: "1500px",
+        FRAME_MAX_WIDTH: "1400px",
         CONTENT_MIN_WIDTH: "1100px",
     },
 };

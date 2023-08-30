@@ -17,6 +17,7 @@ function Room() {
     const { errorHandler, contextHolder } = useNotice();
     const [chatRoom, setChatRoom] = useState({ title: "" });
     const [dialogs, setDialogs] = useState([]);
+    const [fetchingDialogs, setFetchingDialogs] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -40,12 +41,15 @@ function Room() {
                 if (!router.query.roomId) {
                     return;
                 }
+                setFetchingDialogs(true);
                 const { dialogs: dialogData } = await useDialogs(
                     router.query.roomId,
                 );
                 setDialogs(dialogData);
             } catch (e) {
                 errorHandler(e);
+            } finally {
+                setFetchingDialogs(false);
             }
         })();
     }, [chatRoom]);
@@ -58,7 +62,9 @@ function Room() {
                 header={<Header title={chatRoom.title} />}
             >
                 <ChatFrame
-                    dialog={<Dialog dialogs={dialogs} />}
+                    dialog={
+                        <Dialog dialogs={dialogs} loading={fetchingDialogs} />
+                    }
                     textator={<Textator />}
                 />
             </AppFrame>

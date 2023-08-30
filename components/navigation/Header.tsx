@@ -1,9 +1,7 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const Container = styled.div`
-    margin: ${({ theme: { SPACING } }) => SPACING.STANDARD};
-`;
+const Container = styled.div``;
 
 export default function Header({ title }) {
     return (

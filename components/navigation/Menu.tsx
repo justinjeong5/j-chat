@@ -1,4 +1,4 @@
-import { Divider, Menu } from "antd";
+import { Divider, Layout, Menu } from "antd";
 import Profile from "components/structure/Profile";
 import { MenuProps } from "hooks/menu";
 import useRooms from "hooks/menu/rooms";
@@ -50,12 +50,9 @@ export default function Page() {
             {contextHolder}
             <Profile user={user} />
             <Divider />
-            <Menu
-                items={rooms}
-                mode="inline"
-                style={{ width: 256 }}
-                onClick={onClick}
-            />
+            <Layout hasSider>
+                <Menu items={rooms} mode="inline" onClick={onClick} />
+            </Layout>
         </Container>
     );
 }
