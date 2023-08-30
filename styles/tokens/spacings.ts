@@ -7,12 +7,24 @@ const SPACING = {
     BIGGER: "2rem",
     BIGGEST: "4rem",
 
-    LAYOUT: {
-        HEADER_HEIGHT: "82px",
-        MENU_WIDTH: "300px",
-        FRAME_MAX_WIDTH: "1400px",
-        CONTENT_MIN_WIDTH: "1100px",
+    SIDER: {
+        WIDTH: "300px",
+        HEIGHT: "calc(100vh - 52px)",
+        CONTENT: {
+            MAX_HEIGHT: "calc(100vh - 288px)",
+        },
+        FOOTER: {
+            HEIGHT: "82px",
+            WIDTH: "268px",
+        },
     },
+    CONTENT: {
+        HEIGHT: "calc(100vh - 285px)",
+        EMPTY_HEIGHT: "calc(100vh - 364px)",
+        MIN_WIDTH: "1100px",
+    },
+    HEADER_HEIGHT: "82px",
+    FRAME_MAX_WIDTH: "1400px",
 };
 
 export default SPACING;

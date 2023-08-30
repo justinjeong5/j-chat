@@ -8,10 +8,7 @@ import WithAuth from "hoc/WithAuth";
 function Page() {
     return (
         <AppFrame menu={<Menu />} header={<div>Header</div>}>
-            <ChatFrame
-                dialog={<Dialog dialogs={[]} />}
-                textator={<Textator />}
-            />
+            <ChatFrame dialog={<Dialog />} textator={<Textator />} />
         </AppFrame>
     );
 }

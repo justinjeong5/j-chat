@@ -4,28 +4,28 @@ import styled from "styled-components";
 
 const Container = styled.div`
     margin: 0 auto;
-    max-width: ${({ theme: { SPACING } }) => SPACING.LAYOUT.FRAME_MAX_WIDTH};
+    max-width: ${({ theme: { SPACING } }) => SPACING.FRAME_MAX_WIDTH};
 `;
 const Layout = styled(antdLayout)`
-    background: white;
+    background: ${({ theme: { COLOR } }) => COLOR.WHITE};
 `;
 const Sider = styled(antdLayout.Sider)`
     && {
         background: white;
     }
-    overflow: auto;
-    height: calc(100vh - 1rem);
     position: fixed;
     left: 0;
     top: 0;
     bottom: 0;
+    height: calc(100vh - 1rem);
+    overflow: auto;
 `;
 const Content = styled(antdLayout.Content)`
-    background: white;
+    background: ${({ theme: { COLOR } }) => COLOR.WHITE};
     margin: ${({ theme: { SPACING } }) => SPACING.STANDARD};
 `;
 const Header = styled(antdLayout.Header)`
-    background: white;
+    background: ${({ theme: { COLOR } }) => COLOR.WHITE};
 `;
 
 export default function AppFrame({ menu, header, children }) {

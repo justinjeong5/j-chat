@@ -9,26 +9,26 @@ import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 
 const Container = styled.div`
-    overflow: scroll;
-    height: calc(100vh - 285px);
-    width: ${({ theme: { SPACING } }) => SPACING.LAYOUT.CONTENT_MIN_WIDTH};
+    height: ${({ theme: { SPACING } }) => SPACING.CONTENT.HEIGHT};
+    width: ${({ theme: { SPACING } }) => SPACING.CONTENT.MIN_WIDTH};
     max-width: 100%;
+    overflow: scroll;
 `;
 const TextWrapper = styled.div`
     margin-top: ${({ theme: { SPACING } }) => SPACING.STANDARD};
     font: ${({ theme: { FONT } }) => FONT.FAMILY};
 `;
 const EmptyWrapper = styled.div`
-    height: calc(100vh - 364px);
     display: flex;
     justify-content: center;
     align-items: center;
+    height: ${({ theme: { SPACING } }) => SPACING.CONTENT.EMPTY_HEIGHT};
 `;
 const SkeletonWrapper = styled.div`
     display: flex;
-    margin-bottom: ${({ theme: { SPACING } }) => SPACING.BIGGER};
-    width: 100%;
     gap: 1rem;
+    width: 100%;
+    margin-bottom: ${({ theme: { SPACING } }) => SPACING.BIGGER};
 `;
 const StyledSpace = styled(Space)`
     margin-left: 56px;
@@ -137,10 +137,11 @@ export default function Dialog({ dialogs, loading }) {
 }
 
 Dialog.propTypes = {
-    dialogs: PropTypes.arrayOf(PropTypes.instanceOf(DialogModel)).isRequired,
+    dialogs: PropTypes.arrayOf(PropTypes.instanceOf(DialogModel)),
     loading: PropTypes.bool,
 };
 
 Dialog.defaultProps = {
+    dialogs: [],
     loading: false,
 };

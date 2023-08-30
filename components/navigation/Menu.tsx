@@ -1,4 +1,5 @@
-import { Divider, Layout, Menu } from "antd";
+import { Layout, Menu } from "antd";
+import MenuFrame from "components/layout/MenuFrame";
 import Profile from "components/structure/Profile";
 import { MenuProps } from "hooks/menu";
 import useRooms from "hooks/menu/rooms";
@@ -6,12 +7,6 @@ import useNotice from "hooks/notice/notice";
 import client from "lib/api";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
-
-const Container = styled.div`
-    margin: ${({ theme: { SPACING } }) => SPACING.STANDARD};
-    overflow: hidden;
-`;
 
 export default function Page() {
     const router = useRouter();
@@ -46,13 +41,16 @@ export default function Page() {
     };
 
     return (
-        <Container>
+        <>
             {contextHolder}
-            <Profile user={user} />
-            <Divider />
-            <Layout hasSider>
-                <Menu items={rooms} mode="inline" onClick={onClick} />
-            </Layout>
-        </Container>
+            <MenuFrame
+                profile={<Profile user={user} />}
+                footer={<div>J-Chat v1.0.0</div>}
+            >
+                <Layout hasSider>
+                    <Menu items={rooms} mode="inline" onClick={onClick} />
+                </Layout>
+            </MenuFrame>
+        </>
     );
 }
