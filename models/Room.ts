@@ -25,4 +25,11 @@ export default class Room {
         this.users = config.users || [];
         this.dialogs = config.dialogs || [];
     }
+
+    toMenu() {
+        return {
+            key: this.id,
+            label: this.title,
+        };
+    }
 }

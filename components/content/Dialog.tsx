@@ -64,7 +64,7 @@ export default function Dialog({ dialogs, loading }) {
     if (loading) {
         return (
             <Container>
-                {Array.from(Array(SKELETON_COUNT)).map(() => (
+                {Array.from({ length: SKELETON_COUNT }).map(() => (
                     <SkeletonWrapper key={uuidv4()}>
                         <div style={{ width: "inherit" }}>
                             <Skeleton active avatar />
