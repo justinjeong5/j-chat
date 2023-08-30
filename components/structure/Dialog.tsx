@@ -6,6 +6,7 @@ import IDialog from "models/Dialog.type";
 import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
 
 const Container = styled.div`
     overflow: scroll;
@@ -63,8 +64,8 @@ export default function Dialog({ dialogs, loading }) {
     if (loading) {
         return (
             <Container>
-                {Array.from(Array(SKELETON_COUNT)).fill(
-                    <SkeletonWrapper>
+                {Array.from(Array(SKELETON_COUNT)).map(() => (
+                    <SkeletonWrapper key={uuidv4()}>
                         <div style={{ width: "inherit" }}>
                             <Skeleton active avatar />
                             <StyledSpace>
@@ -74,8 +75,8 @@ export default function Dialog({ dialogs, loading }) {
                             </StyledSpace>
                         </div>
                         <Skeleton.Image active />
-                    </SkeletonWrapper>,
-                )}
+                    </SkeletonWrapper>
+                ))}
             </Container>
         );
     }
