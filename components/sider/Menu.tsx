@@ -4,14 +4,16 @@ import {
     PushpinOutlined,
     UserOutlined,
 } from "@ant-design/icons";
-import { Button, Layout } from "antd";
+import { Layout } from "antd";
 import MenuFrame from "components/layout/SiderFrame";
+import CreateRoomModal from "components/sider/CreateRoomModal";
 import Profile from "components/sider/Profile";
 import Rooms from "components/sider/Rooms";
 import useNotice from "hooks/notice/notice";
 import useRooms from "hooks/room/rooms";
 import client from "lib/api";
 import delay from "lib/time/delay";
+import RoomsModel from "models/Rooms";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -21,8 +23,9 @@ const MenuWrapper = styled(Layout)`
 `;
 
 export default function Page() {
+    const { getRooms } = useRooms();
     const [user, setUser] = useState({ name: "", email: "" });
-    const [rooms, setRooms] = useState({ public: {}, star: {}, direct: {} });
+    const [rooms, setRooms] = useState([]);
     const [fetchingRooms, setFetchingRooms] = useState(false);
     const { errorHandler, contextHolder } = useNotice();
 
@@ -31,37 +34,36 @@ export default function Page() {
             try {
                 setFetchingRooms(true);
                 const [roomsData] = await Promise.all([
-                    useRooms(),
+                    getRooms(),
                     delay(2000),
                 ]);
 
-                // rooms를 추가로 가공하지 않고 바로 사용가능하도록 가공하기
-                setRooms({
-                    public: {
-                        key: "public",
+                setRooms([
+                    {
+                        key: RoomsModel.PUBLIC,
                         label: "Public Rooms",
                         icon: <CoffeeOutlined />,
-                        children: roomsData.rooms.filter(
-                            ({ type }) => type === "public",
-                        ),
+                        children: roomsData
+                            .getTypeOf(RoomsModel.PUBLIC)
+                            .map(r => r.toMenu()),
                     },
-                    star: {
-                        key: "star",
+                    {
+                        key: RoomsModel.STAR,
                         label: "Starred Rooms",
                         icon: <PushpinOutlined />,
-                        children: roomsData.rooms.filter(
-                            ({ type }) => type === "star",
-                        ),
+                        children: roomsData
+                            .getTypeOf(RoomsModel.STAR)
+                            .map(r => r.toMenu()),
                     },
-                    direct: {
-                        key: "direct",
+                    {
+                        key: RoomsModel.DIRECT,
                         label: "Direct Messages",
                         icon: <UserOutlined />,
-                        children: roomsData.rooms.filter(
-                            ({ type }) => type === "direct",
-                        ),
+                        children: roomsData
+                            .getTypeOf(RoomsModel.DIRECT)
+                            .map(r => r.toMenu()),
                     },
-                });
+                ]);
             } catch (e) {
                 errorHandler(e);
             } finally {
@@ -81,8 +83,19 @@ export default function Page() {
         })();
     }, []);
 
-    const handleClickAdd = e => {
-        console.log("handleClickAdd", e);
+    const onCreateRoom = room => {
+        console.log(room.toMenu());
+        setRooms(
+            rooms.map(r => {
+                if (r.key === room.type) {
+                    return {
+                        ...r,
+                        children: [...r.children, room.toMenu()],
+                    };
+                }
+                return { ...r };
+            }),
+        );
     };
 
     return (
@@ -93,11 +106,10 @@ export default function Page() {
                 footer={<div>J-Chat v1.0.0</div>}
             >
                 <MenuWrapper hasSider>
-                    <Button block type="text" onClick={handleClickAdd}>
+                    <CreateRoomModal onCreateRoom={onCreateRoom}>
                         <PlusOutlined /> Add Room
-                    </Button>
+                    </CreateRoomModal>
                     <Rooms loading={fetchingRooms} rooms={rooms} />
-                    {/* rooms를 추가로 가공하지 않고 바로 사용가능하도록 전달하기 */}
                 </MenuWrapper>
             </MenuFrame>
         </>

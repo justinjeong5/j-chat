@@ -1,3 +1,27 @@
+interface IRoom {
+    id: number;
+    title: string;
+    description: string;
+    type: string;
+    created_at: Date;
+    updated_at: Date;
+    users: Array<object>;
+    dialogs: Array<object>;
+}
+
+interface IRoomMenu {
+    key: string;
+    label: string;
+    id: number;
+    title: string;
+    description: string;
+    type: string;
+    created_at: Date;
+    updated_at: Date;
+    users: Array<object>;
+    dialogs: Array<object>;
+}
+
 export default class Room {
     id: number;
 
@@ -15,7 +39,7 @@ export default class Room {
 
     dialogs: Array<object>;
 
-    constructor(config) {
+    constructor(config: IRoom) {
         this.id = config.id || null;
         this.title = config.title || null;
         this.description = config.description || null;
@@ -26,10 +50,23 @@ export default class Room {
         this.dialogs = config.dialogs || [];
     }
 
-    toMenu() {
+    toMenu(): IRoomMenu {
         return {
-            key: this.id,
+            key: String(this.id),
             label: this.title,
+            ...this,
+        };
+    }
+
+    static createItem(config: { title: string; type: string }) {
+        return {
+            id: null,
+            title: null,
+            description: null,
+            type: null,
+            users: [],
+            dialogs: [],
+            ...config,
         };
     }
 }

@@ -22,7 +22,7 @@ export default function SignUp() {
         }
     }, [isLoggedIn]);
 
-    const onFinish = (values: any) => {
+    const onFinish = (values: { email: string; password: string }) => {
         signUp(values.email, values.password);
         router.push("/");
     };
