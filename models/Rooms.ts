@@ -16,6 +16,10 @@ export default class Rooms {
         return this.list;
     }
 
+    isEmpty() {
+        return this.list.length === 0;
+    }
+
     static get PUBLIC() {
         return "public";
     }

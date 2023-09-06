@@ -4,7 +4,8 @@ import {
     PushpinOutlined,
     UserOutlined,
 } from "@ant-design/icons";
-import { Layout } from "antd";
+import type { TourProps } from "antd";
+import { Layout, Tour } from "antd";
 import MenuFrame from "components/layout/SiderFrame";
 import CreateRoomModal from "components/sider/CreateRoomModal";
 import Profile from "components/sider/Profile";
@@ -14,7 +15,7 @@ import useRooms from "hooks/room/rooms";
 import client from "lib/api";
 import delay from "lib/time/delay";
 import RoomsModel from "models/Rooms";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const MenuWrapper = styled(Layout)`
@@ -23,11 +24,32 @@ const MenuWrapper = styled(Layout)`
 `;
 
 export default function Page() {
+    const addRoomBtnRef = useRef(null);
+
     const { getRooms } = useRooms();
     const [user, setUser] = useState({ name: "", email: "" });
     const [rooms, setRooms] = useState([]);
     const [fetchingRooms, setFetchingRooms] = useState(false);
     const { errorHandler, contextHolder } = useNotice();
+    const [showTour, setShowTour] = useState(false);
+
+    const steps: TourProps["steps"] = [
+        {
+            title: "환영합니다.",
+            description: "다양한 사람과 재미있는 이야기를 나누어 보세요.",
+            cover: (
+                <img
+                    alt="tour.png"
+                    src="https://user-images.githubusercontent.com/5378891/197385811-55df8480-7ff4-44bd-9d43-a7dade598d70.png"
+                />
+            ),
+        },
+        {
+            title: "대화방 생성",
+            description: "대화방을 만들고 사람들을 초대해보세요.",
+            target: () => addRoomBtnRef.current,
+        },
+    ];
 
     useEffect(() => {
         (async () => {
@@ -37,6 +59,9 @@ export default function Page() {
                     getRooms(),
                     delay(2000),
                 ]);
+                if (roomsData.isEmpty()) {
+                    setShowTour(true);
+                }
 
                 setRooms([
                     {
@@ -84,7 +109,6 @@ export default function Page() {
     }, []);
 
     const onCreateRoom = room => {
-        console.log(room.toMenu());
         setRooms(
             rooms.map(r => {
                 if (r.key === room.type) {
@@ -107,11 +131,18 @@ export default function Page() {
             >
                 <MenuWrapper hasSider>
                     <CreateRoomModal onCreateRoom={onCreateRoom}>
-                        <PlusOutlined /> Add Room
+                        <div ref={addRoomBtnRef}>
+                            <PlusOutlined /> Add Room
+                        </div>
                     </CreateRoomModal>
                     <Rooms loading={fetchingRooms} rooms={rooms} />
                 </MenuWrapper>
             </MenuFrame>
+            <Tour
+                open={showTour}
+                onClose={() => setShowTour(false)}
+                steps={steps}
+            />
         </>
     );
 }

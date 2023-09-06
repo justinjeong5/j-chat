@@ -22,6 +22,16 @@ function Room() {
     });
     const [dialogs, setDialogs] = useState([]);
     const [fetchingData, setFetchingData] = useState(false);
+    const [showDialogTour, setShowDialogTour] = useState(false);
+    const [localStorageHideDialogTour, setLocalStorageHideDialogTour] =
+        useState(false);
+
+    useEffect(() => {
+        const hideDialogTour = JSON.parse(
+            localStorage.getItem("jChatHideDialogTour"),
+        );
+        setLocalStorageHideDialogTour(hideDialogTour);
+    }, []);
 
     useEffect(() => {
         (async () => {
@@ -39,6 +49,9 @@ function Room() {
                     router.query.roomId,
                 );
                 setDialogs(dialogData);
+                if (!localStorageHideDialogTour && !dialogData.length) {
+                    setShowDialogTour(true);
+                }
             } catch (e) {
                 errorHandler(e);
             } finally {
@@ -56,7 +69,12 @@ function Room() {
             >
                 <ChatFrame
                     dialog={<Dialog dialogs={dialogs} loading={fetchingData} />}
-                    textator={<Textator />}
+                    textator={
+                        <Textator
+                            placeholder={`#${chatRoom.title} 채널에서 이야기하기`}
+                            dialogTour={showDialogTour}
+                        />
+                    }
                 />
             </AppFrame>
         </>
