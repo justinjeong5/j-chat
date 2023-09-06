@@ -58,12 +58,12 @@ export default class Room {
         };
     }
 
-    static createItem(config: { title: string; type: string }) {
+    static createItem(config: {
+        title: string;
+        type: string;
+        description: string;
+    }) {
         return {
-            id: null,
-            title: null,
-            description: null,
-            type: null,
             users: [],
             dialogs: [],
             ...config,

@@ -8,10 +8,10 @@ const useRooms = () => {
         return new Rooms(data.map(r => new Room(r)));
     };
 
-    const createRoom = async ({ title, type }) => {
+    const createRoom = async ({ title, type, description }: Room) => {
         const { data } = await client.post(
             "/rooms",
-            Room.createItem({ title, type }),
+            Room.createItem({ title, type, description }),
         );
         return data;
     };

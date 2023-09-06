@@ -1,16 +1,76 @@
-import PropTypes from "prop-types";
+import { SendOutlined, UserOutlined } from "@ant-design/icons";
+import { Skeleton } from "antd";
+import PropTypes, { number } from "prop-types";
 import styled from "styled-components";
 
-const Container = styled.div``;
+const Container = styled.div`
+    display: flex;
+    justify-content: space-between;
+    gap: ${({ theme: { SPACING } }) => SPACING.STANDARD};
+    height: ${({ theme: { SPACING } }) => SPACING.HEADER_HEIGHT};
+`;
 
-export default function Header({ title }) {
+const ContainerItem = styled.div`
+    display: flex;
+    align-items: center;
+    gap: ${({ theme: { SPACING } }) => SPACING.SMALLER};
+    & .ant-skeleton {
+        line-height: normal;
+    }
+`;
+
+const Title = styled.div`
+    font-size: ${({ theme: { FONT } }) => FONT.SIZE.BIG};
+    font-weight: ${({ theme: { FONT } }) => FONT.WEIGHT.SEMI_BOLD};
+    margin: ${({ theme: { SPACING } }) =>
+        `${SPACING.BIGGER} 0 ${SPACING.SMALLER} 0`};
+`;
+
+export default function Header({ room, loading }) {
     return (
         <Container>
-            <div>{title}</div>
+            <div
+                style={{
+                    display: "block",
+                    height: "fit-content",
+                    lineHeight: "normal",
+                }}
+            >
+                <Title>{room.title}</Title>
+                <div>{room.description}</div>
+            </div>
+            <Container>
+                <ContainerItem>
+                    <UserOutlined />
+                    {loading ? (
+                        <Skeleton.Button active block size="small" />
+                    ) : (
+                        room.users.length
+                    )}
+                </ContainerItem>
+                <ContainerItem>
+                    <SendOutlined />
+                    {loading ? (
+                        <Skeleton.Button active block size="small" />
+                    ) : (
+                        room.dialogs.length
+                    )}
+                </ContainerItem>
+            </Container>
         </Container>
     );
 }
 
 Header.propTypes = {
-    title: PropTypes.string.isRequired,
+    room: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string,
+        users: PropTypes.arrayOf(number).isRequired,
+        dialogs: PropTypes.arrayOf(number).isRequired,
+    }).isRequired,
+    loading: PropTypes.bool,
+};
+
+Header.defaultProps = {
+    loading: false,
 };

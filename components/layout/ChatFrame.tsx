@@ -6,12 +6,21 @@ const Container = styled.div`
     height: 100%;
 `;
 
+const Dialog = styled.div`
+    height: ${({ theme: { SPACING } }) => SPACING.CONTENT.HEIGHT};
+    width: ${({ theme: { SPACING } }) => SPACING.CONTENT.MIN_WIDTH};
+    max-width: 100%;
+    overflow: scroll;
+`;
+
+const Textator = styled.div``;
+
 export default function ChatFrame({ dialog, textator }) {
     return (
         <Container>
-            {dialog}
+            <Dialog>{dialog}</Dialog>
             <Divider />
-            {textator}
+            <Textator>{textator}</Textator>
         </Container>
     );
 }

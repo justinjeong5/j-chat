@@ -15,9 +15,13 @@ import { useEffect, useState } from "react";
 function Room() {
     const router = useRouter();
     const { errorHandler, contextHolder } = useNotice();
-    const [chatRoom, setChatRoom] = useState({ title: "" });
+    const [chatRoom, setChatRoom] = useState({
+        title: "",
+        users: [],
+        dialogs: [],
+    });
     const [dialogs, setDialogs] = useState([]);
-    const [fetchingDialogs, setFetchingDialogs] = useState(false);
+    const [fetchingData, setFetchingData] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -25,23 +29,12 @@ function Room() {
                 if (!router.query.roomId) {
                     return;
                 }
+                setFetchingData(true);
                 const { data } = await client.get(
                     `rooms/${router.query.roomId}`,
                 );
                 setChatRoom(new RoomModel(data));
-            } catch (e) {
-                errorHandler(e);
-            }
-        })();
-    }, [router.query]);
 
-    useEffect(() => {
-        (async () => {
-            try {
-                if (!router.query.roomId) {
-                    return;
-                }
-                setFetchingDialogs(true);
                 const { dialogs: dialogData } = await useDialogs(
                     router.query.roomId,
                 );
@@ -49,22 +42,20 @@ function Room() {
             } catch (e) {
                 errorHandler(e);
             } finally {
-                setFetchingDialogs(false);
+                setFetchingData(false);
             }
         })();
-    }, [chatRoom]);
+    }, [router.query]);
 
     return (
         <>
             {contextHolder}
             <AppFrame
                 menu={<Menu />}
-                header={<Header title={chatRoom.title} />}
+                header={<Header room={chatRoom} loading={fetchingData} />}
             >
                 <ChatFrame
-                    dialog={
-                        <Dialog dialogs={dialogs} loading={fetchingDialogs} />
-                    }
+                    dialog={<Dialog dialogs={dialogs} loading={fetchingData} />}
                     textator={<Textator />}
                 />
             </AppFrame>

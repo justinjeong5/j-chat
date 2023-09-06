@@ -19,11 +19,11 @@ const SPACING = {
         },
     },
     CONTENT: {
-        HEIGHT: "calc(100vh - 285px)",
+        HEIGHT: "calc(100vh - 311px)",
         EMPTY_HEIGHT: "calc(100vh - 364px)",
         MIN_WIDTH: "1100px",
     },
-    HEADER_HEIGHT: "82px",
+    HEADER_HEIGHT: "89px",
     FRAME_MAX_WIDTH: "1400px",
 };
 

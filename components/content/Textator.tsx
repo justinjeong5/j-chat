@@ -10,7 +10,7 @@ const SpaceWrapper = styled.div`
 
 export default function Textator() {
     return (
-        <div>
+        <>
             <TextArea autoSize={{ minRows: 3, maxRows: 5 }} />
             <SpaceWrapper>
                 <Space wrap>
@@ -18,6 +18,6 @@ export default function Textator() {
                     <Button>File</Button>
                 </Space>
             </SpaceWrapper>
-        </div>
+        </>
     );
 }

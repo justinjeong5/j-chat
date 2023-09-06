@@ -26,6 +26,7 @@ const Content = styled(antdLayout.Content)`
 `;
 const Header = styled(antdLayout.Header)`
     background: ${({ theme: { COLOR } }) => COLOR.WHITE};
+    height: ${({ theme: { SPACING } }) => SPACING.HEADER_HEIGHT};
 `;
 
 export default function AppFrame({ menu, header, children }) {

@@ -8,12 +8,6 @@ import React from "react";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 
-const Container = styled.div`
-    height: ${({ theme: { SPACING } }) => SPACING.CONTENT.HEIGHT};
-    width: ${({ theme: { SPACING } }) => SPACING.CONTENT.MIN_WIDTH};
-    max-width: 100%;
-    overflow: scroll;
-`;
 const TextWrapper = styled.div`
     margin-top: ${({ theme: { SPACING } }) => SPACING.STANDARD};
     font: ${({ theme: { FONT } }) => FONT.FAMILY};
@@ -63,7 +57,7 @@ export default function Dialog({ dialogs, loading }) {
 
     if (loading) {
         return (
-            <Container>
+            <>
                 {Array.from({ length: SKELETON_COUNT }).map(() => (
                     <SkeletonWrapper key={uuidv4()}>
                         <div style={{ width: "inherit" }}>
@@ -77,62 +71,58 @@ export default function Dialog({ dialogs, loading }) {
                         <Skeleton.Image active />
                     </SkeletonWrapper>
                 ))}
-            </Container>
+            </>
         );
     }
 
     if (!dialogs.length) {
         return (
-            <Container>
-                <EmptyWrapper>
-                    <Empty description="No dialogs" />
-                </EmptyWrapper>
-            </Container>
+            <EmptyWrapper>
+                <Empty description="No dialogs" />
+            </EmptyWrapper>
         );
     }
     return (
-        <Container>
-            <List
-                itemLayout="vertical"
-                size="large"
-                dataSource={dialogs}
-                renderItem={(item: IDialog) => (
-                    <List.Item
-                        key={item.name}
-                        actions={ActionItems({
-                            stars: item.stars.length,
-                            likes: item.likes.length,
-                            comments: item.comments.length,
-                        })}
-                        extra={
-                            !isMobile && (
-                                <img
-                                    style={{ maxWidth: "24vw" }}
-                                    width="272px"
-                                    alt="userImage"
-                                    src={item.image}
-                                />
-                            )
-                        }
-                    >
-                        <List.Item.Meta
-                            avatar={<Avatar src={item.avatar} />}
-                            title={<a href={item.href}>{item.name}</a>}
-                            description={item.description}
-                        />
-                        {isMobile && (
+        <List
+            itemLayout="vertical"
+            size="large"
+            dataSource={dialogs}
+            renderItem={(item: IDialog) => (
+                <List.Item
+                    key={item.name}
+                    actions={ActionItems({
+                        stars: item.stars.length,
+                        likes: item.likes.length,
+                        comments: item.comments.length,
+                    })}
+                    extra={
+                        !isMobile && (
                             <img
                                 style={{ maxWidth: "24vw" }}
                                 width="272px"
                                 alt="userImage"
                                 src={item.image}
                             />
-                        )}
-                        <TextWrapper>{item.content}</TextWrapper>
-                    </List.Item>
-                )}
-            />
-        </Container>
+                        )
+                    }
+                >
+                    <List.Item.Meta
+                        avatar={<Avatar src={item.avatar} />}
+                        title={<a href={item.href}>{item.name}</a>}
+                        description={item.description}
+                    />
+                    {isMobile && (
+                        <img
+                            style={{ maxWidth: "24vw" }}
+                            width="272px"
+                            alt="userImage"
+                            src={item.image}
+                        />
+                    )}
+                    <TextWrapper>{item.content}</TextWrapper>
+                </List.Item>
+            )}
+        />
     );
 }
 

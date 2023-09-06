@@ -60,6 +60,13 @@ export default function CreateRoomModal({ onCreateRoom, children }) {
                         <Input />
                     </Form.Item>
                     <Form.Item
+                        name="description"
+                        label="Description"
+                        rules={[{ required: true }]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item
                         name="type"
                         label="Type"
                         rules={[{ required: true }]}
