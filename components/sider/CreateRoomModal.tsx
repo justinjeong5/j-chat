@@ -1,9 +1,8 @@
 import { Button, Form, Input, Modal, Select } from "antd";
 import useNotice from "hooks/notice/notice";
-import useRooms from "hooks/room/rooms";
-import Room from "models/Room";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import RoomRepo from "repos/Room";
 
 const { Option } = Select;
 
@@ -16,7 +15,6 @@ export default function CreateRoomModal({ onCreateRoom, children }) {
     const [form] = Form.useForm();
     const { errorHandler, contextHolder } = useNotice();
 
-    const { createRoom } = useRooms();
     const [open, setOpen] = useState(false);
     const toggleModal = () => {
         setOpen(!open);
@@ -25,8 +23,8 @@ export default function CreateRoomModal({ onCreateRoom, children }) {
     const handleOk = async () => {
         const data = form.getFieldsValue();
         try {
-            const t = await createRoom(data);
-            onCreateRoom(new Room(t));
+            const room = await RoomRepo.createRoom(data);
+            onCreateRoom(room);
             toggleModal();
         } catch (e) {
             errorHandler(e);

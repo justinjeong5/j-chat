@@ -1,5 +1,11 @@
-import { SendOutlined, UserOutlined } from "@ant-design/icons";
+import {
+    SendOutlined,
+    StarOutlined,
+    StarTwoTone,
+    UserOutlined,
+} from "@ant-design/icons";
 import { Skeleton } from "antd";
+import Rooms from "models/Rooms";
 import PropTypes, { number } from "prop-types";
 import styled from "styled-components";
 
@@ -56,6 +62,13 @@ export default function Header({ room, loading }) {
                         room.dialogs.length
                     )}
                 </ContainerItem>
+                <ContainerItem>
+                    {room.type === Rooms.STAR ? (
+                        <StarTwoTone />
+                    ) : (
+                        <StarOutlined />
+                    )}
+                </ContainerItem>
             </Container>
         </Container>
     );
@@ -65,6 +78,8 @@ Header.propTypes = {
     room: PropTypes.shape({
         title: PropTypes.string.isRequired,
         description: PropTypes.string,
+        type: PropTypes.oneOf([Rooms.PUBLIC, Rooms.STAR, Rooms.DIRECT])
+            .isRequired,
         users: PropTypes.arrayOf(number).isRequired,
         dialogs: PropTypes.arrayOf(number).isRequired,
     }).isRequired,

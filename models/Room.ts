@@ -1,28 +1,7 @@
-interface IRoom {
-    id: number;
-    title: string;
-    description: string;
-    type: string;
-    created_at: Date;
-    updated_at: Date;
-    users: Array<object>;
-    dialogs: Array<object>;
-}
+import BaseModel from "models/BaseModel";
+import { IRoom, IRoomExternal, IRoomMenu } from "types/room";
 
-interface IRoomMenu {
-    key: string;
-    label: string;
-    id: number;
-    title: string;
-    description: string;
-    type: string;
-    created_at: Date;
-    updated_at: Date;
-    users: Array<object>;
-    dialogs: Array<object>;
-}
-
-export default class Room {
+export default class Room extends BaseModel {
     id: number;
 
     title: string;
@@ -31,21 +10,22 @@ export default class Room {
 
     type: string;
 
-    created_at: Date;
+    createdAt: Date;
 
-    updated_at: Date;
+    updatedAt: Date;
 
     users: Array<object>;
 
     dialogs: Array<object>;
 
-    constructor(config: IRoom) {
+    constructor(config: IRoomExternal) {
+        super();
         this.id = config.id || null;
         this.title = config.title || null;
         this.description = config.description || null;
         this.type = config.type || null;
-        this.created_at = new Date(config.created_at || null);
-        this.updated_at = new Date(config.updated_at || null);
+        this.createdAt = new Date(config.created_at);
+        this.updatedAt = new Date(config.updated_at);
         this.users = config.users || [];
         this.dialogs = config.dialogs || [];
     }
@@ -58,14 +38,30 @@ export default class Room {
         };
     }
 
-    static createItem(config: {
+    setDialogs(dialogs: Array<object>): IRoom {
+        this.dialogs = dialogs;
+        return { ...this };
+    }
+
+    toExternal(): IRoomExternal {
+        return {
+            ...this,
+            created_at: this.createdAt,
+            updated_at: this.updatedAt,
+        };
+    }
+
+    static toInternal(config: {
         title: string;
         type: string;
         description: string;
-    }) {
+    }): IRoomExternal {
         return {
+            id: null,
             users: [],
             dialogs: [],
+            created_at: new Date(),
+            updated_at: new Date(),
             ...config,
         };
     }

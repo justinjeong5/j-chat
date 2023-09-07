@@ -1,20 +1,26 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 import qs from "qs";
 
 // const { API } = process.env;
 const API = "http://localhost:3004";
 
-const withAPI = (path = "") => API + path;
+const withAPI = (path: string = ""): string => API + path;
 
-const withQS = (path = "", { ...query } = {}, added = {}) =>
-    `${path}?${qs.stringify({ ...query, ...added })}`;
-
-const createClient = (...args) => {
+const withQS = (path: string = "", query = {}): string => {
+    if (Object.keys(query).length === 0) {
+        return path;
+    }
+    return `${path}?${qs.stringify(query)}`;
+};
+const createClient = (...args): AxiosInstance => {
     const client = axios.create(...args);
     return client;
 };
 
-const createAPIClient = (config = { baseURL: "" }, ...args) => {
+const createAPIClient = (
+    config: { baseURL: string } = { baseURL: "" },
+    ...args
+): AxiosInstance => {
     const baseURL = withAPI(config.baseURL);
     return createClient(
         {

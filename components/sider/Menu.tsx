@@ -11,11 +11,10 @@ import CreateRoomModal from "components/sider/CreateRoomModal";
 import Profile from "components/sider/Profile";
 import Rooms from "components/sider/Rooms";
 import useNotice from "hooks/notice/notice";
-import useRooms from "hooks/room/rooms";
 import client from "lib/api";
-import delay from "lib/time/delay";
 import RoomsModel from "models/Rooms";
 import { useEffect, useRef, useState } from "react";
+import RoomRepo from "repos/Room";
 import styled from "styled-components";
 
 const MenuWrapper = styled(Layout)`
@@ -26,7 +25,6 @@ const MenuWrapper = styled(Layout)`
 export default function Page() {
     const addRoomBtnRef = useRef(null);
 
-    const { getRooms } = useRooms();
     const [user, setUser] = useState({ name: "", email: "" });
     const [rooms, setRooms] = useState([]);
     const [fetchingRooms, setFetchingRooms] = useState(false);
@@ -55,10 +53,7 @@ export default function Page() {
         (async () => {
             try {
                 setFetchingRooms(true);
-                const [roomsData] = await Promise.all([
-                    getRooms(),
-                    delay(2000),
-                ]);
+                const roomsData = await RoomRepo.getRooms();
                 if (roomsData.isEmpty()) {
                     setShowTour(true);
                 }

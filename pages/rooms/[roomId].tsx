@@ -5,12 +5,10 @@ import AppFrame from "components/layout/AppFrame";
 import ChatFrame from "components/layout/ChatFrame";
 import Menu from "components/sider/Menu";
 import WithAuth from "hoc/WithAuth";
-import useDialogs from "hooks/dialog/dialogs";
 import useNotice from "hooks/notice/notice";
-import client from "lib/api";
-import RoomModel from "models/Room";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import RoomRepo from "repos/Room";
 
 function Room() {
     const router = useRouter();
@@ -20,7 +18,7 @@ function Room() {
         users: [],
         dialogs: [],
     });
-    const [dialogs, setDialogs] = useState([]);
+
     const [fetchingData, setFetchingData] = useState(false);
     const [showDialogTour, setShowDialogTour] = useState(false);
     const [localStorageHideDialogTour, setLocalStorageHideDialogTour] =
@@ -36,20 +34,16 @@ function Room() {
     useEffect(() => {
         (async () => {
             try {
-                if (!router.query.roomId) {
+                const roomId = router.query.roomId as string;
+                if (!roomId) {
                     return;
                 }
-                setFetchingData(true);
-                const { data } = await client.get(
-                    `rooms/${router.query.roomId}`,
-                );
-                setChatRoom(new RoomModel(data));
 
-                const { dialogs: dialogData } = await useDialogs(
-                    router.query.roomId,
-                );
-                setDialogs(dialogData);
-                if (!localStorageHideDialogTour && !dialogData.length) {
+                setFetchingData(true);
+                const data = await RoomRepo.getRoomWithDialogs(roomId);
+                setChatRoom(data);
+
+                if (!localStorageHideDialogTour && !data.dialogs.length) {
                     setShowDialogTour(true);
                 }
             } catch (e) {
@@ -68,7 +62,12 @@ function Room() {
                 header={<Header room={chatRoom} loading={fetchingData} />}
             >
                 <ChatFrame
-                    dialog={<Dialog dialogs={dialogs} loading={fetchingData} />}
+                    dialog={
+                        <Dialog
+                            dialogs={chatRoom.dialogs}
+                            loading={fetchingData}
+                        />
+                    }
                     textator={
                         <Textator
                             placeholder={`#${chatRoom.title} 채널에서 이야기하기`}

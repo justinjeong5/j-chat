@@ -22,7 +22,9 @@
             "hooks/*": ["hooks/*"],
             "hoc/*": ["hoc/*"],
             "db/*": ["db/*"],
-            "models/*": ["models/*"]
+            "models/*": ["models/*"],
+            "repos/*": ["repos/*"],
+            "types/*": ["types/*"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
