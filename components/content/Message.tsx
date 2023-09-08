@@ -1,11 +1,11 @@
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Avatar, Empty, List, Skeleton, Space } from "antd";
 import useMobile from "hooks/layout/device";
-import DialogModel from "models/Dialog";
+import MessageModel from "models/Message";
 import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
-import IDialog from "types/dialog.type";
+import IMessage from "types/message.type";
 import { v4 as uuidv4 } from "uuid";
 
 const TextWrapper = styled.div`
@@ -51,7 +51,7 @@ const ActionItems = ({
     </Space>,
 ];
 
-export default function Dialog({ dialogs, loading }) {
+export default function Message({ dialog, loading }) {
     const isMobile = useMobile();
     const SKELETON_COUNT = 5;
 
@@ -75,10 +75,10 @@ export default function Dialog({ dialogs, loading }) {
         );
     }
 
-    if (!dialogs.length) {
+    if (!dialog.length) {
         return (
             <EmptyWrapper>
-                <Empty description="No dialogs" />
+                <Empty description="No dialog" />
             </EmptyWrapper>
         );
     }
@@ -86,8 +86,8 @@ export default function Dialog({ dialogs, loading }) {
         <List
             itemLayout="vertical"
             size="large"
-            dataSource={dialogs}
-            renderItem={(item: IDialog) => (
+            dataSource={dialog}
+            renderItem={(item: IMessage) => (
                 <List.Item
                     key={item.name}
                     actions={ActionItems({
@@ -126,12 +126,12 @@ export default function Dialog({ dialogs, loading }) {
     );
 }
 
-Dialog.propTypes = {
-    dialogs: PropTypes.arrayOf(PropTypes.instanceOf(DialogModel)),
+Message.propTypes = {
+    dialog: PropTypes.arrayOf(PropTypes.instanceOf(MessageModel)),
     loading: PropTypes.bool,
 };
 
-Dialog.defaultProps = {
-    dialogs: [],
+Message.defaultProps = {
+    dialog: [],
     loading: false,
 };

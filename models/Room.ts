@@ -1,5 +1,5 @@
 import BaseModel from "models/BaseModel";
-import IDialog from "types/dialog.type";
+import IMessage from "types/message.type";
 import IRoom, { TRoomExternal, TRoomField, TRoomMenu } from "types/room.type";
 
 export default class Room extends BaseModel implements IRoom {
@@ -17,7 +17,7 @@ export default class Room extends BaseModel implements IRoom {
 
     users: Array<object>;
 
-    dialogs: Array<object>;
+    dialog: Array<IMessage>;
 
     constructor(config: TRoomExternal) {
         super();
@@ -28,7 +28,7 @@ export default class Room extends BaseModel implements IRoom {
         this.createdAt = new Date(config.created_at);
         this.updatedAt = new Date(config.updated_at);
         this.users = config.users || [];
-        this.dialogs = config.dialogs || [];
+        this.dialog = config.dialog || [];
     }
 
     toMenu(): TRoomMenu {
@@ -39,15 +39,19 @@ export default class Room extends BaseModel implements IRoom {
         };
     }
 
-    setDialogs(dialogs: Array<IDialog>): IRoom {
-        this.dialogs = dialogs;
+    setDialog(dialog: Array<IMessage>): IRoom {
+        this.dialog = dialog;
         return { ...this };
+    }
+
+    addMessage(message: IMessage): IRoom {
+        return this.setDialog(this.dialog.concat(message));
     }
 
     toExternal(): TRoomExternal {
         const external = { ...this };
         delete external.toMenu;
-        delete external.setDialogs;
+        delete external.setDialog;
         delete external.toExternal;
 
         return {
@@ -61,7 +65,7 @@ export default class Room extends BaseModel implements IRoom {
         return {
             id: null,
             users: [],
-            dialogs: [],
+            dialog: [],
             created_at: new Date(),
             updated_at: new Date(),
             ...config,

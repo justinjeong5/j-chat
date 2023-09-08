@@ -1,7 +1,10 @@
-import IDialog, { TCountType } from "types/dialog.type";
+import BaseModel from "models/BaseModel";
+import IMessage, { TCountType, TMessageExternal } from "types/message.type";
 
-export default class Dialog implements IDialog {
+export default class Message extends BaseModel implements IMessage {
     id: number;
+
+    roomId: string;
 
     name: string;
 
@@ -17,9 +20,9 @@ export default class Dialog implements IDialog {
 
     content: string;
 
-    created_at: Date;
+    createdAt: Date;
 
-    updated_at: Date;
+    updatedAt: Date;
 
     stars: Array<object>;
 
@@ -27,8 +30,12 @@ export default class Dialog implements IDialog {
 
     comments: Array<object>;
 
+    dialog: Array<IMessage>;
+
     constructor(config) {
+        super();
         this.id = config.id || null;
+        this.roomId = config.room_id || null;
         this.name = config.name || null;
         this.href = config.href || null;
         this.image = config.image || null;
@@ -36,14 +43,28 @@ export default class Dialog implements IDialog {
         this.avatar = config.avatar || null;
         this.status = config.status || null;
         this.content = config.content || null;
-        this.created_at = new Date(config.created_at || null);
-        this.updated_at = new Date(config.updated_at || null);
+        this.createdAt = new Date(config.created_at || null);
+        this.updatedAt = new Date(config.updated_at || null);
         this.stars = config.stars || [];
         this.likes = config.likes || [];
         this.comments = config.comments || [];
+        this.dialog = config.dialog || [];
     }
 
     getCount(type: TCountType): number {
         return this[type].length;
+    }
+
+    static toInternal(config: object) {
+        return config;
+    }
+
+    toExternal(): TMessageExternal {
+        return {
+            ...this,
+            room_id: this.roomId,
+            created_at: this.createdAt,
+            updated_at: this.updatedAt,
+        };
     }
 }

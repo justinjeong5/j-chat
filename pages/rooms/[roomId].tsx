@@ -1,5 +1,5 @@
-import Dialog from "components/content/Dialog";
 import Header from "components/content/Header";
+import Message from "components/content/Message";
 import Textator from "components/content/Textator";
 import AppFrame from "components/layout/AppFrame";
 import ChatFrame from "components/layout/ChatFrame";
@@ -16,19 +16,23 @@ function Room() {
     const [chatRoom, setChatRoom] = useState({
         title: "",
         users: [],
-        dialogs: [],
+        dialog: [],
     });
 
     const [fetchingData, setFetchingData] = useState(false);
-    const [showDialogTour, setShowDialogTour] = useState(false);
-    const [localStorageHideDialogTour, setLocalStorageHideDialogTour] =
+    const [showMessageTour, setShowMessageTour] = useState(false);
+    const [localStorageHideMessageTour, setLocalStorageHideMessageTour] =
         useState(false);
 
+    const handleSubmit = message => {
+        console.log(message);
+    };
+
     useEffect(() => {
-        const hideDialogTour = JSON.parse(
-            localStorage.getItem("jChatHideDialogTour"),
+        const hideMessageTour = JSON.parse(
+            localStorage.getItem("jChatHideMessageTour"),
         );
-        setLocalStorageHideDialogTour(hideDialogTour);
+        setLocalStorageHideMessageTour(hideMessageTour);
     }, []);
 
     useEffect(() => {
@@ -40,11 +44,11 @@ function Room() {
                 }
 
                 setFetchingData(true);
-                const data = await RoomRepo.getRoomWithDialogs(roomId);
+                const data = await RoomRepo.getRoomWithDialog(roomId);
                 setChatRoom(data);
 
-                if (!localStorageHideDialogTour && !data.dialogs.length) {
-                    setShowDialogTour(true);
+                if (!localStorageHideMessageTour && !data.dialog.length) {
+                    setShowMessageTour(true);
                 }
             } catch (e) {
                 errorHandler(e);
@@ -62,16 +66,17 @@ function Room() {
                 header={<Header room={chatRoom} loading={fetchingData} />}
             >
                 <ChatFrame
-                    dialog={
-                        <Dialog
-                            dialogs={chatRoom.dialogs}
+                    message={
+                        <Message
+                            dialog={chatRoom.dialog}
                             loading={fetchingData}
                         />
                     }
                     textator={
                         <Textator
                             placeholder={`#${chatRoom.title} 채널에서 이야기하기`}
-                            dialogTour={showDialogTour}
+                            messageTour={showMessageTour}
+                            handleSubmit={handleSubmit}
                         />
                     }
                 />

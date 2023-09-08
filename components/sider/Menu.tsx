@@ -77,7 +77,7 @@ export default function Page() {
                     },
                     {
                         key: RoomsModel.DIRECT,
-                        label: "Direct Messages",
+                        label: "Direct Dialog",
                         icon: <UserOutlined />,
                         children: roomsData
                             .getTypeOf(RoomsModel.DIRECT)

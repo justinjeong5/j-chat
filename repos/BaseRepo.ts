@@ -37,7 +37,7 @@ const defaultActions = (url: string): TActions => ({
     },
 });
 
-class BaseModel {
+abstract class BaseModel {
     client: TCommon;
 
     actions: TCommon;
@@ -59,30 +59,11 @@ class BaseModel {
         return withQS(baseWithPath, query);
     }
 
-    async list(query?: TQuery): Promise<{ data: { results: Array<TCommon> } }> {
-        const url = this.buildUrl("list", query);
-        return this.client.get(url);
-    }
-
-    async create(data: object, query?: TQuery): Promise<{ data: TCommon }> {
-        const url = this.buildUrl("create", query);
-        return this.client.post(url, data);
-    }
-
-    async update(data: TWithID, query?: TQuery): Promise<{ data: TCommon }> {
-        const url = this.buildUrl("update", query, { id: data.id });
-        return this.client.put(url, data);
-    }
-
-    async patch(data: TWithID, query?: TQuery): Promise<{ data: TCommon }> {
-        const url = this.buildUrl("patch", query, { id: data.id });
-        return this.client.patch(url, data);
-    }
-
-    async get(id: string, query?: TQuery): Promise<{ data: TCommon }> {
-        const url = this.buildUrl("get", query, { id });
-        return this.client.get(url);
-    }
+    abstract list(query?: TQuery): Promise<{ results: Array<TCommon> }>;
+    abstract create(data: object, query?: TQuery): Promise<TCommon>;
+    abstract update(data: object, query?: TQuery): Promise<TCommon>;
+    abstract patch(data: object, query?: TQuery): Promise<TCommon>;
+    abstract get(id: string, query?: TQuery): Promise<TCommon>;
 }
 
 export default BaseModel;

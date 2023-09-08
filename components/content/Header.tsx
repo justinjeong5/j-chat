@@ -59,7 +59,7 @@ export default function Header({ room, loading }) {
                     {loading ? (
                         <Skeleton.Button active block size="small" />
                     ) : (
-                        room.dialogs.length
+                        room.dialog.length
                     )}
                 </ContainerItem>
                 <ContainerItem>
@@ -81,7 +81,7 @@ Header.propTypes = {
         type: PropTypes.oneOf([Rooms.PUBLIC, Rooms.STAR, Rooms.DIRECT])
             .isRequired,
         users: PropTypes.arrayOf(number).isRequired,
-        dialogs: PropTypes.arrayOf(number).isRequired,
+        dialog: PropTypes.arrayOf(number).isRequired,
     }).isRequired,
     loading: PropTypes.bool,
 };

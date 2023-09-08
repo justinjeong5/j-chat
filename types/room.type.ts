@@ -1,3 +1,5 @@
+import IMessage from "types/message.type";
+
 export type TRoom = {
     id: number;
     title: string;
@@ -6,12 +8,13 @@ export type TRoom = {
     createdAt: Date;
     updatedAt: Date;
     users: Array<object>;
-    dialogs: Array<object>;
+    dialog: Array<IMessage>;
 };
 
 export default interface IRoom extends TRoom {
     toMenu(): TRoomMenu;
-    setDialogs(dialogs: Array<object>): IRoom;
+    setDialog(dialog: Array<IMessage>): IRoom;
+    addMessage(message: IMessage): IRoom;
     toExternal(): TRoomExternal;
 }
 
@@ -23,7 +26,7 @@ export type TRoomExternal = {
     created_at: Date;
     updated_at: Date;
     users: Array<object>;
-    dialogs: Array<object>;
+    dialog: Array<IMessage>;
 };
 
 export type TRoomMenu = {
@@ -36,7 +39,7 @@ export type TRoomMenu = {
     createdAt: Date;
     updatedAt: Date;
     users: Array<object>;
-    dialogs: Array<object>;
+    dialog: Array<IMessage>;
 };
 
 export type TRoomField = {

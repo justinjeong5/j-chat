@@ -18,17 +18,23 @@ const HiddenTextArea = styled.div`
     visibility: hidden;
 `;
 
-export default function Textator({ placeholder, dialogTour }) {
+export default function Textator({
+    handleSubmit,
+    placeholder,
+    messageTour,
+    sending,
+}) {
     const textAreaRef = useRef(null);
     const fileBtnRef = useRef(null);
     const sendBtnRef = useRef(null);
     const [showTour, setShowTour] = useState(false);
+    const [message, setMessage] = useState("");
 
     useEffect(() => {
-        if (dialogTour) {
+        if (messageTour) {
             setShowTour(true);
         }
-    }, [dialogTour]);
+    }, [messageTour]);
 
     const steps: TourProps["steps"] = [
         {
@@ -58,8 +64,17 @@ export default function Textator({ placeholder, dialogTour }) {
     ];
 
     const handleTourClose = () => {
-        localStorage.setItem("jChatHideDialogTour", JSON.stringify(true));
+        localStorage.setItem("jChatHideMessageTour", JSON.stringify(true));
         setShowTour(false);
+    };
+
+    const handleChange = e => {
+        setMessage(e.target.value);
+    };
+
+    const handleSend = () => {
+        handleSubmit(message);
+        setMessage("");
     };
 
     return (
@@ -68,11 +83,18 @@ export default function Textator({ placeholder, dialogTour }) {
             <TextArea
                 autoSize={{ minRows: 3, maxRows: 5 }}
                 placeholder={placeholder}
+                onChange={handleChange}
+                onPressEnter={handleSend}
             />
             <SpaceWrapper>
                 <Space wrap>
                     <Button ref={fileBtnRef}>파일 첨부</Button>
-                    <Button type="primary" ref={sendBtnRef}>
+                    <Button
+                        type="primary"
+                        ref={sendBtnRef}
+                        onClick={handleSend}
+                        disabled={sending}
+                    >
                         전송
                     </Button>
                 </Space>
@@ -84,11 +106,14 @@ export default function Textator({ placeholder, dialogTour }) {
 }
 
 Textator.propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
-    dialogTour: PropTypes.bool,
+    messageTour: PropTypes.bool,
+    sending: PropTypes.bool,
 };
 
 Textator.defaultProps = {
     placeholder: "이야기를 나누어 보세요.",
-    dialogTour: false,
+    messageTour: false,
+    sending: false,
 };
