@@ -3,7 +3,7 @@ import useLogin from "hooks/login";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { TUserField } from "types/user";
+import { TUserField } from "types/user.type";
 
 const Container = styled.div`
     display: flex;

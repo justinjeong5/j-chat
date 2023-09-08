@@ -1,5 +1,5 @@
-import IRoom from "types/room";
-import { TRoomType } from "types/rooms";
+import IRoom from "types/room.type";
+import { TRoomType } from "types/rooms.type";
 
 export default class Rooms {
     list: Array<IRoom>;

@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import qs from "qs";
-import { TQuery } from "types/common";
+import { TQuery } from "types/common.type";
 
 // const { API } = process.env;
 const API = "http://localhost:3004";

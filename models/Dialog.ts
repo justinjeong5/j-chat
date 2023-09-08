@@ -1,4 +1,4 @@
-import IDialog, { TCountType } from "types/dialog";
+import IDialog, { TCountType } from "types/dialog.type";
 
 export default class Dialog implements IDialog {
     id: number;

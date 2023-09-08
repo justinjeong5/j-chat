@@ -6,7 +6,7 @@ import useRemember from "hooks/login/remember";
 import { useRouter } from "next/router";
 import { useEffect, useMemo } from "react";
 import styled from "styled-components";
-import { TUserField } from "types/user";
+import { TUserField } from "types/user.type";
 
 const Container = styled.div`
     display: flex;

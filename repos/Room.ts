@@ -4,8 +4,8 @@ import Room from "models/Room";
 import Rooms from "models/Rooms";
 import BaseRepo from "repos/BaseRepo";
 import DialogRepo from "repos/Dialog";
-import IRoom, { TRoomField } from "types/room";
-import IRooms from "types/rooms";
+import IRoom, { TRoomField } from "types/room.type";
+import IRooms from "types/rooms.type";
 
 class RoomRepo extends BaseRepo {
     async getRooms(): Promise<IRooms> {

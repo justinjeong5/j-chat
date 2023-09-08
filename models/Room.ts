@@ -1,6 +1,6 @@
 import BaseModel from "models/BaseModel";
-import IDialog from "types/dialog";
-import IRoom, { TRoomExternal, TRoomField, TRoomMenu } from "types/room";
+import IDialog from "types/dialog.type";
+import IRoom, { TRoomExternal, TRoomField, TRoomMenu } from "types/room.type";
 
 export default class Room extends BaseModel implements IRoom {
     id: number;

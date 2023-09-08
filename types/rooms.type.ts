@@ -1,4 +1,4 @@
-import IRoom from "types/room";
+import IRoom from "types/room.type";
 
 export type TRooms = {
     list: Array<IRoom>;

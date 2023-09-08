@@ -2,7 +2,7 @@
 import { AxiosInstance } from "axios";
 import { createAPIClient, withAPI, withQS } from "lib/api";
 import isNil from "lodash/isNil";
-import { TCommon, TQuery, TWithID } from "types/common";
+import { TCommon, TQuery, TWithID } from "types/common.type";
 
 export const defaultAPIClient = createAPIClient({ baseURL: "" });
 

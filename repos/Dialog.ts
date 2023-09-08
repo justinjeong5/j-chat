@@ -1,6 +1,6 @@
 import client from "lib/api";
 import Dialog from "models/Dialog";
-import TDialog from "types/dialog";
+import TDialog from "types/dialog.type";
 
 export default class DialogRepo {
     static async getDialogsFromRoom(roomId: string): Promise<Array<TDialog>> {
