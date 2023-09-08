@@ -6,6 +6,7 @@ import useRemember from "hooks/login/remember";
 import { useRouter } from "next/router";
 import { useEffect, useMemo } from "react";
 import styled from "styled-components";
+import { TUserField } from "types/user";
 
 const Container = styled.div`
     display: flex;
@@ -34,7 +35,7 @@ export default function Login() {
         }
     }, [isLoggedIn]);
 
-    const handleFinish = (values: any) => {
+    const handleFinish = (values: TUserField): void => {
         login(values.email, values.password);
         if (checked) {
             remember(values.email);
@@ -43,7 +44,7 @@ export default function Login() {
         }
     };
 
-    const handleRemember = (e: CheckboxChangeEvent) => {
+    const handleRemember = (e: CheckboxChangeEvent): void => {
         setChecked(e.target.checked);
     };
 
@@ -60,11 +61,6 @@ export default function Login() {
         };
     }, [checked, userEmail]);
 
-    type FieldType = {
-        email?: string;
-        password?: string;
-    };
-
     return (
         <Container>
             <CardWrapper>
@@ -73,7 +69,7 @@ export default function Login() {
                     initialValues={initialValues}
                     onFinish={handleFinish}
                 >
-                    <Form.Item<FieldType>
+                    <Form.Item<TUserField>
                         name="email"
                         rules={[
                             {
@@ -82,21 +78,21 @@ export default function Login() {
                             },
                         ]}
                     >
-                        <Input prefix={<UserOutlined />} placeholder="Email" />
+                        <Input prefix={<UserOutlined />} placeholder="이메일" />
                     </Form.Item>
-                    <Form.Item
+                    <Form.Item<TUserField>
                         name="password"
                         rules={[
                             {
                                 required: true,
-                                message: "Please input your Password!",
+                                message: "비밀번호를 입력해 주세요.",
                             },
                         ]}
                     >
                         <Input
                             prefix={<LockOutlined />}
                             type="password"
-                            placeholder="Password"
+                            placeholder="비밀번호"
                         />
                     </Form.Item>
                     <Form.Item>
@@ -107,11 +103,11 @@ export default function Login() {
                                 noStyle
                             >
                                 <Checkbox onChange={handleRemember}>
-                                    Remember me
+                                    아이디 기억하기
                                 </Checkbox>
                             </Form.Item>
 
-                            <a href="/signup">Forgot password</a>
+                            <a href="/signup">비밀번호 찾기</a>
                         </SpaceWrapper>
                     </Form.Item>
 
@@ -121,9 +117,9 @@ export default function Login() {
                             htmlType="submit"
                             style={{ width: "100%" }}
                         >
-                            Log in
+                            로그인하기
                         </Button>
-                        Or <a href="/signup">register now!</a>
+                        또는 <a href="/signup">회원 가입</a>하기
                     </Form.Item>
                 </Form>
             </CardWrapper>

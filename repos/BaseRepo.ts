@@ -2,6 +2,7 @@
 import { AxiosInstance } from "axios";
 import { createAPIClient, withAPI, withQS } from "lib/api";
 import isNil from "lodash/isNil";
+import { TCommon } from "types/common";
 
 export const defaultAPIClient = createAPIClient({ baseURL: "" });
 
@@ -37,9 +38,9 @@ const defaultActions = (url: string): IActions => ({
 });
 
 class BaseModel {
-    client: any;
+    client: TCommon;
 
-    actions: any;
+    actions: TCommon;
 
     constructor(
         url: string = "",
@@ -63,22 +64,22 @@ class BaseModel {
         return this.client.get(url);
     }
 
-    async create(data: object, query?): Promise<{ data: any }> {
+    async create(data: object, query?): Promise<{ data: TCommon }> {
         const url = this.buildUrl("create", query);
         return this.client.post(url, data);
     }
 
-    async update(data: { id: string }, query?): Promise<{ data: any }> {
+    async update(data: { id: string }, query?): Promise<{ data: TCommon }> {
         const url = this.buildUrl("update", query, { id: data.id });
         return this.client.put(url, data);
     }
 
-    async patch(data: { id: string }, query?): Promise<{ data: any }> {
+    async patch(data: { id: string }, query?): Promise<{ data: TCommon }> {
         const url = this.buildUrl("patch", query, { id: data.id });
         return this.client.patch(url, data);
     }
 
-    async get(id: string, query?): Promise<{ data: any }> {
+    async get(id: string, query?): Promise<{ data: TCommon }> {
         const url = this.buildUrl("get", query, { id });
         return this.client.get(url);
     }
