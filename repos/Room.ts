@@ -4,8 +4,8 @@ import Rooms from "models/Rooms";
 import BaseRepo from "repos/BaseRepo";
 import MessageRepo from "repos/Message";
 import { TQuery } from "types/common.type";
-import IMessage from "types/message.type";
-import IRoom, { TRoom, TRoomField } from "types/room.type";
+import { TMessageExternal } from "types/message.type";
+import IRoom, { TRoomExternal, TRoomField } from "types/room.type";
 import IRooms from "types/rooms.type";
 
 class RoomRepo extends BaseRepo {
@@ -21,22 +21,22 @@ class RoomRepo extends BaseRepo {
             .then(({ data }) => ({ results: data.map(r => new Room(r)) }));
     }
 
-    async create(message: TRoom, query?: TQuery): Promise<IRoom> {
+    async create(room: TRoomExternal, query?: TQuery): Promise<IRoom> {
         return this.client
-            .post(this.buildUrl("create", query), message)
+            .post(this.buildUrl("create", query), room)
             .then(({ data }) => new Room(data));
     }
 
-    async update(message: TRoom, query?: TQuery): Promise<IRoom> {
+    async update(room: TRoomExternal, query?: TQuery): Promise<IRoom> {
         return this.client
-            .patch(this.buildUrl("update", query), message)
+            .patch(this.buildUrl("update", query, room), room)
             .then(({ data }) => new Room(data));
     }
 
-    async patch(message: TRoom, query?: object): Promise<any> {
+    async patch(room: TRoomExternal, query?: object): Promise<IRoom> {
         return this.client
-            .patch(this.buildUrl("patch", query), message)
-            .then(({ data }) => data);
+            .patch(this.buildUrl("patch", query, room), room)
+            .then(({ data }) => new Room(data));
     }
 
     async getRooms(): Promise<IRooms> {
@@ -53,15 +53,11 @@ class RoomRepo extends BaseRepo {
     }
 
     async createRoom({ title, type, description }: TRoomField): Promise<IRoom> {
-        const room = new Room(Room.toInternal({ title, type, description }));
-        return this.create(room);
+        return this.create(Room.createItem({ title, type, description }));
     }
 
-    async addMessage(roomId: string, message: string): Promise<IMessage> {
-        const roomData = await this.get(roomId);
-        const messageData = await MessageRepo.create(new Message(message));
-        const roomData2 = await this.patch(roomData.addMessage(messageData));
-        return roomData2;
+    async addMessage(room: IRoom, message: TMessageExternal): Promise<IRoom> {
+        return this.patch(room.addMessage(new Message(message)).toExternal());
     }
 }
 

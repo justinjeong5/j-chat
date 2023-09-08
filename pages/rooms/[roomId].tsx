@@ -6,9 +6,11 @@ import ChatFrame from "components/layout/ChatFrame";
 import Menu from "components/sider/Menu";
 import WithAuth from "hoc/WithAuth";
 import useNotice from "hooks/notice/notice";
+import MessageModel from "models/Message";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import RoomRepo from "repos/Room";
+import IRoom from "types/room.type";
 
 function Room() {
     const router = useRouter();
@@ -17,15 +19,19 @@ function Room() {
         title: "",
         users: [],
         dialog: [],
-    });
+    } as IRoom);
 
     const [fetchingData, setFetchingData] = useState(false);
     const [showMessageTour, setShowMessageTour] = useState(false);
     const [localStorageHideMessageTour, setLocalStorageHideMessageTour] =
         useState(false);
 
-    const handleSubmit = message => {
-        console.log(message);
+    const handleSubmit = async message => {
+        const room = await RoomRepo.addMessage(
+            chatRoom,
+            MessageModel.createItem(message),
+        );
+        setChatRoom(room);
     };
 
     useEffect(() => {

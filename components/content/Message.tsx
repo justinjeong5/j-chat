@@ -1,7 +1,6 @@
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Avatar, Empty, List, Skeleton, Space } from "antd";
 import useMobile from "hooks/layout/device";
-import MessageModel from "models/Message";
 import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
@@ -91,7 +90,7 @@ export default function Message({ dialog, loading }) {
                 <List.Item
                     key={item.name}
                     actions={ActionItems({
-                        stars: item.getCount("stars"),
+                        stars: item.stars.length,
                         likes: item.likes.length,
                         comments: item.comments.length,
                     })}
@@ -127,7 +126,19 @@ export default function Message({ dialog, loading }) {
 }
 
 Message.propTypes = {
-    dialog: PropTypes.arrayOf(PropTypes.instanceOf(MessageModel)),
+    dialog: PropTypes.arrayOf(
+        PropTypes.shape({
+            name: PropTypes.string,
+            avatar: PropTypes.string,
+            href: PropTypes.string,
+            description: PropTypes.string,
+            image: PropTypes.string,
+            content: PropTypes.string,
+            likes: PropTypes.arrayOf(PropTypes.shape({})),
+            stars: PropTypes.arrayOf(PropTypes.shape({})),
+            comments: PropTypes.arrayOf(PropTypes.shape({})),
+        }),
+    ),
     loading: PropTypes.bool,
 };
 

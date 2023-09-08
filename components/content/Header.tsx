@@ -81,7 +81,22 @@ Header.propTypes = {
         type: PropTypes.oneOf([Rooms.PUBLIC, Rooms.STAR, Rooms.DIRECT])
             .isRequired,
         users: PropTypes.arrayOf(number).isRequired,
-        dialog: PropTypes.arrayOf(number).isRequired,
+        dialog: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.string,
+                roomId: PropTypes.string,
+                name: PropTypes.string,
+                href: PropTypes.string,
+                image: PropTypes.string,
+                description: PropTypes.string,
+                avatar: PropTypes.string,
+                status: PropTypes.string,
+                content: PropTypes.string,
+                likes: PropTypes.arrayOf(PropTypes.shape({})),
+                stars: PropTypes.arrayOf(PropTypes.shape({})),
+                comments: PropTypes.arrayOf(PropTypes.shape({})),
+            }),
+        ).isRequired,
     }).isRequired,
     loading: PropTypes.bool,
 };

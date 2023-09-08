@@ -30,6 +30,7 @@ const defaultActions = (url: string): TActions => ({
         return `${url}/${id}`;
     },
     patch: ({ id }: TWithID) => {
+        console.log("patch", id);
         if (isNil(id)) {
             throw new Error(`Invalid ID: ${id}`);
         }

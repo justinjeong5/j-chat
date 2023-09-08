@@ -1,7 +1,7 @@
 import IMessage from "types/message.type";
 
 export type TRoom = {
-    id: number;
+    id: string;
     title: string;
     description: string;
     type: string;
@@ -19,7 +19,7 @@ export default interface IRoom extends TRoom {
 }
 
 export type TRoomExternal = {
-    id: number;
+    id: string;
     title: string;
     description: string;
     type: string;
@@ -32,7 +32,7 @@ export type TRoomExternal = {
 export type TRoomMenu = {
     key: string;
     label: string;
-    id: number;
+    id: string;
     title: string;
     description: string;
     type: string;

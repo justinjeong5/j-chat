@@ -1,5 +1,5 @@
 export type TMessage = {
-    id: number;
+    id: string;
     roomId: string;
     name: string;
     href: string;
@@ -22,7 +22,7 @@ export default interface IMessage extends TMessage {
 export type TCountType = "stars" | "likes" | "comments";
 
 export type TMessageExternal = {
-    id: number;
+    id: string;
     room_id: string;
     name: string;
     href: string;
@@ -36,4 +36,9 @@ export type TMessageExternal = {
     stars: Array<object>;
     likes: Array<object>;
     comments: Array<object>;
+};
+
+export type TMessageField = {
+    roomId: string;
+    description: string;
 };

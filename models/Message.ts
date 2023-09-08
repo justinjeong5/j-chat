@@ -1,8 +1,12 @@
 import BaseModel from "models/BaseModel";
-import IMessage, { TCountType, TMessageExternal } from "types/message.type";
+import IMessage, {
+    TCountType,
+    TMessageExternal,
+    TMessageField,
+} from "types/message.type";
 
 export default class Message extends BaseModel implements IMessage {
-    id: number;
+    id: string;
 
     roomId: string;
 
@@ -30,9 +34,7 @@ export default class Message extends BaseModel implements IMessage {
 
     comments: Array<object>;
 
-    dialog: Array<IMessage>;
-
-    constructor(config) {
+    constructor(config: TMessageExternal) {
         super();
         this.id = config.id || null;
         this.roomId = config.room_id || null;
@@ -48,15 +50,29 @@ export default class Message extends BaseModel implements IMessage {
         this.stars = config.stars || [];
         this.likes = config.likes || [];
         this.comments = config.comments || [];
-        this.dialog = config.dialog || [];
     }
 
     getCount(type: TCountType): number {
         return this[type].length;
     }
 
-    static toInternal(config: object) {
-        return config;
+    static createItem(config: TMessageField): TMessageExternal {
+        return {
+            id: null,
+            name: null,
+            href: null,
+            image: null,
+            avatar: null,
+            status: null,
+            content: null,
+            created_at: new Date(),
+            updated_at: new Date(),
+            stars: [],
+            likes: [],
+            comments: [],
+            ...config,
+            room_id: config.roomId,
+        };
     }
 
     toExternal(): TMessageExternal {

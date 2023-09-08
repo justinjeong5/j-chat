@@ -3,7 +3,7 @@ import IMessage from "types/message.type";
 import IRoom, { TRoomExternal, TRoomField, TRoomMenu } from "types/room.type";
 
 export default class Room extends BaseModel implements IRoom {
-    id: number;
+    id: string;
 
     title: string;
 
@@ -41,7 +41,7 @@ export default class Room extends BaseModel implements IRoom {
 
     setDialog(dialog: Array<IMessage>): IRoom {
         this.dialog = dialog;
-        return { ...this };
+        return this;
     }
 
     addMessage(message: IMessage): IRoom {
@@ -53,15 +53,17 @@ export default class Room extends BaseModel implements IRoom {
         delete external.toMenu;
         delete external.setDialog;
         delete external.toExternal;
+        delete external.addMessage;
 
         return {
             ...this,
+            id: String(this.id),
             created_at: this.createdAt,
             updated_at: this.updatedAt,
         };
     }
 
-    static toInternal(config: TRoomField): TRoomExternal {
+    static createItem(config: TRoomField): TRoomExternal {
         return {
             id: null,
             users: [],

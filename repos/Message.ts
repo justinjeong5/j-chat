@@ -1,7 +1,7 @@
 import Message from "models/Message";
 import BaseRepo from "repos/BaseRepo";
 import { TQuery } from "types/common.type";
-import IMessage, { TMessage } from "types/message.type";
+import IMessage, { TMessageExternal } from "types/message.type";
 
 class MessageRepo extends BaseRepo {
     async get(id: string, query?: TQuery): Promise<IMessage> {
@@ -16,19 +16,19 @@ class MessageRepo extends BaseRepo {
             .then(({ data }) => ({ results: data.map(r => new Message(r)) }));
     }
 
-    async create(message: TMessage, query?: TQuery): Promise<IMessage> {
+    async create(message: TMessageExternal, query?: TQuery): Promise<IMessage> {
         return this.client
             .post(this.buildUrl("create", query), message)
             .then(({ data }) => new Message(data));
     }
 
-    async update(message: TMessage, query?: TQuery): Promise<IMessage> {
+    async update(message: TMessageExternal, query?: TQuery): Promise<IMessage> {
         return this.client
             .patch(this.buildUrl("update", query), message)
             .then(({ data }) => new Message(data));
     }
 
-    async patch(message: TMessage, query?: object): Promise<any> {
+    async patch(message: TMessageExternal, query?: object): Promise<IMessage> {
         return this.client
             .patch(this.buildUrl("patch", query), message)
             .then(({ data }) => data);

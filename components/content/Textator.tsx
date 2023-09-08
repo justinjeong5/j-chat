@@ -72,7 +72,8 @@ export default function Textator({
         setMessage(e.target.value);
     };
 
-    const handleSend = () => {
+    const handleSend = e => {
+        e.preventDefault();
         handleSubmit(message);
         setMessage("");
     };
@@ -81,7 +82,7 @@ export default function Textator({
         <>
             <HiddenTextArea ref={textAreaRef} />
             <TextArea
-                autoSize={{ minRows: 3, maxRows: 5 }}
+                autoSize={{ minRows: 3, maxRows: 3 }}
                 placeholder={placeholder}
                 onChange={handleChange}
                 onPressEnter={handleSend}
