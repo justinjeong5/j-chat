@@ -237,3 +237,5 @@ sketch
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/nextjs,react,visualstudiocode,macos,node
+# Sentry Auth Token
+.sentryclirc

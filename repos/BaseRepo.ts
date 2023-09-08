@@ -59,7 +59,7 @@ class BaseModel {
         return withQS(baseWithPath, query);
     }
 
-    async list(query: object): Promise<{ data: { results: Array<any> } }> {
+    async list(query: object): Promise<{ data: { results: Array<TCommon> } }> {
         const url = this.buildUrl("list", query);
         return this.client.get(url);
     }
