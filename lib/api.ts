@@ -1,12 +1,13 @@
 import axios, { AxiosInstance } from "axios";
 import qs from "qs";
+import { TQuery } from "types/common";
 
 // const { API } = process.env;
 const API = "http://localhost:3004";
 
 const withAPI = (path: string = ""): string => API + path;
 
-const withQS = (path: string = "", query = {}): string => {
+const withQS = (path: string = "", query: TQuery = {}): string => {
     if (Object.keys(query).length === 0) {
         return path;
     }

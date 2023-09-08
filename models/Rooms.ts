@@ -1,34 +1,35 @@
-import Room from "models/Room";
+import IRoom from "types/room";
+import { TRoomType } from "types/rooms";
 
 export default class Rooms {
-    list: Array<Room>;
+    list: Array<IRoom>;
 
-    constructor(list: Array<Room>) {
+    constructor(list: Array<IRoom>) {
         this.list = list;
     }
 
-    getTypeOf(type: string): Array<Room> {
+    getTypeOf(type: TRoomType): Array<IRoom> {
         return this.list.filter(r => r.type === type);
     }
 
-    addRoom(room: Room): Array<Room> {
+    addRoom(room: IRoom): Array<IRoom> {
         this.list.push(room);
         return this.list;
     }
 
-    isEmpty() {
-        return this.list.length === 0;
+    isEmpty(): boolean {
+        return !this.list.length;
     }
 
-    static get PUBLIC() {
+    static get PUBLIC(): TRoomType {
         return "public";
     }
 
-    static get STAR() {
+    static get STAR(): TRoomType {
         return "star";
     }
 
-    static get DIRECT() {
+    static get DIRECT(): TRoomType {
         return "direct";
     }
 }

@@ -2,10 +2,10 @@ import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Avatar, Empty, List, Skeleton, Space } from "antd";
 import useMobile from "hooks/layout/device";
 import DialogModel from "models/Dialog";
-import IDialog from "models/Dialog.type";
 import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
+import IDialog from "types/dialog";
 import { v4 as uuidv4 } from "uuid";
 
 const TextWrapper = styled.div`
@@ -91,7 +91,7 @@ export default function Dialog({ dialogs, loading }) {
                 <List.Item
                     key={item.name}
                     actions={ActionItems({
-                        stars: item.stars.length,
+                        stars: item.getCount("stars"),
                         likes: item.likes.length,
                         comments: item.comments.length,
                     })}

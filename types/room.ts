@@ -1,4 +1,4 @@
-export interface IRoom {
+export type TRoom = {
     id: number;
     title: string;
     description: string;
@@ -7,9 +7,15 @@ export interface IRoom {
     updatedAt: Date;
     users: Array<object>;
     dialogs: Array<object>;
+};
+
+export default interface IRoom extends TRoom {
+    toMenu(): TRoomMenu;
+    setDialogs(dialogs: Array<object>): IRoom;
+    toExternal(): TRoomExternal;
 }
 
-export interface IRoomExternal {
+export type TRoomExternal = {
     id: number;
     title: string;
     description: string;
@@ -18,9 +24,9 @@ export interface IRoomExternal {
     updated_at: Date;
     users: Array<object>;
     dialogs: Array<object>;
-}
+};
 
-export interface IRoomMenu {
+export type TRoomMenu = {
     key: string;
     label: string;
     id: number;
@@ -31,4 +37,10 @@ export interface IRoomMenu {
     updatedAt: Date;
     users: Array<object>;
     dialogs: Array<object>;
-}
+};
+
+export type TRoomField = {
+    title: string;
+    type: string;
+    description: string;
+};

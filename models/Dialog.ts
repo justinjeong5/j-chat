@@ -1,4 +1,4 @@
-import IDialog from "models/Dialog.type";
+import IDialog, { TCountType } from "types/dialog";
 
 export default class Dialog implements IDialog {
     id: number;
@@ -41,5 +41,9 @@ export default class Dialog implements IDialog {
         this.stars = config.stars || [];
         this.likes = config.likes || [];
         this.comments = config.comments || [];
+    }
+
+    getCount(type: TCountType): number {
+        return this[type].length;
     }
 }

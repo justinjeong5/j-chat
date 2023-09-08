@@ -1,5 +1,6 @@
 import { Button, Form, Input, Modal, Select } from "antd";
 import useNotice from "hooks/notice/notice";
+import Rooms from "models/Rooms";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import RoomRepo from "repos/Room";
@@ -38,7 +39,7 @@ export default function CreateRoomModal({ onCreateRoom, children }) {
                 {children}
             </Button>
             <Modal
-                title="Create Room"
+                title="대화방을 생성"
                 open={open}
                 onOk={handleOk}
                 onCancel={toggleModal}
@@ -52,29 +53,29 @@ export default function CreateRoomModal({ onCreateRoom, children }) {
                 >
                     <Form.Item
                         name="title"
-                        label="Title"
+                        label="대화방 이름"
                         rules={[{ required: true }]}
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
                         name="description"
-                        label="Description"
+                        label="설명"
                         rules={[{ required: true }]}
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
                         name="type"
-                        label="Type"
+                        label="종류"
                         rules={[{ required: true }]}
                     >
                         <Select
                             placeholder="대화방 종류를 선택해주세요."
                             allowClear
                         >
-                            <Option value="public">Public</Option>
-                            <Option value="direct">Direct</Option>
+                            <Option value={Rooms.PUBLIC}>Public</Option>
+                            <Option value={Rooms.DIRECT}>Direct</Option>
                         </Select>
                     </Form.Item>
                 </Form>

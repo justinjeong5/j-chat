@@ -1,7 +1,8 @@
 import BaseModel from "models/BaseModel";
-import { IRoom, IRoomExternal, IRoomMenu } from "types/room";
+import IDialog from "types/dialog";
+import IRoom, { TRoomExternal, TRoomField, TRoomMenu } from "types/room";
 
-export default class Room extends BaseModel {
+export default class Room extends BaseModel implements IRoom {
     id: number;
 
     title: string;
@@ -18,7 +19,7 @@ export default class Room extends BaseModel {
 
     dialogs: Array<object>;
 
-    constructor(config: IRoomExternal) {
+    constructor(config: TRoomExternal) {
         super();
         this.id = config.id || null;
         this.title = config.title || null;
@@ -30,7 +31,7 @@ export default class Room extends BaseModel {
         this.dialogs = config.dialogs || [];
     }
 
-    toMenu(): IRoomMenu {
+    toMenu(): TRoomMenu {
         return {
             key: String(this.id),
             label: this.title,
@@ -38,12 +39,17 @@ export default class Room extends BaseModel {
         };
     }
 
-    setDialogs(dialogs: Array<object>): IRoom {
+    setDialogs(dialogs: Array<IDialog>): IRoom {
         this.dialogs = dialogs;
         return { ...this };
     }
 
-    toExternal(): IRoomExternal {
+    toExternal(): TRoomExternal {
+        const external = { ...this };
+        delete external.toMenu;
+        delete external.setDialogs;
+        delete external.toExternal;
+
         return {
             ...this,
             created_at: this.createdAt,
@@ -51,11 +57,7 @@ export default class Room extends BaseModel {
         };
     }
 
-    static toInternal(config: {
-        title: string;
-        type: string;
-        description: string;
-    }): IRoomExternal {
+    static toInternal(config: TRoomField): TRoomExternal {
         return {
             id: null,
             users: [],

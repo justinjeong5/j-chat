@@ -2,34 +2,34 @@
 import { AxiosInstance } from "axios";
 import { createAPIClient, withAPI, withQS } from "lib/api";
 import isNil from "lodash/isNil";
-import { TCommon } from "types/common";
+import { TCommon, TQuery, TWithID } from "types/common";
 
 export const defaultAPIClient = createAPIClient({ baseURL: "" });
 
-interface IActions {
+type TActions = {
     list: () => string;
     create: () => string;
-    get: ({ id }: { id: string }) => string;
-    update: ({ id }: { id: string }) => string;
-    patch: ({ id }: { id: string }) => string;
-}
+    get: ({ id }: TWithID) => string;
+    update: ({ id }: TWithID) => string;
+    patch: ({ id }: TWithID) => string;
+};
 
-const defaultActions = (url: string): IActions => ({
+const defaultActions = (url: string): TActions => ({
     list: () => url,
     create: () => url,
-    get: ({ id }) => {
+    get: ({ id }: TWithID) => {
         if (isNil(id)) {
             throw new Error(`Invalid ID: ${id}`);
         }
         return `${url}/${id}`;
     },
-    update: ({ id }) => {
+    update: ({ id }: TWithID) => {
         if (isNil(id)) {
             throw new Error(`Invalid ID: ${id}`);
         }
         return `${url}/${id}`;
     },
-    patch: ({ id }) => {
+    patch: ({ id }: TWithID) => {
         if (isNil(id)) {
             throw new Error(`Invalid ID: ${id}`);
         }
@@ -44,7 +44,7 @@ class BaseModel {
 
     constructor(
         url: string = "",
-        actions: (url: string) => IActions = defaultActions,
+        actions: (url: string) => TActions = defaultActions,
         client: AxiosInstance = defaultAPIClient,
     ) {
         this.client = client;
@@ -54,32 +54,32 @@ class BaseModel {
         };
     }
 
-    buildUrl(method, query, urlParams = {}) {
+    buildUrl(method, query?: TQuery, urlParams = {}) {
         const baseWithPath = this.actions[method](urlParams, query);
         return withQS(baseWithPath, query);
     }
 
-    async list(query: object): Promise<{ data: { results: Array<TCommon> } }> {
+    async list(query?: TQuery): Promise<{ data: { results: Array<TCommon> } }> {
         const url = this.buildUrl("list", query);
         return this.client.get(url);
     }
 
-    async create(data: object, query?): Promise<{ data: TCommon }> {
+    async create(data: object, query?: TQuery): Promise<{ data: TCommon }> {
         const url = this.buildUrl("create", query);
         return this.client.post(url, data);
     }
 
-    async update(data: { id: string }, query?): Promise<{ data: TCommon }> {
+    async update(data: TWithID, query?: TQuery): Promise<{ data: TCommon }> {
         const url = this.buildUrl("update", query, { id: data.id });
         return this.client.put(url, data);
     }
 
-    async patch(data: { id: string }, query?): Promise<{ data: TCommon }> {
+    async patch(data: TWithID, query?: TQuery): Promise<{ data: TCommon }> {
         const url = this.buildUrl("patch", query, { id: data.id });
         return this.client.patch(url, data);
     }
 
-    async get(id: string, query?): Promise<{ data: TCommon }> {
+    async get(id: string, query?: TQuery): Promise<{ data: TCommon }> {
         const url = this.buildUrl("get", query, { id });
         return this.client.get(url);
     }

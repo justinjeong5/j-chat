@@ -4,8 +4,8 @@ import Room from "models/Room";
 import Rooms from "models/Rooms";
 import BaseRepo from "repos/BaseRepo";
 import DialogRepo from "repos/Dialog";
-import { IRoom } from "types/room";
-import { IRooms } from "types/rooms";
+import IRoom, { TRoomField } from "types/room";
+import IRooms from "types/rooms";
 
 class RoomRepo extends BaseRepo {
     async getRooms(): Promise<IRooms> {
@@ -21,7 +21,7 @@ class RoomRepo extends BaseRepo {
         return new Room(roomData.data).setDialogs(dialogData);
     }
 
-    async createRoom({ title, type, description }: IRoom): Promise<IRoom> {
+    async createRoom({ title, type, description }: TRoomField): Promise<IRoom> {
         const room = new Room(Room.toInternal({ title, type, description }));
         const { data } = await this.create(room.toExternal());
         return new Room(data);
