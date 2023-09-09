@@ -29,7 +29,10 @@ function Room() {
     const handleSubmit = async message => {
         const room = await RoomRepo.addMessage(
             chatRoom,
-            MessageModel.createItem(message),
+            MessageModel.createItem({
+                description: message,
+                roomId: chatRoom.id,
+            }),
         );
         setChatRoom(room);
     };

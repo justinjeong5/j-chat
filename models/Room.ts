@@ -58,6 +58,7 @@ export default class Room extends BaseModel implements IRoom {
         return {
             ...this,
             id: String(this.id),
+            dialog: this.dialog.map(m => String(m.id)),
             created_at: this.createdAt,
             updated_at: this.updatedAt,
         };

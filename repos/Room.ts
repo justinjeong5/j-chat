@@ -1,4 +1,3 @@
-import Message from "models/Message";
 import Room from "models/Room";
 import Rooms from "models/Rooms";
 import BaseRepo from "repos/BaseRepo";
@@ -57,7 +56,9 @@ class RoomRepo extends BaseRepo {
     }
 
     async addMessage(room: IRoom, message: TMessageExternal): Promise<IRoom> {
-        return this.patch(room.addMessage(new Message(message)).toExternal());
+        const messageData = await MessageRepo.create(message);
+        await this.patch(room.addMessage(messageData).toExternal());
+        return this.getRoomWithDialog(room.id);
     }
 }
 

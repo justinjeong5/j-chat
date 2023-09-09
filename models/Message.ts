@@ -57,6 +57,9 @@ export default class Message extends BaseModel implements IMessage {
     }
 
     static createItem(config: TMessageField): TMessageExternal {
+        const filteredConfig = { ...config };
+        delete filteredConfig.roomId;
+
         return {
             id: null,
             name: null,
@@ -70,8 +73,8 @@ export default class Message extends BaseModel implements IMessage {
             stars: [],
             likes: [],
             comments: [],
-            ...config,
             room_id: config.roomId,
+            ...filteredConfig,
         };
     }
 

@@ -1,336 +1,540 @@
 {
-    "users": [
-        {
-            "id": 1,
-            "email": "justin.jeong5@gmail.com",
-            "name": "justin",
-            "is_staff": true,
-            "country": "KR",
-            "language": "ko"
-        }
-    ],
-    "dialog": [
-        {
-            "id": 1,
-            "room_id": 1,
-            "name": "ant design part 1",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=1",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": null,
-            "updated_at": null,
-            "stars": [1, 2, 3],
-            "likes": [1, 2],
-            "comments": [1, 2, 3, 4]
-        },
-        {
-            "id": 2,
-            "room_id": 2,
-            "name": "ant design part 2",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=2",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": null,
-            "updated_at": null,
-            "stars": [1, 2, 3],
-            "likes": [1, 2],
-            "comments": [1, 2, 3, 4]
-        },
-        {
-            "id": 3,
-            "room_id": 2,
-            "name": "ant design part 3",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=3",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": null,
-            "updated_at": null,
-            "stars": [1, 2, 3],
-            "likes": [1, 2],
-            "comments": [1, 2, 3, 4]
-        },
-        {
-            "id": 4,
-            "room_id": 3,
-            "name": "ant design part 4",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=4",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": null,
-            "updated_at": null,
-            "stars": [1, 2, 3],
-            "likes": [1, 2],
-            "comments": [1, 2, 3, 4]
-        },
-        {
-            "id": 5,
-            "room_id": 4,
-            "name": "ant design part 5",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=5",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": null,
-            "updated_at": null,
-            "stars": [1, 2, 3],
-            "likes": [1, 2],
-            "comments": [1, 2, 3, 4]
-        },
-        {
-            "id": 6,
-            "room_id": 1,
-            "name": "ant design part 6",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=6",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": null,
-            "updated_at": null,
-            "stars": [1, 2, 3],
-            "likes": [1, 2],
-            "comments": [1, 2, 3, 4]
-        },
-        {
-            "id": 7,
-            "room_id": 1,
-            "name": "ant design part 7",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=7",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": null,
-            "updated_at": null,
-            "stars": [1, 2, 3],
-            "likes": [1, 2],
-            "comments": [1, 2, 3, 4]
-        },
-        {
-            "id": 8,
-            "room_id": 2,
-            "name": "ant design part 8",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=8",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": null,
-            "updated_at": null,
-            "stars": [1, 2, 3],
-            "likes": [1, 2],
-            "comments": [1, 2, 3, 4]
-        },
-        {
-            "id": 9,
-            "room_id": 3,
-            "name": "ant design part 9",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=9",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": null,
-            "updated_at": null,
-            "stars": [1, 2, 3],
-            "likes": [1, 2],
-            "comments": [1, 2, 3, 4]
-        },
-        {
-            "id": 10,
-            "room_id": 4,
-            "name": "ant design part 10",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-            "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=10",
-            "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-            "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-            "created_at": "2023-08-22T01:00:00.000Z",
-            "updated_at": "2023-08-22T01:30:00.000Z",
-            "stars": [1, 2, 3],
-            "likes": [1, 2],
-            "comments": [1, 2, 3, 4]
-        }
-    ],
-    "rooms": [
-        {
-            "id": 1,
-            "room_id": 1,
-            "title": "Room 1",
-            "description": "Room 1",
-            "type": "public",
-            "created_at": "1970-01-01T00:00:00.000Z",
-            "updated_at": "1970-01-01T00:00:00.000Z",
-            "users": [1, 2, 3, 4],
-            "dialog": [
-                {
-                    "id": 1,
-                    "roomId": 1,
-                    "name": "ant design part 1",
-                    "href": null,
-                    "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-                    "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-                    "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=1",
-                    "status": null,
-                    "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-                    "createdAt": "1970-01-01T00:00:00.000Z",
-                    "updatedAt": "1970-01-01T00:00:00.000Z",
-                    "stars": [1, 2, 3],
-                    "likes": [1, 2],
-                    "comments": [1, 2, 3, 4]
-                },
-                {
-                    "id": 6,
-                    "roomId": 1,
-                    "name": "ant design part 6",
-                    "href": null,
-                    "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-                    "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-                    "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=6",
-                    "status": null,
-                    "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-                    "createdAt": "1970-01-01T00:00:00.000Z",
-                    "updatedAt": "1970-01-01T00:00:00.000Z",
-                    "stars": [1, 2, 3],
-                    "likes": [1, 2],
-                    "comments": [1, 2, 3, 4]
-                },
-                {
-                    "id": 7,
-                    "roomId": 1,
-                    "name": "ant design part 7",
-                    "href": null,
-                    "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
-                    "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-                    "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=7",
-                    "status": null,
-                    "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-                    "createdAt": "1970-01-01T00:00:00.000Z",
-                    "updatedAt": "1970-01-01T00:00:00.000Z",
-                    "stars": [1, 2, 3],
-                    "likes": [1, 2],
-                    "comments": [1, 2, 3, 4]
-                },
-                {
-                    "id": null,
-                    "roomId": null,
-                    "name": null,
-                    "href": null,
-                    "image": null,
-                    "description": null,
-                    "avatar": null,
-                    "status": null,
-                    "content": null,
-                    "createdAt": "2023-09-08T14:00:02.435Z",
-                    "updatedAt": "2023-09-08T14:00:02.435Z",
-                    "stars": [],
-                    "likes": [],
-                    "comments": []
-                }
-            ],
-            "createdAt": "1970-01-01T00:00:00.000Z",
-            "updatedAt": "1970-01-01T00:00:00.000Z"
-        },
-        {
-            "id": 2,
-            "title": "Room 2",
-            "description": "Room 2",
-            "type": "public",
-            "created_at": null,
-            "updated_at": null,
-            "users": [1],
-            "dialog": [1]
-        },
-        {
-            "id": 3,
-            "title": "Room 3",
-            "description": "Room 3",
-            "type": "star",
-            "created_at": null,
-            "updated_at": null,
-            "users": [1],
-            "dialog": [1]
-        },
-        {
-            "id": 4,
-            "title": "Room 4",
-            "description": "Room 4",
-            "type": "star",
-            "created_at": null,
-            "updated_at": null,
-            "users": [1],
-            "dialog": [1]
-        },
-        {
-            "id": 5,
-            "title": "Room 5",
-            "description": "Room 5",
-            "type": "direct",
-            "created_at": null,
-            "updated_at": null,
-            "users": [1],
-            "dialog": [1]
-        },
-        {
-            "id": 6,
-            "title": "Room 6",
-            "description": "Room 6",
-            "type": "direct",
-            "created_at": null,
-            "updated_at": null,
-            "users": [1],
-            "dialog": [1]
-        },
-        {
-            "id": 7,
-            "title": "Room 7",
-            "description": null,
-            "type": "public",
-            "users": [],
-            "dialog": []
-        },
-        {
-            "id": 8,
-            "title": "Room 8",
-            "description": null,
-            "type": "public",
-            "users": [],
-            "dialog": []
-        },
-        {
-            "id": 9,
-            "title": "Room 9",
-            "description": null,
-            "type": "public",
-            "users": [],
-            "dialog": []
-        },
-        {
-            "id": 10,
-            "title": "Room 10",
-            "description": null,
-            "type": "public",
-            "users": [],
-            "dialog": []
-        },
-        {
-            "id": 11,
-            "users": [],
-            "dialog": [],
-            "created_at": "2023-09-08T13:36:11.246Z",
-            "updated_at": "2023-09-08T13:36:11.246Z",
-            "title": "Room 11",
-            "type": "public",
-            "description": "Test 11"
-        },
-        {
-            "id": 12,
-            "users": [],
-            "dialog": [],
-            "created_at": "2023-09-08T13:48:07.532Z",
-            "updated_at": "2023-09-08T13:48:07.532Z",
-            "title": "Room 12",
-            "type": "public",
-            "description": "Test 12"
-        }
-    ]
+  "users": [
+    {
+      "id": "1",
+      "email": "justin.jeong5@gmail.com",
+      "name": "justin",
+      "is_staff": true,
+      "country": "KR",
+      "language": "ko"
+    }
+  ],
+  "dialog": [
+    {
+      "id": "1",
+      "room_id": "1",
+      "name": "ant design part 1",
+      "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
+      "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=1",
+      "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
+      "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
+      "created_at": null,
+      "updated_at": null,
+      "stars": [
+        "1",
+        "2",
+        "3"
+      ],
+      "likes": [
+        "1",
+        "2"
+      ],
+      "comments": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "id": "2",
+      "room_id": "2",
+      "name": "ant design part 2",
+      "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
+      "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=2",
+      "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
+      "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
+      "created_at": null,
+      "updated_at": null,
+      "stars": [
+        "1",
+        "2",
+        "3"
+      ],
+      "likes": [
+        "1",
+        "2"
+      ],
+      "comments": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "id": "3",
+      "room_id": "2",
+      "name": "ant design part 3",
+      "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
+      "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=3",
+      "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
+      "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
+      "created_at": null,
+      "updated_at": null,
+      "stars": [
+        "1",
+        "2",
+        "3"
+      ],
+      "likes": [
+        "1",
+        "2"
+      ],
+      "comments": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "id": "4",
+      "room_id": "3",
+      "name": "ant design part 4",
+      "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
+      "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=4",
+      "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
+      "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
+      "created_at": null,
+      "updated_at": null,
+      "stars": [
+        "1",
+        "2",
+        "3"
+      ],
+      "likes": [
+        "1",
+        "2"
+      ],
+      "comments": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "id": "5",
+      "room_id": "4",
+      "name": "ant design part 5",
+      "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
+      "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=5",
+      "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
+      "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
+      "created_at": null,
+      "updated_at": null,
+      "stars": [
+        "1",
+        "2",
+        "3"
+      ],
+      "likes": [
+        "1",
+        "2"
+      ],
+      "comments": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "id": "6",
+      "room_id": "1",
+      "name": "ant design part 6",
+      "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
+      "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=6",
+      "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
+      "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
+      "created_at": null,
+      "updated_at": null,
+      "stars": [
+        "1",
+        "2",
+        "3"
+      ],
+      "likes": [
+        "1",
+        "2"
+      ],
+      "comments": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "id": "7",
+      "room_id": "1",
+      "name": "ant design part 7",
+      "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
+      "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=7",
+      "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
+      "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
+      "created_at": null,
+      "updated_at": null,
+      "stars": [
+        "1",
+        "2",
+        "3"
+      ],
+      "likes": [
+        "1",
+        "2"
+      ],
+      "comments": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "id": "8",
+      "room_id": "2",
+      "name": "ant design part 8",
+      "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
+      "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=8",
+      "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
+      "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
+      "created_at": null,
+      "updated_at": null,
+      "stars": [
+        "1",
+        "2",
+        "3"
+      ],
+      "likes": [
+        "1",
+        "2"
+      ],
+      "comments": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "id": "9",
+      "room_id": "3",
+      "name": "ant design part 9",
+      "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
+      "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=9",
+      "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
+      "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
+      "created_at": null,
+      "updated_at": null,
+      "stars": [
+        "1",
+        "2",
+        "3"
+      ],
+      "likes": [
+        "1",
+        "2"
+      ],
+      "comments": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "id": "10",
+      "room_id": "4",
+      "name": "ant design part 10",
+      "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
+      "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=10",
+      "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
+      "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
+      "created_at": "2023-08-22T01:00:00.000Z",
+      "updated_at": "2023-08-22T01:30:00.000Z",
+      "stars": [
+        "1",
+        "2",
+        "3"
+      ],
+      "likes": [
+        "1",
+        "2"
+      ],
+      "comments": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "id": "0PeMk8y",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T05:18:55.529Z",
+      "updated_at": "2023-09-09T05:18:55.529Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "description": "1234123",
+      "roomId": "1",
+      "room_id": "1"
+    },
+    {
+      "id": "R_AZkiv",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T05:20:29.839Z",
+      "updated_at": "2023-09-09T05:20:29.839Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "room_id": "1",
+      "description": "12324123"
+    },
+    {
+      "id": "9xIhmeu",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T05:23:00.023Z",
+      "updated_at": "2023-09-09T05:23:00.023Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "room_id": "1",
+      "description": "1231423"
+    },
+    {
+      "id": "3_zl5h-",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T05:23:47.656Z",
+      "updated_at": "2023-09-09T05:23:47.656Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "room_id": "1",
+      "description": "123124"
+    },
+    {
+      "id": "TFFTMic",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T05:24:08.423Z",
+      "updated_at": "2023-09-09T05:24:08.423Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "room_id": "1",
+      "description": "1r324234"
+    },
+    {
+      "id": "7ZxI4CB",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T05:26:18.102Z",
+      "updated_at": "2023-09-09T05:26:18.102Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "room_id": "1",
+      "description": "123123"
+    },
+    {
+      "id": "aMjDMmX",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T05:26:20.912Z",
+      "updated_at": "2023-09-09T05:26:20.912Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "room_id": "1",
+      "description": "123123ㄱ435"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "1",
+      "room_id": "1",
+      "title": "Room 1",
+      "description": "Room 1",
+      "type": "public",
+      "created_at": "1970-01-01T00:00:00.000Z",
+      "updated_at": "1970-01-01T00:00:00.000Z",
+      "users": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "dialog": [
+        "1",
+        "6",
+        "7",
+        "0PeMk8y",
+        "R_AZkiv",
+        "9xIhmeu",
+        "3_zl5h-",
+        "TFFTMic",
+        "7ZxI4CB",
+        "aMjDMmX"
+      ],
+      "createdAt": "1970-01-01T00:00:00.000Z",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "title": "Room 2",
+      "description": "Room 2",
+      "type": "public",
+      "created_at": null,
+      "updated_at": null,
+      "users": [
+        "1"
+      ],
+      "dialog": [
+        "1"
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Room 3",
+      "description": "Room 3",
+      "type": "star",
+      "created_at": null,
+      "updated_at": null,
+      "users": [
+        "1"
+      ],
+      "dialog": [
+        "1"
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Room 4",
+      "description": "Room 4",
+      "type": "star",
+      "created_at": null,
+      "updated_at": null,
+      "users": [
+        "1"
+      ],
+      "dialog": [
+        "1"
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Room 5",
+      "description": "Room 5",
+      "type": "direct",
+      "created_at": null,
+      "updated_at": null,
+      "users": [
+        "1"
+      ],
+      "dialog": [
+        "1"
+      ]
+    },
+    {
+      "id": "6",
+      "title": "Room 6",
+      "description": "Room 6",
+      "type": "direct",
+      "created_at": null,
+      "updated_at": null,
+      "users": [
+        "1"
+      ],
+      "dialog": [
+        "1"
+      ]
+    },
+    {
+      "id": "7",
+      "title": "Room 7",
+      "description": null,
+      "type": "public",
+      "users": [],
+      "dialog": []
+    },
+    {
+      "id": "8",
+      "title": "Room 8",
+      "description": null,
+      "type": "public",
+      "users": [],
+      "dialog": []
+    },
+    {
+      "id": "9",
+      "title": "Room 9",
+      "description": null,
+      "type": "public",
+      "users": [],
+      "dialog": []
+    },
+    {
+      "id": "10",
+      "title": "Room 10",
+      "description": null,
+      "type": "public",
+      "users": [],
+      "dialog": []
+    },
+    {
+      "id": "11",
+      "users": [],
+      "dialog": [],
+      "created_at": "2023-09-08T13:36:11.246Z",
+      "updated_at": "2023-09-08T13:36:11.246Z",
+      "title": "Room 11",
+      "type": "public",
+      "description": "Test 11"
+    },
+    {
+      "id": "12",
+      "users": [],
+      "dialog": [],
+      "created_at": "2023-09-08T13:48:07.532Z",
+      "updated_at": "2023-09-08T13:48:07.532Z",
+      "title": "Room 12",
+      "type": "public",
+      "description": "Test 12"
+    }
+  ]
 }

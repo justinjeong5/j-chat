@@ -21,7 +21,7 @@ export default function Textator({
     handleSubmit,
     placeholder = "대화를 시작해 보세요.",
     messageTour = false,
-    sending,
+    sending = false,
 }) {
     const textAreaRef = useRef(null);
     const fileBtnRef = useRef(null);
