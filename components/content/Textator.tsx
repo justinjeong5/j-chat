@@ -18,7 +18,7 @@ const HiddenTextArea = styled.div`
 `;
 
 export default function Textator({
-    handleSubmit,
+    handleSubmit = msg => msg,
     placeholder = "대화를 시작해 보세요.",
     messageTour = false,
     sending = false,
