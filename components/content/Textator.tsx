@@ -1,6 +1,5 @@
 import type { TourProps } from "antd";
 import { Button, Input, Space, Tour } from "antd";
-import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -82,13 +81,3 @@ export default function Textator({ placeholder, dialogTour }) {
         </>
     );
 }
-
-Textator.propTypes = {
-    placeholder: PropTypes.string,
-    dialogTour: PropTypes.bool,
-};
-
-Textator.defaultProps = {
-    placeholder: "이야기를 나누어 보세요.",
-    dialogTour: false,
-};
