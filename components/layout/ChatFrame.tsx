@@ -1,5 +1,4 @@
 import { Divider } from "antd";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -24,8 +23,3 @@ export default function ChatFrame({ dialog, textator }) {
         </Container>
     );
 }
-
-ChatFrame.propTypes = {
-    dialog: PropTypes.element.isRequired,
-    textator: PropTypes.element.isRequired,
-};
