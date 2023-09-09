@@ -1,9 +1,4 @@
-import {
-    CoffeeOutlined,
-    PlusOutlined,
-    PushpinOutlined,
-    UserOutlined,
-} from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 import type { TourProps } from "antd";
 import { Layout, Tour } from "antd";
 import MenuFrame from "components/layout/SiderFrame";
@@ -11,11 +6,12 @@ import CreateRoomModal from "components/sider/CreateRoomModal";
 import Profile from "components/sider/Profile";
 import Rooms from "components/sider/Rooms";
 import useNotice from "hooks/notice/notice";
+import useRooms from "hooks/room/useRooms";
 import client from "lib/api";
-import RoomsModel from "models/Rooms";
 import { useEffect, useRef, useState } from "react";
 import RoomRepo from "repos/Room";
 import styled from "styled-components";
+import IRoom from "types/room.type";
 
 const MenuWrapper = styled(Layout)`
     display: block;
@@ -24,6 +20,7 @@ const MenuWrapper = styled(Layout)`
 
 export default function Page() {
     const addRoomBtnRef = useRef(null);
+    const { composeRooms } = useRooms();
 
     const [user, setUser] = useState({ name: "", email: "" });
     const [rooms, setRooms] = useState([]);
@@ -58,32 +55,7 @@ export default function Page() {
                     setShowTour(true);
                 }
 
-                setRooms([
-                    {
-                        key: RoomsModel.PUBLIC,
-                        label: "Public Rooms",
-                        icon: <CoffeeOutlined />,
-                        children: roomsData
-                            .getTypeOf(RoomsModel.PUBLIC)
-                            .map(r => r.toMenu()),
-                    },
-                    {
-                        key: RoomsModel.STAR,
-                        label: "Starred Rooms",
-                        icon: <PushpinOutlined />,
-                        children: roomsData
-                            .getTypeOf(RoomsModel.STAR)
-                            .map(r => r.toMenu()),
-                    },
-                    {
-                        key: RoomsModel.DIRECT,
-                        label: "Direct Dialog",
-                        icon: <UserOutlined />,
-                        children: roomsData
-                            .getTypeOf(RoomsModel.DIRECT)
-                            .map(r => r.toMenu()),
-                    },
-                ]);
+                setRooms(composeRooms(roomsData));
             } catch (e) {
                 errorHandler(e);
             } finally {
@@ -103,18 +75,12 @@ export default function Page() {
         })();
     }, []);
 
-    const onCreateRoom = room => {
-        setRooms(
-            rooms.map(r => {
-                if (r.key === room.type) {
-                    return {
-                        ...r,
-                        children: [...r.children, room.toMenu()],
-                    };
-                }
-                return { ...r };
-            }),
-        );
+    const onCreateRoom = async (room: IRoom) => {
+        console.log(room);
+        setFetchingRooms(true);
+        const roomsData = await RoomRepo.getRooms();
+        setRooms(composeRooms(roomsData));
+        setFetchingRooms(false);
     };
 
     return (
