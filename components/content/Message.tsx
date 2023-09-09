@@ -1,7 +1,6 @@
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Avatar, Empty, List, Skeleton, Space } from "antd";
 import useMobile from "hooks/layout/device";
-import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
 import IMessage from "types/message.type";
@@ -50,7 +49,7 @@ const ActionItems = ({
     </Space>,
 ];
 
-export default function Message({ dialog, loading }) {
+export default function Dialog({ dialog = [], loading = false }) {
     const isMobile = useMobile();
     const SKELETON_COUNT = 5;
 
@@ -124,25 +123,3 @@ export default function Message({ dialog, loading }) {
         />
     );
 }
-
-Message.propTypes = {
-    dialog: PropTypes.arrayOf(
-        PropTypes.shape({
-            name: PropTypes.string,
-            avatar: PropTypes.string,
-            href: PropTypes.string,
-            description: PropTypes.string,
-            image: PropTypes.string,
-            content: PropTypes.string,
-            likes: PropTypes.arrayOf(PropTypes.shape({})),
-            stars: PropTypes.arrayOf(PropTypes.shape({})),
-            comments: PropTypes.arrayOf(PropTypes.shape({})),
-        }),
-    ),
-    loading: PropTypes.bool,
-};
-
-Message.defaultProps = {
-    dialog: [],
-    loading: false,
-};

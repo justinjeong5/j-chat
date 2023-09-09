@@ -1,6 +1,5 @@
 import type { TourProps } from "antd";
 import { Button, Input, Space, Tour } from "antd";
-import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -20,8 +19,8 @@ const HiddenTextArea = styled.div`
 
 export default function Textator({
     handleSubmit,
-    placeholder,
-    messageTour,
+    placeholder = "대화를 시작해 보세요.",
+    messageTour = false,
     sending,
 }) {
     const textAreaRef = useRef(null);
@@ -105,16 +104,3 @@ export default function Textator({
         </>
     );
 }
-
-Textator.propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
-    placeholder: PropTypes.string,
-    messageTour: PropTypes.bool,
-    sending: PropTypes.bool,
-};
-
-Textator.defaultProps = {
-    placeholder: "이야기를 나누어 보세요.",
-    messageTour: false,
-    sending: false,
-};
