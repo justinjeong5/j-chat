@@ -11,6 +11,8 @@ export default class Room extends BaseModel implements IRoom {
 
     type: string;
 
+    starred: boolean;
+
     createdAt: Date;
 
     updatedAt: Date;
@@ -25,6 +27,7 @@ export default class Room extends BaseModel implements IRoom {
         this.title = config.title || null;
         this.description = config.description || null;
         this.type = config.type || null;
+        this.starred = !!config.starred || null;
         this.createdAt = new Date(config.created_at);
         this.updatedAt = new Date(config.updated_at);
         this.users = config.users || [];
@@ -48,6 +51,11 @@ export default class Room extends BaseModel implements IRoom {
         return this.setDialog(this.dialog.concat(message));
     }
 
+    toggleStarred() {
+        this.starred = !this.starred;
+        return this;
+    }
+
     toExternal(): TRoomExternal {
         const external = { ...this };
         delete external.toMenu;
@@ -69,6 +77,7 @@ export default class Room extends BaseModel implements IRoom {
             id: null,
             users: [],
             dialog: [],
+            starred: false,
             created_at: new Date(),
             updated_at: new Date(),
             ...config,

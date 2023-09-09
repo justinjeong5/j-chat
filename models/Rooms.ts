@@ -1,3 +1,4 @@
+import RoomsModel from "models/Rooms";
 import IRoom from "types/room.type";
 import { TRoomType } from "types/rooms.type";
 
@@ -9,7 +10,10 @@ export default class Rooms {
     }
 
     getTypeOf(type: TRoomType): Array<IRoom> {
-        return this.list.filter(r => r.type === type);
+        if (type === RoomsModel.STAR) {
+            return this.list.filter(r => !!r.starred);
+        }
+        return this.list.filter(r => !r.starred && r.type === type);
     }
 
     addRoom(room: IRoom): Array<IRoom> {

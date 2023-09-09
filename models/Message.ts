@@ -1,4 +1,5 @@
 import BaseModel from "models/BaseModel";
+import { TCommon } from "types/common.type";
 import IMessage, {
     TCountType,
     TMessageExternal,
@@ -28,11 +29,11 @@ export default class Message extends BaseModel implements IMessage {
 
     updatedAt: Date;
 
-    stars: Array<object>;
+    stars: Array<TCommon>;
 
-    likes: Array<object>;
+    likes: Array<TCommon>;
 
-    comments: Array<object>;
+    comments: Array<TCommon>;
 
     constructor(config: TMessageExternal) {
         super();

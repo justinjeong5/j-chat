@@ -11,7 +11,6 @@ import client from "lib/api";
 import { useEffect, useRef, useState } from "react";
 import RoomRepo from "repos/Room";
 import styled from "styled-components";
-import IRoom from "types/room.type";
 
 const MenuWrapper = styled(Layout)`
     display: block;
@@ -75,8 +74,7 @@ export default function Page() {
         })();
     }, []);
 
-    const onCreateRoom = async (room: IRoom) => {
-        console.log(room);
+    const onCreateRoom = async () => {
         setFetchingRooms(true);
         const roomsData = await RoomRepo.getRooms();
         setRooms(composeRooms(roomsData));

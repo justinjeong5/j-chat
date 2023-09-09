@@ -1,24 +1,28 @@
 import {
+    CoffeeOutlined,
+    EllipsisOutlined,
+    PushpinOutlined,
     SendOutlined,
-    StarOutlined,
-    StarTwoTone,
     UserOutlined,
 } from "@ant-design/icons";
 import { Skeleton } from "antd";
-import Rooms from "models/Rooms";
+import FieldHover from "components/form/FieldHover";
 import styled from "styled-components";
 
 const Container = styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: ${({ theme: { SPACING } }) => SPACING.STANDARD};
-    height: ${({ theme: { SPACING } }) => SPACING.HEADER_HEIGHT};
+    line-height: initial;
 `;
 
 const ContainerItem = styled.div`
     display: flex;
     align-items: center;
     gap: ${({ theme: { SPACING } }) => SPACING.SMALLER};
+    height: 18px;
+
     & .ant-skeleton {
         line-height: normal;
     }
@@ -31,7 +35,11 @@ const Title = styled.div`
         `${SPACING.BIGGER} 0 ${SPACING.SMALLER} 0`};
 `;
 
-export default function Header({ room, loading }) {
+export default function Header({ room, loading, toggleStarred }) {
+    const handleEditRoom = () => {
+        console.log("handleEditRoom");
+    };
+
     return (
         <Container>
             <div
@@ -61,12 +69,19 @@ export default function Header({ room, loading }) {
                         room.dialog.length
                     )}
                 </ContainerItem>
-                <ContainerItem>
-                    {room.type === Rooms.STAR ? (
-                        <StarTwoTone />
-                    ) : (
-                        <StarOutlined />
-                    )}
+                <ContainerItem onClick={toggleStarred}>
+                    <FieldHover>
+                        {room.starred ? (
+                            <PushpinOutlined />
+                        ) : (
+                            <CoffeeOutlined />
+                        )}
+                    </FieldHover>
+                </ContainerItem>
+                <ContainerItem onClick={handleEditRoom}>
+                    <FieldHover>
+                        <EllipsisOutlined />
+                    </FieldHover>
                 </ContainerItem>
             </Container>
         </Container>

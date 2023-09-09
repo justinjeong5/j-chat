@@ -3,6 +3,7 @@ import { Avatar, Empty, List, Skeleton, Space } from "antd";
 import useMobile from "hooks/layout/device";
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
+import { TCommon } from "types/common.type";
 import IMessage from "types/message.type";
 import { v4 as uuidv4 } from "uuid";
 
@@ -26,28 +27,26 @@ const StyledSpace = styled(Space)`
     margin-left: 56px;
 `;
 
-const ActionItems = ({
-    stars,
-    likes,
-    comments,
-}: {
-    stars: number;
-    likes: number;
-    comments: number;
-}) => [
-    <Space>
-        <StarOutlined />
-        {stars}
-    </Space>,
-    <Space>
-        <LikeOutlined />
-        {likes}
-    </Space>,
-    <Space>
-        <MessageOutlined />
-        {comments}
-    </Space>,
-];
+const ActionItems = (item: {
+    stars: Array<TCommon>;
+    likes: Array<TCommon>;
+    comments: Array<TCommon>;
+}) => {
+    return [
+        <Space>
+            <StarOutlined />
+            {item.stars.length}
+        </Space>,
+        <Space>
+            <LikeOutlined />
+            {item.likes.length}
+        </Space>,
+        <Space>
+            <MessageOutlined />
+            {item.comments.length}
+        </Space>,
+    ];
+};
 
 export default function Dialog({
     dialog = [],
@@ -101,13 +100,10 @@ export default function Dialog({
                 renderItem={(item: IMessage) => (
                     <List.Item
                         key={item.name}
-                        actions={ActionItems({
-                            stars: item.stars.length,
-                            likes: item.likes.length,
-                            comments: item.comments.length,
-                        })}
+                        actions={ActionItems(item)}
                         extra={
-                            !isMobile && (
+                            !isMobile &&
+                            item.image && (
                                 <img
                                     style={{ maxWidth: "24vw" }}
                                     width="272px"
@@ -122,7 +118,7 @@ export default function Dialog({
                             title={<a href={item.href}>{item.name}</a>}
                             description={item.description}
                         />
-                        {isMobile && (
+                        {isMobile && item.image && (
                             <img
                                 style={{ maxWidth: "24vw" }}
                                 width="272px"

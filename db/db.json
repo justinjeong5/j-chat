@@ -702,6 +702,102 @@
       "comments": [],
       "room_id": "12",
       "description": "안녕하셍>?"
+    },
+    {
+      "id": "4zls6wl",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T07:35:54.175Z",
+      "updated_at": "2023-09-09T07:35:54.175Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "room_id": "2",
+      "description": "asdfasdf"
+    },
+    {
+      "id": "mBl6w3f",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T08:54:31.120Z",
+      "updated_at": "2023-09-09T08:54:31.120Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "room_id": "4",
+      "description": "1234"
+    },
+    {
+      "id": "kna7psY",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T08:54:50.984Z",
+      "updated_at": "2023-09-09T08:54:50.984Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "room_id": "4",
+      "description": "fdsfasdf"
+    },
+    {
+      "id": "GZPa8BZ",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T08:59:32.936Z",
+      "updated_at": "2023-09-09T08:59:32.936Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "room_id": "4",
+      "description": "sdafsdf"
+    },
+    {
+      "id": "zM5OdUM",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T09:03:37.226Z",
+      "updated_at": "2023-09-09T09:03:37.226Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "room_id": "4",
+      "description": "asdfsadfag"
+    },
+    {
+      "id": "b3xEmce",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T09:05:25.627Z",
+      "updated_at": "2023-09-09T09:05:25.627Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "room_id": "1",
+      "description": "Hello!"
     }
   ],
   "rooms": [
@@ -711,6 +807,7 @@
       "title": "Room 1",
       "description": "Room 1",
       "type": "public",
+      "starred": null,
       "created_at": "1970-01-01T00:00:00.000Z",
       "updated_at": "1970-01-01T00:00:00.000Z",
       "users": [
@@ -731,7 +828,8 @@
         "7ZxI4CB",
         "aMjDMmX",
         "7Nvu6js",
-        "EOaiUFj"
+        "EOaiUFj",
+        "b3xEmce"
       ],
       "createdAt": "1970-01-01T00:00:00.000Z",
       "updatedAt": "1970-01-01T00:00:00.000Z"
@@ -741,6 +839,7 @@
       "title": "Room 2",
       "description": "Room 2",
       "type": "public",
+      "starred": true,
       "created_at": "1970-01-01T00:00:00.000Z",
       "updated_at": "1970-01-01T00:00:00.000Z",
       "users": [
@@ -765,7 +864,8 @@
         "rduldTQ",
         "YJcIKym",
         "74256ei",
-        "ffk6wqq"
+        "ffk6wqq",
+        "4zls6wl"
       ],
       "createdAt": "1970-01-01T00:00:00.000Z",
       "updatedAt": "1970-01-01T00:00:00.000Z"
@@ -774,35 +874,48 @@
       "id": "3",
       "title": "Room 3",
       "description": "Room 3",
-      "type": "star",
-      "created_at": null,
-      "updated_at": null,
+      "type": "public",
+      "starred": false,
+      "created_at": "1970-01-01T00:00:00.000Z",
+      "updated_at": "1970-01-01T00:00:00.000Z",
       "users": [
         "1"
       ],
       "dialog": [
-        "1"
-      ]
+        "1",
+        "2"
+      ],
+      "createdAt": "1970-01-01T00:00:00.000Z",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
     },
     {
       "id": "4",
       "title": "Room 4",
       "description": "Room 4",
-      "type": "star",
-      "created_at": null,
-      "updated_at": null,
+      "type": "public",
+      "starred": true,
+      "created_at": "1970-01-01T00:00:00.000Z",
+      "updated_at": "1970-01-01T00:00:00.000Z",
       "users": [
         "1"
       ],
       "dialog": [
-        "1"
-      ]
+        "5",
+        "10",
+        "mBl6w3f",
+        "kna7psY",
+        "GZPa8BZ",
+        "zM5OdUM"
+      ],
+      "createdAt": "1970-01-01T00:00:00.000Z",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
     },
     {
       "id": "5",
       "title": "Room 5",
       "description": "Room 5",
       "type": "direct",
+      "starred": false,
       "created_at": null,
       "updated_at": null,
       "users": [
@@ -817,6 +930,7 @@
       "title": "Room 6",
       "description": "Room 6",
       "type": "direct",
+      "starred": false,
       "created_at": null,
       "updated_at": null,
       "users": [
@@ -831,6 +945,7 @@
       "title": "Room 7",
       "description": null,
       "type": "public",
+      "starred": false,
       "users": [],
       "dialog": []
     },
@@ -839,6 +954,7 @@
       "title": "Room 8",
       "description": null,
       "type": "public",
+      "starred": false,
       "users": [],
       "dialog": [
         "7pAeOjS"
@@ -853,16 +969,26 @@
       "title": "Room 9",
       "description": null,
       "type": "public",
+      "starred": true,
       "users": [],
-      "dialog": []
+      "dialog": [],
+      "createdAt": "1970-01-01T00:00:00.000Z",
+      "updatedAt": "1970-01-01T00:00:00.000Z",
+      "created_at": "1970-01-01T00:00:00.000Z",
+      "updated_at": "1970-01-01T00:00:00.000Z"
     },
     {
       "id": "10",
       "title": "Room 10",
       "description": null,
       "type": "public",
+      "starred": true,
       "users": [],
-      "dialog": []
+      "dialog": [],
+      "createdAt": null,
+      "updatedAt": null,
+      "created_at": null,
+      "updated_at": null
     },
     {
       "id": "11",
@@ -872,6 +998,7 @@
       "updated_at": "2023-09-08T13:36:11.246Z",
       "title": "Room 11",
       "type": "public",
+      "starred": false,
       "description": "Test 11"
     },
     {
@@ -884,6 +1011,7 @@
       "updated_at": "2023-09-08T13:48:07.532Z",
       "title": "Room 12",
       "type": "public",
+      "starred": false,
       "description": "Test 12",
       "createdAt": "2023-09-08T13:48:07.532Z",
       "updatedAt": "2023-09-08T13:48:07.532Z"

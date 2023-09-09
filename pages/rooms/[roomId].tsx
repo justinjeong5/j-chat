@@ -28,12 +28,17 @@ function Room() {
 
     const handleSubmit = async message => {
         const room = await RoomRepo.addMessage(
-            chatRoom,
+            chatRoom.id,
             MessageModel.createItem({
                 description: message,
                 roomId: chatRoom.id,
             }),
         );
+        setChatRoom(room);
+    };
+
+    const handleToggleStarred = async () => {
+        const room = await RoomRepo.toggleStarred(chatRoom.id);
         setChatRoom(room);
     };
 
@@ -72,7 +77,13 @@ function Room() {
             {contextHolder}
             <AppFrame
                 menu={<Menu />}
-                header={<Header room={chatRoom} loading={fetchingData} />}
+                header={
+                    <Header
+                        room={chatRoom}
+                        loading={fetchingData}
+                        toggleStarred={handleToggleStarred}
+                    />
+                }
             >
                 <ChatFrame
                     dialog={

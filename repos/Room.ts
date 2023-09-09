@@ -44,21 +44,32 @@ class RoomRepo extends BaseRepo {
     }
 
     async getRoomWithDialog(id: string): Promise<IRoom> {
-        const [roomData, messageData] = await Promise.all([
+        const [roomData, dialog] = await Promise.all([
             this.get(id),
             MessageRepo.getDialogFromRoom(id),
         ]);
-        return roomData.setDialog(messageData);
+
+        return roomData.setDialog(dialog);
     }
 
     async createRoom({ title, type, description }: TRoomField): Promise<IRoom> {
         return this.create(Room.createItem({ title, type, description }));
     }
 
-    async addMessage(room: IRoom, message: TMessageExternal): Promise<IRoom> {
+    async addMessage(
+        roomId: string,
+        message: TMessageExternal,
+    ): Promise<IRoom> {
+        const roomData = await this.getRoomWithDialog(roomId);
         const messageData = await MessageRepo.create(message);
-        await this.patch(room.addMessage(messageData).toExternal());
-        return this.getRoomWithDialog(room.id);
+        await this.patch(roomData.addMessage(messageData).toExternal());
+        return this.getRoomWithDialog(roomId);
+    }
+
+    async toggleStarred(roomId: string): Promise<IRoom> {
+        const roomData = await this.getRoomWithDialog(roomId);
+        await this.patch(roomData.toggleStarred().toExternal());
+        return this.getRoomWithDialog(roomId);
     }
 }
 
