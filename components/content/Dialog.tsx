@@ -1,8 +1,6 @@
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Avatar, Empty, List, Skeleton, Space } from "antd";
 import useMobile from "hooks/layout/device";
-import DialogModel from "models/Dialog";
-import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
 import IDialog from "types/dialog.type";
@@ -51,7 +49,7 @@ const ActionItems = ({
     </Space>,
 ];
 
-export default function Dialog({ dialogs, loading }) {
+export default function Dialog({ dialogs = [], loading = false }) {
     const isMobile = useMobile();
     const SKELETON_COUNT = 5;
 
@@ -125,13 +123,3 @@ export default function Dialog({ dialogs, loading }) {
         />
     );
 }
-
-Dialog.propTypes = {
-    dialogs: PropTypes.arrayOf(PropTypes.instanceOf(DialogModel)),
-    loading: PropTypes.bool,
-};
-
-Dialog.defaultProps = {
-    dialogs: [],
-    loading: false,
-};

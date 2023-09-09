@@ -6,7 +6,6 @@ import {
 } from "@ant-design/icons";
 import { Skeleton } from "antd";
 import Rooms from "models/Rooms";
-import PropTypes, { number } from "prop-types";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -73,19 +72,3 @@ export default function Header({ room, loading }) {
         </Container>
     );
 }
-
-Header.propTypes = {
-    room: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        description: PropTypes.string,
-        type: PropTypes.oneOf([Rooms.PUBLIC, Rooms.STAR, Rooms.DIRECT])
-            .isRequired,
-        users: PropTypes.arrayOf(number).isRequired,
-        dialogs: PropTypes.arrayOf(number).isRequired,
-    }).isRequired,
-    loading: PropTypes.bool,
-};
-
-Header.defaultProps = {
-    loading: false,
-};
