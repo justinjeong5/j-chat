@@ -1,5 +1,4 @@
 import { Divider } from "antd";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -42,12 +41,3 @@ export default function MenuFrame({ profile, footer, children }) {
         </Container>
     );
 }
-
-MenuFrame.propTypes = {
-    profile: PropTypes.node.isRequired,
-    footer: PropTypes.node,
-    children: PropTypes.node.isRequired,
-};
-MenuFrame.defaultProps = {
-    footer: null,
-};

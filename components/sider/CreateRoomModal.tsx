@@ -1,7 +1,6 @@
 import { Button, Form, Input, Modal, Select } from "antd";
 import useNotice from "hooks/notice/notice";
 import Rooms from "models/Rooms";
-import PropTypes from "prop-types";
 import { useState } from "react";
 import RoomRepo from "repos/Room";
 
@@ -83,8 +82,3 @@ export default function CreateRoomModal({ onCreateRoom, children }) {
         </>
     );
 }
-
-CreateRoomModal.propTypes = {
-    onCreateRoom: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
-};

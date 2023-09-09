@@ -7,7 +7,6 @@ import type { MenuProps } from "antd";
 import { Menu, Skeleton } from "antd";
 import RoomsModel from "models/Rooms";
 import { useRouter } from "next/router";
-import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 
 export default function Rooms({ loading, rooms }) {
@@ -63,24 +62,3 @@ export default function Rooms({ loading, rooms }) {
         />
     );
 }
-
-Rooms.propTypes = {
-    loading: PropTypes.bool,
-    rooms: PropTypes.arrayOf(
-        PropTypes.shape({
-            key: PropTypes.string,
-            label: PropTypes.string,
-            icon: PropTypes.node,
-            children: PropTypes.arrayOf(
-                PropTypes.shape({
-                    key: PropTypes.string.isRequired,
-                    label: PropTypes.string.isRequired,
-                }),
-            ).isRequired,
-        }).isRequired,
-    ).isRequired,
-};
-
-Rooms.defaultProps = {
-    loading: false,
-};
