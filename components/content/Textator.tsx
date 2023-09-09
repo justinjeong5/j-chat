@@ -18,19 +18,22 @@ const HiddenTextArea = styled.div`
 `;
 
 export default function Textator({
+    handleSubmit = msg => msg,
     placeholder = "대화를 시작해 보세요.",
-    dialogTour = false,
+    messageTour = false,
+    sending = false,
 }) {
     const textAreaRef = useRef(null);
     const fileBtnRef = useRef(null);
     const sendBtnRef = useRef(null);
     const [showTour, setShowTour] = useState(false);
+    const [message, setMessage] = useState("");
 
     useEffect(() => {
-        if (dialogTour) {
+        if (messageTour) {
             setShowTour(true);
         }
-    }, [dialogTour]);
+    }, [messageTour]);
 
     const steps: TourProps["steps"] = [
         {
@@ -60,21 +63,38 @@ export default function Textator({
     ];
 
     const handleTourClose = () => {
-        localStorage.setItem("jChatHideDialogTour", JSON.stringify(true));
+        localStorage.setItem("jChatHideMessageTour", JSON.stringify(true));
         setShowTour(false);
+    };
+
+    const handleChange = e => {
+        setMessage(e.target.value);
+    };
+
+    const handleSend = e => {
+        e.preventDefault();
+        handleSubmit(message);
+        setMessage("");
     };
 
     return (
         <>
             <HiddenTextArea ref={textAreaRef} />
             <TextArea
-                autoSize={{ minRows: 3, maxRows: 5 }}
+                autoSize={{ minRows: 3, maxRows: 3 }}
                 placeholder={placeholder}
+                onChange={handleChange}
+                onPressEnter={handleSend}
             />
             <SpaceWrapper>
                 <Space wrap>
                     <Button ref={fileBtnRef}>파일 첨부</Button>
-                    <Button type="primary" ref={sendBtnRef}>
+                    <Button
+                        type="primary"
+                        ref={sendBtnRef}
+                        onClick={handleSend}
+                        disabled={sending}
+                    >
                         전송
                     </Button>
                 </Space>

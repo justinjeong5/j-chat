@@ -58,7 +58,7 @@ export default function Header({ room, loading }) {
                     {loading ? (
                         <Skeleton.Button active block size="small" />
                     ) : (
-                        room.dialogs.length
+                        room.dialog.length
                     )}
                 </ContainerItem>
                 <ContainerItem>

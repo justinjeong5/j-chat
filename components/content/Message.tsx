@@ -3,7 +3,7 @@ import { Avatar, Empty, List, Skeleton, Space } from "antd";
 import useMobile from "hooks/layout/device";
 import React from "react";
 import styled from "styled-components";
-import IDialog from "types/dialog.type";
+import IMessage from "types/message.type";
 import { v4 as uuidv4 } from "uuid";
 
 const TextWrapper = styled.div`
@@ -49,7 +49,7 @@ const ActionItems = ({
     </Space>,
 ];
 
-export default function Dialog({ dialogs = [], loading = false }) {
+export default function Dialog({ dialog = [], loading = false }) {
     const isMobile = useMobile();
     const SKELETON_COUNT = 5;
 
@@ -73,10 +73,10 @@ export default function Dialog({ dialogs = [], loading = false }) {
         );
     }
 
-    if (!dialogs.length) {
+    if (!dialog.length) {
         return (
             <EmptyWrapper>
-                <Empty description="No dialogs" />
+                <Empty description="No dialog" />
             </EmptyWrapper>
         );
     }
@@ -84,12 +84,12 @@ export default function Dialog({ dialogs = [], loading = false }) {
         <List
             itemLayout="vertical"
             size="large"
-            dataSource={dialogs}
-            renderItem={(item: IDialog) => (
+            dataSource={dialog}
+            renderItem={(item: IMessage) => (
                 <List.Item
                     key={item.name}
                     actions={ActionItems({
-                        stars: item.getCount("stars"),
+                        stars: item.stars.length,
                         likes: item.likes.length,
                         comments: item.comments.length,
                     })}

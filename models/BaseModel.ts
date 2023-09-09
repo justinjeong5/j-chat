@@ -1,5 +1,5 @@
 abstract class BaseModel {
-    static toInternal(config: object) {
+    static createItem(config: object) {
         return config;
     }
 

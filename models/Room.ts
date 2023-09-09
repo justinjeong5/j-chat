@@ -1,9 +1,9 @@
 import BaseModel from "models/BaseModel";
-import IDialog from "types/dialog.type";
+import IMessage from "types/message.type";
 import IRoom, { TRoomExternal, TRoomField, TRoomMenu } from "types/room.type";
 
 export default class Room extends BaseModel implements IRoom {
-    id: number;
+    id: string;
 
     title: string;
 
@@ -17,7 +17,7 @@ export default class Room extends BaseModel implements IRoom {
 
     users: Array<object>;
 
-    dialogs: Array<object>;
+    dialog: Array<IMessage>;
 
     constructor(config: TRoomExternal) {
         super();
@@ -28,7 +28,7 @@ export default class Room extends BaseModel implements IRoom {
         this.createdAt = new Date(config.created_at);
         this.updatedAt = new Date(config.updated_at);
         this.users = config.users || [];
-        this.dialogs = config.dialogs || [];
+        this.dialog = config.dialog || [];
     }
 
     toMenu(): TRoomMenu {
@@ -39,29 +39,36 @@ export default class Room extends BaseModel implements IRoom {
         };
     }
 
-    setDialogs(dialogs: Array<IDialog>): IRoom {
-        this.dialogs = dialogs;
-        return { ...this };
+    setDialog(dialog: Array<IMessage>): IRoom {
+        this.dialog = dialog;
+        return this;
+    }
+
+    addMessage(message: IMessage): IRoom {
+        return this.setDialog(this.dialog.concat(message));
     }
 
     toExternal(): TRoomExternal {
         const external = { ...this };
         delete external.toMenu;
-        delete external.setDialogs;
+        delete external.setDialog;
         delete external.toExternal;
+        delete external.addMessage;
 
         return {
             ...this,
+            id: String(this.id),
+            dialog: this.dialog.map(m => String(m.id)),
             created_at: this.createdAt,
             updated_at: this.updatedAt,
         };
     }
 
-    static toInternal(config: TRoomField): TRoomExternal {
+    static createItem(config: TRoomField): TRoomExternal {
         return {
             id: null,
             users: [],
-            dialogs: [],
+            dialog: [],
             created_at: new Date(),
             updated_at: new Date(),
             ...config,

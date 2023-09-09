@@ -1,30 +1,64 @@
-/* eslint-disable class-methods-use-this */
-import client from "lib/api";
 import Room from "models/Room";
 import Rooms from "models/Rooms";
 import BaseRepo from "repos/BaseRepo";
-import DialogRepo from "repos/Dialog";
-import IRoom, { TRoomField } from "types/room.type";
+import MessageRepo from "repos/Message";
+import { TQuery } from "types/common.type";
+import { TMessageExternal } from "types/message.type";
+import IRoom, { TRoomExternal, TRoomField } from "types/room.type";
 import IRooms from "types/rooms.type";
 
 class RoomRepo extends BaseRepo {
-    async getRooms(): Promise<IRooms> {
-        const { data } = await client.get("/rooms");
-        return new Rooms(data.map(r => new Room(r)));
+    async get(id: string, query?: TQuery): Promise<IRoom> {
+        return this.client
+            .get(this.buildUrl("get", query, { id }))
+            .then(({ data }) => new Room(data));
     }
 
-    async getRoomWithDialogs(id: string): Promise<IRoom> {
-        const [roomData, dialogData] = await Promise.all([
+    async list(query?: TQuery): Promise<{ results: Array<IRoom> }> {
+        return this.client
+            .get(this.buildUrl("list", query))
+            .then(({ data }) => ({ results: data.map(r => new Room(r)) }));
+    }
+
+    async create(room: TRoomExternal, query?: TQuery): Promise<IRoom> {
+        return this.client
+            .post(this.buildUrl("create", query), room)
+            .then(({ data }) => new Room(data));
+    }
+
+    async update(room: TRoomExternal, query?: TQuery): Promise<IRoom> {
+        return this.client
+            .patch(this.buildUrl("update", query, room), room)
+            .then(({ data }) => new Room(data));
+    }
+
+    async patch(room: TRoomExternal, query?: object): Promise<IRoom> {
+        return this.client
+            .patch(this.buildUrl("patch", query, room), room)
+            .then(({ data }) => new Room(data));
+    }
+
+    async getRooms(): Promise<IRooms> {
+        const { results } = await this.list();
+        return new Rooms(results);
+    }
+
+    async getRoomWithDialog(id: string): Promise<IRoom> {
+        const [roomData, messageData] = await Promise.all([
             this.get(id),
-            DialogRepo.getDialogsFromRoom(id),
+            MessageRepo.getDialogFromRoom(id),
         ]);
-        return new Room(roomData.data).setDialogs(dialogData);
+        return roomData.setDialog(messageData);
     }
 
     async createRoom({ title, type, description }: TRoomField): Promise<IRoom> {
-        const room = new Room(Room.toInternal({ title, type, description }));
-        const { data } = await this.create(room.toExternal());
-        return new Room(data);
+        return this.create(Room.createItem({ title, type, description }));
+    }
+
+    async addMessage(room: IRoom, message: TMessageExternal): Promise<IRoom> {
+        const messageData = await MessageRepo.create(message);
+        await this.patch(room.addMessage(messageData).toExternal());
+        return this.getRoomWithDialog(room.id);
     }
 }
 

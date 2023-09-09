@@ -1,14 +1,16 @@
-import Dialog from "components/content/Dialog";
 import Header from "components/content/Header";
+import Message from "components/content/Message";
 import Textator from "components/content/Textator";
 import AppFrame from "components/layout/AppFrame";
 import ChatFrame from "components/layout/ChatFrame";
 import Menu from "components/sider/Menu";
 import WithAuth from "hoc/WithAuth";
 import useNotice from "hooks/notice/notice";
+import MessageModel from "models/Message";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import RoomRepo from "repos/Room";
+import IRoom from "types/room.type";
 
 function Room() {
     const router = useRouter();
@@ -16,19 +18,30 @@ function Room() {
     const [chatRoom, setChatRoom] = useState({
         title: "",
         users: [],
-        dialogs: [],
-    });
+        dialog: [],
+    } as IRoom);
 
     const [fetchingData, setFetchingData] = useState(false);
-    const [showDialogTour, setShowDialogTour] = useState(false);
-    const [localStorageHideDialogTour, setLocalStorageHideDialogTour] =
+    const [showMessageTour, setShowMessageTour] = useState(false);
+    const [localStorageHideMessageTour, setLocalStorageHideMessageTour] =
         useState(false);
 
-    useEffect(() => {
-        const hideDialogTour = JSON.parse(
-            localStorage.getItem("jChatHideDialogTour"),
+    const handleSubmit = async message => {
+        const room = await RoomRepo.addMessage(
+            chatRoom,
+            MessageModel.createItem({
+                description: message,
+                roomId: chatRoom.id,
+            }),
         );
-        setLocalStorageHideDialogTour(hideDialogTour);
+        setChatRoom(room);
+    };
+
+    useEffect(() => {
+        const hideMessageTour = JSON.parse(
+            localStorage.getItem("jChatHideMessageTour"),
+        );
+        setLocalStorageHideMessageTour(hideMessageTour);
     }, []);
 
     useEffect(() => {
@@ -40,11 +53,11 @@ function Room() {
                 }
 
                 setFetchingData(true);
-                const data = await RoomRepo.getRoomWithDialogs(roomId);
+                const data = await RoomRepo.getRoomWithDialog(roomId);
                 setChatRoom(data);
 
-                if (!localStorageHideDialogTour && !data.dialogs.length) {
-                    setShowDialogTour(true);
+                if (!localStorageHideMessageTour && !data.dialog.length) {
+                    setShowMessageTour(true);
                 }
             } catch (e) {
                 errorHandler(e);
@@ -62,16 +75,17 @@ function Room() {
                 header={<Header room={chatRoom} loading={fetchingData} />}
             >
                 <ChatFrame
-                    dialog={
-                        <Dialog
-                            dialogs={chatRoom.dialogs}
+                    message={
+                        <Message
+                            dialog={chatRoom.dialog}
                             loading={fetchingData}
                         />
                     }
                     textator={
                         <Textator
                             placeholder={`#${chatRoom.title} 채널에서 이야기하기`}
-                            dialogTour={showDialogTour}
+                            messageTour={showMessageTour}
+                            handleSubmit={handleSubmit}
                         />
                     }
                 />

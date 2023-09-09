@@ -33,7 +33,7 @@ export default function Rooms({ loading, rooms }) {
                     },
                     {
                         key: RoomsModel.DIRECT,
-                        label: "Direct Messages",
+                        label: "Direct Dialog",
                         icon: <UserOutlined />,
                         children: [],
                     },
