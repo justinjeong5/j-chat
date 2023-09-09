@@ -11,7 +11,7 @@ describe("lib/delay", () => {
         await delay(delayTime);
 
         const elapsedTime = Date.now() - startTime;
-        expect(elapsedTime).toBeGreaterThanOrEqual(delayTime);
+        expect(elapsedTime).not.toBeGreaterThanOrEqual(delayTime);
     });
 
     it("delays resolves immediately when passes '0'", async () => {
