@@ -17,7 +17,10 @@ const HiddenTextArea = styled.div`
     visibility: hidden;
 `;
 
-export default function Textator({ placeholder, dialogTour }) {
+export default function Textator({
+    placeholder = "대화를 시작해 보세요.",
+    dialogTour = false,
+}) {
     const textAreaRef = useRef(null);
     const fileBtnRef = useRef(null);
     const sendBtnRef = useRef(null);

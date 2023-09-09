@@ -49,7 +49,7 @@ const ActionItems = ({
     </Space>,
 ];
 
-export default function Dialog({ dialogs, loading }) {
+export default function Dialog({ dialogs = [], loading = false }) {
     const isMobile = useMobile();
     const SKELETON_COUNT = 5;
 
