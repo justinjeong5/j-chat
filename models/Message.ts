@@ -42,10 +42,10 @@ export default class Message extends BaseModel implements IMessage {
         this.name = config.name || null;
         this.href = config.href || null;
         this.image = config.image || null;
-        this.description = config.description || null;
+        this.description = config.description || "";
         this.avatar = config.avatar || null;
         this.status = config.status || null;
-        this.content = config.content || null;
+        this.content = config.content || "";
         this.createdAt = new Date(config.created_at || null);
         this.updatedAt = new Date(config.updated_at || null);
         this.stars = config.stars || [];
@@ -68,7 +68,7 @@ export default class Message extends BaseModel implements IMessage {
             image: null,
             avatar: null,
             status: null,
-            content: null,
+            description: "",
             created_at: new Date(),
             updated_at: new Date(),
             stars: [],

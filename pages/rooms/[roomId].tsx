@@ -30,7 +30,7 @@ function Room() {
         const room = await RoomRepo.addMessage(
             chatRoom.id,
             MessageModel.createItem({
-                description: message,
+                content: message,
                 roomId: chatRoom.id,
             }),
         );
