@@ -1,5 +1,5 @@
+import Dialog from "components/content/Dialog";
 import Header from "components/content/Header";
-import Message from "components/content/Message";
 import Textator from "components/content/Textator";
 import AppFrame from "components/layout/AppFrame";
 import ChatFrame from "components/layout/ChatFrame";
@@ -28,12 +28,17 @@ function Room() {
 
     const handleSubmit = async message => {
         const room = await RoomRepo.addMessage(
-            chatRoom,
+            chatRoom.id,
             MessageModel.createItem({
-                description: message,
+                content: message,
                 roomId: chatRoom.id,
             }),
         );
+        setChatRoom(room);
+    };
+
+    const handleToggleStarred = async () => {
+        const room = await RoomRepo.toggleStarred(chatRoom.id);
         setChatRoom(room);
     };
 
@@ -72,13 +77,20 @@ function Room() {
             {contextHolder}
             <AppFrame
                 menu={<Menu />}
-                header={<Header room={chatRoom} loading={fetchingData} />}
+                header={
+                    <Header
+                        room={chatRoom}
+                        loading={fetchingData}
+                        toggleStarred={handleToggleStarred}
+                    />
+                }
             >
                 <ChatFrame
-                    message={
-                        <Message
+                    dialog={
+                        <Dialog
                             dialog={chatRoom.dialog}
                             loading={fetchingData}
+                            autoFocus
                         />
                     }
                     textator={

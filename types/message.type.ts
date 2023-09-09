@@ -40,5 +40,5 @@ export type TMessageExternal = {
 
 export type TMessageField = {
     roomId: string;
-    description: string;
+    content: string;
 };

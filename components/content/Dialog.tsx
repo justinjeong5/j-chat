@@ -1,8 +1,9 @@
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Avatar, Empty, List, Skeleton, Space } from "antd";
 import useMobile from "hooks/layout/device";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
+import { TCommon } from "types/common.type";
 import IMessage from "types/message.type";
 import { v4 as uuidv4 } from "uuid";
 
@@ -26,32 +27,42 @@ const StyledSpace = styled(Space)`
     margin-left: 56px;
 `;
 
-const ActionItems = ({
-    stars,
-    likes,
-    comments,
-}: {
-    stars: number;
-    likes: number;
-    comments: number;
-}) => [
-    <Space>
-        <StarOutlined />
-        {stars}
-    </Space>,
-    <Space>
-        <LikeOutlined />
-        {likes}
-    </Space>,
-    <Space>
-        <MessageOutlined />
-        {comments}
-    </Space>,
-];
+const ActionItems = (item: {
+    stars: Array<TCommon>;
+    likes: Array<TCommon>;
+    comments: Array<TCommon>;
+}) => {
+    return [
+        <Space>
+            <StarOutlined />
+            {item.stars.length}
+        </Space>,
+        <Space>
+            <LikeOutlined />
+            {item.likes.length}
+        </Space>,
+        <Space>
+            <MessageOutlined />
+            {item.comments.length}
+        </Space>,
+    ];
+};
 
-export default function Dialog({ dialog = [], loading = false }) {
+export default function Dialog({
+    dialog = [],
+    loading = false,
+    autoFocus = false,
+}) {
+    const dialogFocus = useRef(null);
+
     const isMobile = useMobile();
     const SKELETON_COUNT = 5;
+
+    useEffect(() => {
+        if (autoFocus) {
+            dialogFocus.current?.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [dialog]);
 
     if (loading) {
         return (
@@ -81,45 +92,45 @@ export default function Dialog({ dialog = [], loading = false }) {
         );
     }
     return (
-        <List
-            itemLayout="vertical"
-            size="large"
-            dataSource={dialog}
-            renderItem={(item: IMessage) => (
-                <List.Item
-                    key={item.name}
-                    actions={ActionItems({
-                        stars: item.stars.length,
-                        likes: item.likes.length,
-                        comments: item.comments.length,
-                    })}
-                    extra={
-                        !isMobile && (
+        <>
+            <List
+                itemLayout="vertical"
+                size="large"
+                dataSource={dialog}
+                renderItem={(item: IMessage) => (
+                    <List.Item
+                        key={item.name}
+                        actions={ActionItems(item)}
+                        extra={
+                            !isMobile &&
+                            item.image && (
+                                <img
+                                    style={{ maxWidth: "24vw" }}
+                                    width="272px"
+                                    alt="userImage"
+                                    src={item.image}
+                                />
+                            )
+                        }
+                    >
+                        <List.Item.Meta
+                            avatar={<Avatar src={item.avatar} />}
+                            title={<a href={item.href}>{item.name}</a>}
+                            description={item.description}
+                        />
+                        {isMobile && item.image && (
                             <img
                                 style={{ maxWidth: "24vw" }}
                                 width="272px"
                                 alt="userImage"
                                 src={item.image}
                             />
-                        )
-                    }
-                >
-                    <List.Item.Meta
-                        avatar={<Avatar src={item.avatar} />}
-                        title={<a href={item.href}>{item.name}</a>}
-                        description={item.description}
-                    />
-                    {isMobile && (
-                        <img
-                            style={{ maxWidth: "24vw" }}
-                            width="272px"
-                            alt="userImage"
-                            src={item.image}
-                        />
-                    )}
-                    <TextWrapper>{item.content}</TextWrapper>
-                </List.Item>
-            )}
-        />
+                        )}
+                        <TextWrapper>{item.content}</TextWrapper>
+                    </List.Item>
+                )}
+            />
+            <div ref={dialogFocus} />
+        </>
     );
 }

@@ -5,7 +5,7 @@ const Container = styled.div`
     height: 100%;
 `;
 
-const Message = styled.div`
+const Dialog = styled.div`
     height: ${({ theme: { SPACING } }) => SPACING.CONTENT.HEIGHT};
     width: ${({ theme: { SPACING } }) => SPACING.CONTENT.MIN_WIDTH};
     max-width: 100%;
@@ -14,10 +14,10 @@ const Message = styled.div`
 
 const Textator = styled.div``;
 
-export default function ChatFrame({ message, textator }) {
+export default function ChatFrame({ dialog, textator }) {
     return (
         <Container>
-            <Message>{message}</Message>
+            <Dialog>{dialog}</Dialog>
             <Divider />
             <Textator>{textator}</Textator>
         </Container>
