@@ -382,6 +382,86 @@
       "comments": [],
       "room_id": "1",
       "description": "123123ㄱ435"
+    },
+    {
+      "id": "7pAeOjS",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T07:06:54.228Z",
+      "updated_at": "2023-09-09T07:06:54.228Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "room_id": "8",
+      "description": "Hello World!"
+    },
+    {
+      "id": "HnJwdxp",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T07:16:28.691Z",
+      "updated_at": "2023-09-09T07:16:28.691Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "room_id": "2",
+      "description": ""
+    },
+    {
+      "id": "30PFEoa",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T07:16:32.313Z",
+      "updated_at": "2023-09-09T07:16:32.313Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "room_id": "2",
+      "description": "Hello World!123"
+    },
+    {
+      "id": "7Q5M8a5",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T07:19:08.845Z",
+      "updated_at": "2023-09-09T07:19:08.845Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "room_id": "2",
+      "description": "fgdsfds"
+    },
+    {
+      "id": "L7TS-dR",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "content": null,
+      "created_at": "2023-09-09T07:19:13.222Z",
+      "updated_at": "2023-09-09T07:19:13.222Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "room_id": "2",
+      "description": "Hello!!"
     }
   ],
   "rooms": [
@@ -419,14 +499,22 @@
       "title": "Room 2",
       "description": "Room 2",
       "type": "public",
-      "created_at": null,
-      "updated_at": null,
+      "created_at": "1970-01-01T00:00:00.000Z",
+      "updated_at": "1970-01-01T00:00:00.000Z",
       "users": [
         "1"
       ],
       "dialog": [
-        "1"
-      ]
+        "2",
+        "3",
+        "8",
+        "HnJwdxp",
+        "30PFEoa",
+        "7Q5M8a5",
+        "L7TS-dR"
+      ],
+      "createdAt": "1970-01-01T00:00:00.000Z",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
     },
     {
       "id": "3",
@@ -498,7 +586,13 @@
       "description": null,
       "type": "public",
       "users": [],
-      "dialog": []
+      "dialog": [
+        "7pAeOjS"
+      ],
+      "createdAt": null,
+      "updatedAt": null,
+      "created_at": null,
+      "updated_at": null
     },
     {
       "id": "9",

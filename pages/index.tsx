@@ -1,4 +1,4 @@
-import Message from "components/content/Message";
+import Dialog from "components/content/Dialog";
 import Textator from "components/content/Textator";
 import AppFrame from "components/layout/AppFrame";
 import ChatFrame from "components/layout/ChatFrame";
@@ -8,7 +8,7 @@ import WithAuth from "hoc/WithAuth";
 function Page() {
     return (
         <AppFrame menu={<Menu />} header={<div>Header</div>}>
-            <ChatFrame message={<Message />} textator={<Textator />} />
+            <ChatFrame dialog={<Dialog />} textator={<Textator />} />
         </AppFrame>
     );
 }

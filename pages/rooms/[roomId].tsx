@@ -1,5 +1,5 @@
+import Dialog from "components/content/Dialog";
 import Header from "components/content/Header";
-import Message from "components/content/Message";
 import Textator from "components/content/Textator";
 import AppFrame from "components/layout/AppFrame";
 import ChatFrame from "components/layout/ChatFrame";
@@ -75,10 +75,11 @@ function Room() {
                 header={<Header room={chatRoom} loading={fetchingData} />}
             >
                 <ChatFrame
-                    message={
-                        <Message
+                    dialog={
+                        <Dialog
                             dialog={chatRoom.dialog}
                             loading={fetchingData}
+                            autoFocus
                         />
                     }
                     textator={
