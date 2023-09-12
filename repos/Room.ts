@@ -11,14 +11,16 @@ import IRooms from "types/rooms.type";
 class RoomRepo extends BaseRepo {
     async get(id: string, query?: TQuery): Promise<IRoom> {
         return this.client
-            .get(`/room/rooms/${id}`, query)
+            .get(this.buildUrl("get", query))
             .then(({ data }) => new Room(data));
     }
 
     async list(query?: TQuery): Promise<{ results: Array<IRoom> }> {
-        return this.client.get("/room/rooms", query).then(({ data }) => ({
-            results: data.results.map(r => new Room(r)),
-        }));
+        return this.client
+            .get(this.buildUrl("list", query))
+            .then(({ data }) => ({
+                results: data.results.map(r => new Room(r)),
+            }));
     }
 
     async create(room: TRoom, query?: TQuery): Promise<IRoom> {
