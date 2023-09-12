@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import Room from "models/Room";
 import Rooms from "models/Rooms";
 import BaseRepo from "repos/BaseRepo";
@@ -10,14 +11,14 @@ import IRooms from "types/rooms.type";
 class RoomRepo extends BaseRepo {
     async get(id: string, query?: TQuery): Promise<IRoom> {
         return this.client
-            .get(this.buildUrl("get", query, { id }))
+            .get(`/room/rooms/${id}`, query)
             .then(({ data }) => new Room(data));
     }
 
     async list(query?: TQuery): Promise<{ results: Array<IRoom> }> {
-        return this.client
-            .get(this.buildUrl("list", query))
-            .then(({ data }) => ({ results: data.map(r => new Room(r)) }));
+        return this.client.get("/room/rooms", query).then(({ data }) => ({
+            results: data.results.map(r => new Room(r)),
+        }));
     }
 
     async create(room: TRoom, query?: TQuery): Promise<IRoom> {
@@ -70,4 +71,4 @@ class RoomRepo extends BaseRepo {
     }
 }
 
-export default new RoomRepo("/rooms");
+export default new RoomRepo("/room");

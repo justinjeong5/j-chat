@@ -42,6 +42,8 @@ abstract class BaseModel {
 
     actions: TCommon;
 
+    url: string;
+
     constructor(
         url: string = "",
         actions: (url: string) => TActions = defaultActions,
@@ -52,6 +54,7 @@ abstract class BaseModel {
             ...defaultActions(withAPI(url)),
             ...actions(withAPI(url)),
         };
+        this.url = url;
     }
 
     buildUrl(method, query?: TQuery, urlParams = {}) {

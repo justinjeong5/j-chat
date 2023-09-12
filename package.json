@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "concurrently 'json-server --watch db/db.json --port 3004' 'next dev'",
+        "dev:local": "concurrently 'json-server --watch db/db.json --port 3004' 'next dev'",
+        "dev": "NODE_ENV=development next dev",
         "build": "next build",
         "start": "next start",
         "jest": "jest",
