@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "concurrently 'json-server --watch db/db.json --port 3004' 'next dev'",
+        "dev:local": "concurrently 'json-server --watch db/db.json --port 3004' 'next dev'",
+        "dev": "NODE_ENV=development next dev",
         "build": "next build",
         "start": "next start",
         "jest": "jest",
@@ -20,7 +21,6 @@
         "@ant-design/icons": "^5.2.5",
         "antd": "^5.8.0",
         "axios": "^1.4.0",
-        "dotenv": "^16.3.1",
         "hash.js": "^1.1.7",
         "json-server": "^0.17.3",
         "lodash": "^4.17.21",

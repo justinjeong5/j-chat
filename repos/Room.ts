@@ -17,7 +17,9 @@ class RoomRepo extends BaseRepo {
     async list(query?: TQuery): Promise<{ results: Array<IRoom> }> {
         return this.client
             .get(this.buildUrl("list", query))
-            .then(({ data }) => ({ results: data.map(r => new Room(r)) }));
+            .then(({ data }) => ({
+                results: data.results.map(r => new Room(r)),
+            }));
     }
 
     async create(room: TRoom, query?: TQuery): Promise<IRoom> {
@@ -70,4 +72,4 @@ class RoomRepo extends BaseRepo {
     }
 }
 
-export default new RoomRepo("/rooms");
+export default new RoomRepo("/room");

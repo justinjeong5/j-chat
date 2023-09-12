@@ -37,4 +37,4 @@ class UserRepo extends BaseRepo {
     }
 }
 
-export default new UserRepo("/dialog");
+export default new UserRepo("/user");
