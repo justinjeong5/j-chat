@@ -2,7 +2,7 @@ import BaseModel from "models/BaseModel";
 import { TCommon } from "types/common.type";
 import IMessage, {
     TCountType,
-    TMessageExternal,
+    TMessage,
     TMessageField,
 } from "types/message.type";
 
@@ -35,10 +35,10 @@ export default class Message extends BaseModel implements IMessage {
 
     comments: Array<TCommon>;
 
-    constructor(config: TMessageExternal) {
+    constructor(config: TMessage) {
         super();
         this.id = config.id || null;
-        this.roomId = config.room_id || null;
+        this.roomId = config.roomId || null;
         this.name = config.name || null;
         this.href = config.href || null;
         this.image = config.image || null;
@@ -46,8 +46,8 @@ export default class Message extends BaseModel implements IMessage {
         this.avatar = config.avatar || null;
         this.status = config.status || null;
         this.content = config.content || "";
-        this.createdAt = new Date(config.created_at || null);
-        this.updatedAt = new Date(config.updated_at || null);
+        this.createdAt = new Date(config.createdAt || null);
+        this.updatedAt = new Date(config.updatedAt || null);
         this.stars = config.stars || [];
         this.likes = config.likes || [];
         this.comments = config.comments || [];
@@ -57,7 +57,7 @@ export default class Message extends BaseModel implements IMessage {
         return this[type].length;
     }
 
-    static createItem(config: TMessageField): TMessageExternal {
+    static createItem(config: TMessageField): TMessage {
         const filteredConfig = { ...config };
         delete filteredConfig.roomId;
 
@@ -69,22 +69,22 @@ export default class Message extends BaseModel implements IMessage {
             avatar: null,
             status: null,
             description: "",
-            created_at: new Date(),
-            updated_at: new Date(),
+            createdAt: new Date(),
+            updatedAt: new Date(),
             stars: [],
             likes: [],
             comments: [],
-            room_id: config.roomId,
+            roomId: config.roomId,
             ...filteredConfig,
         };
     }
 
-    toExternal(): TMessageExternal {
+    toExternal(): TMessage {
         return {
             ...this,
-            room_id: this.roomId,
-            created_at: this.createdAt,
-            updated_at: this.updatedAt,
+            roomId: this.roomId,
+            createdAt: this.createdAt,
+            updatedAt: this.updatedAt,
         };
     }
 }

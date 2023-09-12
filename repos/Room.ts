@@ -3,8 +3,8 @@ import Rooms from "models/Rooms";
 import BaseRepo from "repos/BaseRepo";
 import MessageRepo from "repos/Message";
 import { TQuery } from "types/common.type";
-import { TMessageExternal } from "types/message.type";
-import IRoom, { TRoomExternal, TRoomField } from "types/room.type";
+import { TMessage } from "types/message.type";
+import IRoom, { TRoom, TRoomField } from "types/room.type";
 import IRooms from "types/rooms.type";
 
 class RoomRepo extends BaseRepo {
@@ -20,19 +20,19 @@ class RoomRepo extends BaseRepo {
             .then(({ data }) => ({ results: data.map(r => new Room(r)) }));
     }
 
-    async create(room: TRoomExternal, query?: TQuery): Promise<IRoom> {
+    async create(room: TRoom, query?: TQuery): Promise<IRoom> {
         return this.client
             .post(this.buildUrl("create", query), room)
             .then(({ data }) => new Room(data));
     }
 
-    async update(room: TRoomExternal, query?: TQuery): Promise<IRoom> {
+    async update(room: TRoom, query?: TQuery): Promise<IRoom> {
         return this.client
             .patch(this.buildUrl("update", query, room), room)
             .then(({ data }) => new Room(data));
     }
 
-    async patch(room: TRoomExternal, query?: object): Promise<IRoom> {
+    async patch(room: TRoom, query?: object): Promise<IRoom> {
         return this.client
             .patch(this.buildUrl("patch", query, room), room)
             .then(({ data }) => new Room(data));
@@ -56,10 +56,7 @@ class RoomRepo extends BaseRepo {
         return this.create(Room.createItem({ title, type, description }));
     }
 
-    async addMessage(
-        roomId: string,
-        message: TMessageExternal,
-    ): Promise<IRoom> {
+    async addMessage(roomId: string, message: TMessage): Promise<IRoom> {
         const roomData = await this.getRoomWithDialog(roomId);
         const messageData = await MessageRepo.create(message);
         await this.patch(roomData.addMessage(messageData).toExternal());
