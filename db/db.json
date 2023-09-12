@@ -3,23 +3,20 @@
     {
       "id": "1",
       "email": "justin.jeong5@gmail.com",
-      "name": "justin",
-      "is_staff": true,
-      "country": "KR",
-      "language": "ko"
+      "username": "justin"
     }
   ],
   "dialog": [
     {
       "id": "1",
-      "room_id": "1",
+      "roomId": "1",
       "name": "ant design part 1",
       "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
       "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=1",
       "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
       "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-      "created_at": null,
-      "updated_at": null,
+      "createdAt": null,
+      "updatedAt": null,
       "stars": [
         "1",
         "2",
@@ -38,14 +35,14 @@
     },
     {
       "id": "2",
-      "room_id": "2",
+      "roomId": "2",
       "name": "ant design part 2",
       "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
       "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=2",
       "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
       "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-      "created_at": null,
-      "updated_at": null,
+      "createdAt": null,
+      "updatedAt": null,
       "stars": [
         "1",
         "2",
@@ -64,14 +61,14 @@
     },
     {
       "id": "3",
-      "room_id": "2",
+      "roomId": "2",
       "name": "ant design part 3",
       "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
       "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=3",
       "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
       "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-      "created_at": null,
-      "updated_at": null,
+      "createdAt": null,
+      "updatedAt": null,
       "stars": [
         "1",
         "2",
@@ -90,14 +87,14 @@
     },
     {
       "id": "4",
-      "room_id": "3",
+      "roomId": "3",
       "name": "ant design part 4",
       "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
       "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=4",
       "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
       "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-      "created_at": null,
-      "updated_at": null,
+      "createdAt": null,
+      "updatedAt": null,
       "stars": [
         "1",
         "2",
@@ -116,14 +113,14 @@
     },
     {
       "id": "5",
-      "room_id": "4",
+      "roomId": "4",
       "name": "ant design part 5",
       "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
       "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=5",
       "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
       "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-      "created_at": null,
-      "updated_at": null,
+      "createdAt": null,
+      "updatedAt": null,
       "stars": [
         "1",
         "2",
@@ -142,14 +139,14 @@
     },
     {
       "id": "6",
-      "room_id": "1",
+      "roomId": "1",
       "name": "ant design part 6",
       "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
       "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=6",
       "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
       "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-      "created_at": null,
-      "updated_at": null,
+      "createdAt": null,
+      "updatedAt": null,
       "stars": [
         "1",
         "2",
@@ -168,14 +165,14 @@
     },
     {
       "id": "7",
-      "room_id": "1",
+      "roomId": "1",
       "name": "ant design part 7",
       "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
       "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=7",
       "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
       "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-      "created_at": null,
-      "updated_at": null,
+      "createdAt": null,
+      "updatedAt": null,
       "stars": [
         "1",
         "2",
@@ -194,14 +191,14 @@
     },
     {
       "id": "8",
-      "room_id": "2",
+      "roomId": "2",
       "name": "ant design part 8",
       "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
       "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=8",
       "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
       "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-      "created_at": null,
-      "updated_at": null,
+      "createdAt": null,
+      "updatedAt": null,
       "stars": [
         "1",
         "2",
@@ -220,14 +217,14 @@
     },
     {
       "id": "9",
-      "room_id": "3",
+      "roomId": "3",
       "name": "ant design part 9",
       "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
       "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=9",
       "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
       "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-      "created_at": null,
-      "updated_at": null,
+      "createdAt": null,
+      "updatedAt": null,
       "stars": [
         "1",
         "2",
@@ -246,14 +243,14 @@
     },
     {
       "id": "10",
-      "room_id": "4",
+      "roomId": "4",
       "name": "ant design part 10",
       "image": "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
       "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel&key=10",
       "description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
       "content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-      "created_at": "2023-08-22T01:00:00.000Z",
-      "updated_at": "2023-08-22T01:30:00.000Z",
+      "createdAt": "2023-08-22T01:00:00.000Z",
+      "updatedAt": "2023-08-22T01:30:00.000Z",
       "stars": [
         "1",
         "2",
@@ -278,14 +275,13 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T05:18:55.529Z",
-      "updated_at": "2023-09-09T05:18:55.529Z",
+      "createdAt": "2023-09-09T05:18:55.529Z",
+      "updatedAt": "2023-09-09T05:18:55.529Z",
       "stars": [],
       "likes": [],
       "comments": [],
       "description": "1234123",
-      "roomId": "1",
-      "room_id": "1"
+      "roomId": "1"
     },
     {
       "id": "R_AZkiv",
@@ -295,12 +291,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T05:20:29.839Z",
-      "updated_at": "2023-09-09T05:20:29.839Z",
+      "createdAt": "2023-09-09T05:20:29.839Z",
+      "updatedAt": "2023-09-09T05:20:29.839Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "1",
+      "roomId": "1",
       "description": "12324123"
     },
     {
@@ -311,12 +307,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T05:23:00.023Z",
-      "updated_at": "2023-09-09T05:23:00.023Z",
+      "createdAt": "2023-09-09T05:23:00.023Z",
+      "updatedAt": "2023-09-09T05:23:00.023Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "1",
+      "roomId": "1",
       "description": "1231423"
     },
     {
@@ -327,12 +323,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T05:23:47.656Z",
-      "updated_at": "2023-09-09T05:23:47.656Z",
+      "createdAt": "2023-09-09T05:23:47.656Z",
+      "updatedAt": "2023-09-09T05:23:47.656Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "1",
+      "roomId": "1",
       "description": "123124"
     },
     {
@@ -343,12 +339,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T05:24:08.423Z",
-      "updated_at": "2023-09-09T05:24:08.423Z",
+      "createdAt": "2023-09-09T05:24:08.423Z",
+      "updatedAt": "2023-09-09T05:24:08.423Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "1",
+      "roomId": "1",
       "description": "1r324234"
     },
     {
@@ -359,12 +355,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T05:26:18.102Z",
-      "updated_at": "2023-09-09T05:26:18.102Z",
+      "createdAt": "2023-09-09T05:26:18.102Z",
+      "updatedAt": "2023-09-09T05:26:18.102Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "1",
+      "roomId": "1",
       "description": "123123"
     },
     {
@@ -375,12 +371,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T05:26:20.912Z",
-      "updated_at": "2023-09-09T05:26:20.912Z",
+      "createdAt": "2023-09-09T05:26:20.912Z",
+      "updatedAt": "2023-09-09T05:26:20.912Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "1",
+      "roomId": "1",
       "description": "123123ㄱ435"
     },
     {
@@ -391,12 +387,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:06:54.228Z",
-      "updated_at": "2023-09-09T07:06:54.228Z",
+      "createdAt": "2023-09-09T07:06:54.228Z",
+      "updatedAt": "2023-09-09T07:06:54.228Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "8",
+      "roomId": "8",
       "description": "Hello World!"
     },
     {
@@ -407,12 +403,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:16:28.691Z",
-      "updated_at": "2023-09-09T07:16:28.691Z",
+      "createdAt": "2023-09-09T07:16:28.691Z",
+      "updatedAt": "2023-09-09T07:16:28.691Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "2",
+      "roomId": "2",
       "description": ""
     },
     {
@@ -423,12 +419,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:16:32.313Z",
-      "updated_at": "2023-09-09T07:16:32.313Z",
+      "createdAt": "2023-09-09T07:16:32.313Z",
+      "updatedAt": "2023-09-09T07:16:32.313Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "2",
+      "roomId": "2",
       "description": "Hello World!123"
     },
     {
@@ -439,12 +435,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:19:08.845Z",
-      "updated_at": "2023-09-09T07:19:08.845Z",
+      "createdAt": "2023-09-09T07:19:08.845Z",
+      "updatedAt": "2023-09-09T07:19:08.845Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "2",
+      "roomId": "2",
       "description": "fgdsfds"
     },
     {
@@ -455,12 +451,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:19:13.222Z",
-      "updated_at": "2023-09-09T07:19:13.222Z",
+      "createdAt": "2023-09-09T07:19:13.222Z",
+      "updatedAt": "2023-09-09T07:19:13.222Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "2",
+      "roomId": "2",
       "description": "Hello!!"
     },
     {
@@ -471,12 +467,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:26:06.807Z",
-      "updated_at": "2023-09-09T07:26:06.807Z",
+      "createdAt": "2023-09-09T07:26:06.807Z",
+      "updatedAt": "2023-09-09T07:26:06.807Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "2",
+      "roomId": "2",
       "description": "12314123"
     },
     {
@@ -487,12 +483,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:26:39.138Z",
-      "updated_at": "2023-09-09T07:26:39.138Z",
+      "createdAt": "2023-09-09T07:26:39.138Z",
+      "updatedAt": "2023-09-09T07:26:39.138Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "2",
+      "roomId": "2",
       "description": "안녕하세요>?"
     },
     {
@@ -503,12 +499,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:26:42.139Z",
-      "updated_at": "2023-09-09T07:26:42.139Z",
+      "createdAt": "2023-09-09T07:26:42.139Z",
+      "updatedAt": "2023-09-09T07:26:42.139Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "2",
+      "roomId": "2",
       "description": "ㅋㅋㅋ 신기하다"
     },
     {
@@ -519,12 +515,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:26:42.150Z",
-      "updated_at": "2023-09-09T07:26:42.150Z",
+      "createdAt": "2023-09-09T07:26:42.150Z",
+      "updatedAt": "2023-09-09T07:26:42.150Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "2",
+      "roomId": "2",
       "description": "다"
     },
     {
@@ -535,12 +531,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:26:44.680Z",
-      "updated_at": "2023-09-09T07:26:44.680Z",
+      "createdAt": "2023-09-09T07:26:44.680Z",
+      "updatedAt": "2023-09-09T07:26:44.680Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "2",
+      "roomId": "2",
       "description": "ㄴㅇㄹㄴㅁㅇㄹㅇㄴㅁㄹ"
     },
     {
@@ -551,12 +547,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:26:44.689Z",
-      "updated_at": "2023-09-09T07:26:44.689Z",
+      "createdAt": "2023-09-09T07:26:44.689Z",
+      "updatedAt": "2023-09-09T07:26:44.689Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "2",
+      "roomId": "2",
       "description": "ㄹ"
     },
     {
@@ -567,12 +563,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:27:26.838Z",
-      "updated_at": "2023-09-09T07:27:26.838Z",
+      "createdAt": "2023-09-09T07:27:26.838Z",
+      "updatedAt": "2023-09-09T07:27:26.838Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "2",
+      "roomId": "2",
       "description": "12314"
     },
     {
@@ -583,12 +579,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:27:28.672Z",
-      "updated_at": "2023-09-09T07:27:28.672Z",
+      "createdAt": "2023-09-09T07:27:28.672Z",
+      "updatedAt": "2023-09-09T07:27:28.672Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "2",
+      "roomId": "2",
       "description": "afdsaf"
     },
     {
@@ -599,12 +595,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:27:29.630Z",
-      "updated_at": "2023-09-09T07:27:29.630Z",
+      "createdAt": "2023-09-09T07:27:29.630Z",
+      "updatedAt": "2023-09-09T07:27:29.630Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "2",
+      "roomId": "2",
       "description": ""
     },
     {
@@ -615,12 +611,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:27:31.162Z",
-      "updated_at": "2023-09-09T07:27:31.162Z",
+      "createdAt": "2023-09-09T07:27:31.162Z",
+      "updatedAt": "2023-09-09T07:27:31.162Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "2",
+      "roomId": "2",
       "description": "asfdgsdf"
     },
     {
@@ -631,12 +627,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:28:13.781Z",
-      "updated_at": "2023-09-09T07:28:13.781Z",
+      "createdAt": "2023-09-09T07:28:13.781Z",
+      "updatedAt": "2023-09-09T07:28:13.781Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "2",
+      "roomId": "2",
       "description": "wfdasfds"
     },
     {
@@ -647,12 +643,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:28:15.820Z",
-      "updated_at": "2023-09-09T07:28:15.820Z",
+      "createdAt": "2023-09-09T07:28:15.820Z",
+      "updatedAt": "2023-09-09T07:28:15.820Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "2",
+      "roomId": "2",
       "description": "fdsnjklnwljakf"
     },
     {
@@ -663,12 +659,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:33:30.821Z",
-      "updated_at": "2023-09-09T07:33:30.821Z",
+      "createdAt": "2023-09-09T07:33:30.821Z",
+      "updatedAt": "2023-09-09T07:33:30.821Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "1",
+      "roomId": "1",
       "description": "fdsfasdf"
     },
     {
@@ -679,12 +675,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:33:47.362Z",
-      "updated_at": "2023-09-09T07:33:47.362Z",
+      "createdAt": "2023-09-09T07:33:47.362Z",
+      "updatedAt": "2023-09-09T07:33:47.362Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "1",
+      "roomId": "1",
       "description": "dasf"
     },
     {
@@ -695,12 +691,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:34:29.044Z",
-      "updated_at": "2023-09-09T07:34:29.044Z",
+      "createdAt": "2023-09-09T07:34:29.044Z",
+      "updatedAt": "2023-09-09T07:34:29.044Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "12",
+      "roomId": "12",
       "description": "안녕하셍>?"
     },
     {
@@ -711,12 +707,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T07:35:54.175Z",
-      "updated_at": "2023-09-09T07:35:54.175Z",
+      "createdAt": "2023-09-09T07:35:54.175Z",
+      "updatedAt": "2023-09-09T07:35:54.175Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "2",
+      "roomId": "2",
       "description": "asdfasdf"
     },
     {
@@ -727,12 +723,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T08:54:31.120Z",
-      "updated_at": "2023-09-09T08:54:31.120Z",
+      "createdAt": "2023-09-09T08:54:31.120Z",
+      "updatedAt": "2023-09-09T08:54:31.120Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "4",
+      "roomId": "4",
       "description": "1234"
     },
     {
@@ -743,12 +739,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T08:54:50.984Z",
-      "updated_at": "2023-09-09T08:54:50.984Z",
+      "createdAt": "2023-09-09T08:54:50.984Z",
+      "updatedAt": "2023-09-09T08:54:50.984Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "4",
+      "roomId": "4",
       "description": "fdsfasdf"
     },
     {
@@ -759,12 +755,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T08:59:32.936Z",
-      "updated_at": "2023-09-09T08:59:32.936Z",
+      "createdAt": "2023-09-09T08:59:32.936Z",
+      "updatedAt": "2023-09-09T08:59:32.936Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "4",
+      "roomId": "4",
       "description": "sdafsdf"
     },
     {
@@ -775,12 +771,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T09:03:37.226Z",
-      "updated_at": "2023-09-09T09:03:37.226Z",
+      "createdAt": "2023-09-09T09:03:37.226Z",
+      "updatedAt": "2023-09-09T09:03:37.226Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "4",
+      "roomId": "4",
       "description": "asdfsadfag"
     },
     {
@@ -791,12 +787,12 @@
       "avatar": null,
       "status": null,
       "content": "Hello World",
-      "created_at": "2023-09-09T09:05:25.627Z",
-      "updated_at": "2023-09-09T09:05:25.627Z",
+      "createdAt": "2023-09-09T09:05:25.627Z",
+      "updatedAt": "2023-09-09T09:05:25.627Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "1",
+      "roomId": "1",
       "description": "Hello!"
     },
     {
@@ -807,25 +803,41 @@
       "avatar": null,
       "status": null,
       "description": "",
-      "created_at": "2023-09-09T09:10:00.614Z",
-      "updated_at": "2023-09-09T09:10:00.614Z",
+      "createdAt": "2023-09-09T09:10:00.614Z",
+      "updatedAt": "2023-09-09T09:10:00.614Z",
       "stars": [],
       "likes": [],
       "comments": [],
-      "room_id": "3",
+      "roomId": "3",
       "content": "Test"
+    },
+    {
+      "id": "6OlScoN",
+      "name": null,
+      "href": null,
+      "image": null,
+      "avatar": null,
+      "status": null,
+      "description": "",
+      "createdAt": "2023-09-12T10:50:01.212Z",
+      "updatedAt": "2023-09-12T10:50:01.212Z",
+      "stars": [],
+      "likes": [],
+      "comments": [],
+      "roomId": "1",
+      "content": "sadfadsf"
     }
   ],
   "rooms": [
     {
       "id": "1",
-      "room_id": "1",
+      "roomId": "1",
       "title": "Room 1",
       "description": "Room 1",
       "type": "public",
       "starred": null,
-      "created_at": "1970-01-01T00:00:00.000Z",
-      "updated_at": "1970-01-01T00:00:00.000Z",
+      "createdAt": "1970-01-01T00:00:00.000Z",
+      "updatedAt": "1970-01-01T00:00:00.000Z",
       "users": [
         "1",
         "2",
@@ -845,10 +857,9 @@
         "aMjDMmX",
         "7Nvu6js",
         "EOaiUFj",
-        "b3xEmce"
-      ],
-      "createdAt": "1970-01-01T00:00:00.000Z",
-      "updatedAt": "1970-01-01T00:00:00.000Z"
+        "b3xEmce",
+        "6OlScoN"
+      ]
     },
     {
       "id": "2",
@@ -856,8 +867,8 @@
       "description": "Room 2",
       "type": "public",
       "starred": true,
-      "created_at": "1970-01-01T00:00:00.000Z",
-      "updated_at": "1970-01-01T00:00:00.000Z",
+      "createdAt": "1970-01-01T00:00:00.000Z",
+      "updatedAt": "1970-01-01T00:00:00.000Z",
       "users": [
         "1"
       ],
@@ -882,9 +893,7 @@
         "74256ei",
         "ffk6wqq",
         "4zls6wl"
-      ],
-      "createdAt": "1970-01-01T00:00:00.000Z",
-      "updatedAt": "1970-01-01T00:00:00.000Z"
+      ]
     },
     {
       "id": "3",
@@ -892,8 +901,8 @@
       "description": "Room 3",
       "type": "public",
       "starred": null,
-      "created_at": "1970-01-01T00:00:00.000Z",
-      "updated_at": "1970-01-01T00:00:00.000Z",
+      "createdAt": "1970-01-01T00:00:00.000Z",
+      "updatedAt": "1970-01-01T00:00:00.000Z",
       "users": [
         "1"
       ],
@@ -901,9 +910,7 @@
         "4",
         "9",
         "w6uCtO9"
-      ],
-      "createdAt": "1970-01-01T00:00:00.000Z",
-      "updatedAt": "1970-01-01T00:00:00.000Z"
+      ]
     },
     {
       "id": "4",
@@ -911,8 +918,8 @@
       "description": "Room 4",
       "type": "public",
       "starred": true,
-      "created_at": "1970-01-01T00:00:00.000Z",
-      "updated_at": "1970-01-01T00:00:00.000Z",
+      "createdAt": "1970-01-01T00:00:00.000Z",
+      "updatedAt": "1970-01-01T00:00:00.000Z",
       "users": [
         "1"
       ],
@@ -923,9 +930,7 @@
         "kna7psY",
         "GZPa8BZ",
         "zM5OdUM"
-      ],
-      "createdAt": "1970-01-01T00:00:00.000Z",
-      "updatedAt": "1970-01-01T00:00:00.000Z"
+      ]
     },
     {
       "id": "5",
@@ -933,8 +938,8 @@
       "description": "Room 5",
       "type": "direct",
       "starred": false,
-      "created_at": null,
-      "updated_at": null,
+      "createdAt": null,
+      "updatedAt": null,
       "users": [
         "1"
       ],
@@ -948,8 +953,8 @@
       "description": "Room 6",
       "type": "direct",
       "starred": false,
-      "created_at": null,
-      "updated_at": null,
+      "createdAt": null,
+      "updatedAt": null,
       "users": [
         "1"
       ],
@@ -977,9 +982,7 @@
         "7pAeOjS"
       ],
       "createdAt": null,
-      "updatedAt": null,
-      "created_at": null,
-      "updated_at": null
+      "updatedAt": null
     },
     {
       "id": "9",
@@ -990,9 +993,7 @@
       "users": [],
       "dialog": [],
       "createdAt": "1970-01-01T00:00:00.000Z",
-      "updatedAt": "1970-01-01T00:00:00.000Z",
-      "created_at": "1970-01-01T00:00:00.000Z",
-      "updated_at": "1970-01-01T00:00:00.000Z"
+      "updatedAt": "1970-01-01T00:00:00.000Z"
     },
     {
       "id": "10",
@@ -1003,16 +1004,14 @@
       "users": [],
       "dialog": [],
       "createdAt": null,
-      "updatedAt": null,
-      "created_at": null,
-      "updated_at": null
+      "updatedAt": null
     },
     {
       "id": "11",
       "users": [],
       "dialog": [],
-      "created_at": "2023-09-08T13:36:11.246Z",
-      "updated_at": "2023-09-08T13:36:11.246Z",
+      "createdAt": "2023-09-08T13:36:11.246Z",
+      "updatedAt": "2023-09-08T13:36:11.246Z",
       "title": "Room 11",
       "type": "public",
       "starred": false,
@@ -1024,27 +1023,23 @@
       "dialog": [
         "fpMJhXs"
       ],
-      "created_at": "2023-09-08T13:48:07.532Z",
-      "updated_at": "2023-09-08T13:48:07.532Z",
+      "createdAt": "2023-09-08T13:48:07.532Z",
+      "updatedAt": "2023-09-08T13:48:07.532Z",
       "title": "Room 12",
       "type": "public",
       "starred": false,
-      "description": "Test 12",
-      "createdAt": "2023-09-08T13:48:07.532Z",
-      "updatedAt": "2023-09-08T13:48:07.532Z"
+      "description": "Test 12"
     },
     {
       "id": "NEt1ci-",
       "users": [],
       "dialog": [],
       "starred": true,
-      "created_at": "2023-09-09T09:07:58.239Z",
-      "updated_at": "2023-09-09T09:07:58.239Z",
+      "createdAt": "2023-09-09T09:07:58.239Z",
+      "updatedAt": "2023-09-09T09:07:58.239Z",
       "title": "Justin Test",
       "type": "direct",
-      "description": "Description",
-      "createdAt": "2023-09-09T09:07:58.239Z",
-      "updatedAt": "2023-09-09T09:07:58.239Z"
+      "description": "Description"
     }
   ]
 }

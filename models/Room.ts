@@ -1,6 +1,6 @@
 import BaseModel from "models/BaseModel";
 import IMessage from "types/message.type";
-import IRoom, { TRoomExternal, TRoomField, TRoomMenu } from "types/room.type";
+import IRoom, { TRoom, TRoomField, TRoomMenu } from "types/room.type";
 
 export default class Room extends BaseModel implements IRoom {
     id: string;
@@ -21,15 +21,15 @@ export default class Room extends BaseModel implements IRoom {
 
     dialog: Array<IMessage>;
 
-    constructor(config: TRoomExternal) {
+    constructor(config: TRoom) {
         super();
         this.id = config.id || null;
         this.title = config.title || null;
         this.description = config.description || null;
         this.type = config.type || null;
         this.starred = !!config.starred || null;
-        this.createdAt = new Date(config.created_at);
-        this.updatedAt = new Date(config.updated_at);
+        this.createdAt = new Date(config.createdAt);
+        this.updatedAt = new Date(config.updatedAt);
         this.users = config.users || [];
         this.dialog = config.dialog || [];
     }
@@ -56,7 +56,7 @@ export default class Room extends BaseModel implements IRoom {
         return this;
     }
 
-    toExternal(): TRoomExternal {
+    toExternal(): TRoom {
         const external = { ...this };
         delete external.toMenu;
         delete external.setDialog;
@@ -67,19 +67,19 @@ export default class Room extends BaseModel implements IRoom {
             ...this,
             id: String(this.id),
             dialog: this.dialog.map(m => String(m.id)),
-            created_at: this.createdAt,
-            updated_at: this.updatedAt,
+            createdAt: this.createdAt,
+            updatedAt: this.updatedAt,
         };
     }
 
-    static createItem(config: TRoomField): TRoomExternal {
+    static createItem(config: TRoomField): TRoom {
         return {
             id: null,
             users: [],
             dialog: [],
             starred: false,
-            created_at: new Date(),
-            updated_at: new Date(),
+            createdAt: new Date(),
+            updatedAt: new Date(),
             ...config,
         };
     }
