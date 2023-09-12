@@ -2,10 +2,8 @@ import axios, { AxiosInstance } from "axios";
 import qs from "qs";
 import { TQuery } from "types/common.type";
 
-// const { API } = process.env;
-const API = "http://localhost:3004";
-
-const withAPI = (path: string = ""): string => API + path;
+const withAPI = (path: string = ""): string =>
+    process.env.NEXT_PUBLIC_API + path;
 
 const withQS = (path: string = "", query: TQuery = {}): string => {
     if (Object.keys(query).length === 0) {
@@ -15,11 +13,12 @@ const withQS = (path: string = "", query: TQuery = {}): string => {
 };
 const createClient = (...args): AxiosInstance => {
     const client = axios.create(...args);
+    axios.defaults.withCredentials = true;
     return client;
 };
 
 const createAPIClient = (
-    config: { baseURL: string } = { baseURL: "" },
+    config: { baseURL: string },
     ...args
 ): AxiosInstance => {
     const baseURL = withAPI(config.baseURL);
@@ -34,4 +33,4 @@ const createAPIClient = (
 
 export { createAPIClient, createClient, withAPI, withQS };
 
-export default createClient({ baseURL: API });
+export default createClient({ baseURL: process.env.NEXT_PUBLIC_API });
