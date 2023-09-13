@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import BaseModel from "models/BaseModel";
 import { TCommon } from "types/common.type";
 import IMessage, {

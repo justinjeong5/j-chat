@@ -39,7 +39,7 @@ export default function Profile({ user }) {
         <Container>
             <LayoutWrapper>
                 <Avatar src={getAvatarImage(user.email)} />
-                <TextWrapper>{user.name}</TextWrapper>
+                <TextWrapper>{user.username}</TextWrapper>
             </LayoutWrapper>
             <TextWrapper>{user.email}</TextWrapper>
             <SpaceWrapper>

@@ -2,6 +2,7 @@ import { Button, Form, Input } from "antd";
 import useLogin from "hooks/login";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import UserRepo from "repos/User";
 import styled from "styled-components";
 import { TUserField } from "types/user.type";
 
@@ -16,15 +17,16 @@ const Container = styled.div`
 export default function SignUp() {
     const router = useRouter();
 
-    const { isLoggedIn, signUp } = useLogin();
+    const { isLoggedIn } = useLogin();
     useEffect(() => {
         if (isLoggedIn) {
             router.push("/");
         }
     }, [isLoggedIn]);
 
-    const onFinish = (values: TUserField) => {
-        signUp(values.email, values.password);
+    const onFinish = async (values: TUserField) => {
+        const a = await UserRepo.signup(values);
+        console.log(a);
         router.push("/");
     };
 

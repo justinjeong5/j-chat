@@ -5,6 +5,7 @@ import useLogin from "hooks/login";
 import useRemember from "hooks/login/remember";
 import { useRouter } from "next/router";
 import { useEffect, useMemo } from "react";
+import UserRepo from "repos/User";
 import styled from "styled-components";
 import { TUserField } from "types/user.type";
 
@@ -28,19 +29,23 @@ export default function Login() {
     const router = useRouter();
 
     const { userEmail, remember, forget, checked, setChecked } = useRemember();
-    const { isLoggedIn, login } = useLogin();
+    const { isLoggedIn } = useLogin();
     useEffect(() => {
         if (isLoggedIn) {
             router.push("/");
         }
     }, [isLoggedIn]);
 
-    const handleFinish = (values: TUserField): void => {
-        login(values.email, values.password);
+    const handleFinish = async (values: TUserField): Promise<void> => {
+        const { token } = await UserRepo.login(values);
         if (checked) {
             remember(values.email);
         } else {
             forget();
+        }
+        if (token) {
+            router.push("/");
+            localStorage.setItem("j-user-token", token);
         }
     };
 
