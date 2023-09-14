@@ -1,4 +1,5 @@
 import { Button, Form, Input } from "antd";
+import WithAuth from "hoc/WithAuth";
 import useLogin from "hooks/login";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -14,7 +15,7 @@ const Container = styled.div`
     width: 100vw;
 `;
 
-export default function SignUp() {
+function SignUp() {
     const router = useRouter();
 
     const { isLoggedIn } = useLogin();
@@ -25,8 +26,8 @@ export default function SignUp() {
     }, [isLoggedIn]);
 
     const onFinish = async (values: TUserField) => {
-        const a = await UserRepo.signup(values);
-        console.log(a);
+        await UserRepo.signup(values);
+        // 유저 등록에 성공 햇으니 로그인 페이지로 이동하라는 안내 해주기
         router.push("/");
     };
 
@@ -72,3 +73,5 @@ export default function SignUp() {
         </Container>
     );
 }
+
+export default WithAuth(SignUp);

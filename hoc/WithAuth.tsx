@@ -5,13 +5,16 @@ import { useEffect } from "react";
 export default function WithAuth(WrappedComponent) {
     return function ChildComponent(props) {
         const router = useRouter();
-        const { isLoggedIn } = useLogin();
+        const { init } = useLogin();
 
         useEffect(() => {
-            if (!isLoggedIn) {
-                router.replace("/login");
-            }
-        }, [isLoggedIn]);
+            (async () => {
+                const user = await init();
+                if (user) {
+                    router.replace("/");
+                }
+            })();
+        }, []);
 
         return <WrappedComponent {...props} />;
     };

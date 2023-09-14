@@ -1,6 +1,7 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Card, Checkbox, Form, Input } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
+import WithAuth from "hoc/WithAuth";
 import useLogin from "hooks/login";
 import useRemember from "hooks/login/remember";
 import { useRouter } from "next/router";
@@ -25,7 +26,7 @@ const SpaceWrapper = styled.div`
     justify-content: space-between;
 `;
 
-export default function Login() {
+function Login() {
     const router = useRouter();
 
     const { userEmail, remember, forget, checked, setChecked } = useRemember();
@@ -37,15 +38,14 @@ export default function Login() {
     }, [isLoggedIn]);
 
     const handleFinish = async (values: TUserField): Promise<void> => {
-        const { token } = await UserRepo.login(values);
+        const user = await UserRepo.login(values);
         if (checked) {
             remember(values.email);
         } else {
             forget();
         }
-        if (token) {
+        if (user) {
             router.push("/");
-            localStorage.setItem("j-user-token", token);
         }
     };
 
@@ -131,3 +131,5 @@ export default function Login() {
         </Container>
     );
 }
+
+export default WithAuth(Login);

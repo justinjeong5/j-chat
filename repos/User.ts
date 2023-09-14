@@ -35,18 +35,24 @@ class UserRepo extends BaseRepo {
     async patch(user: TUser, query?: object): Promise<IUser> {
         return this.client
             .patch(this.buildUrl("patch", query), user)
-            .then(({ data }) => data);
+            .then(({ data }) => new User(data));
     }
 
-    async login(user: TUserField): Promise<{ token: string }> {
-        return this.client.post("/user/login", user).then(({ data }) => {
-            return data;
+    async init(): Promise<IUser> {
+        return this.client.get("/user/init").then(({ data }) => {
+            return new User(data);
         });
     }
 
-    async signup(user: TUserField): Promise<{ token: string }> {
+    async login(user: TUserField): Promise<IUser> {
+        return this.client.post("/user/login", user).then(({ data }) => {
+            return new User(data);
+        });
+    }
+
+    async signup(user: TUserField): Promise<IUser> {
         return this.client.post("/user/signup", user).then(({ data }) => {
-            return data;
+            return new User(data);
         });
     }
 }
