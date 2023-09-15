@@ -5,8 +5,7 @@ import WithAuth from "hoc/WithAuth";
 import useLogin from "hooks/login";
 import useRemember from "hooks/login/remember";
 import { useRouter } from "next/router";
-import { useEffect, useMemo } from "react";
-import UserRepo from "repos/User";
+import { useMemo } from "react";
 import styled from "styled-components";
 import { TUserField } from "types/user.type";
 
@@ -28,24 +27,22 @@ const SpaceWrapper = styled.div`
 
 function Login() {
     const router = useRouter();
-
     const { userEmail, remember, forget, checked, setChecked } = useRemember();
-    const { isLoggedIn } = useLogin();
-    useEffect(() => {
-        if (isLoggedIn) {
-            router.push("/");
-        }
-    }, [isLoggedIn]);
+    const { login } = useLogin();
 
     const handleFinish = async (values: TUserField): Promise<void> => {
-        const user = await UserRepo.login(values);
-        if (checked) {
-            remember(values.email);
-        } else {
-            forget();
-        }
-        if (user) {
-            router.push("/");
+        try {
+            const ok = await login(values);
+            if (checked) {
+                remember(values.email);
+            } else {
+                forget();
+            }
+            if (ok) {
+                router.push("/");
+            }
+        } catch (err) {
+            console.log(err.response?.data?.error);
         }
     };
 

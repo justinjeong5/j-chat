@@ -9,9 +9,13 @@ export default function WithAuth(WrappedComponent) {
 
         useEffect(() => {
             (async () => {
-                const user = await init();
-                if (user) {
-                    router.replace("/");
+                try {
+                    const ok = await init();
+                    if (ok) {
+                        router.push("/");
+                    }
+                } catch (err) {
+                    router.push("/login");
                 }
             })();
         }, []);

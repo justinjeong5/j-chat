@@ -1,39 +1,24 @@
-import { cookies } from "next/headers";
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import UserRepo from "repos/User";
 import { TUserField } from "types/user.type";
 
 const useLogin = () => {
     const router = useRouter();
 
-    const [user, setUser] = useState(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(!!user);
-
-    const init = () => {
-        return UserRepo.init().then(data => {
-            if (data) {
-                setUser(data);
-                setIsLoggedIn(!!data);
-            }
-            return data;
-        });
-    };
+    const init = () => UserRepo.init();
 
     const login = (userField: TUserField) => {
-        return UserRepo.login(userField).then(() => {
-            setIsLoggedIn(true);
-        });
+        const { email, password } = userField;
+        return UserRepo.login({ email, password });
     };
 
     const logout = () => {
-        cookies().delete("j_chat_access_token");
-        setIsLoggedIn(false);
+        Cookies.remove("j_chat_access_token", { path: "/" });
         router.push("/login");
     };
 
     return {
-        isLoggedIn,
         init,
         login,
         logout,
