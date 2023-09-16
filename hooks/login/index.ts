@@ -8,6 +8,8 @@ const useLogin = () => {
 
     const init = () => UserRepo.init();
 
+    const signup = (user: TUserField) => UserRepo.signup(user);
+
     const login = (userField: TUserField) => {
         const { email, password } = userField;
         return UserRepo.login({ email, password });
@@ -20,6 +22,7 @@ const useLogin = () => {
 
     return {
         init,
+        signup,
         login,
         logout,
     };

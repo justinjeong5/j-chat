@@ -1,11 +1,11 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Card, Checkbox, Form, Input } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
-import WithAuth from "hoc/WithAuth";
 import useLogin from "hooks/login";
 import useRemember from "hooks/login/remember";
+import useNotice from "hooks/notice/notice";
 import { useRouter } from "next/router";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { TUserField } from "types/user.type";
 
@@ -27,8 +27,21 @@ const SpaceWrapper = styled.div`
 
 function Login() {
     const router = useRouter();
+    const { errorHandler, contextHolder } = useNotice();
     const { userEmail, remember, forget, checked, setChecked } = useRemember();
-    const { login } = useLogin();
+    const { init, login } = useLogin();
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const user = await init();
+                if (user) {
+                    router.push("/");
+                }
+                // eslint-disable-next-line no-empty
+            } catch (err) {}
+        })();
+    }, []);
 
     const handleFinish = async (values: TUserField): Promise<void> => {
         try {
@@ -42,7 +55,7 @@ function Login() {
                 router.push("/");
             }
         } catch (err) {
-            console.log(err.response?.data?.error);
+            errorHandler(err);
         }
     };
 
@@ -64,69 +77,75 @@ function Login() {
     }, [checked, userEmail]);
 
     return (
-        <Container>
-            <CardWrapper>
-                <Form
-                    name="normal_login"
-                    initialValues={initialValues}
-                    onFinish={handleFinish}
-                >
-                    <Form.Item<TUserField>
-                        name="email"
-                        rules={[
-                            {
-                                required: true,
-                                message: "이메일을 입력해 주세요.",
-                            },
-                        ]}
+        <>
+            {contextHolder}
+            <Container>
+                <CardWrapper>
+                    <Form
+                        name="normal_login"
+                        initialValues={initialValues}
+                        onFinish={handleFinish}
                     >
-                        <Input prefix={<UserOutlined />} placeholder="이메일" />
-                    </Form.Item>
-                    <Form.Item<TUserField>
-                        name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: "비밀번호를 입력해 주세요.",
-                            },
-                        ]}
-                    >
-                        <Input
-                            prefix={<LockOutlined />}
-                            type="password"
-                            placeholder="비밀번호"
-                        />
-                    </Form.Item>
-                    <Form.Item>
-                        <SpaceWrapper>
-                            <Form.Item
-                                name="remember"
-                                valuePropName="checked"
-                                noStyle
-                            >
-                                <Checkbox onChange={handleRemember}>
-                                    아이디 기억하기
-                                </Checkbox>
-                            </Form.Item>
-
-                            <a href="/signup">비밀번호 찾기</a>
-                        </SpaceWrapper>
-                    </Form.Item>
-
-                    <Form.Item>
-                        <Button
-                            type="primary"
-                            htmlType="submit"
-                            style={{ width: "100%" }}
+                        <Form.Item<TUserField>
+                            name="email"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "이메일을 입력해 주세요.",
+                                },
+                            ]}
                         >
-                            로그인하기
-                        </Button>
-                        또는 <a href="/signup">회원 가입</a>하기
-                    </Form.Item>
-                </Form>
-            </CardWrapper>
-        </Container>
+                            <Input
+                                prefix={<UserOutlined />}
+                                placeholder="이메일"
+                            />
+                        </Form.Item>
+                        <Form.Item<TUserField>
+                            name="password"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "비밀번호를 입력해 주세요.",
+                                },
+                            ]}
+                        >
+                            <Input
+                                prefix={<LockOutlined />}
+                                type="password"
+                                placeholder="비밀번호"
+                            />
+                        </Form.Item>
+                        <Form.Item>
+                            <SpaceWrapper>
+                                <Form.Item
+                                    name="remember"
+                                    valuePropName="checked"
+                                    noStyle
+                                >
+                                    <Checkbox onChange={handleRemember}>
+                                        아이디 기억하기
+                                    </Checkbox>
+                                </Form.Item>
+
+                                <a href="/signup">비밀번호 찾기</a>
+                            </SpaceWrapper>
+                        </Form.Item>
+
+                        <Form.Item>
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                style={{ width: "100%" }}
+                            >
+                                로그인하기
+                            </Button>
+                            또는 <a href="/signup">회원 가입</a>하기
+                        </Form.Item>
+                    </Form>
+                </CardWrapper>
+            </Container>
+        </>
     );
 }
 
-export default WithAuth(Login);
+export default Login;
