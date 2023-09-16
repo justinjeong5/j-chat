@@ -6,8 +6,6 @@ export default class User extends BaseModel {
 
     email: string;
 
-    password: string;
-
     username: string;
 
     avatar: URL;
@@ -16,7 +14,6 @@ export default class User extends BaseModel {
         super();
         this.id = config.id;
         this.email = config.email;
-        this.password = config.password;
         this.username = config.username;
         this.avatar = config.avatar;
     }
@@ -25,7 +22,6 @@ export default class User extends BaseModel {
         return {
             id: null,
             email: config.email,
-            password: config.password,
             username: "",
             avatar: null,
         };
