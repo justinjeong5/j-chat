@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import RoomRepo from "repos/Room";
 import IRoom from "types/room.type";
 
-function Room() {
+function Room({ user }) {
     const router = useRouter();
     const { errorHandler, contextHolder } = useNotice();
     const [chatRoom, setChatRoom] = useState({
@@ -76,7 +76,7 @@ function Room() {
         <>
             {contextHolder}
             <AppFrame
-                menu={<Menu />}
+                menu={<Menu user={user} />}
                 header={
                     <Header
                         room={chatRoom}

@@ -72,4 +72,4 @@ class RoomRepo extends BaseRepo {
     }
 }
 
-export default new RoomRepo("/room");
+export default new RoomRepo("/room/rooms");

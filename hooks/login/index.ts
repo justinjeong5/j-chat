@@ -1,43 +1,30 @@
-import hash from "hash.js";
-import LocalStorage from "hooks/login/localStorage";
-import { useState } from "react";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import UserRepo from "repos/User";
+import { TUserField } from "types/user.type";
 
 const useLogin = () => {
-    const jUserDb = LocalStorage.getUser("j-user-db");
-    const jUser = LocalStorage.getUser("j-user");
-    const [isLoggedIn, setIsLoggedIn] = useState(
-        jUserDb?.id === jUser?.id && jUserDb?.pw === jUser?.pw,
-    );
+    const router = useRouter();
+
+    const init = () => UserRepo.init();
+
+    const signup = (user: TUserField) => UserRepo.signup(user);
+
+    const login = (userField: TUserField) => {
+        const { email, password } = userField;
+        return UserRepo.login({ email, password });
+    };
 
     const logout = () => {
-        LocalStorage.removeItem("j-user");
-        setIsLoggedIn(false);
-    };
-
-    const signUp = (email: string, password: string) => {
-        const userInfo = [
-            email,
-            hash.sha256().update(password).digest("hex"),
-        ].join("*");
-        LocalStorage.setItem("j-user-db", userInfo);
-        logout();
-    };
-
-    const login = (email: string, password: string) => {
-        const { id, pw } = LocalStorage.getUser("j-user-db");
-        const hashedPw = hash.sha256().update(password).digest("hex");
-        if (id === email && pw === hashedPw) {
-            const userInfo = [email, hashedPw].join("*");
-            LocalStorage.setItem("j-user", userInfo);
-            setIsLoggedIn(true);
-        }
+        Cookies.remove("j_chat_access_token");
+        router.reload();
     };
 
     return {
-        isLoggedIn,
+        init,
+        signup,
         login,
         logout,
-        signUp,
     };
 };
 

@@ -7,7 +7,6 @@ import Profile from "components/sider/Profile";
 import Rooms from "components/sider/Rooms";
 import useNotice from "hooks/notice/notice";
 import useRooms from "hooks/room/useRooms";
-import client from "lib/api";
 import { useEffect, useRef, useState } from "react";
 import RoomRepo from "repos/Room";
 import styled from "styled-components";
@@ -17,11 +16,10 @@ const MenuWrapper = styled(Layout)`
     background: white;
 `;
 
-export default function Page() {
+export default function Page({ user }) {
     const addRoomBtnRef = useRef(null);
     const { composeRooms } = useRooms();
 
-    const [user, setUser] = useState({ name: "", email: "" });
     const [rooms, setRooms] = useState([]);
     const [fetchingRooms, setFetchingRooms] = useState(false);
     const { errorHandler, contextHolder } = useNotice();
@@ -59,17 +57,6 @@ export default function Page() {
                 errorHandler(e);
             } finally {
                 setFetchingRooms(false);
-            }
-        })();
-    }, []);
-
-    useEffect(() => {
-        (async () => {
-            try {
-                const { data } = await client.get("users/1");
-                setUser(data);
-            } catch (e) {
-                errorHandler(e);
             }
         })();
     }, []);

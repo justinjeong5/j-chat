@@ -5,9 +5,9 @@ import ChatFrame from "components/layout/ChatFrame";
 import Menu from "components/sider/Menu";
 import WithAuth from "hoc/WithAuth";
 
-function Page() {
+function Page({ user }) {
     return (
-        <AppFrame menu={<Menu />} header={<div>Header</div>}>
+        <AppFrame menu={<Menu user={user} />} header={<div>Header</div>}>
             <ChatFrame dialog={<Dialog />} textator={<Textator />} />
         </AppFrame>
     );

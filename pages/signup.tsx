@@ -1,5 +1,6 @@
 import { Button, Form, Input } from "antd";
 import useLogin from "hooks/login";
+import useNotice from "hooks/notice/notice";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import styled from "styled-components";
@@ -13,60 +14,81 @@ const Container = styled.div`
     width: 100vw;
 `;
 
-export default function SignUp() {
+function SignUp() {
     const router = useRouter();
+    const { errorHandler, contextHolder } = useNotice();
+    const { init, signup } = useLogin();
 
-    const { isLoggedIn, signUp } = useLogin();
     useEffect(() => {
-        if (isLoggedIn) {
-            router.push("/");
-        }
-    }, [isLoggedIn]);
+        (async () => {
+            try {
+                const user = await init();
+                if (user) {
+                    router.push("/");
+                }
+                // eslint-disable-next-line no-empty
+            } catch (err) {}
+        })();
+    }, []);
 
-    const onFinish = (values: TUserField) => {
-        signUp(values.email, values.password);
-        router.push("/");
+    const onFinish = async (values: TUserField) => {
+        try {
+            const user = await signup(values);
+            if (user) {
+                router.push("/login");
+            }
+        } catch (err) {
+            errorHandler(err);
+        }
     };
 
     return (
-        <Container>
-            <Form
-                name="basic"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-                style={{ maxWidth: 600 }}
-                onFinish={onFinish}
-                autoComplete="off"
-            >
-                <Form.Item<TUserField>
-                    label="Email"
-                    name="email"
-                    rules={[
-                        { required: true, message: "Please input your email!" },
-                    ]}
+        <>
+            {contextHolder}
+            <Container>
+                <Form
+                    name="basic"
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    style={{ maxWidth: 600 }}
+                    onFinish={onFinish}
+                    autoComplete="off"
                 >
-                    <Input />
-                </Form.Item>
+                    <Form.Item<TUserField>
+                        label="Email"
+                        name="email"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please input your email!",
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
 
-                <Form.Item<TUserField>
-                    label="Password"
-                    name="password"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Please input your password!",
-                        },
-                    ]}
-                >
-                    <Input.Password />
-                </Form.Item>
+                    <Form.Item<TUserField>
+                        label="Password"
+                        name="password"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please input your password!",
+                            },
+                        ]}
+                    >
+                        <Input.Password />
+                    </Form.Item>
 
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit">
-                        Sign In
-                    </Button>
-                </Form.Item>
-            </Form>
-        </Container>
+                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                        <Button type="primary" htmlType="submit">
+                            Sign In
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </Container>
+        </>
     );
 }
+
+export default SignUp;
