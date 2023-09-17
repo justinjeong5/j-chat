@@ -14,10 +14,7 @@ export default function WithAuth(WrappedComponent) {
             (async () => {
                 try {
                     const loginUser = await init();
-                    if (loginUser) {
-                        setUser(loginUser);
-                        router.push("/");
-                    }
+                    setUser(loginUser);
                 } catch (err) {
                     router.push("/login");
                 }

@@ -16,8 +16,8 @@ const useLogin = () => {
     };
 
     const logout = () => {
-        Cookies.remove("j_chat_access_token", { path: "/" });
-        router.push("/login");
+        Cookies.remove("j_chat_access_token");
+        router.reload();
     };
 
     return {
