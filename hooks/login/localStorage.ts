@@ -1,19 +1,4 @@
-import ILogin from "hooks/login/login.type";
-
 class LocalStorage {
-    static getUser(item: string): ILogin {
-        const emptyState = { id: null, pw: null };
-        if (typeof window !== "undefined") {
-            const str = localStorage.getItem(item);
-            if (!str) {
-                return emptyState;
-            }
-            const [id, pw] = str.split("*");
-            return { id, pw };
-        }
-        return emptyState;
-    }
-
     static getItem(item: string): string {
         if (typeof window !== "undefined") {
             return localStorage.getItem(item);
