@@ -1,13 +1,12 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Card, Checkbox, Form, Input } from "antd";
-import type { CheckboxChangeEvent } from "antd/es/checkbox";
-import useLogin from "hooks/login";
-import useRemember from "hooks/login/remember";
+import { Button, Card, Form, Input } from "antd";
+import WithAuth from "hoc/WithAuth";
 import useNotice from "hooks/notice/notice";
 import { useRouter } from "next/router";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
+import UserRepo from "repos/User";
 import styled from "styled-components";
-import { TUserField } from "types/user.type";
+import { TUser } from "types/user.type";
 
 const Container = styled.div`
     display: flex;
@@ -21,56 +20,28 @@ const CardWrapper = styled(Card)`
     width: 500px;
 `;
 
-function SignUp() {
+function Setting({ user }) {
     const router = useRouter();
     const { errorHandler, contextHolder } = useNotice();
-    const { userEmail, remember, forget, checked, setChecked } = useRemember();
-    const { init, signup } = useLogin();
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const user = await init();
-                if (user) {
-                    router.push("/");
-                }
-                // eslint-disable-next-line no-empty
-            } catch (err) {}
-        })();
-    }, []);
-
-    const handleFinish = async (values: TUserField) => {
+    const handleFinish = async (values: TUser): Promise<void> => {
         try {
-            const user = await signup(values);
-            if (checked) {
-                remember(values.email);
-            } else {
-                forget();
-            }
-            if (user) {
-                router.push("/login");
+            const ok = await UserRepo.patch(values);
+            if (ok) {
+                router.push("/");
             }
         } catch (err) {
             errorHandler(err);
         }
     };
 
-    const handleRemember = (e: CheckboxChangeEvent): void => {
-        setChecked(e.target.checked);
-    };
-
     const initialValues = useMemo(() => {
-        if (!checked) {
-            return {
-                remember: false,
-                email: null,
-            };
-        }
         return {
-            remember: true,
-            email: userEmail,
+            email: user.email,
+            username: user.username,
+            avatar: user.avatar,
         };
-    }, [checked, userEmail]);
+    }, [user]);
 
     return (
         <>
@@ -78,12 +49,11 @@ function SignUp() {
             <Container>
                 <CardWrapper>
                     <Form
-                        name="basic"
+                        name="normal_login"
                         initialValues={initialValues}
                         onFinish={handleFinish}
-                        autoComplete="off"
                     >
-                        <Form.Item<TUserField>
+                        <Form.Item
                             name="email"
                             rules={[
                                 {
@@ -97,8 +67,7 @@ function SignUp() {
                                 placeholder="이메일"
                             />
                         </Form.Item>
-
-                        <Form.Item<TUserField>
+                        <Form.Item
                             name="password"
                             rules={[
                                 {
@@ -113,25 +82,17 @@ function SignUp() {
                                 placeholder="비밀번호"
                             />
                         </Form.Item>
-                        <Form.Item>
-                            <Form.Item
-                                name="remember"
-                                valuePropName="checked"
-                                noStyle
-                            >
-                                <Checkbox onChange={handleRemember}>
-                                    아이디 기억하기
-                                </Checkbox>
-                            </Form.Item>
-                        </Form.Item>
 
                         <Form.Item>
                             <Button
                                 type="primary"
                                 htmlType="submit"
-                                style={{ width: "100%" }}
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "end",
+                                }}
                             >
-                                회원가입 하기
+                                변경하기
                             </Button>
                         </Form.Item>
                     </Form>
@@ -141,4 +102,4 @@ function SignUp() {
     );
 }
 
-export default SignUp;
+export default WithAuth(Setting);

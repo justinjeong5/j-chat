@@ -1,6 +1,7 @@
 import { Avatar, Button, Space } from "antd";
 import useLogin from "hooks/login";
 import md5 from "md5";
+import { useRouter } from "next/router";
 import { styled } from "styled-components";
 
 const Container = styled.div``;
@@ -23,10 +24,15 @@ const SpaceWrapper = styled(Space)`
 `;
 
 export default function Profile({ user }) {
+    const router = useRouter();
     const { logout } = useLogin();
 
     const getAvatarImage = (userToken = "") =>
         `https://gravatar.com/avatar/${md5(userToken)}?d=identicon`;
+
+    const handleEdit = () => {
+        router.push("/users/setting");
+    };
 
     return (
         <Container>
@@ -37,7 +43,9 @@ export default function Profile({ user }) {
             <TextWrapper>{user.email}</TextWrapper>
             <SpaceWrapper>
                 <Space>
-                    <Button type="primary">Edit Profile</Button>
+                    <Button type="primary" onClick={handleEdit}>
+                        Edit Profile
+                    </Button>
                     <Button type="primary" onClick={logout}>
                         Log Out
                     </Button>
