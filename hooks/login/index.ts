@@ -16,7 +16,7 @@ const useLogin = () => {
 
     const logout = async () => {
         await UserRepo.logout();
-        router.reload();
+        router.push("/login");
     };
 
     return {
