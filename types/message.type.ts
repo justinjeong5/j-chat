@@ -23,5 +23,6 @@ export type TCountType = "stars" | "likes" | "comments";
 
 export type TMessageField = {
     roomId: string;
+    writer: TUser;
     content: string;
 };
