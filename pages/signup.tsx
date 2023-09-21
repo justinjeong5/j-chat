@@ -4,10 +4,11 @@ import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import useLogin from "hooks/login";
 import useRemember from "hooks/login/remember";
 import useNotice from "hooks/notice/notice";
+import getAvatarUrl from "lib/getAvatarUrl";
 import { useRouter } from "next/router";
 import { useEffect, useMemo } from "react";
 import styled from "styled-components";
-import { TUserField } from "types/user.type";
+import { TUser } from "types/user.type";
 
 const Container = styled.div`
     display: flex;
@@ -39,9 +40,12 @@ function SignUp() {
         })();
     }, []);
 
-    const handleFinish = async (values: TUserField) => {
+    const handleFinish = async (values: TUser) => {
         try {
-            const user = await signup(values);
+            const user = await signup({
+                ...values,
+                avatar: getAvatarUrl(values.email),
+            });
             if (checked) {
                 remember(values.email);
             } else {
@@ -83,7 +87,7 @@ function SignUp() {
                         onFinish={handleFinish}
                         autoComplete="off"
                     >
-                        <Form.Item<TUserField>
+                        <Form.Item<TUser>
                             name="email"
                             rules={[
                                 {
@@ -98,7 +102,7 @@ function SignUp() {
                             />
                         </Form.Item>
 
-                        <Form.Item<TUserField>
+                        <Form.Item<TUser>
                             name="password"
                             rules={[
                                 {
@@ -113,6 +117,22 @@ function SignUp() {
                                 placeholder="비밀번호"
                             />
                         </Form.Item>
+
+                        <Form.Item<TUser>
+                            name="username"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "사용자 이름을 입력해 주세요.",
+                                },
+                            ]}
+                        >
+                            <Input
+                                prefix={<LockOutlined />}
+                                placeholder="사용자 이름"
+                            />
+                        </Form.Item>
+
                         <Form.Item>
                             <Form.Item
                                 name="remember"

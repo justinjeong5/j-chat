@@ -58,7 +58,7 @@ function Room({ user }) {
                 }
 
                 setFetchingData(true);
-                const data = await RoomRepo.getRoomWithDialog(roomId);
+                const data = await RoomRepo.get(roomId);
                 setChatRoom(data);
 
                 if (!localStorageHideMessageTour && !data.dialog.length) {

@@ -1,5 +1,5 @@
 import BaseModel from "models/BaseModel";
-import { TUser, TUserField } from "types/user.type";
+import { TUser } from "types/user.type";
 
 export default class User extends BaseModel {
     id: string;
@@ -8,7 +8,7 @@ export default class User extends BaseModel {
 
     username: string;
 
-    avatar: URL;
+    avatar: string;
 
     constructor(config: TUser) {
         super();
@@ -18,12 +18,12 @@ export default class User extends BaseModel {
         this.avatar = config.avatar;
     }
 
-    static createItem(config: TUserField): TUser {
+    static createItem(config: TUser): TUser {
         return {
             id: null,
             email: config.email,
-            username: "",
-            avatar: null,
+            username: config.username || "",
+            avatar: config.avatar,
         };
     }
 
