@@ -66,13 +66,15 @@ function Login() {
     const initialValues = useMemo(() => {
         if (!checked) {
             return {
-                remember: false,
+                remember: null,
                 email: null,
+                password: null,
             };
         }
         return {
             remember: true,
             email: userEmail,
+            password: null,
         };
     }, [checked, userEmail]);
 
