@@ -99,7 +99,7 @@ export default function Dialog({
                 dataSource={dialog}
                 renderItem={(item: IMessage) => (
                     <List.Item
-                        key={item.name}
+                        key={item.id}
                         actions={ActionItems(item)}
                         extra={
                             !isMobile &&
@@ -114,9 +114,8 @@ export default function Dialog({
                         }
                     >
                         <List.Item.Meta
-                            avatar={<Avatar src={item.avatar} />}
-                            title={<a href={item.href}>{item.name}</a>}
-                            description={item.description}
+                            avatar={<Avatar src={item.writer.avatar} />}
+                            title={item.writer.username}
                         />
                         {isMobile && item.image && (
                             <img

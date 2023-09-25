@@ -58,11 +58,11 @@ class RoomRepo extends BaseRepo {
         return this.create(Room.createItem({ title, type, description }));
     }
 
-    async addMessage(roomId: string, message: TMessage): Promise<IRoom> {
-        const roomData = await this.getRoomWithDialog(roomId);
-        const messageData = await MessageRepo.create(message);
-        await this.patch(roomData.addMessage(messageData).toExternal());
-        return this.getRoomWithDialog(roomId);
+    async sendMessage(roomId: string, message: TMessage): Promise<IRoom> {
+        // "/rooms/:roomId/dialog",
+        return this.client
+            .post(`/room/rooms/${roomId}/dialog`, message)
+            .then(({ data }) => new Room(data));
     }
 
     async toggleStarred(roomId: string): Promise<IRoom> {
