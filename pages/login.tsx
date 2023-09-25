@@ -1,11 +1,11 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Card, Checkbox, Form, Input, Space } from "antd";
+import { Button, Card, Checkbox, Form, Input } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import useLogin from "hooks/login";
 import useRemember from "hooks/login/remember";
 import useNotice from "hooks/notice/notice";
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { TUserField } from "types/user.type";
 
@@ -24,17 +24,12 @@ const SpaceWrapper = styled.div`
     display: flex;
     justify-content: space-between;
 `;
-const ErrorDisplay = styled.div`
-    color: red;
-`;
 
 function Login() {
     const router = useRouter();
     const { errorHandler, contextHolder } = useNotice();
     const { userEmail, remember, forget, checked, setChecked } = useRemember();
     const { init, login } = useLogin();
-
-    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
         (async () => {
@@ -60,10 +55,6 @@ function Login() {
                 router.push("/");
             }
         } catch (err) {
-            if (err.response.data.code === "ERROR.USER_INVALID_CREDENTIALS") {
-                setErrorMessage("이메일 또는 비밀번호가 일치하지 않습니다.");
-                return;
-            }
             errorHandler(err);
         }
     };
@@ -75,15 +66,13 @@ function Login() {
     const initialValues = useMemo(() => {
         if (!checked) {
             return {
-                remember: null,
+                remember: false,
                 email: null,
-                password: null,
             };
         }
         return {
             remember: true,
             email: userEmail,
-            password: null,
         };
     }, [checked, userEmail]);
 
@@ -96,7 +85,6 @@ function Login() {
                         name="normal_login"
                         initialValues={initialValues}
                         onFinish={handleFinish}
-                        onValuesChange={() => setErrorMessage("")}
                     >
                         <Form.Item<TUserField>
                             name="email"
@@ -151,19 +139,7 @@ function Login() {
                             >
                                 로그인하기
                             </Button>
-                        </Form.Item>
-                        <Form.Item>
-                            <Space
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                }}
-                            >
-                                <div>
-                                    또는 <a href="/signup">회원 가입</a>하기
-                                </div>
-                                <ErrorDisplay>{errorMessage}</ErrorDisplay>
-                            </Space>
+                            또는 <a href="/signup">회원 가입</a>하기
                         </Form.Item>
                     </Form>
                 </CardWrapper>
