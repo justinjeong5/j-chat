@@ -2,7 +2,8 @@ export type TUser = {
     id: string;
     email: string;
     username: string;
-    avatar: URL;
+    avatar: string;
+    password?: string;
 };
 
 export default interface IUser extends TUser {}

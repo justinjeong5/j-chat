@@ -46,11 +46,15 @@ class UserRepo extends BaseRepo {
 
     async login(user: TUserField): Promise<IUser> {
         return this.client.post("/user/login", user).then(({ data }) => {
-            return new User(data);
+            return new User(data.user);
         });
     }
 
-    async signup(user: TUserField): Promise<IUser> {
+    async logout(): Promise<void> {
+        return this.client.post("/user/logout");
+    }
+
+    async signup(user: TUser): Promise<IUser> {
         return this.client.post("/user/signup", user).then(({ data }) => {
             return new User(data);
         });

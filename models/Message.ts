@@ -6,29 +6,18 @@ import IMessage, {
     TMessage,
     TMessageField,
 } from "types/message.type";
+import { TUser } from "types/user.type";
 
 export default class Message extends BaseModel implements IMessage {
     id: string;
 
     roomId: string;
 
-    name: string;
-
-    href: string;
+    writer: TUser;
 
     image: string;
 
-    description: string;
-
-    avatar: string;
-
-    status: string;
-
     content: string;
-
-    createdAt: Date;
-
-    updatedAt: Date;
 
     stars: Array<TCommon>;
 
@@ -36,22 +25,30 @@ export default class Message extends BaseModel implements IMessage {
 
     comments: Array<TCommon>;
 
+    createdAt: Date;
+
+    updatedAt: Date;
+
     constructor(config: TMessage) {
         super();
         this.id = config.id || null;
         this.roomId = config.roomId || null;
-        this.name = config.name || null;
-        this.href = config.href || null;
-        this.image = config.image || null;
-        this.description = config.description || "";
-        this.avatar = config.avatar || null;
-        this.status = config.status || null;
+
+        this.writer = config.writer || {
+            id: "",
+            email: "",
+            username: "",
+            avatar: "",
+        };
         this.content = config.content || "";
-        this.createdAt = new Date(config.createdAt || null);
-        this.updatedAt = new Date(config.updatedAt || null);
+        this.image = config.image || "";
+
         this.stars = config.stars || [];
         this.likes = config.likes || [];
         this.comments = config.comments || [];
+
+        this.createdAt = new Date(config.createdAt || new Date());
+        this.updatedAt = new Date(config.updatedAt || new Date());
     }
 
     getCount(type: TCountType): number {
@@ -64,18 +61,16 @@ export default class Message extends BaseModel implements IMessage {
 
         return {
             id: null,
-            name: null,
-            href: null,
-            image: null,
-            avatar: null,
-            status: null,
-            description: "",
-            createdAt: new Date(),
-            updatedAt: new Date(),
+            roomId: config.roomId,
+            writer: config.writer,
+            image: "",
+            content: "",
             stars: [],
             likes: [],
             comments: [],
-            roomId: config.roomId,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+
             ...filteredConfig,
         };
     }
@@ -83,9 +78,7 @@ export default class Message extends BaseModel implements IMessage {
     toExternal(): TMessage {
         return {
             ...this,
-            roomId: this.roomId,
-            createdAt: this.createdAt,
-            updatedAt: this.updatedAt,
+            writer: this.writer.id,
         };
     }
 }

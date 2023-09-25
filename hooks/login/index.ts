@@ -1,23 +1,22 @@
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import UserRepo from "repos/User";
-import { TUserField } from "types/user.type";
+import { TUser, TUserField } from "types/user.type";
 
 const useLogin = () => {
     const router = useRouter();
 
     const init = () => UserRepo.init();
 
-    const signup = (user: TUserField) => UserRepo.signup(user);
+    const signup = (user: TUser) => UserRepo.signup(user);
 
     const login = (userField: TUserField) => {
         const { email, password } = userField;
         return UserRepo.login({ email, password });
     };
 
-    const logout = () => {
-        Cookies.remove("j_chat_access_token");
-        router.reload();
+    const logout = async () => {
+        await UserRepo.logout();
+        router.push("/login");
     };
 
     return {

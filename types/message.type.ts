@@ -1,18 +1,18 @@
+import { TUser } from "types/user.type";
+
 export type TMessage = {
     id: string;
     roomId: string;
-    name: string;
-    href: string;
-    image: string;
-    description: string;
-    avatar: string;
-    status: string;
+    writer: TUser;
     content: string;
-    createdAt: Date;
-    updatedAt: Date;
+    image: string;
+
     stars: Array<object>;
     likes: Array<object>;
     comments: Array<object>;
+
+    createdAt: Date;
+    updatedAt: Date;
 };
 
 export default interface IMessage extends TMessage {
@@ -23,5 +23,6 @@ export type TCountType = "stars" | "likes" | "comments";
 
 export type TMessageField = {
     roomId: string;
+    writer: TUser;
     content: string;
 };

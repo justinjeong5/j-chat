@@ -27,10 +27,11 @@ function Room({ user }) {
         useState(false);
 
     const handleSubmit = async message => {
-        const room = await RoomRepo.addMessage(
+        const room = await RoomRepo.sendMessage(
             chatRoom.id,
             MessageModel.createItem({
                 content: message,
+                writer: user.id,
                 roomId: chatRoom.id,
             }),
         );
@@ -58,7 +59,7 @@ function Room({ user }) {
                 }
 
                 setFetchingData(true);
-                const data = await RoomRepo.getRoomWithDialog(roomId);
+                const data = await RoomRepo.get(roomId);
                 setChatRoom(data);
 
                 if (!localStorageHideMessageTour && !data.dialog.length) {
