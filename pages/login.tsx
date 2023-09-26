@@ -85,7 +85,7 @@ function Login() {
                 <CardWrapper>
                     <Form
                         name="normal_login"
-                        // initialValues={initialValues}
+                        form={form}
                         onFinish={handleFinish}
                     >
                         <Form.Item<TUserField>
