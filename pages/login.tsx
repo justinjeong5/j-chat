@@ -5,7 +5,7 @@ import useLogin from "hooks/login";
 import useRemember from "hooks/login/remember";
 import useNotice from "hooks/notice/notice";
 import { useRouter } from "next/router";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { TUserField } from "types/user.type";
 
@@ -30,6 +30,7 @@ function Login() {
     const { errorHandler, contextHolder } = useNotice();
     const { userEmail, remember, forget, checked, setChecked } = useRemember();
     const { init, login } = useLogin();
+    const [form] = Form.useForm();
 
     useEffect(() => {
         (async () => {
@@ -63,18 +64,19 @@ function Login() {
         setChecked(e.target.checked);
     };
 
-    const initialValues = useMemo(() => {
+    useEffect(() => {
         if (!checked) {
-            return {
+            form.setFieldsValue({
                 remember: false,
                 email: null,
-            };
+            });
+            return;
         }
-        return {
+        form.setFieldsValue({
             remember: true,
             email: userEmail,
-        };
-    }, [checked, userEmail]);
+        });
+    }, [userEmail, checked]);
 
     return (
         <>
@@ -83,7 +85,7 @@ function Login() {
                 <CardWrapper>
                     <Form
                         name="normal_login"
-                        initialValues={initialValues}
+                        // initialValues={initialValues}
                         onFinish={handleFinish}
                     >
                         <Form.Item<TUserField>
