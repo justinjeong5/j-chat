@@ -24,6 +24,9 @@ const SpaceWrapper = styled.div`
     display: flex;
     justify-content: space-between;
 `;
+const FullWidthButton = styled(Button)`
+    width: 100%;
+`;
 
 function Login() {
     const router = useRouter();
@@ -68,7 +71,7 @@ function Login() {
         if (!checked) {
             form.setFieldsValue({
                 remember: false,
-                email: null,
+                email: userEmail,
             });
             return;
         }
@@ -76,7 +79,7 @@ function Login() {
             remember: true,
             email: userEmail,
         });
-    }, [userEmail, checked]);
+    }, []);
 
     return (
         <>
@@ -134,13 +137,9 @@ function Login() {
                         </Form.Item>
 
                         <Form.Item>
-                            <Button
-                                type="primary"
-                                htmlType="submit"
-                                style={{ width: "100%" }}
-                            >
+                            <FullWidthButton type="primary" htmlType="submit">
                                 로그인하기
-                            </Button>
+                            </FullWidthButton>
                             또는 <a href="/signup">회원 가입</a>하기
                         </Form.Item>
                     </Form>

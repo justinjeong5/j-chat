@@ -5,7 +5,7 @@ const useRemember = () => {
     const [checked, internalSetChecked] = useState(
         JSON.parse(LocalStorage.getItem("j-user-remember-checked")),
     );
-    const userEmail = checked && LocalStorage.getItem("j-user-remember");
+    const userEmail = LocalStorage.getItem("j-user-remember");
 
     const remember = (email: string) => {
         LocalStorage.setItem("j-user-remember", email);
