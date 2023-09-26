@@ -4,8 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "NODE_ENV=production next dev",
-        "dev:local": "NODE_ENV=development next dev",
+        "dev": "next dev",
         "build": "next build",
         "start": "next start",
         "jest": "jest",
