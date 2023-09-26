@@ -1,11 +1,11 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Card, Checkbox, Form, Input, Space } from "antd";
+import { Button, Card, Checkbox, Form, Input } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import useLogin from "hooks/login";
 import useRemember from "hooks/login/remember";
 import useNotice from "hooks/notice/notice";
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { TUserField } from "types/user.type";
 
@@ -24,8 +24,8 @@ const SpaceWrapper = styled.div`
     display: flex;
     justify-content: space-between;
 `;
-const ErrorDisplay = styled.div`
-    color: red;
+const FullWidthButton = styled(Button)`
+    width: 100%;
 `;
 
 function Login() {
@@ -33,8 +33,7 @@ function Login() {
     const { errorHandler, contextHolder } = useNotice();
     const { userEmail, remember, forget, checked, setChecked } = useRemember();
     const { init, login } = useLogin();
-
-    const [errorMessage, setErrorMessage] = useState("");
+    const [form] = Form.useForm();
 
     useEffect(() => {
         (async () => {
@@ -60,10 +59,6 @@ function Login() {
                 router.push("/");
             }
         } catch (err) {
-            if (err.response.data.code === "ERROR.USER_INVALID_CREDENTIALS") {
-                setErrorMessage("이메일 또는 비밀번호가 일치하지 않습니다.");
-                return;
-            }
             errorHandler(err);
         }
     };
@@ -72,18 +67,19 @@ function Login() {
         setChecked(e.target.checked);
     };
 
-    const initialValues = useMemo(() => {
+    useEffect(() => {
         if (!checked) {
-            return {
+            form.setFieldsValue({
                 remember: false,
-                email: null,
-            };
+                email: userEmail,
+            });
+            return;
         }
-        return {
+        form.setFieldsValue({
             remember: true,
             email: userEmail,
-        };
-    }, [checked, userEmail]);
+        });
+    }, []);
 
     return (
         <>
@@ -92,9 +88,8 @@ function Login() {
                 <CardWrapper>
                     <Form
                         name="normal_login"
-                        initialValues={initialValues}
+                        form={form}
                         onFinish={handleFinish}
-                        onValuesChange={() => setErrorMessage("")}
                     >
                         <Form.Item<TUserField>
                             name="email"
@@ -142,26 +137,10 @@ function Login() {
                         </Form.Item>
 
                         <Form.Item>
-                            <Button
-                                type="primary"
-                                htmlType="submit"
-                                style={{ width: "100%" }}
-                            >
+                            <FullWidthButton type="primary" htmlType="submit">
                                 로그인하기
-                            </Button>
-                        </Form.Item>
-                        <Form.Item>
-                            <Space
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                }}
-                            >
-                                <div>
-                                    또는 <a href="/signup">회원 가입</a>하기
-                                </div>
-                                <ErrorDisplay>{errorMessage}</ErrorDisplay>
-                            </Space>
+                            </FullWidthButton>
+                            또는 <a href="/signup">회원 가입</a>하기
                         </Form.Item>
                     </Form>
                 </CardWrapper>
