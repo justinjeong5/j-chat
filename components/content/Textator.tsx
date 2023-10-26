@@ -68,16 +68,20 @@ export default function Textator({
     };
 
     const handleChange = e => {
+        e.preventDefault();
+        console.log("handleChange", e.target.value);
         setMessage(e.target.value);
     };
 
     const handleSend = e => {
+        console.log("handleSend", message);
         e.preventDefault();
 
-        if (!message.length) {
+        const trimmedMessage = message.trim();
+        if (!trimmedMessage.length) {
             return;
         }
-        handleSubmit(message);
+        handleSubmit(trimmedMessage);
         setMessage("");
     };
 

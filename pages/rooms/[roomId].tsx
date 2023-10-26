@@ -27,6 +27,7 @@ function Room({ user }) {
         useState(false);
 
     const handleSubmit = async message => {
+        console.log("handleSubmit", message);
         const room = await RoomRepo.sendMessage(
             chatRoom.id,
             MessageModel.createItem({
