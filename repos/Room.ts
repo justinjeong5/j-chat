@@ -59,7 +59,6 @@ class RoomRepo extends BaseRepo {
     }
 
     async sendMessage(roomId: string, message: TMessage): Promise<IRoom> {
-        // "/rooms/:roomId/dialog",
         return this.client
             .post(`/room/rooms/${roomId}/dialog`, message)
             .then(({ data }) => new Room(data));

@@ -67,18 +67,24 @@ export default function Textator({
         setShowTour(false);
     };
 
-    const handleChange = e => {
-        setMessage(e.target.value);
-    };
-
     const handleSend = e => {
         e.preventDefault();
+        setMessage("");
 
-        if (!message.length) {
+        const trimmedMessage = message.trim();
+        if (!trimmedMessage.length) {
             return;
         }
-        handleSubmit(message);
-        setMessage("");
+        handleSubmit(trimmedMessage);
+    };
+
+    const handleChange = e => {
+        if (e.target.value.includes("\n")) {
+            e.preventDefault();
+            handleSend(e);
+            return;
+        }
+        setMessage(e.target.value);
     };
 
     return (
@@ -89,7 +95,6 @@ export default function Textator({
                 autoSize={{ minRows: 3, maxRows: 3 }}
                 placeholder={placeholder}
                 onChange={handleChange}
-                onPressEnter={handleSend}
             />
             <SpaceWrapper>
                 <Space wrap>
