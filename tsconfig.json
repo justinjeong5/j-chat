@@ -19,6 +19,7 @@
             "pages/*": ["pages/*"],
             "styles/*": ["styles/*"],
             "lib/*": ["lib/*"],
+            "socket/*": ["socket/*"],
             "hooks/*": ["hooks/*"],
             "hoc/*": ["hoc/*"],
             "db/*": ["db/*"],
