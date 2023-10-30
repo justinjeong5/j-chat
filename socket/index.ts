@@ -1,10 +1,13 @@
 import { io } from "socket.io-client";
-import initChatSocket from "socket/chat";
+import registerChatSocket from "socket/chat";
 
 let socket;
 
 export const initiateSocket = () => {
-    socket = io(process.env.NEXT_PUBLIC_API, { withCredentials: true });
+    socket = io(process.env.NEXT_PUBLIC_SOCKET_API, { withCredentials: true });
+    console.log("Socket Connection", socket.id);
+
+    registerChatSocket(socket);
 };
 export const disconnectSocket = () => {
     if (socket) {
@@ -18,6 +21,3 @@ export const detectError = () => {
         });
     }
 };
-
-const chat = initChatSocket(socket);
-export { chat };

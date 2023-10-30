@@ -6,10 +6,11 @@ import ChatFrame from "components/layout/ChatFrame";
 import Menu from "components/sider/Menu";
 import WithAuth from "hoc/WithAuth";
 import useNotice from "hooks/notice/notice";
-import MessageModel from "models/Message";
+// import MessageModel from "models/Message";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import RoomRepo from "repos/Room";
+import { sendChat } from "socket/chat";
 import IRoom from "types/room.type";
 
 function Room({ user }) {
@@ -27,15 +28,17 @@ function Room({ user }) {
         useState(false);
 
     const handleSubmit = async message => {
-        const room = await RoomRepo.sendMessage(
-            chatRoom.id,
-            MessageModel.createItem({
-                content: message,
-                writer: user.id,
-                roomId: chatRoom.id,
-            }),
-        );
-        setChatRoom(room);
+        // const room = await RoomRepo.sendMessage(
+        //     chatRoom.id,
+        //     MessageModel.createItem({
+        //         content: message,
+        //         writer: user.id,
+        //         roomId: chatRoom.id,
+        //     }),
+        // );
+        // setChatRoom(room);
+        console.log(`Hello World!, ${message}`);
+        sendChat(`Hello World!, ${message}`);
     };
 
     const handleToggleStarred = async () => {
