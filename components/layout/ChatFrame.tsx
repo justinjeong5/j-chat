@@ -19,11 +19,7 @@ const Textator = styled.div``;
 export default function ChatFrame({ dialog, textator }) {
     useEffect(() => {
         initiateSocket();
-        console.log("initiateSocket");
-        return () => {
-            disconnectSocket();
-            console.log("Socket Disconnected");
-        };
+        return () => disconnectSocket();
     }, []);
 
     return (

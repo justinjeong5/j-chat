@@ -60,7 +60,7 @@ export default function Dialog({
 
     useEffect(() => {
         if (autoFocus) {
-            dialogFocus.current?.scrollIntoView({ behavior: "smooth" });
+            dialogFocus.current?.scrollIntoView({ behavior: "instant" });
         }
     }, [dialog]);
 
