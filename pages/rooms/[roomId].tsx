@@ -77,7 +77,7 @@ function Room({ user }) {
         subscribeChat(chat => {
             setChatRoom({ ...chatRoom, dialog: [...chatRoom.dialog, chat] });
         });
-    }, []);
+    }, [chatRoom]);
 
     return (
         <>
