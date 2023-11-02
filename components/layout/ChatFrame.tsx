@@ -1,4 +1,6 @@
 import { Divider } from "antd";
+import { useEffect } from "react";
+import { disconnectSocket, initiateSocket } from "socket/index";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -15,6 +17,11 @@ const Dialog = styled.div`
 const Textator = styled.div``;
 
 export default function ChatFrame({ dialog, textator }) {
+    useEffect(() => {
+        initiateSocket();
+        return () => disconnectSocket();
+    }, []);
+
     return (
         <Container>
             <Dialog>{dialog}</Dialog>

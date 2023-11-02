@@ -10,6 +10,7 @@ import MessageModel from "models/Message";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import RoomRepo from "repos/Room";
+import { subscribeChat } from "socket/chat";
 import IRoom from "types/room.type";
 
 function Room({ user }) {
@@ -26,15 +27,14 @@ function Room({ user }) {
     const [localStorageHideMessageTour, setLocalStorageHideMessageTour] =
         useState(false);
 
-    const handleSubmit = async message => {
-        const room = await RoomRepo.sendMessage(
-            chatRoom.id,
-            MessageModel.createItem({
-                content: message,
-                writer: user.id,
-                roomId: chatRoom.id,
-            }),
-        );
+    const handleSubmit = async content => {
+        const message = MessageModel.createItem({
+            content,
+            writer: user.id,
+            roomId: chatRoom.id,
+        });
+
+        const room = await RoomRepo.sendMessage(chatRoom.id, message);
         setChatRoom(room);
     };
 
@@ -72,6 +72,12 @@ function Room({ user }) {
             }
         })();
     }, [router.query]);
+
+    useEffect(() => {
+        subscribeChat(chat => {
+            setChatRoom({ ...chatRoom, dialog: [...chatRoom.dialog, chat] });
+        });
+    }, [chatRoom]);
 
     return (
         <>
