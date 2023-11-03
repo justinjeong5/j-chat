@@ -12,9 +12,8 @@ export const sendChat = data => {
 
 export const subscribeChat = callback => {
     if (socket) {
-        socket.on("returnMessage", data => {
-            console.log("returnMessage", data);
-            callback(data);
+        socket.on("returnMessage", ({ chat }) => {
+            callback(chat);
         });
     }
 };
