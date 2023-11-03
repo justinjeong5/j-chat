@@ -11,15 +11,16 @@ export const detectError = () => {
     }
 };
 export const initiateSocket = () => {
-    console.log("initiateSocket");
-    socket = io(process.env.NEXT_PUBLIC_SOCKET_API, { withCredentials: true });
+    socket = io(process.env.NEXT_PUBLIC_SOCKET_API, {
+        withCredentials: true,
+        transports: ["websocket"],
+    });
 
     registerChatSocket(socket);
     detectError();
 };
 export const disconnectSocket = () => {
     if (socket) {
-        console.log("disconnectSocket");
         socket.disconnect();
     }
 };
