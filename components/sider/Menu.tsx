@@ -1,8 +1,9 @@
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import type { TourProps } from "antd";
 import { Layout, Tour } from "antd";
 import MenuFrame from "components/layout/SiderFrame";
 import CreateRoomModal from "components/sider/CreateRoomModal";
+import JoinRoomModal from "components/sider/JoinRoomModal";
 import Profile from "components/sider/Profile";
 import Rooms from "components/sider/Rooms";
 import useNotice from "hooks/notice/notice";
@@ -81,6 +82,11 @@ export default function Page({ user }) {
                             <PlusOutlined /> Add Room
                         </div>
                     </CreateRoomModal>
+                    <JoinRoomModal onJoinRoom={onCreateRoom}>
+                        <div ref={addRoomBtnRef}>
+                            <UnorderedListOutlined /> Join Room
+                        </div>
+                    </JoinRoomModal>
                     <Rooms loading={fetchingRooms} rooms={rooms} />
                 </MenuWrapper>
             </MenuFrame>

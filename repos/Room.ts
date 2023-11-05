@@ -58,6 +58,10 @@ class RoomRepo extends BaseRepo {
         return this.create(Room.createItem({ title, type, description }));
     }
 
+    async joinRoom({ title, type, description }: TRoomField): Promise<IRoom> {
+        return this.update(Room.createItem({ title, type, description }));
+    }
+
     async sendMessage(roomId: string, message: TMessage): Promise<IRoom> {
         return this.client
             .post(`/room/rooms/${roomId}/dialog`, message)
