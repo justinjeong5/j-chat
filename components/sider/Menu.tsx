@@ -44,15 +44,25 @@ export default function Page({ user }) {
         },
     ];
 
+    const fetchRooms = async () => {
+        setFetchingRooms(true);
+        const roomsData = await RoomRepo.getRooms({ users: user.id });
+        setRooms(composeRooms(roomsData));
+        setFetchingRooms(false);
+        return roomsData;
+    };
+
     useEffect(() => {
         (async () => {
             try {
                 setFetchingRooms(true);
-                const roomsData = await RoomRepo.getRooms();
+                if (!user.id) {
+                    return;
+                }
+                const roomsData = await RoomRepo.getRooms({ users: user.id });
                 if (roomsData.isEmpty()) {
                     setShowTour(true);
                 }
-
                 setRooms(composeRooms(roomsData));
             } catch (e) {
                 errorHandler(e);
@@ -60,13 +70,10 @@ export default function Page({ user }) {
                 setFetchingRooms(false);
             }
         })();
-    }, []);
+    }, [user.id]);
 
-    const onCreateRoom = async () => {
-        setFetchingRooms(true);
-        const roomsData = await RoomRepo.getRooms();
-        setRooms(composeRooms(roomsData));
-        setFetchingRooms(false);
+    const onJoinRoom = async () => {
+        console.log("onJoinRoom");
     };
 
     return (
@@ -77,12 +84,12 @@ export default function Page({ user }) {
                 footer={<div>J-Chat v1.0.0</div>}
             >
                 <MenuWrapper hasSider>
-                    <CreateRoomModal onCreateRoom={onCreateRoom}>
+                    <CreateRoomModal onCreateRoom={fetchRooms}>
                         <div ref={addRoomBtnRef}>
                             <PlusOutlined /> Add Room
                         </div>
                     </CreateRoomModal>
-                    <JoinRoomModal onJoinRoom={onCreateRoom}>
+                    <JoinRoomModal onJoinRoom={onJoinRoom}>
                         <div ref={addRoomBtnRef}>
                             <UnorderedListOutlined /> Join Room
                         </div>

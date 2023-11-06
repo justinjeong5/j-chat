@@ -3,7 +3,7 @@ import { Avatar, Button, List, Modal } from "antd";
 // import useNotice from "hooks/notice/notice";
 import { useState } from "react";
 
-export default function JoinRoomModal({ children }) {
+export default function JoinRoomModal({ onJoinRoom, children }) {
     // const { errorHandler, contextHolder } = useNotice();
 
     const [open, setOpen] = useState(false);
@@ -36,7 +36,7 @@ export default function JoinRoomModal({ children }) {
                     itemLayout="horizontal"
                     dataSource={data}
                     renderItem={item => (
-                        <List.Item>
+                        <List.Item onClick={onJoinRoom}>
                             <List.Item.Meta
                                 avatar={
                                     <Avatar.Group

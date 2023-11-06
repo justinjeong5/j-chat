@@ -40,8 +40,8 @@ class RoomRepo extends BaseRepo {
             .then(({ data }) => new Room(data));
     }
 
-    async getRooms(): Promise<IRooms> {
-        const { results } = await this.list();
+    async getRooms(query?: object): Promise<IRooms> {
+        const { results } = await this.list(query);
         return new Rooms(results);
     }
 
