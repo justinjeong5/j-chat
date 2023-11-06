@@ -8,6 +8,7 @@ import Profile from "components/sider/Profile";
 import Rooms from "components/sider/Rooms";
 import useNotice from "hooks/notice/notice";
 import useRooms from "hooks/room/useRooms";
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import RoomRepo from "repos/Room";
 import styled from "styled-components";
@@ -18,6 +19,7 @@ const MenuWrapper = styled(Layout)`
 `;
 
 export default function Page({ user }) {
+    const router = useRouter();
     const addRoomBtnRef = useRef(null);
     const { composeRooms } = useRooms();
 
@@ -72,8 +74,10 @@ export default function Page({ user }) {
         })();
     }, [user.id]);
 
-    const onJoinRoom = async () => {
-        console.log("onJoinRoom");
+    const onJoinRoom = async (id: string) => {
+        console.log("onJoinRoom", id);
+        console.log("유저가 방에 참여합니다.");
+        router.push(`/rooms/${id}`);
     };
 
     return (

@@ -21,6 +21,11 @@ export default class Rooms {
         return this.list;
     }
 
+    addRooms(rooms: IRoom[]): Array<IRoom> {
+        this.list = this.list.concat(rooms);
+        return this.list;
+    }
+
     isEmpty(): boolean {
         return !this.list.length;
     }
