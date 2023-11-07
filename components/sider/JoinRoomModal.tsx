@@ -15,33 +15,30 @@ export default function JoinRoomModal({ user, onJoinRoom, children }) {
 
     const fetchRooms = async () => {
         try {
-            const roomsData = await RoomRepo.getRooms({
-                page,
-                users: { $ne: user.id },
-            });
-            if (!roomsData.length) {
-                setHasMore(false);
-                return;
-            }
+            const { results: roomsData, hasMore: more } =
+                await RoomRepo.getRooms({
+                    page,
+                    users: { $ne: user.id },
+                });
             setRooms(r => [...r, ...roomsData]);
             setPage(p => p + 1);
+            setHasMore(more);
         } catch (e) {
             errorHandler(e);
         }
     };
 
-    const toggleModal = () => {
-        setOpen(!open);
-    };
-
     const handleOpenModal = () => {
         fetchRooms();
-        toggleModal();
+        setOpen(true);
     };
 
     const handleJoinRoom = (roomId: string) => {
         onJoinRoom(roomId);
-        toggleModal();
+        setRooms([]);
+        setPage(0);
+        setHasMore(true);
+        setOpen(false);
     };
 
     return (
@@ -50,66 +47,79 @@ export default function JoinRoomModal({ user, onJoinRoom, children }) {
             <Button block type="text" onClick={handleOpenModal}>
                 {children}
             </Button>
-            <Modal title="대화방 목록" open={open} onCancel={toggleModal}>
-                <InfiniteScroll
-                    dataLength={rooms.length}
-                    next={fetchRooms}
-                    hasMore={hasMore}
-                    loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
-                    endMessage={
-                        <Divider plain>
-                            더 이상 불러올 목록이 없습니다. 🤐
-                        </Divider>
-                    }
-                    scrollableTarget="scrollableDiv"
+            <Modal
+                title="대화방 목록"
+                open={open}
+                onCancel={() => setOpen(false)}
+            >
+                <div
+                    id="scrollableDiv"
+                    style={{ height: "50vh", overflow: "auto" }}
                 >
-                    <List
-                        itemLayout="horizontal"
-                        dataSource={rooms}
-                        renderItem={item => (
-                            <List.Item onClick={() => handleJoinRoom(item.id)}>
-                                <List.Item.Meta
-                                    avatar={
-                                        <Avatar.Group
-                                            maxCount={2}
-                                            size="large"
-                                            maxStyle={{
-                                                color: "#f56a00",
-                                                backgroundColor: "#fde3cf",
-                                            }}
-                                        >
-                                            {item.users.length ? (
-                                                item.users.map(u => {
-                                                    return (
-                                                        <Avatar
-                                                            src={u.avatar}
-                                                        />
-                                                    );
-                                                })
-                                            ) : (
-                                                <Avatar
-                                                    icon={<TeamOutlined />}
-                                                    style={{
-                                                        backgroundColor:
-                                                            "#f56a00",
-                                                    }}
-                                                >
-                                                    N/A
-                                                </Avatar>
-                                            )}
-                                        </Avatar.Group>
-                                    }
-                                    title={
-                                        <a href="https://ant.design">
-                                            {item.title}
-                                        </a>
-                                    }
-                                    description={item.description}
-                                />
-                            </List.Item>
-                        )}
-                    />
-                </InfiniteScroll>
+                    <InfiniteScroll
+                        dataLength={rooms.length}
+                        next={fetchRooms}
+                        hasMore={hasMore}
+                        loader={
+                            <Skeleton avatar paragraph={{ rows: 1 }} active />
+                        }
+                        endMessage={
+                            <Divider plain>
+                                더 이상 불러올 목록이 없습니다. 🤐
+                            </Divider>
+                        }
+                        scrollableTarget="scrollableDiv"
+                    >
+                        <List
+                            itemLayout="horizontal"
+                            dataSource={rooms}
+                            renderItem={item => (
+                                <List.Item
+                                    onClick={() => handleJoinRoom(item.id)}
+                                >
+                                    <List.Item.Meta
+                                        avatar={
+                                            <Avatar.Group
+                                                maxCount={2}
+                                                size="large"
+                                                maxStyle={{
+                                                    color: "#f56a00",
+                                                    backgroundColor: "#fde3cf",
+                                                }}
+                                            >
+                                                {item.users.length ? (
+                                                    item.users.map(u => {
+                                                        return (
+                                                            <Avatar
+                                                                src={u.avatar}
+                                                            />
+                                                        );
+                                                    })
+                                                ) : (
+                                                    <Avatar
+                                                        icon={<TeamOutlined />}
+                                                        style={{
+                                                            backgroundColor:
+                                                                "#f56a00",
+                                                        }}
+                                                    >
+                                                        N/A
+                                                    </Avatar>
+                                                )}
+                                            </Avatar.Group>
+                                        }
+                                        title={
+                                            <a href="https://ant.design">
+                                                {item.title}
+                                            </a>
+                                        }
+                                        description={item.description}
+                                    />
+                                </List.Item>
+                            )}
+                        />
+                    </InfiniteScroll>
+                </div>
             </Modal>
         </>
     );

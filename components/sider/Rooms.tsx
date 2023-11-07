@@ -6,7 +6,7 @@ import {
 import type { MenuProps } from "antd";
 import { Menu, Skeleton } from "antd";
 import useRooms from "hooks/room/useRooms";
-import RoomsModel from "models/Rooms";
+import Room from "models/Room";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -32,19 +32,19 @@ export default function Rooms({ loading, rooms }) {
             <Menu>
                 {[
                     {
-                        key: RoomsModel.PUBLIC,
+                        key: Room.PUBLIC,
                         label: "Public Rooms",
                         icon: <CoffeeOutlined />,
                         children: [],
                     },
                     {
-                        key: RoomsModel.STAR,
+                        key: Room.STAR,
                         label: "Starred Rooms",
                         icon: <PushpinOutlined />,
                         children: [],
                     },
                     {
-                        key: RoomsModel.DIRECT,
+                        key: Room.DIRECT,
                         label: "Direct Dialog",
                         icon: <UserOutlined />,
                         children: [],
@@ -67,7 +67,7 @@ export default function Rooms({ loading, rooms }) {
 
     return (
         <Menu
-            defaultOpenKeys={[RoomsModel.PUBLIC, RoomsModel.STAR]}
+            defaultOpenKeys={[Room.PUBLIC, Room.STAR]}
             selectedKeys={[router.query.roomId as string]}
             items={items}
             mode="inline"

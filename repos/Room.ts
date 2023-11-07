@@ -12,11 +12,14 @@ class RoomRepo extends BaseRepo {
             .then(({ data }) => new Room(data));
     }
 
-    async list(query?: TQuery): Promise<{ results: Array<IRoom> }> {
+    async list(
+        query?: TQuery,
+    ): Promise<{ results: Array<IRoom>; hasMore: boolean }> {
         return this.client
             .get(this.buildUrl("list", query))
             .then(({ data }) => ({
                 results: data.results.map(r => new Room(r)),
+                hasMore: data.hasMore,
             }));
     }
 
@@ -38,12 +41,14 @@ class RoomRepo extends BaseRepo {
             .then(({ data }) => new Room(data));
     }
 
-    async getRooms(query?: object): Promise<IRoom[]> {
-        const { results } = await this.list({
+    async getRooms(
+        query?: object,
+    ): Promise<{ results: IRoom[]; hasMore: boolean }> {
+        const { results, hasMore } = await this.list({
             pageSize: 10,
             ...query,
         });
-        return results;
+        return { results, hasMore };
     }
 
     async getRoomWithDialog(id: string): Promise<IRoom> {

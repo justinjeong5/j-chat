@@ -53,7 +53,9 @@ export default function Page({ user }) {
 
     const fetchRooms = async () => {
         setFetchingRooms(true);
-        const roomsData = await RoomRepo.getRooms({ users: user.id });
+        const { results: roomsData } = await RoomRepo.getRooms({
+            users: user.id,
+        });
         setRooms(roomsData);
         setFetchingRooms(false);
     };

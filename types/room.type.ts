@@ -39,3 +39,5 @@ export type TRoomField = {
     type: string;
     description: string;
 };
+
+export type TRoomType = "public" | "star" | "direct";
