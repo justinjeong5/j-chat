@@ -61,7 +61,7 @@ abstract class BaseModel {
 
     abstract list(query?: TQuery): Promise<{ results: Array<TCommon> }>;
     abstract create(data: object, query?: TQuery): Promise<TCommon>;
-    abstract update(data: object, query?: TQuery): Promise<TCommon>;
+    abstract update(id: string, data: object, query?: TQuery): Promise<TCommon>;
     abstract patch(data: object, query?: TQuery): Promise<TCommon>;
     abstract get(id: string, query?: TQuery): Promise<TCommon>;
 }

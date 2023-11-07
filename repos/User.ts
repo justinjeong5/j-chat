@@ -26,9 +26,9 @@ class UserRepo extends BaseRepo {
             .then(({ data }) => new User(data));
     }
 
-    async update(user: TUser, query?: TQuery): Promise<IUser> {
+    async update(id: string, field: TUser, query?: TQuery): Promise<IUser> {
         return this.client
-            .patch(this.buildUrl("update", query), user)
+            .patch(this.buildUrl("update", query, { id }), field)
             .then(({ data }) => new User(data));
     }
 

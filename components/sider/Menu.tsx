@@ -7,11 +7,11 @@ import JoinRoomModal from "components/sider/JoinRoomModal";
 import Profile from "components/sider/Profile";
 import Rooms from "components/sider/Rooms";
 import useNotice from "hooks/notice/notice";
-import useRooms from "hooks/room/useRooms";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import RoomRepo from "repos/Room";
 import styled from "styled-components";
+import IRoom from "types/room.type";
 
 const MenuWrapper = styled(Layout)`
     display: block;
@@ -21,9 +21,8 @@ const MenuWrapper = styled(Layout)`
 export default function Page({ user }) {
     const router = useRouter();
     const addRoomBtnRef = useRef(null);
-    const { composeRooms } = useRooms();
 
-    const [rooms, setRooms] = useState([]);
+    const [rooms, setRooms] = useState<IRoom[]>(null);
     const [fetchingRooms, setFetchingRooms] = useState(false);
     const { errorHandler, contextHolder } = useNotice();
     const [showTour, setShowTour] = useState(false);
@@ -46,12 +45,17 @@ export default function Page({ user }) {
         },
     ];
 
+    const onJoinRoom = async (roomId: string) => {
+        const room = await RoomRepo.joinRoom(roomId, user.id);
+        setRooms(r => [...r, room]);
+        router.push(`/rooms/${roomId}`);
+    };
+
     const fetchRooms = async () => {
         setFetchingRooms(true);
         const roomsData = await RoomRepo.getRooms({ users: user.id });
-        setRooms(composeRooms(roomsData));
+        setRooms(roomsData);
         setFetchingRooms(false);
-        return roomsData;
     };
 
     useEffect(() => {
@@ -61,11 +65,10 @@ export default function Page({ user }) {
                 if (!user.id) {
                     return;
                 }
-                const roomsData = await RoomRepo.getRooms({ users: user.id });
-                if (roomsData.isEmpty()) {
+                await fetchRooms();
+                if (rooms && !rooms.length) {
                     setShowTour(true);
                 }
-                setRooms(composeRooms(roomsData));
             } catch (e) {
                 errorHandler(e);
             } finally {
@@ -73,12 +76,6 @@ export default function Page({ user }) {
             }
         })();
     }, [user.id]);
-
-    const onJoinRoom = async (id: string) => {
-        console.log("onJoinRoom", id);
-        console.log("유저가 방에 참여합니다.");
-        router.push(`/rooms/${id}`);
-    };
 
     return (
         <>
@@ -93,7 +90,7 @@ export default function Page({ user }) {
                             <PlusOutlined /> Add Room
                         </div>
                     </CreateRoomModal>
-                    <JoinRoomModal onJoinRoom={onJoinRoom}>
+                    <JoinRoomModal user={user} onJoinRoom={onJoinRoom}>
                         <div ref={addRoomBtnRef}>
                             <UnorderedListOutlined /> Join Room
                         </div>

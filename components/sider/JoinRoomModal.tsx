@@ -1,20 +1,42 @@
 import { TeamOutlined } from "@ant-design/icons";
 import { Avatar, Button, Divider, List, Modal, Skeleton } from "antd";
 import useNotice from "hooks/notice/notice";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import RoomRepo from "repos/Room";
 
-export default function JoinRoomModal({ onJoinRoom, children }) {
+export default function JoinRoomModal({ user, onJoinRoom, children }) {
     const { errorHandler, contextHolder } = useNotice();
 
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [rooms, setRooms] = useState([]);
     const [open, setOpen] = useState(false);
     const [hasMore, setHasMore] = useState(true);
 
+    const fetchRooms = async () => {
+        try {
+            const roomsData = await RoomRepo.getRooms({
+                page,
+                users: { $ne: user.id },
+            });
+            if (!roomsData.length) {
+                setHasMore(false);
+                return;
+            }
+            setRooms(r => [...r, ...roomsData]);
+            setPage(p => p + 1);
+        } catch (e) {
+            errorHandler(e);
+        }
+    };
+
     const toggleModal = () => {
         setOpen(!open);
+    };
+
+    const handleOpenModal = () => {
+        fetchRooms();
+        toggleModal();
     };
 
     const handleJoinRoom = (roomId: string) => {
@@ -22,28 +44,10 @@ export default function JoinRoomModal({ onJoinRoom, children }) {
         toggleModal();
     };
 
-    const fetchRooms = async () => {
-        try {
-            const roomsData = await RoomRepo.getRooms({ page });
-            if (!roomsData.list.length) {
-                setHasMore(false);
-                return;
-            }
-            setRooms(r => [...r, ...roomsData.list]);
-            setPage(p => p + 1);
-        } catch (e) {
-            errorHandler(e);
-        }
-    };
-
-    useEffect(() => {
-        fetchRooms();
-    }, []);
-
     return (
         <>
             {contextHolder}
-            <Button block type="text" onClick={toggleModal}>
+            <Button block type="text" onClick={handleOpenModal}>
                 {children}
             </Button>
             <Modal title="대화방 목록" open={open} onCancel={toggleModal}>
@@ -75,10 +79,10 @@ export default function JoinRoomModal({ onJoinRoom, children }) {
                                             }}
                                         >
                                             {item.users.length ? (
-                                                item.users.map(user => {
+                                                item.users.map(u => {
                                                     return (
                                                         <Avatar
-                                                            src={user.avatar}
+                                                            src={u.avatar}
                                                         />
                                                     );
                                                 })
@@ -100,7 +104,7 @@ export default function JoinRoomModal({ onJoinRoom, children }) {
                                             {item.title}
                                         </a>
                                     }
-                                    description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                                    description={item.description}
                                 />
                             </List.Item>
                         )}

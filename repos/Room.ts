@@ -1,11 +1,9 @@
 import Room from "models/Room";
-import Rooms from "models/Rooms";
 import BaseRepo from "repos/BaseRepo";
 import MessageRepo from "repos/Message";
 import { TQuery } from "types/common.type";
 import { TMessage } from "types/message.type";
 import IRoom, { TRoom, TRoomField } from "types/room.type";
-import IRooms from "types/rooms.type";
 
 class RoomRepo extends BaseRepo {
     async get(id: string, query?: TQuery): Promise<IRoom> {
@@ -28,9 +26,9 @@ class RoomRepo extends BaseRepo {
             .then(({ data }) => new Room(data));
     }
 
-    async update(room: TRoom, query?: TQuery): Promise<IRoom> {
+    async update(id: string, fields: object, query?: TQuery): Promise<IRoom> {
         return this.client
-            .patch(this.buildUrl("update", query, room), room)
+            .patch(this.buildUrl("update", query, { id }), fields)
             .then(({ data }) => new Room(data));
     }
 
@@ -40,12 +38,12 @@ class RoomRepo extends BaseRepo {
             .then(({ data }) => new Room(data));
     }
 
-    async getRooms(query?: object): Promise<IRooms> {
+    async getRooms(query?: object): Promise<IRoom[]> {
         const { results } = await this.list({
             pageSize: 10,
             ...query,
         });
-        return new Rooms(results);
+        return results;
     }
 
     async getRoomWithDialog(id: string): Promise<IRoom> {
@@ -61,8 +59,8 @@ class RoomRepo extends BaseRepo {
         return this.create(Room.createItem({ title, type, description }));
     }
 
-    async joinRoom({ title, type, description }: TRoomField): Promise<IRoom> {
-        return this.update(Room.createItem({ title, type, description }));
+    async joinRoom(roomId, userId): Promise<IRoom> {
+        return this.update(roomId, { users: [userId] });
     }
 
     async sendMessage(roomId: string, message: TMessage): Promise<IRoom> {
