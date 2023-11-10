@@ -28,8 +28,6 @@ export type TRoomMenu = {
     description: string;
     type: string;
     starred: boolean;
-    createdAt: Date;
-    updatedAt: Date;
     users: Array<object>;
     dialog: Array<IMessage>;
 };

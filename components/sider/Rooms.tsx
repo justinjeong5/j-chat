@@ -35,32 +35,27 @@ export default function Rooms({ loading, rooms }) {
                         key: Room.PUBLIC,
                         label: "Public Rooms",
                         icon: <CoffeeOutlined />,
-                        children: [],
                     },
                     {
                         key: Room.STAR,
                         label: "Starred Rooms",
                         icon: <PushpinOutlined />,
-                        children: [],
                     },
                     {
                         key: Room.DIRECT,
                         label: "Direct Dialog",
                         icon: <UserOutlined />,
-                        children: [],
                     },
-                ].map(({ key, label, icon }) => {
-                    return (
-                        <>
-                            <Menu.SubMenu key={key} title={label} icon={icon} />
-                            {Array.from({ length: 2 }).map(() => (
-                                <Menu.Item key={uuidv4()}>
-                                    <Skeleton active paragraph={false} round />
-                                </Menu.Item>
-                            ))}
-                        </>
-                    );
-                })}
+                ].map(({ key, label, icon }) => (
+                    <>
+                        <Menu.SubMenu key={key} title={label} icon={icon} />
+                        {Array.from({ length: 2 }).map(() => (
+                            <Menu.Item key={uuidv4()}>
+                                <Skeleton active paragraph={false} round />
+                            </Menu.Item>
+                        ))}
+                    </>
+                ))}
             </Menu>
         );
     }
