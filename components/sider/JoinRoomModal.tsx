@@ -91,6 +91,7 @@ export default function JoinRoomModal({ user, onJoinRoom, children }) {
                                                     item.users.map(u => {
                                                         return (
                                                             <Avatar
+                                                                key={u.id}
                                                                 src={u.avatar}
                                                             />
                                                         );
