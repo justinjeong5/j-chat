@@ -37,6 +37,11 @@ function Room({ user }) {
         sendChat(message);
     };
 
+    const handleLeaveRoom = async roomId => {
+        await RoomRepo.leaveRoom(roomId, user.id);
+        router.replace("/");
+    };
+
     const handleToggleStarred = async () => {
         const room = await RoomRepo.toggleStarred(chatRoom.id);
         setChatRoom(room);
@@ -85,6 +90,7 @@ function Room({ user }) {
                     <Header
                         room={chatRoom}
                         loading={fetchingData}
+                        leaveRoom={handleLeaveRoom}
                         toggleStarred={handleToggleStarred}
                     />
                 }

@@ -5,9 +5,11 @@ import {
     SendOutlined,
     UserOutlined,
 } from "@ant-design/icons";
-import { Skeleton } from "antd";
+import type { MenuProps } from "antd";
+import { Dropdown, Skeleton } from "antd";
 import FieldHover from "components/form/FieldHover";
 import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
 
 const Container = styled.div`
     display: flex;
@@ -35,10 +37,27 @@ const Title = styled.div`
         `${SPACING.BIGGER} 0 ${SPACING.SMALLER} 0`};
 `;
 
-export default function Header({ room, loading, toggleStarred }) {
-    const handleEditRoom = () => {
-        console.log("handleEditRoom");
-    };
+export default function Header({ room, loading, leaveRoom, toggleStarred }) {
+    const items: MenuProps["items"] = [
+        {
+            label: "1st menu item",
+            key: uuidv4(),
+            onClick: () => console.log("1st menu item"),
+        },
+        {
+            label: "2nd menu item",
+            key: uuidv4(),
+            onClick: () => console.log("2nd menu item"),
+        },
+        {
+            type: "divider",
+        },
+        {
+            label: "나가기",
+            key: uuidv4(),
+            onClick: () => leaveRoom(room.id),
+        },
+    ];
 
     return (
         <Container>
@@ -78,11 +97,17 @@ export default function Header({ room, loading, toggleStarred }) {
                         )}
                     </FieldHover>
                 </ContainerItem>
-                <ContainerItem onClick={handleEditRoom}>
-                    <FieldHover>
-                        <EllipsisOutlined />
-                    </FieldHover>
-                </ContainerItem>
+                <Dropdown
+                    menu={{ items }}
+                    trigger={["click"]}
+                    placement="bottomRight"
+                >
+                    <ContainerItem>
+                        <FieldHover>
+                            <EllipsisOutlined />
+                        </FieldHover>
+                    </ContainerItem>
+                </Dropdown>
             </Container>
         </Container>
     );

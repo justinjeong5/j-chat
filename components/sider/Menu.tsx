@@ -21,6 +21,7 @@ const MenuWrapper = styled(Layout)`
 export default function Page({ user }) {
     const router = useRouter();
     const addRoomBtnRef = useRef(null);
+    const joinRoomBtnRef = useRef(null);
 
     const [rooms, setRooms] = useState<IRoom[]>(null);
     const [fetchingRooms, setFetchingRooms] = useState(false);
@@ -42,6 +43,11 @@ export default function Page({ user }) {
             title: "대화방 생성",
             description: "대화방을 만들고 사람들을 초대해보세요.",
             target: () => addRoomBtnRef.current,
+        },
+        {
+            title: "대화방 들어가기",
+            description: "대화방에 들어가서 대화를 나눠보세요.",
+            target: () => joinRoomBtnRef.current,
         },
     ];
 
@@ -89,12 +95,12 @@ export default function Page({ user }) {
                 <MenuWrapper hasSider>
                     <CreateRoomModal onCreateRoom={fetchRooms}>
                         <div ref={addRoomBtnRef}>
-                            <PlusOutlined /> Add Room
+                            <PlusOutlined /> 대화방 생성
                         </div>
                     </CreateRoomModal>
                     <JoinRoomModal user={user} onJoinRoom={onJoinRoom}>
-                        <div ref={addRoomBtnRef}>
-                            <UnorderedListOutlined /> Join Room
+                        <div ref={joinRoomBtnRef}>
+                            <UnorderedListOutlined /> 대화방 입장
                         </div>
                     </JoinRoomModal>
                     <Rooms loading={fetchingRooms} rooms={rooms} />

@@ -1,12 +1,17 @@
 import { TeamOutlined } from "@ant-design/icons";
 import { Avatar, Button, Divider, List, Modal, Skeleton } from "antd";
 import useNotice from "hooks/notice/notice";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import RoomRepo from "repos/Room";
+import styled from "styled-components";
+
+const Title = styled.div``;
 
 export default function JoinRoomModal({ user, onJoinRoom, children }) {
     const { errorHandler, contextHolder } = useNotice();
+    const router = useRouter();
 
     const [page, setPage] = useState(0);
     const [rooms, setRooms] = useState([]);
@@ -39,6 +44,10 @@ export default function JoinRoomModal({ user, onJoinRoom, children }) {
         setPage(0);
         setHasMore(true);
         setOpen(false);
+    };
+
+    const handleRoute = (roomId: string) => {
+        router.push(`/rooms/${roomId}`);
     };
 
     return (
@@ -110,9 +119,13 @@ export default function JoinRoomModal({ user, onJoinRoom, children }) {
                                             </Avatar.Group>
                                         }
                                         title={
-                                            <a href="https://ant.design">
+                                            <Title
+                                                onClick={() =>
+                                                    handleRoute(item.id)
+                                                }
+                                            >
                                                 {item.title}
-                                            </a>
+                                            </Title>
                                         }
                                         description={item.description}
                                     />

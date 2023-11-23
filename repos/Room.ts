@@ -1,3 +1,4 @@
+import { withQS } from "lib/api";
 import Room from "models/Room";
 import BaseRepo from "repos/BaseRepo";
 import MessageRepo from "repos/Message";
@@ -65,7 +66,17 @@ class RoomRepo extends BaseRepo {
     }
 
     async joinRoom(roomId, userId): Promise<IRoom> {
-        return this.update(roomId, { users: [userId] });
+        return this.client
+            .post(`/room/rooms/${roomId}/users`, { users: [userId] })
+            .then(({ data }) => new Room(data));
+    }
+
+    async leaveRoom(roomId, userId): Promise<IRoom> {
+        return this.client
+            .patch(withQS(`/room/rooms/${roomId}/users`, { $pull: true }), {
+                users: userId,
+            })
+            .then(({ data }) => new Room(data));
     }
 
     async sendMessage(roomId: string, message: TMessage): Promise<IRoom> {
