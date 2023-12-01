@@ -59,6 +59,7 @@ export default function Dialog({
     const SKELETON_COUNT = 5;
 
     useEffect(() => {
+        console.log("dialog", dialog);
         if (autoFocus) {
             dialogFocus.current?.scrollIntoView({ behavior: "instant" });
         }
@@ -114,8 +115,8 @@ export default function Dialog({
                         }
                     >
                         <List.Item.Meta
-                            avatar={<Avatar src={item.writer.avatar} />}
-                            title={item.writer.username}
+                            avatar={<Avatar src={item.writer?.avatar} />}
+                            title={item.writer?.username}
                         />
                         {isMobile && item.image && (
                             <img

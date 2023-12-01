@@ -1,5 +1,6 @@
 import { io } from "socket.io-client";
 import registerChatSocket from "socket/chat";
+import registerRoomSocket from "socket/room";
 
 let socket;
 
@@ -17,6 +18,7 @@ export const initiateSocket = () => {
     });
 
     registerChatSocket(socket);
+    registerRoomSocket(socket);
     detectError();
 };
 export const disconnectSocket = () => {

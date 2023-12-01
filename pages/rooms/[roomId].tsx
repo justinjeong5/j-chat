@@ -11,6 +11,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import RoomRepo from "repos/Room";
 import { sendChat, subscribeChat } from "socket/chat";
+import { disconnectSocket, initiateSocket } from "socket/index";
+import { joinRoom, leaveRoom, subscribeReturnRoom } from "socket/room";
 import IRoom from "types/room.type";
 
 function Room({ user }) {
@@ -53,10 +55,28 @@ function Room({ user }) {
         );
         setLocalStorageHideMessageTour(hideMessageTour);
 
+        initiateSocket();
         subscribeChat(chat => {
             setChatRoom(prev => ({ ...prev, dialog: [...prev.dialog, chat] }));
         });
+        subscribeReturnRoom((userData, status) => {
+            console.log(userData, status);
+        });
+
+        return () => {
+            disconnectSocket();
+        };
     }, []);
+
+    useEffect(() => {
+        if (user.id && chatRoom.id) {
+            joinRoom({ roomId: chatRoom.id, userId: user.id });
+        }
+
+        return () => {
+            // leaveRoom({ roomId: chatRoom.id, userId: user.id });
+        };
+    }, [user, chatRoom]);
 
     useEffect(() => {
         (async () => {
@@ -67,10 +87,10 @@ function Room({ user }) {
                 }
 
                 setFetchingData(true);
-                const data = await RoomRepo.get(roomId);
-                setChatRoom(data);
+                const room = await RoomRepo.get(roomId);
+                setChatRoom(room);
 
-                if (!localStorageHideMessageTour && !data.dialog.length) {
+                if (!localStorageHideMessageTour && !room.dialog.length) {
                     setShowMessageTour(true);
                 }
             } catch (e) {

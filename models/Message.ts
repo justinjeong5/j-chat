@@ -60,7 +60,6 @@ export default class Message extends BaseModel implements IMessage {
         delete filteredConfig.roomId;
 
         return {
-            id: null,
             roomId: config.roomId,
             writer: config.writer,
             image: "",
