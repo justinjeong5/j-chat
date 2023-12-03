@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import RoomRepo from "repos/Room";
 import { sendChat, subscribeChat } from "socket/chat";
 import { disconnectSocket, initiateSocket } from "socket/index";
-import { joinRoom, leaveRoom, subscribeReturnRoom } from "socket/room";
+import { leaveRoom } from "socket/room";
 import IRoom from "types/room.type";
 
 function Room({ user }) {
@@ -42,6 +42,7 @@ function Room({ user }) {
     const handleLeaveRoom = async roomId => {
         await RoomRepo.leaveRoom(roomId, user.id);
         router.replace("/");
+        leaveRoom(roomId, user.id);
     };
 
     const handleToggleStarred = async () => {
@@ -59,24 +60,11 @@ function Room({ user }) {
         subscribeChat(chat => {
             setChatRoom(prev => ({ ...prev, dialog: [...prev.dialog, chat] }));
         });
-        subscribeReturnRoom((userData, status) => {
-            console.log(userData, status);
-        });
 
         return () => {
             disconnectSocket();
         };
     }, []);
-
-    useEffect(() => {
-        if (user.id && chatRoom.id) {
-            joinRoom({ roomId: chatRoom.id, userId: user.id });
-        }
-
-        return () => {
-            // leaveRoom({ roomId: chatRoom.id, userId: user.id });
-        };
-    }, [user, chatRoom]);
 
     useEffect(() => {
         (async () => {

@@ -59,7 +59,6 @@ export default function Dialog({
     const SKELETON_COUNT = 5;
 
     useEffect(() => {
-        console.log("dialog", dialog);
         if (autoFocus) {
             dialogFocus.current?.scrollIntoView({ behavior: "instant" });
         }
@@ -98,37 +97,57 @@ export default function Dialog({
                 itemLayout="vertical"
                 size="large"
                 dataSource={dialog}
-                renderItem={(item: IMessage) => (
-                    <List.Item
-                        key={item.id}
-                        actions={ActionItems(item)}
-                        extra={
-                            !isMobile &&
-                            item.image && (
+                renderItem={(item: IMessage) => {
+                    if (item.type === "joinRoom") {
+                        return (
+                            <List.Item key={item.id}>
+                                <TextWrapper>
+                                    {item.writer.username} 님께서 입장했습니다.
+                                </TextWrapper>
+                            </List.Item>
+                        );
+                    }
+                    if (item.type === "leaveRoom") {
+                        return (
+                            <List.Item key={item.id}>
+                                <TextWrapper>
+                                    {item.writer.username} 님께서 퇴장했습니다.
+                                </TextWrapper>
+                            </List.Item>
+                        );
+                    }
+                    return (
+                        <List.Item
+                            key={item.id}
+                            actions={ActionItems(item)}
+                            extra={
+                                !isMobile &&
+                                item.image && (
+                                    <img
+                                        style={{ maxWidth: "24vw" }}
+                                        width="272px"
+                                        alt="userImage"
+                                        src={item.image}
+                                    />
+                                )
+                            }
+                        >
+                            <List.Item.Meta
+                                avatar={<Avatar src={item.writer?.avatar} />}
+                                title={item.writer?.username}
+                            />
+                            {isMobile && item.image && (
                                 <img
                                     style={{ maxWidth: "24vw" }}
                                     width="272px"
                                     alt="userImage"
                                     src={item.image}
                                 />
-                            )
-                        }
-                    >
-                        <List.Item.Meta
-                            avatar={<Avatar src={item.writer?.avatar} />}
-                            title={item.writer?.username}
-                        />
-                        {isMobile && item.image && (
-                            <img
-                                style={{ maxWidth: "24vw" }}
-                                width="272px"
-                                alt="userImage"
-                                src={item.image}
-                            />
-                        )}
-                        <TextWrapper>{item.content}</TextWrapper>
-                    </List.Item>
-                )}
+                            )}
+                            <TextWrapper>{item.content}</TextWrapper>
+                        </List.Item>
+                    );
+                }}
             />
             <div ref={dialogFocus} />
         </>

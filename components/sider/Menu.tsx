@@ -11,6 +11,7 @@ import useNotice from "hooks/notice/notice";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import RoomRepo from "repos/Room";
+import { joinRoom } from "socket/room";
 import styled from "styled-components";
 import IRoom from "types/room.type";
 
@@ -56,6 +57,7 @@ export default function Page({ user }) {
         const room = await RoomRepo.joinRoom(roomId, user.id);
         setRooms(r => [...r, room]);
         router.push(`/rooms/${roomId}`);
+        joinRoom(roomId, user.id);
     };
 
     const fetchRooms = async () => {
