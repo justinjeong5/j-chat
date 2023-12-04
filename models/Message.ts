@@ -15,6 +15,8 @@ export default class Message extends BaseModel implements IMessage {
 
     writer: TUser;
 
+    type: string;
+
     image: string;
 
     content: string;
@@ -64,6 +66,7 @@ export default class Message extends BaseModel implements IMessage {
             writer: config.writer,
             image: "",
             content: "",
+            type: "plain",
             stars: [],
             likes: [],
             comments: [],
