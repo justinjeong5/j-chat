@@ -1,4 +1,3 @@
-import delay from "lib/time/delay";
 import Message from "models/Message";
 import BaseRepo from "repos/BaseRepo";
 import { TQuery } from "types/common.type";
@@ -12,7 +11,6 @@ class MessageRepo extends BaseRepo {
     }
 
     async list(query?: TQuery): Promise<{ results: Array<IMessage> }> {
-        await delay(400);
         return this.client
             .get(this.buildUrl("list", query))
             .then(({ data }) => ({ results: data.map(r => new Message(r)) }));

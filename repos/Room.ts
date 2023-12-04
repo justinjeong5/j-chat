@@ -67,13 +67,13 @@ class RoomRepo extends BaseRepo {
 
     async joinRoom(roomId, userId): Promise<IRoom> {
         return this.client
-            .post(`/room/rooms/${roomId}/users`, { users: [userId] })
+            .post(`/${roomId}/users`, { users: [userId] })
             .then(({ data }) => new Room(data));
     }
 
     async leaveRoom(roomId, userId): Promise<IRoom> {
         return this.client
-            .patch(withQS(`/room/rooms/${roomId}/users`, { $pull: true }), {
+            .patch(withQS(`/${roomId}/users`, { $pull: true }), {
                 users: userId,
             })
             .then(({ data }) => new Room(data));
@@ -81,7 +81,7 @@ class RoomRepo extends BaseRepo {
 
     async sendMessage(roomId: string, message: TMessage): Promise<IRoom> {
         return this.client
-            .post(`/room/rooms/${roomId}/dialog`, message)
+            .post(`/${roomId}/dialog`, message)
             .then(({ data }) => new Room(data));
     }
 
