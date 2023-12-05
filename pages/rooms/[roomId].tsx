@@ -11,6 +11,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import RoomRepo from "repos/Room";
 import { sendChat, subscribeChat } from "socket/chat";
+import { disconnectSocket, initiateSocket } from "socket/index";
+import { leaveRoom } from "socket/room";
 import IRoom from "types/room.type";
 
 function Room({ user }) {
@@ -37,6 +39,12 @@ function Room({ user }) {
         sendChat(message);
     };
 
+    const handleLeaveRoom = async roomId => {
+        await RoomRepo.leaveRoom(roomId, user.id);
+        router.replace("/");
+        leaveRoom(roomId, user.id);
+    };
+
     const handleToggleStarred = async () => {
         const room = await RoomRepo.toggleStarred(chatRoom.id);
         setChatRoom(room);
@@ -48,9 +56,14 @@ function Room({ user }) {
         );
         setLocalStorageHideMessageTour(hideMessageTour);
 
+        initiateSocket();
         subscribeChat(chat => {
             setChatRoom(prev => ({ ...prev, dialog: [...prev.dialog, chat] }));
         });
+
+        return () => {
+            disconnectSocket();
+        };
     }, []);
 
     useEffect(() => {
@@ -62,10 +75,10 @@ function Room({ user }) {
                 }
 
                 setFetchingData(true);
-                const data = await RoomRepo.get(roomId);
-                setChatRoom(data);
+                const room = await RoomRepo.get(roomId);
+                setChatRoom(room);
 
-                if (!localStorageHideMessageTour && !data.dialog.length) {
+                if (!localStorageHideMessageTour && !room.dialog.length) {
                     setShowMessageTour(true);
                 }
             } catch (e) {
@@ -85,6 +98,7 @@ function Room({ user }) {
                     <Header
                         room={chatRoom}
                         loading={fetchingData}
+                        leaveRoom={handleLeaveRoom}
                         toggleStarred={handleToggleStarred}
                     />
                 }

@@ -1,5 +1,5 @@
 import md5 from "md5";
-import { vs as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 const getAvatarUrl = (userToken = "") => {
     const randomToken = md5(userToken || uuidv4());

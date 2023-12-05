@@ -4,7 +4,7 @@ import WithAuth from "hoc/WithAuth";
 import useNotice from "hooks/notice/notice";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
-import UserRepo from "repos/User";
+import UsersRepo from "repos/Users";
 import styled from "styled-components";
 import { TUser } from "types/user.type";
 
@@ -26,7 +26,7 @@ function Setting({ user }) {
 
     const handleFinish = async (values: TUser): Promise<void> => {
         try {
-            const ok = await UserRepo.patch(values);
+            const ok = await UsersRepo.patch(values);
             if (ok) {
                 router.push("/");
             }
