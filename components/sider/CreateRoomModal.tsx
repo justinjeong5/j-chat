@@ -1,6 +1,6 @@
 import { Button, Form, Input, Modal, Select } from "antd";
 import useNotice from "hooks/notice/notice";
-import Rooms from "models/Rooms";
+import Room from "models/Room";
 import { useState } from "react";
 import RoomRepo from "repos/Room";
 
@@ -73,8 +73,8 @@ export default function CreateRoomModal({ onCreateRoom, children }) {
                             placeholder="대화방 종류를 선택해주세요."
                             allowClear
                         >
-                            <Option value={Rooms.PUBLIC}>Public</Option>
-                            <Option value={Rooms.DIRECT}>Direct</Option>
+                            <Option value={Room.PUBLIC}>Public</Option>
+                            <Option value={Room.DIRECT}>Direct</Option>
                         </Select>
                     </Form.Item>
                 </Form>

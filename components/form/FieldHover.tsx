@@ -5,6 +5,7 @@ const Wrapper = styled.div`
     background-color: #fff;
     transition: background-color 0.3s;
     border-radius: 5px;
+    padding: 3px;
 
     &:hover {
         background-color: #dedede;

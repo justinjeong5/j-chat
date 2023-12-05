@@ -1,9 +1,11 @@
 import { TUser } from "types/user.type";
 
 export type TMessage = {
-    id: string;
+    id?: string;
     roomId: string;
     writer: TUser;
+
+    type: string;
     content: string;
     image: string;
 

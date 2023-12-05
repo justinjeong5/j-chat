@@ -1,15 +1,19 @@
-import { PlusOutlined } from "@ant-design/icons";
+/* eslint-disable no-underscore-dangle */
+import { PlusOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import type { TourProps } from "antd";
 import { Layout, Tour } from "antd";
 import MenuFrame from "components/layout/SiderFrame";
 import CreateRoomModal from "components/sider/CreateRoomModal";
+import JoinRoomModal from "components/sider/JoinRoomModal";
 import Profile from "components/sider/Profile";
 import Rooms from "components/sider/Rooms";
 import useNotice from "hooks/notice/notice";
-import useRooms from "hooks/room/useRooms";
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import RoomRepo from "repos/Room";
+import { joinRoom } from "socket/room";
 import styled from "styled-components";
+import IRoom from "types/room.type";
 
 const MenuWrapper = styled(Layout)`
     display: block;
@@ -17,10 +21,11 @@ const MenuWrapper = styled(Layout)`
 `;
 
 export default function Page({ user }) {
+    const router = useRouter();
     const addRoomBtnRef = useRef(null);
-    const { composeRooms } = useRooms();
+    const joinRoomBtnRef = useRef(null);
 
-    const [rooms, setRooms] = useState([]);
+    const [rooms, setRooms] = useState<IRoom[]>(null);
     const [fetchingRooms, setFetchingRooms] = useState(false);
     const { errorHandler, contextHolder } = useNotice();
     const [showTour, setShowTour] = useState(false);
@@ -41,32 +46,47 @@ export default function Page({ user }) {
             description: "대화방을 만들고 사람들을 초대해보세요.",
             target: () => addRoomBtnRef.current,
         },
+        {
+            title: "대화방 들어가기",
+            description: "대화방에 들어가서 대화를 나눠보세요.",
+            target: () => joinRoomBtnRef.current,
+        },
     ];
+
+    const onJoinRoom = async (roomId: string) => {
+        const room = await RoomRepo.joinRoom(roomId, user.id);
+        setRooms(r => [...r, room]);
+        router.push(`/rooms/${roomId}`);
+        joinRoom(roomId, user.id);
+    };
+
+    const fetchRooms = async () => {
+        setFetchingRooms(true);
+        const { results: roomsData } = await RoomRepo.getRooms({
+            users: user.id,
+        });
+        setRooms(roomsData);
+        setFetchingRooms(false);
+    };
 
     useEffect(() => {
         (async () => {
             try {
                 setFetchingRooms(true);
-                const roomsData = await RoomRepo.getRooms();
-                if (roomsData.isEmpty()) {
+                if (!user.id) {
+                    return;
+                }
+                await fetchRooms();
+                if (rooms && !rooms.length) {
                     setShowTour(true);
                 }
-
-                setRooms(composeRooms(roomsData));
             } catch (e) {
                 errorHandler(e);
             } finally {
                 setFetchingRooms(false);
             }
         })();
-    }, []);
-
-    const onCreateRoom = async () => {
-        setFetchingRooms(true);
-        const roomsData = await RoomRepo.getRooms();
-        setRooms(composeRooms(roomsData));
-        setFetchingRooms(false);
-    };
+    }, [user.id]);
 
     return (
         <>
@@ -76,11 +96,16 @@ export default function Page({ user }) {
                 footer={<div>J-Chat v1.0.0</div>}
             >
                 <MenuWrapper hasSider>
-                    <CreateRoomModal onCreateRoom={onCreateRoom}>
+                    <CreateRoomModal onCreateRoom={fetchRooms}>
                         <div ref={addRoomBtnRef}>
-                            <PlusOutlined /> Add Room
+                            <PlusOutlined /> 대화방 생성
                         </div>
                     </CreateRoomModal>
+                    <JoinRoomModal user={user} onJoinRoom={onJoinRoom}>
+                        <div ref={joinRoomBtnRef}>
+                            <UnorderedListOutlined /> 대화방 입장
+                        </div>
+                    </JoinRoomModal>
                     <Rooms loading={fetchingRooms} rooms={rooms} />
                 </MenuWrapper>
             </MenuFrame>

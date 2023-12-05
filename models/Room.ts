@@ -1,6 +1,11 @@
 import BaseModel from "models/BaseModel";
 import IMessage from "types/message.type";
-import IRoom, { TRoom, TRoomField, TRoomMenu } from "types/room.type";
+import IRoom, {
+    TRoom,
+    TRoomField,
+    TRoomMenu,
+    TRoomType,
+} from "types/room.type";
 
 export default class Room extends BaseModel implements IRoom {
     id: string;
@@ -38,7 +43,13 @@ export default class Room extends BaseModel implements IRoom {
         return {
             key: String(this.id),
             label: this.title,
-            ...this,
+            id: this.id,
+            title: this.title,
+            description: this.description,
+            type: this.type,
+            starred: this.starred,
+            users: this.users,
+            dialog: this.dialog,
         };
     }
 
@@ -82,5 +93,17 @@ export default class Room extends BaseModel implements IRoom {
             updatedAt: new Date(),
             ...config,
         };
+    }
+
+    static get PUBLIC(): TRoomType {
+        return "public";
+    }
+
+    static get STAR(): TRoomType {
+        return "star";
+    }
+
+    static get DIRECT(): TRoomType {
+        return "direct";
     }
 }
