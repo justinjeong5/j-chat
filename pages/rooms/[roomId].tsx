@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import RoomRepo from "repos/Room";
 import { sendChat, subscribeChat } from "socket/chat";
 import { disconnectSocket, initiateSocket } from "socket/index";
-import { leaveRoom } from "socket/room";
+import { enterRoom, exitRoom, leaveRoom } from "socket/room";
 import IRoom from "types/room.type";
 
 function Room({ user }) {
@@ -88,6 +88,13 @@ function Room({ user }) {
             }
         })();
     }, [router.query]);
+
+    useEffect(() => {
+        if (chatRoom.id) {
+            enterRoom(chatRoom.id);
+        }
+        return () => exitRoom(chatRoom.id);
+    }, [chatRoom.id]);
 
     return (
         <>
