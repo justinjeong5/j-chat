@@ -27,7 +27,7 @@ export default function Profile({ user }) {
     const { logout } = useLogin();
 
     const handleEdit = () => {
-        router.push("/users/setting");
+        router.push("/user");
     };
 
     return (
@@ -40,7 +40,7 @@ export default function Profile({ user }) {
             <SpaceWrapper>
                 <Space>
                     <Button type="primary" onClick={handleEdit}>
-                        Edit Profile
+                        Profile
                     </Button>
                     <Button type="primary" onClick={logout}>
                         Log Out
