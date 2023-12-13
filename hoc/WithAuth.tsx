@@ -21,6 +21,9 @@ export default function WithAuth(WrappedComponent) {
             })();
         }, []);
 
+        if (user.email === "") {
+            return <div>loading...</div>;
+        }
         return <WrappedComponent {...props} user={user} />;
     };
 }
