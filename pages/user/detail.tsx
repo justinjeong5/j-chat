@@ -9,8 +9,10 @@ import { Col, Descriptions, Row, Statistic, Tabs } from "antd";
 import AppFrame from "components/layout/AppFrame";
 import Menu from "components/sider/Menu";
 import WithAuth from "hoc/WithAuth";
+import { useRouter } from "next/router";
 
 function Setting({ user }) {
+    const router = useRouter();
     const getLocaleString = (t: Date) => {
         return new Date(t).toLocaleDateString("ko-KR");
     };
@@ -50,6 +52,28 @@ function Setting({ user }) {
 
     return (
         <AppFrame menu={<Menu user={user} />} header={<div>사용자 정보</div>}>
+            <Tabs
+                defaultActiveKey="detail"
+                type="card"
+                onTabClick={key => router.push(`/user/${key}`)}
+                items={[
+                    {
+                        label: "회원정보",
+                        key: "detail",
+                        children: <div>회원정보</div>,
+                    },
+                    {
+                        label: "히스토리",
+                        key: "history",
+                        children: <div>히스토리</div>,
+                    },
+                    {
+                        label: "참여내역",
+                        key: "참여내역",
+                        children: <div>참여내역</div>,
+                    },
+                ]}
+            />
             <Descriptions items={items} />
             <Row gutter={16}>
                 <Col span={6}>
