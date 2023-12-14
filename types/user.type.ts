@@ -9,9 +9,10 @@ export type TUser = {
     description: string;
     avatar: string;
 
+    rooms: Array<object>;
+    dialog: Array<object>;
     likes: Array<object>;
     comments: Array<object>;
-    dialog: Array<object>;
     stars: Array<object>;
 
     lastLogin: Date;

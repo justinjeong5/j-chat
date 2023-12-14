@@ -58,46 +58,50 @@ function Setting({ user }) {
                 onTabClick={key => router.push(`/user/${key}`)}
                 items={[
                     {
-                        label: "회원정보",
+                        label: "회원 정보",
                         key: "detail",
-                        children: <div>회원정보</div>,
                     },
                     {
-                        label: "히스토리",
+                        label: "정보 수정",
+                        key: "edit",
+                    },
+                    {
+                        label: "참여 내역",
                         key: "history",
-                        children: <div>히스토리</div>,
-                    },
-                    {
-                        label: "참여내역",
-                        key: "참여내역",
-                        children: <div>참여내역</div>,
                     },
                 ]}
             />
             <Descriptions items={items} />
             <Row gutter={16}>
-                <Col span={6}>
+                <Col span={4}>
                     <Statistic
-                        title="대화"
-                        value={user.dialogs?.length}
+                        title="대화방"
+                        value={user.rooms?.length}
                         prefix={<CommentOutlined />}
                     />
                 </Col>
-                <Col span={6}>
+                <Col span={4}>
+                    <Statistic
+                        title="대화"
+                        value={user.dialog?.length}
+                        prefix={<CommentOutlined />}
+                    />
+                </Col>
+                <Col span={4}>
                     <Statistic
                         title="좋아요"
                         value={user.likes?.length}
                         prefix={<LikeOutlined />}
                     />
                 </Col>
-                <Col span={6}>
+                <Col span={4}>
                     <Statistic
                         title="댓글"
                         value={user.comments?.length}
                         prefix={<BuildOutlined />}
                     />
                 </Col>
-                <Col span={6}>
+                <Col span={4}>
                     <Statistic
                         title="즐겨찾기"
                         value={user.stars?.length}

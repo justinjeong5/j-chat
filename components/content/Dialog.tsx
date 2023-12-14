@@ -102,7 +102,7 @@ export default function Dialog({
                         return (
                             <List.Item key={item.id}>
                                 <TextWrapper>
-                                    {item.writer.username} 님께서 입장했습니다.
+                                    {item.writer?.username} 님께서 입장했습니다.
                                 </TextWrapper>
                             </List.Item>
                         );
@@ -111,7 +111,7 @@ export default function Dialog({
                         return (
                             <List.Item key={item.id}>
                                 <TextWrapper>
-                                    {item.writer.username} 님께서 퇴장했습니다.
+                                    {item.writer?.username} 님께서 퇴장했습니다.
                                 </TextWrapper>
                             </List.Item>
                         );

@@ -93,7 +93,11 @@ function Room({ user }) {
         if (chatRoom.id) {
             enterRoom(chatRoom.id);
         }
-        return () => exitRoom(chatRoom.id);
+        return () => {
+            if (chatRoom.id) {
+                exitRoom(chatRoom.id);
+            }
+        };
     }, [chatRoom.id]);
 
     return (

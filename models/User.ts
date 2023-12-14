@@ -14,11 +14,13 @@ export default class User extends BaseModel {
 
     avatar: string;
 
+    rooms: Array<object>;
+
+    dialog: Array<object>;
+
     likes: Array<object>;
 
     comments: Array<object>;
-
-    dialog: Array<object>;
 
     stars: Array<object>;
 
@@ -35,14 +37,15 @@ export default class User extends BaseModel {
 
         this.email = config.email;
         this.username = config.username;
-
         this.description = config.description;
         this.avatar = config.avatar;
 
+        this.rooms = config.rooms;
+        this.stars = config.stars;
+
+        this.dialog = config.dialog;
         this.likes = config.likes;
         this.comments = config.comments;
-        this.dialog = config.dialog;
-        this.stars = config.stars;
 
         this.lastLogin = config.lastLogin;
         this.updatedAt = config.updatedAt;
@@ -56,13 +59,14 @@ export default class User extends BaseModel {
 
             email: config.email,
             username: config.username || "",
-
             description: config.description,
             avatar: config.avatar,
 
+            rooms: config.rooms || [],
             likes: config.likes || [],
-            comments: config.comments || [],
+
             dialog: config.dialog || [],
+            comments: config.comments || [],
             stars: config.stars || [],
 
             lastLogin: config.lastLogin || new Date(),
