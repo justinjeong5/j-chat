@@ -26,8 +26,8 @@ export default function Profile({ user }) {
     const router = useRouter();
     const { logout } = useLogin();
 
-    const handleEdit = () => {
-        router.push("/users/setting");
+    const handleUserInformation = () => {
+        router.push("/user/detail");
     };
 
     return (
@@ -39,11 +39,11 @@ export default function Profile({ user }) {
             <TextWrapper>{user.email}</TextWrapper>
             <SpaceWrapper>
                 <Space>
-                    <Button type="primary" onClick={handleEdit}>
-                        Edit Profile
+                    <Button type="primary" onClick={handleUserInformation}>
+                        사용자 관리
                     </Button>
                     <Button type="primary" onClick={logout}>
-                        Log Out
+                        로그아웃
                     </Button>
                 </Space>
             </SpaceWrapper>

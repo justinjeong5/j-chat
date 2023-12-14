@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import BaseModel from "models/BaseModel";
+import UserModel from "models/User";
 import { TCommon } from "types/common.type";
 import IMessage, {
     TCountType,
@@ -36,12 +37,7 @@ export default class Message extends BaseModel implements IMessage {
         this.id = config.id || null;
         this.roomId = config.roomId || null;
 
-        this.writer = config.writer || {
-            id: "",
-            email: "",
-            username: "",
-            avatar: "",
-        };
+        this.writer = config.writer || UserModel.createItem();
         this.content = config.content || "";
         this.image = config.image || "";
 

@@ -2,7 +2,7 @@
 import { PlusOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import type { TourProps } from "antd";
 import { Layout, Tour } from "antd";
-import MenuFrame from "components/layout/SiderFrame";
+import SiderFrame from "components/layout/SiderFrame";
 import CreateRoomModal from "components/sider/CreateRoomModal";
 import JoinRoomModal from "components/sider/JoinRoomModal";
 import Profile from "components/sider/Profile";
@@ -91,7 +91,7 @@ export default function Page({ user }) {
     return (
         <>
             {contextHolder}
-            <MenuFrame
+            <SiderFrame
                 profile={<Profile user={user} />}
                 footer={<div>J-Chat v1.0.0</div>}
             >
@@ -108,7 +108,7 @@ export default function Page({ user }) {
                     </JoinRoomModal>
                     <Rooms loading={fetchingRooms} rooms={rooms} />
                 </MenuWrapper>
-            </MenuFrame>
+            </SiderFrame>
             <Tour
                 open={showTour}
                 onClose={() => setShowTour(false)}
