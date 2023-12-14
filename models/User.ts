@@ -52,7 +52,7 @@ export default class User extends BaseModel {
         this.createdAt = config.createdAt;
     }
 
-    static createItem(config: TUser): TUser {
+    static createItem(config: TUser = {}): TUser {
         return {
             id: null,
             role: config.role,
