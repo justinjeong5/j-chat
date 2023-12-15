@@ -47,14 +47,13 @@ export default function Rooms({ loading, rooms }) {
                         icon: <UserOutlined />,
                     },
                 ].map(({ key, label, icon }) => (
-                    <>
-                        <Menu.SubMenu key={key} title={label} icon={icon} />
+                    <Menu.SubMenu key={key} title={label} icon={icon}>
                         {Array.from({ length: 2 }).map(() => (
                             <Menu.Item key={uuidv4()}>
                                 <Skeleton active paragraph={false} round />
                             </Menu.Item>
                         ))}
-                    </>
+                    </Menu.SubMenu>
                 ))}
             </Menu>
         );
