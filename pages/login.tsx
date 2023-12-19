@@ -1,4 +1,4 @@
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Card, Checkbox, Form, Input } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import useLogin from "hooks/login";
@@ -101,7 +101,7 @@ function Login() {
                             ]}
                         >
                             <Input
-                                prefix={<UserOutlined />}
+                                prefix={<MailOutlined />}
                                 placeholder="이메일"
                             />
                         </Form.Item>
