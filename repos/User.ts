@@ -24,6 +24,12 @@ class UserRepo extends BaseRepo {
             return new User(data);
         });
     }
+
+    async editProfile(id: string, user: TUser, query = {}): Promise<IUser> {
+        return this.client
+            .patch(this.buildUrl("update", query, { id }), user)
+            .then(({ data }) => new User(data));
+    }
 }
 
 export default new UserRepo("/user");

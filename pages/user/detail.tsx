@@ -11,7 +11,7 @@ import Menu from "components/sider/Menu";
 import WithAuth from "hoc/WithAuth";
 import { useRouter } from "next/router";
 
-function Setting({ user }) {
+function Detail({ user }) {
     const router = useRouter();
     const getLocaleString = (t: Date) => {
         return new Date(t).toLocaleDateString("ko-KR");
@@ -53,21 +53,21 @@ function Setting({ user }) {
     return (
         <AppFrame menu={<Menu user={user} />} header={<div>사용자 정보</div>}>
             <Tabs
-                defaultActiveKey="detail"
+                activeKey={router.pathname}
                 type="card"
-                onTabClick={key => router.push(`/user/${key}`)}
+                onTabClick={key => router.push(key)}
                 items={[
                     {
                         label: "회원 정보",
-                        key: "detail",
+                        key: "/user/detail",
                     },
                     {
                         label: "정보 수정",
-                        key: "edit",
+                        key: "/user/edit",
                     },
                     {
                         label: "참여 내역",
-                        key: "history",
+                        key: "/user/history",
                     },
                 ]}
             />
@@ -113,4 +113,4 @@ function Setting({ user }) {
     );
 }
 
-export default WithAuth(Setting);
+export default WithAuth(Detail);
