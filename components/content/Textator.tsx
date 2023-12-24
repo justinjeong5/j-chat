@@ -1,5 +1,6 @@
 import type { TourProps } from "antd";
 import { Button, Input, Space, Tour } from "antd";
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -19,10 +20,13 @@ const HiddenTextArea = styled.div`
 
 export default function Textator({
     handleSubmit = msg => msg,
+    handleTyping = () => {},
+    handleTypingDone = () => {},
     placeholder = "대화를 시작해 보세요.",
     messageTour = false,
     sending = false,
 }) {
+    const router = useRouter();
     const textAreaRef = useRef(null);
     const fileBtnRef = useRef(null);
     const sendBtnRef = useRef(null);
@@ -34,6 +38,23 @@ export default function Textator({
             setShowTour(true);
         }
     }, [messageTour]);
+
+    useEffect(() => {
+        if (message.trim().length) {
+            handleTyping();
+        } else {
+            handleTypingDone();
+        }
+    }, [message]);
+
+    useEffect(() => {
+        if (router.query.roomId) {
+            setMessage("");
+        }
+        return () => {
+            setMessage("");
+        };
+    }, [router.query]);
 
     const steps: TourProps["steps"] = [
         {

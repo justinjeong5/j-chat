@@ -6,11 +6,18 @@ import ChatFrame from "components/layout/ChatFrame";
 import Menu from "components/sider/Menu";
 import WithAuth from "hoc/WithAuth";
 import useNotice from "hooks/notice/notice";
+import typingPlaceholder from "lib/string/typingPlaceholder";
 import MessageModel from "models/Message";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import RoomRepo from "repos/Room";
 import { sendChat, subscribeChat } from "socket/chat";
+import {
+    subscribeTyping,
+    subscribeTypingDone,
+    typingChat,
+    typingDone,
+} from "socket/chatTyping";
 import { disconnectSocket, initiateSocket } from "socket/index";
 import { enterRoom, exitRoom, leaveRoom } from "socket/room";
 import IRoom from "types/room.type";
@@ -24,6 +31,7 @@ function Room({ user }) {
         dialog: [],
     } as IRoom);
 
+    const [typingUsers, setTypingUsers] = useState([]);
     const [fetchingData, setFetchingData] = useState(false);
     const [showMessageTour, setShowMessageTour] = useState(false);
     const [localStorageHideMessageTour, setLocalStorageHideMessageTour] =
@@ -50,21 +58,13 @@ function Room({ user }) {
         setChatRoom(room);
     };
 
-    useEffect(() => {
-        const hideMessageTour = JSON.parse(
-            localStorage.getItem("jChatHideMessageTour"),
-        );
-        setLocalStorageHideMessageTour(hideMessageTour);
+    const handleTyping = () => {
+        typingChat(chatRoom.id, user.username);
+    };
 
-        initiateSocket();
-        subscribeChat(chat => {
-            setChatRoom(prev => ({ ...prev, dialog: [...prev.dialog, chat] }));
-        });
-
-        return () => {
-            disconnectSocket();
-        };
-    }, []);
+    const handleTypingDone = () => {
+        typingDone(chatRoom.id, user.username);
+    };
 
     useEffect(() => {
         (async () => {
@@ -75,6 +75,7 @@ function Room({ user }) {
                 }
 
                 setFetchingData(true);
+                typingDone(roomId, user.username);
                 const room = await RoomRepo.get(roomId);
                 setChatRoom(room);
 
@@ -95,10 +96,42 @@ function Room({ user }) {
         }
         return () => {
             if (chatRoom.id) {
+                typingDone(chatRoom.id, user.username);
                 exitRoom(chatRoom.id);
             }
         };
     }, [chatRoom.id]);
+
+    useEffect(() => {
+        const hideMessageTour = JSON.parse(
+            localStorage.getItem("jChatHideMessageTour"),
+        );
+        setLocalStorageHideMessageTour(hideMessageTour);
+
+        initiateSocket();
+        subscribeChat(chat => {
+            setChatRoom(prev => ({ ...prev, dialog: [...prev.dialog, chat] }));
+        });
+        subscribeTyping(username => {
+            if (username === user.username) {
+                return;
+            }
+            setTypingUsers(prev => {
+                if (prev.includes(username)) {
+                    return prev;
+                }
+                return [...prev, username];
+            });
+        });
+        subscribeTypingDone(username => {
+            setTypingUsers(prev => prev.filter(u => u !== username));
+        });
+
+        return () => {
+            typingDone(chatRoom.id, user.username);
+            disconnectSocket();
+        };
+    }, []);
 
     return (
         <>
@@ -122,11 +155,14 @@ function Room({ user }) {
                             autoFocus
                         />
                     }
+                    typing={typingPlaceholder(typingUsers)}
                     textator={
                         <Textator
                             placeholder={`#${chatRoom.title} 채널에서 이야기하기`}
                             messageTour={showMessageTour}
                             handleSubmit={handleSubmit}
+                            handleTyping={handleTyping}
+                            handleTypingDone={handleTypingDone}
                         />
                     }
                 />
