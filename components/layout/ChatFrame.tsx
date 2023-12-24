@@ -1,4 +1,3 @@
-import { Divider } from "antd";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -9,16 +8,25 @@ const Dialog = styled.div`
     height: ${({ theme: { SPACING } }) => SPACING.CONTENT.HEIGHT};
     width: ${({ theme: { SPACING } }) => SPACING.CONTENT.MIN_WIDTH};
     max-width: 100%;
+    margin-bottom: 1rem;
     overflow: scroll;
 `;
 
-const Textator = styled.div``;
+const Typing = styled.div`
+    height: 1rem;
+    padding-left: 0.5rem;
+    opacity: 0.6;
+`;
 
-export default function ChatFrame({ dialog, textator }) {
+const Textator = styled.div`
+    margin-top: 1rem;
+`;
+
+export default function ChatFrame({ dialog, typing = null, textator }) {
     return (
         <Container>
             <Dialog>{dialog}</Dialog>
-            <Divider />
+            <Typing>{typing}</Typing>
             <Textator>{textator}</Textator>
         </Container>
     );
