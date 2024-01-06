@@ -5,7 +5,7 @@ import useLogin from "hooks/login";
 import useRemember from "hooks/login/remember";
 import useNotice from "hooks/notice/notice";
 import getAvatarUrl from "lib/getAvatarUrl";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { TUser } from "types/user.type";

@@ -1,6 +1,6 @@
 import type { TourProps } from "antd";
 import { Button, Input, Space, Tour } from "antd";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -27,6 +27,7 @@ export default function Textator({
     sending = false,
 }) {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const textAreaRef = useRef(null);
     const fileBtnRef = useRef(null);
     const sendBtnRef = useRef(null);
@@ -48,13 +49,13 @@ export default function Textator({
     }, [message]);
 
     useEffect(() => {
-        if (router.query.roomId) {
+        if (searchParams?.get("roomId")) {
             setMessage("");
         }
         return () => {
             setMessage("");
         };
-    }, [router.query]);
+    }, [searchParams]);
 
     const steps: TourProps["steps"] = [
         {

@@ -4,7 +4,7 @@ import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import useLogin from "hooks/login";
 import useRemember from "hooks/login/remember";
 import useNotice from "hooks/notice/notice";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { TUserField } from "types/user.type";

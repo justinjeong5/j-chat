@@ -8,7 +8,7 @@ import WithAuth from "hoc/WithAuth";
 import useNotice from "hooks/notice/notice";
 import typingPlaceholder from "lib/string/typingPlaceholder";
 import MessageModel from "models/Message";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import RoomRepo from "repos/Room";
 import { sendChat, subscribeChat } from "socket/chat";
@@ -24,6 +24,7 @@ import IRoom from "types/room.type";
 
 function Room({ user }) {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const { errorHandler, contextHolder } = useNotice();
     const [chatRoom, setChatRoom] = useState({
         title: "",
@@ -69,7 +70,7 @@ function Room({ user }) {
     useEffect(() => {
         (async () => {
             try {
-                const roomId = router.query.roomId as string;
+                const roomId = searchParams?.get("roomId") as string;
                 if (!roomId) {
                     return;
                 }
@@ -88,7 +89,7 @@ function Room({ user }) {
                 setFetchingData(false);
             }
         })();
-    }, [router.query]);
+    }, [searchParams]);
 
     useEffect(() => {
         if (chatRoom.id) {

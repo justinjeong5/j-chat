@@ -1,7 +1,7 @@
 import { TeamOutlined } from "@ant-design/icons";
 import { Avatar, Button, Divider, List, Modal, Skeleton } from "antd";
 import useNotice from "hooks/notice/notice";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import RoomRepo from "repos/Room";

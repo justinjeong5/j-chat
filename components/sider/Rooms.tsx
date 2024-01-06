@@ -7,12 +7,13 @@ import type { MenuProps } from "antd";
 import { Menu, Skeleton } from "antd";
 import useRooms from "hooks/room/useRooms";
 import Room from "models/Room";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 export default function Rooms({ loading, rooms }) {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const { composeRooms } = useRooms();
 
     const [items, setItems] = useState([]);
@@ -62,7 +63,7 @@ export default function Rooms({ loading, rooms }) {
     return (
         <Menu
             defaultOpenKeys={[Room.PUBLIC, Room.STAR]}
-            selectedKeys={[router.query.roomId as string]}
+            selectedKeys={[searchParams?.get("roomId") as string]}
             items={items}
             mode="inline"
             onClick={onClickRoom}

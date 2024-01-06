@@ -1,15 +1,12 @@
+"use client";
+
 import LottieLayout from "components/layout/LottieLayout";
 import useLogin from "hooks/login";
 import Lottie from "lottie-react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import lottieAnimation from "public/lottie.json";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { TUser } from "types/user.type";
-
-const StyledLottie = styled(Lottie)`
-    max-width: 480px;
-`;
 
 export default function WithAuth(WrappedComponent) {
     return function ChildComponent(props) {
@@ -32,7 +29,7 @@ export default function WithAuth(WrappedComponent) {
         if (!user.email) {
             return (
                 <LottieLayout>
-                    <StyledLottie animationData={lottieAnimation} loop />
+                    <Lottie animationData={lottieAnimation} loop />
                 </LottieLayout>
             );
         }

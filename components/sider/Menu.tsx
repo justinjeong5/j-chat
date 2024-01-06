@@ -8,17 +8,12 @@ import JoinRoomModal from "components/sider/JoinRoomModal";
 import Profile from "components/sider/Profile";
 import Rooms from "components/sider/Rooms";
 import useNotice from "hooks/notice/notice";
-import { useRouter } from "next/router";
+import cn from "lib/string/className";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import RoomRepo from "repos/Room";
 import { joinRoom } from "socket/room";
-import styled from "styled-components";
 import IRoom from "types/room.type";
-
-const MenuWrapper = styled(Layout)`
-    display: block;
-    background: white;
-`;
 
 export default function Page({ user }) {
     const router = useRouter();
@@ -95,7 +90,7 @@ export default function Page({ user }) {
                 profile={<Profile user={user} />}
                 footer={<div>J-Chat v1.0.0</div>}
             >
-                <MenuWrapper hasSider>
+                <Layout className={cn("block", "bg-[white]")} hasSider>
                     <CreateRoomModal onCreateRoom={fetchRooms}>
                         <div ref={addRoomBtnRef}>
                             <PlusOutlined /> 대화방 생성
@@ -107,7 +102,7 @@ export default function Page({ user }) {
                         </div>
                     </JoinRoomModal>
                     <Rooms loading={fetchingRooms} rooms={rooms} />
-                </MenuWrapper>
+                </Layout>
             </SiderFrame>
             <Tour
                 open={showTour}

@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import UserRepo from "repos/User";
 import { TUser, TUserField } from "types/user.type";
 

@@ -9,7 +9,7 @@ import AppFrame from "components/layout/AppFrame";
 import Menu from "components/sider/Menu";
 import WithAuth from "hoc/WithAuth";
 import useNotice from "hooks/notice/notice";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import UserRepo from "repos/User";
 import styled from "styled-components";
