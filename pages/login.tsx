@@ -1,13 +1,13 @@
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
+import useLogin from "@hooks/login";
+import useRemember from "@hooks/login/remember";
+import useNotice from "@hooks/notice/notice";
+import { TUserField } from "@t/user.type";
 import { Button, Card, Checkbox, Form, Input } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
-import useLogin from "hooks/login";
-import useRemember from "hooks/login/remember";
-import useNotice from "hooks/notice/notice";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { TUserField } from "types/user.type";
 
 const Container = styled.div`
     display: flex;

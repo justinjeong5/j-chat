@@ -4,11 +4,11 @@ import {
     LikeOutlined,
     StarOutlined,
 } from "@ant-design/icons";
+import AppFrame from "@components/layout/AppFrame";
+import Menu from "@components/sider/Menu";
+import WithAuth from "@hoc/WithAuth";
 import type { DescriptionsProps } from "antd";
 import { Col, Descriptions, Row, Statistic, Tabs } from "antd";
-import AppFrame from "components/layout/AppFrame";
-import Menu from "components/sider/Menu";
-import WithAuth from "hoc/WithAuth";
 import { useRouter } from "next/navigation";
 
 function Detail({ user }) {

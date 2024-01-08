@@ -1,7 +1,7 @@
-import Message from "models/Message";
-import BaseRepo from "repos/BaseRepo";
-import { TQuery } from "types/common.type";
-import IMessage, { TMessage } from "types/message.type";
+import Message from "@models/Message";
+import BaseRepo from "@repos/BaseRepo";
+import { TQuery } from "@t/common.type";
+import IMessage, { TMessage } from "@t/message.type";
 
 class MessageRepo extends BaseRepo {
     async get(id: string, query?: TQuery): Promise<IMessage> {

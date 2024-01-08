@@ -1,8 +1,8 @@
+import useNotice from "@hooks/notice/notice";
+import Room from "@models/Room";
+import RoomRepo from "@repos/Room";
 import { Button, Form, Input, Modal, Select } from "antd";
-import useNotice from "hooks/notice/notice";
-import Room from "models/Room";
 import { useState } from "react";
-import RoomRepo from "repos/Room";
 
 const { Option } = Select;
 

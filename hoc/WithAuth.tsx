@@ -1,12 +1,12 @@
 "use client";
 
-import LottieLayout from "components/layout/LottieLayout";
-import useLogin from "hooks/login";
+import LottieLayout from "@components/layout/LottieLayout";
+import useLogin from "@hooks/login";
+import { TUser } from "@t/user.type";
 import Lottie from "lottie-react";
 import { useRouter } from "next/navigation";
 import lottieAnimation from "public/lottie.json";
 import { useEffect, useState } from "react";
-import { TUser } from "types/user.type";
 
 export default function WithAuth(WrappedComponent) {
     return function ChildComponent(props) {

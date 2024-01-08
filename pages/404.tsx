@@ -1,4 +1,4 @@
-import LottieLayout from "components/layout/LottieLayout";
+import LottieLayout from "@components/layout/LottieLayout";
 import Lottie from "lottie-react";
 import lottieNotFound from "public/lottieNotFound.json";
 import styled from "styled-components";

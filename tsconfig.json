@@ -1,73 +1,45 @@
 {
-  "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "incremental": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "baseUrl": ".",
-    "paths": {
-      "components/*": [
-        "components/*"
-      ],
-      "pages/*": [
-        "pages/*"
-      ],
-      "styles/*": [
-        "styles/*"
-      ],
-      "lib/*": [
-        "lib/*"
-      ],
-      "socket/*": [
-        "socket/*"
-      ],
-      "hooks/*": [
-        "hooks/*"
-      ],
-      "hoc/*": [
-        "hoc/*"
-      ],
-      "db/*": [
-        "db/*"
-      ],
-      "models/*": [
-        "models/*"
-      ],
-      "repos/*": [
-        "repos/*"
-      ],
-      "types/*": [
-        "types/*"
-      ]
+    "compilerOptions": {
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": false,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "incremental": true,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "baseUrl": ".",
+        "paths": {
+            "@components/*": ["components/*"],
+            "@pages/*": ["pages/*"],
+            "@styles/*": ["styles/*"],
+            "@lib/*": ["lib/*"],
+            "@socket/*": ["socket/*"],
+            "@hooks/*": ["hooks/*"],
+            "@hoc/*": ["hoc/*"],
+            "@db/*": ["db/*"],
+            "@models/*": ["models/*"],
+            "@repos/*": ["repos/*"],
+            "@t/*": ["types/*"]
+        },
+        "plugins": [
+            {
+                "name": "next"
+            }
+        ],
+        "strictNullChecks": true
     },
-    "plugins": [
-      {
-        "name": "next"
-      }
+    "include": [
+        "next-env.d.ts",
+        "*.config.js",
+        "**/*.ts",
+        "**/*.tsx",
+        ".next/types/**/*.ts"
     ],
-    "strictNullChecks": true
-  },
-  "include": [
-    "next-env.d.ts",
-    "*.config.js",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "exclude": ["node_modules"]
 }

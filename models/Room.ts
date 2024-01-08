@@ -1,11 +1,6 @@
-import BaseModel from "models/BaseModel";
-import IMessage from "types/message.type";
-import IRoom, {
-    TRoom,
-    TRoomField,
-    TRoomMenu,
-    TRoomType,
-} from "types/room.type";
+import BaseModel from "@models/BaseModel";
+import IMessage from "@t/message.type";
+import IRoom, { TRoom, TRoomField, TRoomMenu, TRoomType } from "@t/room.type";
 
 export default class Room extends BaseModel implements IRoom {
     id: string;

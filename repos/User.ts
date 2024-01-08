@@ -1,6 +1,6 @@
-import User from "models/User";
-import BaseRepo from "repos/BaseRepo";
-import IUser, { TUser, TUserField } from "types/user.type";
+import User from "@models/User";
+import BaseRepo from "@repos/BaseRepo";
+import IUser, { TUser, TUserField } from "@t/user.type";
 
 class UserRepo extends BaseRepo {
     async init(): Promise<IUser> {

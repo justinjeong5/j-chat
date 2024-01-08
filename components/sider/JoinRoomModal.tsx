@@ -1,10 +1,10 @@
 import { TeamOutlined } from "@ant-design/icons";
+import useNotice from "@hooks/notice/notice";
+import RoomRepo from "@repos/Room";
 import { Avatar, Button, Divider, List, Modal, Skeleton } from "antd";
-import useNotice from "hooks/notice/notice";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import RoomRepo from "repos/Room";
 import styled from "styled-components";
 
 const Title = styled.div``;

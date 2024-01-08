@@ -1,6 +1,6 @@
+import { TQuery } from "@t/common.type";
 import axios, { AxiosInstance } from "axios";
 import qs from "qs";
-import { TQuery } from "types/common.type";
 
 const withAPI = (path: string = ""): string =>
     process.env.NEXT_PUBLIC_API + path;

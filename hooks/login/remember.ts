@@ -1,4 +1,4 @@
-import LocalStorage from "hooks/login/localStorage";
+import LocalStorage from "@hooks/login/localStorage";
 import { useState } from "react";
 
 const useRemember = () => {

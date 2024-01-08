@@ -3,10 +3,10 @@ import {
     PushpinOutlined,
     UserOutlined,
 } from "@ant-design/icons";
+import useRooms from "@hooks/room/useRooms";
+import Room from "@models/Room";
 import type { MenuProps } from "antd";
 import { Menu, Skeleton } from "antd";
-import useRooms from "hooks/room/useRooms";
-import Room from "models/Room";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";

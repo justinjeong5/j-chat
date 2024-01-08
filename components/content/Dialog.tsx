@@ -1,10 +1,10 @@
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
+import useMobile from "@hooks/layout/device";
+import { TCommon } from "@t/common.type";
+import IMessage from "@t/message.type";
 import { Avatar, Empty, List, Skeleton, Space } from "antd";
-import useMobile from "hooks/layout/device";
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { TCommon } from "types/common.type";
-import IMessage from "types/message.type";
 import { v4 as uuidv4 } from "uuid";
 
 const TextWrapper = styled.div`

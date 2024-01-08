@@ -1,4 +1,4 @@
-import { TUser } from "types/user.type";
+import { TUser } from "@t/user.type";
 
 export type TMessage = {
     id?: string;

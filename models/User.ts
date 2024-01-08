@@ -1,5 +1,5 @@
-import BaseModel from "models/BaseModel";
-import { TUser } from "types/user.type";
+import BaseModel from "@models/BaseModel";
+import { TUser } from "@t/user.type";
 
 export default class User extends BaseModel {
     id: string;

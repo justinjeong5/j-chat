@@ -4,16 +4,16 @@ import {
     ReadOutlined,
     UserOutlined,
 } from "@ant-design/icons";
+import AppFrame from "@components/layout/AppFrame";
+import Menu from "@components/sider/Menu";
+import WithAuth from "@hoc/WithAuth";
+import useNotice from "@hooks/notice/notice";
+import UserRepo from "@repos/User";
+import { TUser } from "@t/user.type";
 import { Button, Card, Form, Input, Tabs } from "antd";
-import AppFrame from "components/layout/AppFrame";
-import Menu from "components/sider/Menu";
-import WithAuth from "hoc/WithAuth";
-import useNotice from "hooks/notice/notice";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import UserRepo from "repos/User";
 import styled from "styled-components";
-import { TUser } from "types/user.type";
 
 const CardWrapper = styled(Card)`
     padding: 1rem;

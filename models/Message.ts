@@ -1,13 +1,9 @@
 /* eslint-disable no-underscore-dangle */
-import BaseModel from "models/BaseModel";
-import UserModel from "models/User";
-import { TCommon } from "types/common.type";
-import IMessage, {
-    TCountType,
-    TMessage,
-    TMessageField,
-} from "types/message.type";
-import { TUser } from "types/user.type";
+import BaseModel from "@models/BaseModel";
+import UserModel from "@models/User";
+import { TCommon } from "@t/common.type";
+import IMessage, { TCountType, TMessage, TMessageField } from "@t/message.type";
+import { TUser } from "@t/user.type";
 
 export default class Message extends BaseModel implements IMessage {
     id: string;

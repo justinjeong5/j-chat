@@ -3,9 +3,9 @@ import {
     PushpinOutlined,
     UserOutlined,
 } from "@ant-design/icons";
-import Room from "models/Room";
-import IRoom from "types/room.type";
-import { TRoomType } from "types/rooms.type";
+import Room from "@models/Room";
+import IRoom from "@t/room.type";
+import { TRoomType } from "@t/rooms.type";
 
 export default function useRooms() {
     const getTypeOf = (list: Array<IRoom>, type: TRoomType): Array<IRoom> => {

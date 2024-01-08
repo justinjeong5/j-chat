@@ -5,9 +5,9 @@ import {
     SendOutlined,
     UserOutlined,
 } from "@ant-design/icons";
+import FieldHover from "@components/form/FieldHover";
 import type { MenuProps } from "antd";
 import { Dropdown, Skeleton } from "antd";
-import FieldHover from "components/form/FieldHover";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 

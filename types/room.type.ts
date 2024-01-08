@@ -1,4 +1,4 @@
-import IMessage from "types/message.type";
+import IMessage from "@t/message.type";
 
 export type TRoom = {
     id: string;

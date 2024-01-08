@@ -1,6 +1,6 @@
+import UserRepo from "@repos/User";
+import { TUser, TUserField } from "@t/user.type";
 import { useRouter } from "next/navigation";
-import UserRepo from "repos/User";
-import { TUser, TUserField } from "types/user.type";
 
 const useLogin = () => {
     const router = useRouter();

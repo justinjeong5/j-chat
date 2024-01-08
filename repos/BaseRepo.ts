@@ -1,8 +1,8 @@
 /* eslint-disable class-methods-use-this */
+import { createAPIClient, withQS } from "@lib/api";
+import { TQuery, TWithID } from "@t/common.type";
 import { AxiosInstance } from "axios";
-import { createAPIClient, withQS } from "lib/api";
 import isNil from "lodash/isNil";
-import { TQuery, TWithID } from "types/common.type";
 
 const defaultActions = {
     list: () => "",

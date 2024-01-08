@@ -1,19 +1,19 @@
 /* eslint-disable no-underscore-dangle */
 import { PlusOutlined, UnorderedListOutlined } from "@ant-design/icons";
+import SiderFrame from "@components/layout/SiderFrame";
+import CreateRoomModal from "@components/sider/CreateRoomModal";
+import JoinRoomModal from "@components/sider/JoinRoomModal";
+import Profile from "@components/sider/Profile";
+import Rooms from "@components/sider/Rooms";
+import useNotice from "@hooks/notice/notice";
+import cn from "@lib/string/className";
+import RoomRepo from "@repos/Room";
+import { joinRoom } from "@socket/room";
+import IRoom from "@t/room.type";
 import type { TourProps } from "antd";
 import { Layout, Tour } from "antd";
-import SiderFrame from "components/layout/SiderFrame";
-import CreateRoomModal from "components/sider/CreateRoomModal";
-import JoinRoomModal from "components/sider/JoinRoomModal";
-import Profile from "components/sider/Profile";
-import Rooms from "components/sider/Rooms";
-import useNotice from "hooks/notice/notice";
-import cn from "lib/string/className";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import RoomRepo from "repos/Room";
-import { joinRoom } from "socket/room";
-import IRoom from "types/room.type";
 
 export default function Page({ user }) {
     const router = useRouter();

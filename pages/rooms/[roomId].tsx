@@ -1,26 +1,26 @@
-import Dialog from "components/content/Dialog";
-import Header from "components/content/Header";
-import Textator from "components/content/Textator";
-import AppFrame from "components/layout/AppFrame";
-import ChatFrame from "components/layout/ChatFrame";
-import Menu from "components/sider/Menu";
-import WithAuth from "hoc/WithAuth";
-import useNotice from "hooks/notice/notice";
-import typingPlaceholder from "lib/string/typingPlaceholder";
-import MessageModel from "models/Message";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import RoomRepo from "repos/Room";
-import { sendChat, subscribeChat } from "socket/chat";
+import Dialog from "@components/content/Dialog";
+import Header from "@components/content/Header";
+import Textator from "@components/content/Textator";
+import AppFrame from "@components/layout/AppFrame";
+import ChatFrame from "@components/layout/ChatFrame";
+import Menu from "@components/sider/Menu";
+import WithAuth from "@hoc/WithAuth";
+import useNotice from "@hooks/notice/notice";
+import typingPlaceholder from "@lib/string/typingPlaceholder";
+import MessageModel from "@models/Message";
+import RoomRepo from "@repos/Room";
+import { sendChat, subscribeChat } from "@socket/chat";
 import {
     subscribeTyping,
     subscribeTypingDone,
     typingChat,
     typingDone,
-} from "socket/chatTyping";
-import { disconnectSocket, initiateSocket } from "socket/index";
-import { enterRoom, exitRoom, leaveRoom } from "socket/room";
-import IRoom from "types/room.type";
+} from "@socket/chatTyping";
+import { disconnectSocket, initiateSocket } from "@socket/index";
+import { enterRoom, exitRoom, leaveRoom } from "@socket/room";
+import IRoom from "@t/room.type";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 function Room({ user }) {
     const router = useRouter();

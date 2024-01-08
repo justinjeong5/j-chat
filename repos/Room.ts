@@ -1,10 +1,10 @@
-import { withQS } from "lib/api";
-import Room from "models/Room";
-import BaseRepo from "repos/BaseRepo";
-import MessageRepo from "repos/Message";
-import { TQuery } from "types/common.type";
-import { TMessage } from "types/message.type";
-import IRoom, { TRoom, TRoomField } from "types/room.type";
+import { withQS } from "@lib/api";
+import Room from "@models/Room";
+import BaseRepo from "@repos/BaseRepo";
+import MessageRepo from "@repos/Message";
+import { TQuery } from "@t/common.type";
+import { TMessage } from "@t/message.type";
+import IRoom, { TRoom, TRoomField } from "@t/room.type";
 
 class RoomRepo extends BaseRepo {
     async get(id: string, query?: TQuery): Promise<IRoom> {

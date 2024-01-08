@@ -1,5 +1,5 @@
+import useLogin from "@hooks/login";
 import { Avatar, Button, Space } from "antd";
-import useLogin from "hooks/login";
 import { useRouter } from "next/navigation";
 import { styled } from "styled-components";
 
