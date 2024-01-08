@@ -1,6 +1,8 @@
 # Ignore artifacts:
 build
 coverage
+out
+dist
 
 # Ignore all HTML files:
 **/*.html
