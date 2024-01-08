@@ -46,6 +46,7 @@ Temporary Items
 # next.js
 /.next/
 /out/
+/dist/
 
 # production
 /build
