@@ -1,22 +1,10 @@
+import { cn } from "@lib/utils";
 import type { TourProps } from "antd";
 import { Button, Input, Space, Tour } from "antd";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
 
 const { TextArea } = Input;
-
-const SpaceWrapper = styled.div`
-    text-align: right;
-    margin-top: ${({ theme: { SPACING } }) => SPACING.STANDARD};
-`;
-
-const HiddenTextArea = styled.div`
-    height: 76px;
-    margin-bottom: -77px;
-    width: 100%;
-    visibility: hidden;
-`;
 
 export default function Textator({
     handleSubmit = msg => msg,
@@ -26,7 +14,6 @@ export default function Textator({
     messageTour = false,
     sending = false,
 }) {
-    const router = useRouter();
     const searchParams = useSearchParams();
     const textAreaRef = useRef(null);
     const fileBtnRef = useRef(null);
@@ -111,17 +98,21 @@ export default function Textator({
 
     return (
         <>
-            <HiddenTextArea ref={textAreaRef} />
+            <div
+                className={cn("h-[76px]", "mb-[-77px]", "w-full", "invisible")}
+                ref={textAreaRef}
+            />
             <TextArea
                 value={message}
                 autoSize={{ minRows: 3, maxRows: 3 }}
                 placeholder={placeholder}
                 onChange={handleChange}
             />
-            <SpaceWrapper>
+            <div className={cn("text-right", "mt-4")}>
                 <Space wrap>
                     <Button ref={fileBtnRef}>파일 첨부</Button>
                     <Button
+                        className={cn("bg-[#1677FF]")}
                         type="primary"
                         ref={sendBtnRef}
                         onClick={handleSend}
@@ -130,7 +121,7 @@ export default function Textator({
                         전송
                     </Button>
                 </Space>
-            </SpaceWrapper>
+            </div>
 
             <Tour open={showTour} onClose={handleTourClose} steps={steps} />
         </>

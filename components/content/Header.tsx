@@ -6,36 +6,10 @@ import {
     UserOutlined,
 } from "@ant-design/icons";
 import FieldHover from "@components/form/FieldHover";
+import { cn } from "@lib/utils";
 import type { MenuProps } from "antd";
 import { Dropdown, Skeleton } from "antd";
-import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
-
-const Container = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: ${({ theme: { SPACING } }) => SPACING.STANDARD};
-    line-height: initial;
-`;
-
-const ContainerItem = styled.div`
-    display: flex;
-    align-items: center;
-    gap: ${({ theme: { SPACING } }) => SPACING.SMALLER};
-    height: 18px;
-
-    & .ant-skeleton {
-        line-height: normal;
-    }
-`;
-
-const Title = styled.div`
-    font-size: ${({ theme: { FONT } }) => FONT.SIZE.BIG};
-    font-weight: ${({ theme: { FONT } }) => FONT.WEIGHT.SEMI_BOLD};
-    margin: ${({ theme: { SPACING } }) =>
-        `${SPACING.BIGGER} 0 ${SPACING.SMALLER} 0`};
-`;
 
 export default function Header({ room, loading, leaveRoom, toggleStarred }) {
     const items: MenuProps["items"] = [
@@ -60,35 +34,50 @@ export default function Header({ room, loading, leaveRoom, toggleStarred }) {
     ];
 
     return (
-        <Container>
-            <div
-                style={{
-                    display: "block",
-                    height: "fit-content",
-                    lineHeight: "normal",
-                }}
-            >
-                <Title>{room.title}</Title>
-                <div>{room.description}</div>
+        <div
+            className={cn(
+                "flex",
+                "justify-between",
+                "items-center",
+                "gap-4",
+                "leading-4",
+            )}
+        >
+            <div className={cn("block", "h-fit", "leading-4")}>
+                <div className={cn("text-xl", "font-semibold", "mt-6", "mb-2")}>
+                    {room.title || "채널 이름"}
+                </div>
+                <div>{room.description || "채널 설명"}</div>
             </div>
-            <Container>
-                <ContainerItem>
+            <div
+                className={cn(
+                    "flex",
+                    "justify-center",
+                    "items-center",
+                    "gap-4",
+                )}
+            >
+                <div className={cn("flex", "items-center", "gap-2")}>
                     <UserOutlined />
                     {loading ? (
                         <Skeleton.Button active block size="small" />
                     ) : (
                         room.users.length
                     )}
-                </ContainerItem>
-                <ContainerItem>
+                </div>
+                <div className={cn("flex", "items-center", "gap-2")}>
                     <SendOutlined />
                     {loading ? (
                         <Skeleton.Button active block size="small" />
                     ) : (
                         room.dialog.length
                     )}
-                </ContainerItem>
-                <ContainerItem onClick={toggleStarred}>
+                </div>
+                <div
+                    className={cn("flex", "items-center", "gap-2")}
+                    role="presentation"
+                    onClick={toggleStarred}
+                >
                     <FieldHover>
                         {room.starred ? (
                             <PushpinOutlined />
@@ -96,19 +85,26 @@ export default function Header({ room, loading, leaveRoom, toggleStarred }) {
                             <CoffeeOutlined />
                         )}
                     </FieldHover>
-                </ContainerItem>
+                </div>
                 <Dropdown
                     menu={{ items }}
                     trigger={["click"]}
                     placement="bottomRight"
                 >
-                    <ContainerItem>
+                    <div
+                        className={cn(
+                            "flex",
+                            "items-center",
+                            "gap-2",
+                            "h-[18px]",
+                        )}
+                    >
                         <FieldHover>
                             <EllipsisOutlined />
                         </FieldHover>
-                    </ContainerItem>
+                    </div>
                 </Dropdown>
-            </Container>
-        </Container>
+            </div>
+        </div>
     );
 }

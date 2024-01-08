@@ -1,26 +1,7 @@
 import useLogin from "@hooks/login";
+import { cn } from "@lib/utils";
 import { Avatar, Button, Space } from "antd";
 import { useRouter } from "next/navigation";
-import { styled } from "styled-components";
-
-const Container = styled.div``;
-
-const LayoutWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    margin-bottom: ${({ theme: { SPACING } }) => SPACING.SMALLER};
-    gap: ${({ theme: { SPACING } }) => SPACING.STANDARD};
-`;
-
-const TextWrapper = styled.div`
-    font: ${({ theme: { FONT } }) => FONT.FAMILY};
-`;
-
-const SpaceWrapper = styled(Space)`
-    display: flex;
-    justify-content: end;
-    margin-top: ${({ theme: { SPACING } }) => SPACING.STANDARD};
-`;
 
 export default function Profile({ user }) {
     const router = useRouter();
@@ -31,22 +12,30 @@ export default function Profile({ user }) {
     };
 
     return (
-        <Container>
-            <LayoutWrapper>
+        <div>
+            <div className={cn("flex", "items-center", "mb-2", "gap-4")}>
                 <Avatar src={user.avatar} />
-                <TextWrapper>{user.username}</TextWrapper>
-            </LayoutWrapper>
-            <TextWrapper>{user.email}</TextWrapper>
-            <SpaceWrapper>
+                <div>{user.username}</div>
+            </div>
+            <div>{user.email}</div>
+            <Space className={cn("flex", "justify-end", "mt-4")}>
                 <Space>
-                    <Button type="primary" onClick={handleUserInformation}>
+                    <Button
+                        className={cn("bg-[#1677FF]")}
+                        type="primary"
+                        onClick={handleUserInformation}
+                    >
                         사용자 관리
                     </Button>
-                    <Button type="primary" onClick={logout}>
+                    <Button
+                        className={cn("bg-[#1677FF]")}
+                        type="primary"
+                        onClick={logout}
+                    >
                         로그아웃
                     </Button>
                 </Space>
-            </SpaceWrapper>
-        </Container>
+            </Space>
+        </div>
     );
 }

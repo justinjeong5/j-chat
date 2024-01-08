@@ -1,33 +1,21 @@
-import styled from "styled-components";
-
-const Container = styled.div`
-    height: 100%;
-`;
-
-const Dialog = styled.div`
-    height: ${({ theme: { SPACING } }) => SPACING.CONTENT.HEIGHT};
-    width: ${({ theme: { SPACING } }) => SPACING.CONTENT.MIN_WIDTH};
-    max-width: 100%;
-    margin-bottom: 1rem;
-    overflow: scroll;
-`;
-
-const Typing = styled.div`
-    height: 1rem;
-    padding-left: 0.5rem;
-    opacity: 0.6;
-`;
-
-const Textator = styled.div`
-    margin-top: 1rem;
-`;
+import { cn } from "@lib/utils";
 
 export default function ChatFrame({ dialog, typing = null, textator }) {
     return (
-        <Container>
-            <Dialog>{dialog}</Dialog>
-            <Typing>{typing}</Typing>
-            <Textator>{textator}</Textator>
-        </Container>
+        <div className={cn("h-full")}>
+            <div
+                className={cn(
+                    "h-[calc(100vh-311px)]",
+                    "w-[1100px]",
+                    "max-w-full",
+                    "mb-4",
+                    "overflow-scroll",
+                )}
+            >
+                {dialog}
+            </div>
+            <div className={cn("h-4", "pl-2", "opacity-60")}>{typing}</div>
+            <div className={cn("mt-4")}>{textator}</div>
+        </div>
     );
 }

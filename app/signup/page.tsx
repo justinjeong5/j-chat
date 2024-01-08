@@ -1,26 +1,16 @@
+"use client";
+
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import useLogin from "@hooks/login";
 import useRemember from "@hooks/login/remember";
 import useNotice from "@hooks/notice/notice";
 import getAvatarUrl from "@lib/getAvatarUrl";
+import { cn } from "@lib/utils";
 import { TUser } from "@t/user.type";
 import { Button, Card, Checkbox, Form, Input } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo } from "react";
-import styled from "styled-components";
-
-const Container = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
-`;
-
-const CardWrapper = styled(Card)`
-    width: 500px;
-`;
 
 function SignUp() {
     const router = useRouter();
@@ -47,7 +37,7 @@ function SignUp() {
                 avatar: getAvatarUrl(values.email),
             });
             if (checked) {
-                remember(values.email);
+                remember(values.email as string);
             } else {
                 forget();
             }
@@ -79,8 +69,16 @@ function SignUp() {
     return (
         <>
             {contextHolder}
-            <Container>
-                <CardWrapper>
+            <div
+                className={cn(
+                    "flex",
+                    "justify-center",
+                    "items-center",
+                    "w-screen",
+                    "h-screen",
+                )}
+            >
+                <Card className={cn("w-[500px]")}>
                     <Form
                         name="basic"
                         initialValues={initialValues}
@@ -147,16 +145,16 @@ function SignUp() {
 
                         <Form.Item>
                             <Button
+                                className={cn("bg-[#1677FF]", "w-full")}
                                 type="primary"
                                 htmlType="submit"
-                                style={{ width: "100%" }}
                             >
                                 회원가입 하기
                             </Button>
                         </Form.Item>
                     </Form>
-                </CardWrapper>
-            </Container>
+                </Card>
+            </div>
         </>
     );
 }

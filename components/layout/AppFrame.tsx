@@ -1,38 +1,22 @@
-import { Layout as antdLayout } from "antd";
-import styled from "styled-components";
+import { cn } from "@lib/utils";
+import { Layout } from "antd";
 
-const Container = styled.div`
-    margin: 0 auto;
-    max-width: ${({ theme: { SPACING } }) => SPACING.FRAME_MAX_WIDTH};
-`;
-const Layout = styled(antdLayout)`
-    background: ${({ theme: { COLOR } }) => COLOR.WHITE};
-`;
-const Sider = styled(antdLayout.Sider)`
-    && {
-        background: white;
-    }
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    height: calc(100vh - 1rem);
-    overflow: auto;
-`;
-const Content = styled(antdLayout.Content)`
-    background: ${({ theme: { COLOR } }) => COLOR.WHITE};
-    margin: ${({ theme: { SPACING } }) => SPACING.STANDARD};
-`;
-const Header = styled(antdLayout.Header)`
-    background: ${({ theme: { COLOR } }) => COLOR.WHITE};
-    height: ${({ theme: { SPACING } }) => SPACING.HEADER_HEIGHT};
-`;
+const { Sider, Content, Header } = Layout;
 
 export default function AppFrame({ menu, header, children }) {
     return (
-        <Container>
-            <Layout hasSider>
+        <div className={cn("my-0", "mx-auto", "max-w-[1400px]")}>
+            <Layout className={cn("bg-[white]")} hasSider>
                 <Sider
+                    className={cn(
+                        "bg-[white]",
+                        "fixed",
+                        "left-0",
+                        "top-0",
+                        "bottom-0",
+                        "h-[calc(100vh-1rem)]",
+                        "overflow-auto",
+                    )}
                     width={300}
                     theme="light"
                     breakpoint="md"
@@ -41,10 +25,14 @@ export default function AppFrame({ menu, header, children }) {
                     {menu}
                 </Sider>
                 <Layout>
-                    <Header>{header}</Header>
-                    <Content>{children}</Content>
+                    <Header className={cn("bg-[white]", "h-[89px]")}>
+                        {header}
+                    </Header>
+                    <Content className={cn("bg-[white]", "p-4")}>
+                        {children}
+                    </Content>
                 </Layout>
             </Layout>
-        </Container>
+        </div>
     );
 }

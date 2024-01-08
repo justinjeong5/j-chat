@@ -1,15 +1,11 @@
-"use client";
+import "@app/globals.css";
 
-import "./globals.css";
+import { Metadata } from "next";
 
-// import { Metadata } from "next";
-import { ThemeProvider } from "styled-components";
-import TOKEN from "styles/tokens/index";
-
-// export const metadata: Metadata = {
-//     title: "J-Chat",
-//     description: "Welcome to J-Chat",
-// };
+export const metadata: Metadata = {
+    title: "J-Chat",
+    description: "Welcome to J-Chat",
+};
 
 export default function RootLayout({
     children,
@@ -17,10 +13,8 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
-            <body>
-                <ThemeProvider theme={{ ...TOKEN }}>{children}</ThemeProvider>
-            </body>
+        <html lang="ko">
+            <body className="font-sans">{children}</body>
         </html>
     );
 }

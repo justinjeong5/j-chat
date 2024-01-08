@@ -1,31 +1,11 @@
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import useMobile from "@hooks/layout/device";
+import { cn } from "@lib/utils";
 import { TCommon } from "@t/common.type";
 import IMessage from "@t/message.type";
 import { Avatar, Empty, List, Skeleton, Space } from "antd";
 import React, { useEffect, useRef } from "react";
-import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
-
-const TextWrapper = styled.div`
-    margin-top: ${({ theme: { SPACING } }) => SPACING.STANDARD};
-    font: ${({ theme: { FONT } }) => FONT.FAMILY};
-`;
-const EmptyWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: ${({ theme: { SPACING } }) => SPACING.CONTENT.EMPTY_HEIGHT};
-`;
-const SkeletonWrapper = styled.div`
-    display: flex;
-    gap: 1rem;
-    width: 100%;
-    margin-bottom: ${({ theme: { SPACING } }) => SPACING.BIGGER};
-`;
-const StyledSpace = styled(Space)`
-    margin-left: 56px;
-`;
 
 const ActionItems = (item: {
     stars: Array<TCommon>;
@@ -68,17 +48,20 @@ export default function Dialog({
         return (
             <>
                 {Array.from({ length: SKELETON_COUNT }).map(() => (
-                    <SkeletonWrapper key={uuidv4()}>
+                    <div
+                        className={cn("flex", "gap-4", "w-full", "mt-8")}
+                        key={uuidv4()}
+                    >
                         <div style={{ width: "inherit" }}>
                             <Skeleton active avatar />
-                            <StyledSpace>
+                            <Space className={cn("ml-[56px]")}>
                                 <Skeleton.Button active size="small" />
                                 <Skeleton.Button active size="small" />
                                 <Skeleton.Button active size="small" />
-                            </StyledSpace>
+                            </Space>
                         </div>
                         <Skeleton.Image active />
-                    </SkeletonWrapper>
+                    </div>
                 ))}
             </>
         );
@@ -86,9 +69,16 @@ export default function Dialog({
 
     if (!dialog.length) {
         return (
-            <EmptyWrapper>
+            <div
+                className={cn(
+                    "flex",
+                    "justify-center",
+                    "items-center",
+                    "h-[calc(100vh-364px)]",
+                )}
+            >
                 <Empty description="No dialog" />
-            </EmptyWrapper>
+            </div>
         );
     }
     return (
@@ -101,18 +91,18 @@ export default function Dialog({
                     if (item.type === "joinRoom") {
                         return (
                             <List.Item key={item.id}>
-                                <TextWrapper>
+                                <div className={cn("mt-4")}>
                                     {item.writer?.username} 님께서 입장했습니다.
-                                </TextWrapper>
+                                </div>
                             </List.Item>
                         );
                     }
                     if (item.type === "leaveRoom") {
                         return (
                             <List.Item key={item.id}>
-                                <TextWrapper>
+                                <div className={cn("mt-4")}>
                                     {item.writer?.username} 님께서 퇴장했습니다.
-                                </TextWrapper>
+                                </div>
                             </List.Item>
                         );
                     }
@@ -144,7 +134,7 @@ export default function Dialog({
                                     src={item.image}
                                 />
                             )}
-                            <TextWrapper>{item.content}</TextWrapper>
+                            <div className={cn("mt-4")}>{item.content}</div>
                         </List.Item>
                     );
                 }}

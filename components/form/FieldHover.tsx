@@ -1,17 +1,19 @@
-import styled from "styled-components";
-
-const Wrapper = styled.div`
-    cursor: pointer;
-    background-color: #fff;
-    transition: background-color 0.3s;
-    border-radius: 5px;
-    padding: 3px;
-
-    &:hover {
-        background-color: #dedede;
-    }
-`;
+import { cn } from "@lib/utils";
 
 export default function FieldActive({ children }) {
-    return <Wrapper>{children}</Wrapper>;
+    return (
+        <div
+            className={cn(
+                "cursor-pointer",
+                "bg-[white]",
+                "transition",
+                "duration-300",
+                "rounded-[5px]",
+                "p-[3px]",
+                "hover:bg-[#dedede]",
+            )}
+        >
+            {children}
+        </div>
+    );
 }

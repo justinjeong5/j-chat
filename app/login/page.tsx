@@ -1,32 +1,15 @@
+"use client";
+
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import useLogin from "@hooks/login";
 import useRemember from "@hooks/login/remember";
 import useNotice from "@hooks/notice/notice";
+import { cn } from "@lib/utils";
 import { TUserField } from "@t/user.type";
 import { Button, Card, Checkbox, Form, Input } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import styled from "styled-components";
-
-const Container = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
-`;
-
-const CardWrapper = styled(Card)`
-    width: 500px;
-`;
-const SpaceWrapper = styled.div`
-    display: flex;
-    justify-content: space-between;
-`;
-const FullWidthButton = styled(Button)`
-    width: 100%;
-`;
 
 function Login() {
     const router = useRouter();
@@ -84,8 +67,16 @@ function Login() {
     return (
         <>
             {contextHolder}
-            <Container>
-                <CardWrapper>
+            <div
+                className={cn(
+                    "flex",
+                    "justify-center",
+                    "items-center",
+                    "w-screen",
+                    "h-screen",
+                )}
+            >
+                <Card className={cn("w-[500px]")}>
                     <Form
                         name="normal_login"
                         form={form}
@@ -121,7 +112,7 @@ function Login() {
                             />
                         </Form.Item>
                         <Form.Item>
-                            <SpaceWrapper>
+                            <div className={cn("flex", "justify-between")}>
                                 <Form.Item
                                     name="remember"
                                     valuePropName="checked"
@@ -133,18 +124,22 @@ function Login() {
                                 </Form.Item>
 
                                 <a href="/signup">비밀번호 찾기</a>
-                            </SpaceWrapper>
+                            </div>
                         </Form.Item>
 
                         <Form.Item>
-                            <FullWidthButton type="primary" htmlType="submit">
+                            <Button
+                                className={cn("bg-[#1677FF]", "w-full")}
+                                type="primary"
+                                htmlType="submit"
+                            >
                                 로그인하기
-                            </FullWidthButton>
+                            </Button>
                             또는 <a href="/signup">회원 가입</a>하기
                         </Form.Item>
                     </Form>
-                </CardWrapper>
-            </Container>
+                </Card>
+            </div>
         </>
     );
 }

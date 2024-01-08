@@ -1,3 +1,5 @@
+"use client";
+
 import Dialog from "@components/content/Dialog";
 import Header from "@components/content/Header";
 import Textator from "@components/content/Textator";

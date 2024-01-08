@@ -1,43 +1,41 @@
+import { cn } from "@lib/utils";
 import { Divider } from "antd";
-import styled from "styled-components";
-
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    height: ${({ theme: { SPACING } }) => SPACING.SIDER.HEIGHT};
-    margin: ${({ theme: { SPACING } }) => SPACING.STANDARD};
-    overflow: hidden;
-`;
-
-const Content = styled.div`
-    max-height: ${({ theme: { SPACING } }) => SPACING.SIDER.CONTENT.MAX_HEIGHT};
-    overflow: scroll;
-`;
-
-const FooterWrapper = styled.div`
-    height: ${({ theme: { SPACING } }) => SPACING.SIDER.FOOTER.HEIGHT};
-    width: ${({ theme: { SPACING } }) => SPACING.SIDER.FOOTER.WIDTH};
-    background: ${({ theme: { COLOR } }) => COLOR.WHITE};
-    color: ${({ theme: { COLOR } }) => COLOR.LIGHT};
-`;
-const Footer = styled.div`
-    margin: ${({ theme: { SPACING } }) => SPACING.STANDARD};
-`;
 
 export default function MenuFrame({ profile, footer, children }) {
     return (
-        <Container>
+        <div
+            className={cn(
+                "flex",
+                "flex-col",
+                "justify-between",
+                "h-[calc(100vh-52px)]",
+                "m-4",
+                "overflow-hidden",
+            )}
+        >
             <div>
                 {profile}
                 <Divider />
-                <Content>{children}</Content>
+                <div
+                    className={cn(
+                        "max-h-[calc(100vh-288px)]",
+                        "overflow-scroll",
+                    )}
+                >
+                    {children}
+                </div>
             </div>
-            <FooterWrapper>
+            <div
+                className={cn(
+                    "h-[82px]",
+                    "w-[268px]",
+                    "bg-[white]",
+                    "text-[#A0A0A0]",
+                )}
+            >
                 <Divider />
-                <Footer>{footer}</Footer>
-            </FooterWrapper>
-        </Container>
+                <div className={cn("m-4")}>{footer}</div>
+            </div>
+        </div>
     );
 }

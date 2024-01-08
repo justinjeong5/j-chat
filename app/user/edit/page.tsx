@@ -1,3 +1,5 @@
+"use client";
+
 import {
     LockOutlined,
     MailOutlined,
@@ -8,21 +10,16 @@ import AppFrame from "@components/layout/AppFrame";
 import Menu from "@components/sider/Menu";
 import WithAuth from "@hoc/WithAuth";
 import useNotice from "@hooks/notice/notice";
+import { cn } from "@lib/utils";
 import UserRepo from "@repos/User";
 import { TUser } from "@t/user.type";
 import { Button, Card, Form, Input, Tabs } from "antd";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import styled from "styled-components";
-
-const CardWrapper = styled(Card)`
-    padding: 1rem;
-    margin: 1rem;
-    max-width: 480px;
-`;
 
 function Edit({ user }) {
     const router = useRouter();
+    const pathname = usePathname();
     const { errorHandler, contextHolder } = useNotice();
     const [form] = Form.useForm();
 
@@ -53,7 +50,7 @@ function Edit({ user }) {
                 header={<div>사용자 정보 수정</div>}
             >
                 <Tabs
-                    activeKey={router.pathname}
+                    activeKey={pathname as string}
                     type="card"
                     onTabClick={key => router.push(key)}
                     items={[
@@ -71,7 +68,7 @@ function Edit({ user }) {
                         },
                     ]}
                 />
-                <CardWrapper>
+                <Card className={cn("p-4", "m-4", "max-w-[480px]")}>
                     <Form
                         name="normal_login"
                         form={form}
@@ -148,7 +145,7 @@ function Edit({ user }) {
                             </Button>
                         </Form.Item>
                     </Form>
-                </CardWrapper>
+                </Card>
             </AppFrame>
         </>
     );

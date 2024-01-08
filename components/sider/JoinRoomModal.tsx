@@ -5,9 +5,6 @@ import { Avatar, Button, Divider, List, Modal, Skeleton } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import styled from "styled-components";
-
-const Title = styled.div``;
 
 export default function JoinRoomModal({ user, onJoinRoom, children }) {
     const { errorHandler, contextHolder } = useNotice();
@@ -82,7 +79,12 @@ export default function JoinRoomModal({ user, onJoinRoom, children }) {
                         <List
                             itemLayout="horizontal"
                             dataSource={rooms}
-                            renderItem={item => (
+                            renderItem={(item: {
+                                id: string;
+                                users: { id: string; avatar: string }[];
+                                title: string;
+                                description: string;
+                            }) => (
                                 <List.Item
                                     onClick={() => handleJoinRoom(item.id)}
                                 >
@@ -119,13 +121,14 @@ export default function JoinRoomModal({ user, onJoinRoom, children }) {
                                             </Avatar.Group>
                                         }
                                         title={
-                                            <Title
+                                            <div
+                                                role="presentation"
                                                 onClick={() =>
                                                     handleRoute(item.id)
                                                 }
                                             >
                                                 {item.title}
-                                            </Title>
+                                            </div>
                                         }
                                         description={item.description}
                                     />

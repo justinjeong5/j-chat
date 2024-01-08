@@ -2,10 +2,10 @@
 
 import LottieLayout from "@components/layout/LottieLayout";
 import useLogin from "@hooks/login";
+import { Player } from "@lottiefiles/react-lottie-player";
 import { TUser } from "@t/user.type";
-import Lottie from "lottie-react";
 import { useRouter } from "next/navigation";
-import lottieAnimation from "public/lottie.json";
+import Lottie from "public/lottie.json";
 import { useEffect, useState } from "react";
 
 export default function WithAuth(WrappedComponent) {
@@ -29,7 +29,7 @@ export default function WithAuth(WrappedComponent) {
         if (!user.email) {
             return (
                 <LottieLayout>
-                    <Lottie animationData={lottieAnimation} loop />
+                    <Player src={Lottie} autoplay loop />
                 </LottieLayout>
             );
         }
