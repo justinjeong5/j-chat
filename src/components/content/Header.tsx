@@ -62,7 +62,7 @@ export default function Header({ room, loading, leaveRoom, toggleStarred }) {
                     {loading ? (
                         <Skeleton.Button active block size="small" />
                     ) : (
-                        room.users.length
+                        room.users?.length
                     )}
                 </div>
                 <div className={cn("flex", "items-center", "gap-2")}>
@@ -70,7 +70,7 @@ export default function Header({ room, loading, leaveRoom, toggleStarred }) {
                     {loading ? (
                         <Skeleton.Button active block size="small" />
                     ) : (
-                        room.dialog.length
+                        room.dialog?.length
                     )}
                 </div>
                 <div

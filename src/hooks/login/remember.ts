@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const useRemember = () => {
     const [checked, internalSetChecked] = useState(
-        JSON.parse(LocalStorage.getItem("j-user-remember-checked")),
+        JSON.parse(LocalStorage.getItem("j-user-remember-checked") || "false"),
     );
     const userEmail = LocalStorage.getItem("j-user-remember");
 

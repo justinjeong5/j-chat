@@ -72,7 +72,7 @@ export default function Textator({
     ];
 
     const handleTourClose = () => {
-        localStorage.setItem("jChatHideMessageTour", JSON.stringify(true));
+        localStorage.setItem("j-chat-hide-message-tour", JSON.stringify(true));
         setShowTour(false);
     };
 

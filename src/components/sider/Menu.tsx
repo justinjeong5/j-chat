@@ -62,6 +62,7 @@ export default function Page({ user }) {
         });
         setRooms(roomsData);
         setFetchingRooms(false);
+        return roomsData;
     };
 
     useEffect(() => {
@@ -71,8 +72,8 @@ export default function Page({ user }) {
                 if (!user.id) {
                     return;
                 }
-                await fetchRooms();
-                if (rooms && !rooms.length) {
+                const roomsData = await fetchRooms();
+                if (roomsData && !roomsData.length) {
                     setShowTour(true);
                 }
             } catch (e) {

@@ -1,5 +1,5 @@
 class LocalStorage {
-    static getItem(item: string): string {
+    static getItem(item: string): string | null {
         if (typeof window !== "undefined") {
             return localStorage.getItem(item);
         }

@@ -1,3 +1,5 @@
+"use client";
+
 import registerChatSocket from "@socket/chat";
 import registerChatTypingSocket from "@socket/chatTyping";
 import registerRoomSocket from "@socket/room";

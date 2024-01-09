@@ -21,12 +21,12 @@ import {
 import { disconnectSocket, initiateSocket } from "@socket/index";
 import { enterRoom, exitRoom, leaveRoom } from "@socket/room";
 import IRoom from "@t/room.type";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 function Room({ user }) {
     const router = useRouter();
-    const searchParams = useSearchParams();
+    const params = useParams();
     const { errorHandler, contextHolder } = useNotice();
     const [chatRoom, setChatRoom] = useState({} as IRoom);
 
@@ -68,7 +68,7 @@ function Room({ user }) {
     useEffect(() => {
         (async () => {
             try {
-                const roomId = searchParams?.get("roomId") as string;
+                const { roomId } = params;
                 if (!roomId) {
                     return;
                 }
@@ -87,7 +87,7 @@ function Room({ user }) {
                 setFetchingData(false);
             }
         })();
-    }, [searchParams]);
+    }, []);
 
     useEffect(() => {
         if (chatRoom.id) {
@@ -103,7 +103,7 @@ function Room({ user }) {
 
     useEffect(() => {
         const hideMessageTour = JSON.parse(
-            localStorage.getItem("jChatHideMessageTour") || "true",
+            localStorage.getItem("j-chat-hide-message-tour") || "true",
         );
         setLocalStorageHideMessageTour(hideMessageTour);
 
