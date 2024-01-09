@@ -11,10 +11,11 @@ import Menu from "@components/sider/Menu";
 import WithAuth from "@hoc/WithAuth";
 import type { DescriptionsProps } from "antd";
 import { Col, Descriptions, Row, Statistic, Tabs } from "antd";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 function Detail({ user }) {
     const router = useRouter();
+    const pathname = usePathname();
     const getLocaleString = (t: Date) => {
         return new Date(t).toLocaleDateString("ko-KR");
     };
@@ -55,7 +56,7 @@ function Detail({ user }) {
     return (
         <AppFrame menu={<Menu user={user} />} header={<div>사용자 정보</div>}>
             <Tabs
-                activeKey={router.pathname}
+                activeKey={pathname}
                 type="card"
                 onTabClick={key => router.push(key)}
                 items={[
