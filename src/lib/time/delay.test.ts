@@ -1,6 +1,6 @@
-import delay from "@lib/time/delay";
+import delay from "./delay";
 
-describe("@lib/delay", () => {
+describe("time/delay", () => {
     it("returns instanceOf Promise", () => {
         expect(delay(1)).toBeInstanceOf(Promise);
     });

@@ -4,7 +4,7 @@ describe("string/typingPlaceholder", () => {
     [
         {
             users: [],
-            expected: null,
+            expected: "",
         },
         {
             users: ["Alice"],
