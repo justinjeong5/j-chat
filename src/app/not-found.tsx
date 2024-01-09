@@ -2,14 +2,14 @@
 
 import LottieLayout from "@components/layout/LottieLayout";
 import { Player } from "@lottiefiles/react-lottie-player";
-import LottieError from "public/lottieError.json";
+import LottieNotFound from "public/lottie/lottieNotFound.json";
 
-function Error() {
+function NotFound() {
     return (
         <LottieLayout>
-            <Player src={LottieError} autoplay loop />
+            <Player src={LottieNotFound} autoplay loop />
         </LottieLayout>
     );
 }
 
-export default Error;
+export default NotFound;

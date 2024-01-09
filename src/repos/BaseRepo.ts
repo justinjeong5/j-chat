@@ -37,7 +37,7 @@ abstract class BaseModel {
     buildUrl(
         method: "get" | "list" | "create" | "update" | "patch",
         query?: TQuery,
-        urlParams = { id: null },
+        urlParams?: { id?: string | number | undefined },
     ): string {
         const baseWithPath = defaultActions[method](urlParams);
         return withQS(baseWithPath, query);

@@ -13,18 +13,17 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "jsx": "preserve",
-        "baseUrl": ".",
+        "baseUrl": "./src",
         "paths": {
-            "@components/*": ["components/*"],
-            "@app/*": ["app/*"],
-            "@lib/*": ["lib/*"],
-            "@socket/*": ["socket/*"],
-            "@hooks/*": ["hooks/*"],
-            "@hoc/*": ["hoc/*"],
-            "@db/*": ["db/*"],
-            "@models/*": ["models/*"],
-            "@repos/*": ["repos/*"],
-            "@t/*": ["types/*"]
+            "@components/*": ["./components/*"],
+            "@app/*": ["./app/*"],
+            "@lib/*": ["./lib/*"],
+            "@socket/*": ["./socket/*"],
+            "@hooks/*": ["./hooks/*"],
+            "@hoc/*": ["./hoc/*"],
+            "@models/*": ["./models/*"],
+            "@repos/*": ["./repos/*"],
+            "@t/*": ["./types/*"]
         },
         "plugins": [
             {
