@@ -2,7 +2,8 @@
 
 import LottieLayout from "@components/layout/LottieLayout";
 import { Player } from "@lottiefiles/react-lottie-player";
-import LottieError from "public/lottie/lottieError.json";
+
+import LottieError from "../../public/lottie/error.json";
 
 function Error() {
     return (

@@ -5,8 +5,9 @@ import useLogin from "@hooks/login";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { TUser } from "@t/user.type";
 import { useRouter } from "next/navigation";
-import Lottie from "public/lottie/lottie.json";
 import { useEffect, useState } from "react";
+
+import Lottie from "../../public/lottie/loading.json";
 
 export default function WithAuth(WrappedComponent) {
     return function ChildComponent(props) {
