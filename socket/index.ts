@@ -13,7 +13,7 @@ export const detectError = () => {
     }
 };
 export const initiateSocket = () => {
-    socket = io(process.env.NEXT_PUBLIC_SOCKET_API, {
+    socket = io(process.env.NEXT_PUBLIC_SOCKET_API as string, {
         withCredentials: true,
         transports: ["websocket"],
     });

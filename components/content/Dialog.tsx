@@ -32,8 +32,12 @@ export default function Dialog({
     dialog = [],
     loading = false,
     autoFocus = false,
+}: {
+    dialog?: Array<IMessage>;
+    loading?: boolean;
+    autoFocus?: boolean;
 }) {
-    const dialogFocus = useRef(null);
+    const dialogFocus = useRef<HTMLInputElement>(null);
 
     const isMobile = useMobile();
     const SKELETON_COUNT = 5;

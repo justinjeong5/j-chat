@@ -1,6 +1,14 @@
 import { cn } from "@lib/utils";
 
-export default function ChatFrame({ dialog, typing = null, textator }) {
+export default function ChatFrame({
+    dialog,
+    typing = "",
+    textator,
+}: {
+    dialog: React.ReactNode;
+    typing?: string;
+    textator: React.ReactNode;
+}) {
     return (
         <div className={cn("h-full")}>
             <div

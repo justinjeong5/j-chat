@@ -1,8 +1,8 @@
 const placeholder = "대화를 입력중입니다.";
 
-const typingPlaceholder = (users: string[]) => {
+const typingPlaceholder = (users: string[]): string => {
     if (users.length === 0) {
-        return null;
+        return "";
     }
     if (users.length === 1) {
         return `${users[0]}님이 ${placeholder}`;

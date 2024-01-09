@@ -28,13 +28,9 @@ function Room({ user }) {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { errorHandler, contextHolder } = useNotice();
-    const [chatRoom, setChatRoom] = useState({
-        title: "",
-        users: [],
-        dialog: [],
-    } as IRoom);
+    const [chatRoom, setChatRoom] = useState({} as IRoom);
 
-    const [typingUsers, setTypingUsers] = useState([]);
+    const [typingUsers, setTypingUsers] = useState([] as string[]);
     const [fetchingData, setFetchingData] = useState(false);
     const [showMessageTour, setShowMessageTour] = useState(false);
     const [localStorageHideMessageTour, setLocalStorageHideMessageTour] =
@@ -107,7 +103,7 @@ function Room({ user }) {
 
     useEffect(() => {
         const hideMessageTour = JSON.parse(
-            localStorage.getItem("jChatHideMessageTour"),
+            localStorage.getItem("jChatHideMessageTour") || "true",
         );
         setLocalStorageHideMessageTour(hideMessageTour);
 
@@ -115,11 +111,11 @@ function Room({ user }) {
         subscribeChat(chat => {
             setChatRoom(prev => ({ ...prev, dialog: [...prev.dialog, chat] }));
         });
-        subscribeTyping(username => {
+        subscribeTyping((username: string) => {
             if (username === user.username) {
                 return;
             }
-            setTypingUsers(prev => {
+            setTypingUsers((prev: string[]) => {
                 if (prev.includes(username)) {
                     return prev;
                 }

@@ -6,7 +6,7 @@ import JoinRoomModal from "@components/sider/JoinRoomModal";
 import Profile from "@components/sider/Profile";
 import Rooms from "@components/sider/Rooms";
 import useNotice from "@hooks/notice/notice";
-import cn from "@lib/string/className";
+import { cn } from "@lib/utils";
 import RoomRepo from "@repos/Room";
 import { joinRoom } from "@socket/room";
 import IRoom from "@t/room.type";
@@ -20,7 +20,7 @@ export default function Page({ user }) {
     const addRoomBtnRef = useRef(null);
     const joinRoomBtnRef = useRef(null);
 
-    const [rooms, setRooms] = useState<IRoom[]>(null);
+    const [rooms, setRooms] = useState<IRoom[]>([]);
     const [fetchingRooms, setFetchingRooms] = useState(false);
     const { errorHandler, contextHolder } = useNotice();
     const [showTour, setShowTour] = useState(false);
