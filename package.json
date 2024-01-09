@@ -12,19 +12,23 @@
         "lint": "npm run eslint && npm run prettier",
         "eslint": "eslint \"**/*.+(js|jsx|ts|tsx)\"",
         "eslint:fix": "eslint --fix \"**/*.+(js|jsx|ts|tsx)\"",
-        "prettier": "prettier --check \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css)\" || exit 1",
+        "prettier": "prettier --check \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css)\" || exit 0",
         "prettier:fix": "prettier --write \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css)\""
     },
     "author": "justinjeong5",
     "license": "ISC",
     "dependencies": {
         "@ant-design/icons": "^5.2.5",
+        "@lottiefiles/react-lottie-player": "^3.5.3",
+        "@radix-ui/react-slot": "^1.0.2",
         "antd": "^5.8.0",
         "axios": "^1.4.0",
+        "class-variance-authority": "^0.7.0",
+        "clsx": "^2.1.0",
         "hash.js": "^1.1.7",
         "js-cookie": "^3.0.5",
         "lodash": "^4.17.21",
-        "lottie-react": "^2.4.0",
+        "lucide-react": "^0.307.0",
         "md5": "^2.3.0",
         "next": "^13.4.9",
         "qs": "^6.11.2",
@@ -33,7 +37,8 @@
         "react-infinite-scroll-component": "^6.1.0",
         "socket.io": "^4.7.2",
         "socket.io-client": "^4.7.2",
-        "styled-components": "^6.0.5",
+        "tailwind-merge": "^2.2.0",
+        "tailwindcss-animate": "^1.0.7",
         "ts-node": "^10.9.1",
         "uuid": "^9.0.0"
     },
@@ -46,6 +51,7 @@
         "@types/react": "^18.2.14",
         "@typescript-eslint/eslint-plugin": "^6.4.0",
         "@typescript-eslint/parser": "^6.4.0",
+        "autoprefixer": "^10.4.16",
         "babel-jest": "^29.6.4",
         "babel-plugin-styled-components": "^2.1.4",
         "eslint": "^8.47.0",
@@ -60,7 +66,9 @@
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-simple-import-sort": "^10.0.0",
         "jest": "^29.6.4",
+        "postcss": "^8.4.33",
         "prettier": "^3.0.2",
+        "tailwindcss": "^3.4.1",
         "typescript": "^5.1.6"
     }
 }

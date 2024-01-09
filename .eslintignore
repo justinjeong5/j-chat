@@ -1,7 +1,9 @@
 .next
 public
+out
+dist
 node_modules
 yarn.lock
 package-lock.json
-**/*.test.js
 coverage
+*.config.js

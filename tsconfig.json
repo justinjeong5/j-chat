@@ -13,21 +13,31 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "jsx": "preserve",
-        "baseUrl": ".",
+        "baseUrl": "./src",
         "paths": {
-            "components/*": ["components/*"],
-            "pages/*": ["pages/*"],
-            "styles/*": ["styles/*"],
-            "lib/*": ["lib/*"],
-            "socket/*": ["socket/*"],
-            "hooks/*": ["hooks/*"],
-            "hoc/*": ["hoc/*"],
-            "db/*": ["db/*"],
-            "models/*": ["models/*"],
-            "repos/*": ["repos/*"],
-            "types/*": ["types/*"]
-        }
+            "@components/*": ["./components/*"],
+            "@app/*": ["./app/*"],
+            "@lib/*": ["./lib/*"],
+            "@socket/*": ["./socket/*"],
+            "@hooks/*": ["./hooks/*"],
+            "@hoc/*": ["./hoc/*"],
+            "@models/*": ["./models/*"],
+            "@repos/*": ["./repos/*"],
+            "@t/*": ["./types/*"]
+        },
+        "plugins": [
+            {
+                "name": "next"
+            }
+        ],
+        "strictNullChecks": true
     },
-    "include": ["babel.config.js", "next-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "include": [
+        "next-env.d.ts",
+        "*.config.js",
+        "**/*.ts",
+        "**/*.tsx",
+        ".next/types/**/*.ts"
+    ],
     "exclude": ["node_modules"]
 }
