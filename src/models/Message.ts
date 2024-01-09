@@ -30,8 +30,8 @@ export default class Message extends BaseModel implements IMessage {
 
     constructor(config: TMessage) {
         super();
-        this.id = config.id || null;
-        this.roomId = config.roomId || null;
+        this.id = config.id || "";
+        this.roomId = config.roomId || "";
 
         this.writer = config.writer || UserModel.createItem();
         this.content = config.content || "";
@@ -50,12 +50,8 @@ export default class Message extends BaseModel implements IMessage {
     }
 
     static createItem(config: TMessageField): TMessage {
-        const filteredConfig = { ...config };
-        delete filteredConfig.roomId;
-
         return {
-            roomId: config.roomId,
-            writer: config.writer,
+            ...config,
             image: "",
             content: "",
             type: "plain",
@@ -64,8 +60,6 @@ export default class Message extends BaseModel implements IMessage {
             comments: [],
             createdAt: new Date(),
             updatedAt: new Date(),
-
-            ...filteredConfig,
         };
     }
 

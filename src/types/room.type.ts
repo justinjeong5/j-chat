@@ -1,4 +1,5 @@
 import IMessage from "@t/message.type";
+import { TUser } from "@t/user.type";
 
 export type TRoom = {
     id: string;
@@ -8,7 +9,7 @@ export type TRoom = {
     starred: boolean;
     createdAt: Date;
     updatedAt: Date;
-    users: Array<object>;
+    users: TUser[];
     dialog: Array<IMessage>;
 };
 

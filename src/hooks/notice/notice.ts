@@ -11,14 +11,19 @@ type TError = AxiosError & {
     };
 };
 
+interface INotice {
+    type: string;
+    content: string;
+}
+
 const useNotice = () => {
-    const [notices, setNotices] = useState([]);
+    const [notices, setNotices] = useState([] as INotice[]);
     const [messageApi, contextHolder] = message.useMessage();
 
     const popNotice = () => {
         const [notice, ...rest] = notices;
         setNotices(rest);
-        return notice;
+        return notice as INotice;
     };
 
     const pushNotice = (notice: { type: string; content: string }) => {
@@ -36,7 +41,7 @@ const useNotice = () => {
     useEffect(() => {
         if (notices.length > 0) {
             const notice = popNotice();
-            messageApi.open(notice);
+            messageApi.open(notice as any);
         }
     }, [notices]);
 

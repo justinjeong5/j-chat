@@ -32,29 +32,29 @@ export default class User extends BaseModel {
 
     constructor(config: TUser) {
         super();
-        this.id = config.id;
-        this.role = config.role;
+        this.id = config.id || "";
+        this.role = config.role || "";
 
-        this.email = config.email;
-        this.username = config.username;
-        this.description = config.description;
-        this.avatar = config.avatar;
+        this.email = config.email || "";
+        this.username = config.username || "";
+        this.description = config.description || "";
+        this.avatar = config.avatar || "";
 
-        this.rooms = config.rooms;
-        this.stars = config.stars;
+        this.rooms = config.rooms || [];
+        this.stars = config.stars || [];
 
-        this.dialog = config.dialog;
-        this.likes = config.likes;
-        this.comments = config.comments;
+        this.dialog = config.dialog || [];
+        this.likes = config.likes || [];
+        this.comments = config.comments || [];
 
-        this.lastLogin = config.lastLogin;
-        this.updatedAt = config.updatedAt;
-        this.createdAt = config.createdAt;
+        this.lastLogin = config.lastLogin || new Date();
+        this.updatedAt = config.updatedAt || new Date();
+        this.createdAt = config.createdAt || new Date();
     }
 
     static createItem(config: TUser = {}): TUser {
         return {
-            id: null,
+            id: "",
             role: config.role,
 
             email: config.email,

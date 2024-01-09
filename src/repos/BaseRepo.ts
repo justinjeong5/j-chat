@@ -39,7 +39,7 @@ abstract class BaseModel {
         query?: TQuery,
         urlParams?: { id?: string | number | undefined },
     ): string {
-        const baseWithPath = defaultActions[method](urlParams);
+        const baseWithPath = defaultActions[method](urlParams || {});
         return withQS(baseWithPath, query);
     }
 }

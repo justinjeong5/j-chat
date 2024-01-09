@@ -2,4 +2,4 @@
 
 export type TCommon = any;
 export type TQuery = object;
-export type TWithID = { id: string | number | undefined };
+export type TWithID = { id?: string | number | undefined };

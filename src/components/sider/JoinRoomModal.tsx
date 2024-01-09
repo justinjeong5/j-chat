@@ -1,6 +1,7 @@
 import { TeamOutlined } from "@ant-design/icons";
 import useNotice from "@hooks/notice/notice";
 import RoomRepo from "@repos/Room";
+import IRoom from "@t/room.type";
 import { Avatar, Button, Divider, List, Modal, Skeleton } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -11,7 +12,7 @@ export default function JoinRoomModal({ user, onJoinRoom, children }) {
     const router = useRouter();
 
     const [page, setPage] = useState(0);
-    const [rooms, setRooms] = useState([]);
+    const [rooms, setRooms] = useState([] as IRoom[]);
     const [open, setOpen] = useState(false);
     const [hasMore, setHasMore] = useState(true);
 
@@ -22,7 +23,7 @@ export default function JoinRoomModal({ user, onJoinRoom, children }) {
                     page,
                     users: { $ne: user.id },
                 });
-            setRooms(r => [...r, ...roomsData]);
+            setRooms((r: IRoom[]): IRoom[] => [...r, ...roomsData]);
             setPage(p => p + 1);
             setHasMore(more);
         } catch (e) {
@@ -35,7 +36,7 @@ export default function JoinRoomModal({ user, onJoinRoom, children }) {
         setOpen(true);
     };
 
-    const handleJoinRoom = (roomId: string) => {
+    const handleJoinRoom = (roomId: string | null) => {
         onJoinRoom(roomId);
         setRooms([]);
         setPage(0);
@@ -43,7 +44,7 @@ export default function JoinRoomModal({ user, onJoinRoom, children }) {
         setOpen(false);
     };
 
-    const handleRoute = (roomId: string) => {
+    const handleRoute = (roomId: string | null) => {
         router.push(`/rooms/${roomId}`);
     };
 
@@ -79,12 +80,7 @@ export default function JoinRoomModal({ user, onJoinRoom, children }) {
                         <List
                             itemLayout="horizontal"
                             dataSource={rooms}
-                            renderItem={(item: {
-                                id: string;
-                                users: { id: string; avatar: string }[];
-                                title: string;
-                                description: string;
-                            }) => (
+                            renderItem={(item: IRoom) => (
                                 <List.Item
                                     onClick={() => handleJoinRoom(item.id)}
                                 >

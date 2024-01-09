@@ -23,11 +23,11 @@ export default class Room extends BaseModel implements IRoom {
 
     constructor(config: TRoom) {
         super();
-        this.id = config.id || null;
-        this.title = config.title || null;
-        this.description = config.description || null;
-        this.type = config.type || null;
-        this.starred = !!config.starred || null;
+        this.id = config.id || "";
+        this.title = config.title || "";
+        this.description = config.description || "";
+        this.type = config.type || "";
+        this.starred = !!config.starred || false;
         this.createdAt = new Date(config.createdAt);
         this.updatedAt = new Date(config.updatedAt);
         this.users = config.users || [];
@@ -37,11 +37,11 @@ export default class Room extends BaseModel implements IRoom {
     toMenu(): TRoomMenu {
         return {
             key: String(this.id),
-            label: this.title,
+            label: this.title || "",
             id: this.id,
-            title: this.title,
-            description: this.description,
-            type: this.type,
+            title: this.title || "",
+            description: this.description || "",
+            type: this.type || "",
             starred: this.starred,
             users: this.users,
             dialog: this.dialog,
@@ -63,12 +63,6 @@ export default class Room extends BaseModel implements IRoom {
     }
 
     toExternal(): TRoom {
-        const external = { ...this };
-        delete external.toMenu;
-        delete external.setDialog;
-        delete external.toExternal;
-        delete external.addMessage;
-
         return {
             ...this,
             id: String(this.id),
@@ -80,7 +74,7 @@ export default class Room extends BaseModel implements IRoom {
 
     static createItem(config: TRoomField): TRoom {
         return {
-            id: null,
+            id: "",
             users: [],
             dialog: [],
             starred: false,
