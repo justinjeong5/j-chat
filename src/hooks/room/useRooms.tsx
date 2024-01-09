@@ -8,14 +8,14 @@ import IRoom from "@t/room.type";
 import { TRoomType } from "@t/rooms.type";
 
 export default function useRooms() {
-    const getTypeOf = (list: Array<IRoom>, type: TRoomType): Array<IRoom> => {
+    const getTypeOf = (list: IRoom[], type: TRoomType): IRoom[] => {
         if (type === Room.STAR) {
             return list.filter(r => !!r.starred);
         }
         return list.filter(r => !r.starred && r.type === type);
     };
 
-    const composeRooms = rooms => {
+    const composeRooms = (rooms: IRoom[]): any[] => {
         return [
             {
                 key: Room.PUBLIC,

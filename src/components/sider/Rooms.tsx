@@ -5,18 +5,25 @@ import {
 } from "@ant-design/icons";
 import useRooms from "@hooks/room/useRooms";
 import Room from "@models/Room";
+import IRoom, { TRoomMenu } from "@t/room.type";
 import type { MenuProps } from "antd";
 import { Menu, Skeleton } from "antd";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-export default function Rooms({ loading, rooms }) {
+export default function Rooms({
+    loading,
+    rooms,
+}: {
+    loading: boolean;
+    rooms: IRoom[];
+}) {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { composeRooms } = useRooms();
 
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState([] as TRoomMenu[]);
 
     const onClickRoom: MenuProps["onClick"] = e => {
         router.push(`/rooms/${e.key}`);
@@ -64,7 +71,7 @@ export default function Rooms({ loading, rooms }) {
         <Menu
             defaultOpenKeys={[Room.PUBLIC, Room.STAR]}
             selectedKeys={[searchParams?.get("roomId") as string]}
-            items={items}
+            items={items as TRoomMenu[]}
             mode="inline"
             onClick={onClickRoom}
         />
