@@ -42,7 +42,7 @@ export default class Room extends BaseModel implements IRoom {
             title: this.title || "",
             description: this.description || "",
             type: this.type || "",
-            starred: this.starred,
+            starred: !!this.starred,
             users: this.users,
             dialog: this.dialog,
         };
