@@ -58,7 +58,7 @@ export default function Dialog({
                     >
                         <div style={{ width: "inherit" }}>
                             <Skeleton active avatar />
-                            <Space className={cn("ml-[56px]")}>
+                            <Space className={cn("mt-5", "ml-[56px]")}>
                                 <Skeleton.Button active size="small" />
                                 <Skeleton.Button active size="small" />
                                 <Skeleton.Button active size="small" />

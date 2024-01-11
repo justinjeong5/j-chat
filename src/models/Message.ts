@@ -51,15 +51,14 @@ export default class Message extends BaseModel implements IMessage {
 
     static createItem(config: TMessageField): TMessage {
         return {
-            ...config,
             image: "",
-            content: "",
             type: "plain",
             stars: [],
             likes: [],
             comments: [],
             createdAt: new Date(),
             updatedAt: new Date(),
+            ...config,
         };
     }
 
