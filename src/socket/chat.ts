@@ -6,7 +6,6 @@ export default function registerChatSocket(s) {
 
 export const sendChat = data => {
     if (socket) {
-        console.log("submitMessage", data);
         socket.emit("submitMessage", data);
     }
 };
