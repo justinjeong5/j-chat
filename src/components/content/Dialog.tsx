@@ -42,13 +42,17 @@ export default function Dialog({
     const isMobile = useMobile();
     const SKELETON_COUNT = 5;
 
+    const getDate = (date: Date): string => {
+        return new Date(date).toLocaleString();
+    };
+
     useEffect(() => {
         if (autoFocus) {
             dialogFocus.current?.scrollIntoView({ behavior: "instant" });
         }
     }, [dialog]);
 
-    if (loading) {
+    if (true) {
         return (
             <>
                 {Array.from({ length: SKELETON_COUNT }).map(() => (
@@ -56,15 +60,32 @@ export default function Dialog({
                         className={cn("flex", "gap-4", "w-full", "mt-8")}
                         key={uuidv4()}
                     >
-                        <div style={{ width: "inherit" }}>
-                            <Skeleton active avatar />
-                            <Space className={cn("mt-5", "ml-[56px]")}>
-                                <Skeleton.Button active size="small" />
-                                <Skeleton.Button active size="small" />
-                                <Skeleton.Button active size="small" />
-                            </Space>
+                        <div className={cn("flex", "gap-4")}>
+                            <div
+                                className={cn(
+                                    "w-10",
+                                    "h-10",
+                                    "rounded-full",
+                                    "bg-gradient-120",
+                                    "bg-gradient-to-r",
+                                    "from-[#dfdede]",
+                                    "via-[#F0F0F0]",
+                                    "to-[#dfdede]",
+                                    "bg-[100%_0]",
+                                    "bg-[length:200%]",
+                                    "animate-load",
+                                )}
+                            />
+                            <div>
+                                <Skeleton active avatar />
+                                <Space className={cn("mt-5", "ml-[56px]")}>
+                                    <Skeleton.Button active size="small" />
+                                    <Skeleton.Button active size="small" />
+                                    <Skeleton.Button active size="small" />
+                                </Space>
+                            </div>
+                            <Skeleton.Image active />
                         </div>
-                        <Skeleton.Image active />
                     </div>
                 ))}
             </>
@@ -129,6 +150,9 @@ export default function Dialog({
                             <List.Item.Meta
                                 avatar={<Avatar src={item.writer?.avatar} />}
                                 title={item.writer?.username}
+                                description={
+                                    <div>{getDate(item.createdAt)}</div>
+                                }
                             />
                             {isMobile && item.image && (
                                 <img
