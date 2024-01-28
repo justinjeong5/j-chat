@@ -5,7 +5,7 @@ export type TMessage = {
     roomId: string;
     writer: TUser;
 
-    type: "joinRoom" | "leaveRoom";
+    type: TMessageType;
     content: string;
     image: string;
 
@@ -28,3 +28,5 @@ export type TMessageField = {
     writer: TUser;
     content: string;
 };
+
+export type TMessageType = "plain" | "joinRoom" | "leaveRoom";

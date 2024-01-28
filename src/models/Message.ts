@@ -1,9 +1,15 @@
 /* eslint-disable no-underscore-dangle */
 import BaseModel from "@models/BaseModel";
 import UserModel from "@models/User";
-import { TCommon } from "@t/common.type";
-import IMessage, { TCountType, TMessage, TMessageField } from "@t/message.type";
-import { TUser } from "@t/user.type";
+import type { FixMe } from "@t/common.type";
+import type IMessage from "@t/message.type";
+import type {
+    TCountType,
+    TMessage,
+    TMessageField,
+    TMessageType,
+} from "@t/message.type";
+import type { TUser } from "@t/user.type";
 
 export default class Message extends BaseModel implements IMessage {
     id: string;
@@ -12,17 +18,17 @@ export default class Message extends BaseModel implements IMessage {
 
     writer: TUser;
 
-    type: string;
+    type: TMessageType;
 
     image: string;
 
     content: string;
 
-    stars: Array<TCommon>;
+    stars: Array<FixMe>;
 
-    likes: Array<TCommon>;
+    likes: Array<FixMe>;
 
-    comments: Array<TCommon>;
+    comments: Array<FixMe>;
 
     createdAt: Date;
 

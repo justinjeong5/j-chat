@@ -1,12 +1,14 @@
 import { cn } from "@lib/utils";
+import type { TMessageType } from "@t/message.type";
+import type { TUser } from "@t/user.type";
 
 export default function ComingAndOut({
     type,
     writer,
     createdAt,
 }: {
-    type: "joinRoom" | "leaveRoom";
-    writer: any;
+    type: TMessageType;
+    writer: TUser;
     createdAt: Date;
 }) {
     const getMessage = (t: string, name) => {
