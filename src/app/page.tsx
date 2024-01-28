@@ -1,11 +1,11 @@
 "use client";
 
-import Dialog from "@components/content/Dialog";
-import Textator from "@components/content/Textator";
-import AppFrame from "@components/layout/AppFrame";
-import ChatFrame from "@components/layout/ChatFrame";
+import AppFrame from "@app/_component/AppFrame";
+import WithAuth from "@app/_hoc/WithAuth";
+import ChatFrame from "@app/rooms/[roomId]/_component/ChatFrame";
+import Dialog from "@app/rooms/[roomId]/_component/Dialog";
+import Textator from "@app/rooms/[roomId]/_component/Textator";
 import Menu from "@components/sider/Menu";
-import WithAuth from "@hoc/WithAuth";
 
 function Home({ user }) {
     return (

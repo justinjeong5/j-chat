@@ -1,12 +1,12 @@
 "use client";
 
-import Dialog from "@components/content/Dialog";
-import Header from "@components/content/Header";
-import Textator from "@components/content/Textator";
-import AppFrame from "@components/layout/AppFrame";
-import ChatFrame from "@components/layout/ChatFrame";
+import AppFrame from "@app/_component/AppFrame";
+import WithAuth from "@app/_hoc/WithAuth";
+import ChatFrame from "@app/rooms/[roomId]/_component/ChatFrame";
+import Dialog from "@app/rooms/[roomId]/_component/Dialog";
+import RoomHeader from "@app/rooms/[roomId]/_component/RoomHeader";
+import Textator from "@app/rooms/[roomId]/_component/Textator";
 import Menu from "@components/sider/Menu";
-import WithAuth from "@hoc/WithAuth";
 import useNotice from "@hooks/notice/notice";
 import typingPlaceholder from "@lib/string/typingPlaceholder";
 import MessageModel from "@models/Message";
@@ -24,7 +24,7 @@ import IRoom from "@t/room.type";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-function Room({ user }) {
+function RoomPage({ user }) {
     const router = useRouter();
     const params = useParams();
     const { errorHandler, contextHolder } = useNotice();
@@ -138,7 +138,7 @@ function Room({ user }) {
             <AppFrame
                 menu={<Menu user={user} />}
                 header={
-                    <Header
+                    <RoomHeader
                         room={chatRoom}
                         loading={fetchingData}
                         leaveRoom={handleLeaveRoom}
@@ -151,7 +151,6 @@ function Room({ user }) {
                         <Dialog
                             dialog={chatRoom.dialog}
                             loading={fetchingData}
-                            autoFocus
                         />
                     }
                     typing={typingPlaceholder(typingUsers)}
@@ -170,4 +169,4 @@ function Room({ user }) {
     );
 }
 
-export default WithAuth(Room);
+export default WithAuth(RoomPage);

@@ -8,12 +8,11 @@
         "build": "next build",
         "start": "next start",
         "jest": "jest",
-        "test": "npm run lint && npm run jest",
-        "lint": "npm run eslint && npm run prettier",
-        "eslint": "eslint \"**/*.+(js|jsx|ts|tsx)\"",
-        "eslint:fix": "eslint --fix \"**/*.+(js|jsx|ts|tsx)\"",
-        "prettier": "prettier --check \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css)\" || exit 0",
-        "prettier:fix": "prettier --write \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css)\""
+        "test": "npm run jest",
+        "lint": "eslint \"**/*.+(js|jsx|ts|tsx)\"",
+        "lint:fix": "eslint --fix \"**/*.+(js|jsx|ts|tsx)\"",
+        "format": "prettier --check \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css)\" || exit 0",
+        "format:fix": "prettier --write \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css)\""
     },
     "author": "justinjeong5",
     "license": "ISC",

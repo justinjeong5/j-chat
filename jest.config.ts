@@ -16,6 +16,10 @@ const config: Config = {
         "json",
         "node",
     ],
+    moduleNameMapper: {
+        // tsconfig.json의 alias와 동일하게 설정
+        "@lib/(.*)": "<rootDir>/src/lib/$1",
+    },
     roots: ["<rootDir>"],
 };
 

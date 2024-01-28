@@ -1,6 +1,6 @@
 "use client";
 
-import LottieLayout from "@components/layout/LottieLayout";
+import LottieLayout from "@app/_component/LottieLayout";
 import { Player } from "@lottiefiles/react-lottie-player";
 
 import LottieError from "../../public/lottie/error.json";

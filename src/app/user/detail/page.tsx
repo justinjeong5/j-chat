@@ -6,9 +6,9 @@ import {
     LikeOutlined,
     StarOutlined,
 } from "@ant-design/icons";
-import AppFrame from "@components/layout/AppFrame";
+import AppFrame from "@app/_component/AppFrame";
+import WithAuth from "@app/_hoc/WithAuth";
 import Menu from "@components/sider/Menu";
-import WithAuth from "@hoc/WithAuth";
 import type { DescriptionsProps } from "antd";
 import { Col, Descriptions, Row, Statistic, Tabs } from "antd";
 import { usePathname, useRouter } from "next/navigation";
