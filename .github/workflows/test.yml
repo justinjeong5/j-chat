@@ -26,7 +26,7 @@ jobs:
               run: npm run lint
 
             - name: Execute Prettier
-              run: npm run prettier
+              run: npm run format
 
-            - name: Execute Jest
-              run: npm run jest
+            - name: Execute Test
+              run: npm run test

@@ -7,8 +7,8 @@ import {
     StarOutlined,
 } from "@ant-design/icons";
 import AppFrame from "@app/_component/AppFrame";
-import Menu from "@components/sider/Menu";
 import WithAuth from "@app/_hoc/WithAuth";
+import Menu from "@components/sider/Menu";
 import type { DescriptionsProps } from "antd";
 import { Col, Descriptions, Row, Statistic, Tabs } from "antd";
 import { usePathname, useRouter } from "next/navigation";

@@ -7,8 +7,8 @@ import {
     UserOutlined,
 } from "@ant-design/icons";
 import AppFrame from "@app/_component/AppFrame";
-import Menu from "@components/sider/Menu";
 import WithAuth from "@app/_hoc/WithAuth";
+import Menu from "@components/sider/Menu";
 import useNotice from "@hooks/notice/notice";
 import { cn } from "@lib/utils";
 import UserRepo from "@repos/User";
