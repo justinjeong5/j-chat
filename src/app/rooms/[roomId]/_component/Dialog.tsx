@@ -1,11 +1,12 @@
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
+import DialogEmpty from "@app/rooms/[roomId]/_component/DialogEmpty";
+import DialogSkeleton from "@app/rooms/[roomId]/_component/DialogSkeleton";
 import useMobile from "@hooks/layout/device";
 import { cn } from "@lib/utils";
 import { TCommon } from "@t/common.type";
 import IMessage from "@t/message.type";
-import { Avatar, Empty, List, Skeleton, Space } from "antd";
+import { Avatar, List, Space } from "antd";
 import React, { useEffect, useRef } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 const ActionItems = (item: {
     stars: Array<TCommon>;
@@ -40,7 +41,6 @@ export default function Dialog({
     const dialogFocus = useRef<HTMLInputElement>(null);
 
     const isMobile = useMobile();
-    const SKELETON_COUNT = 5;
 
     const getDate = (date: Date): string => {
         return new Date(date).toLocaleString();
@@ -52,60 +52,14 @@ export default function Dialog({
         }
     }, [dialog]);
 
-    if (true) {
-        return (
-            <>
-                {Array.from({ length: SKELETON_COUNT }).map(() => (
-                    <div
-                        className={cn("flex", "gap-4", "w-full", "mt-8")}
-                        key={uuidv4()}
-                    >
-                        <div className={cn("flex", "gap-4")}>
-                            <div
-                                className={cn(
-                                    "w-10",
-                                    "h-10",
-                                    "rounded-full",
-                                    "bg-gradient-120",
-                                    "bg-gradient-to-r",
-                                    "from-[#dfdede]",
-                                    "via-[#F0F0F0]",
-                                    "to-[#dfdede]",
-                                    "bg-[100%_0]",
-                                    "bg-[length:200%]",
-                                    "animate-load",
-                                )}
-                            />
-                            <div>
-                                <Skeleton active avatar />
-                                <Space className={cn("mt-5", "ml-[56px]")}>
-                                    <Skeleton.Button active size="small" />
-                                    <Skeleton.Button active size="small" />
-                                    <Skeleton.Button active size="small" />
-                                </Space>
-                            </div>
-                            <Skeleton.Image active />
-                        </div>
-                    </div>
-                ))}
-            </>
-        );
+    if (loading) {
+        return <DialogSkeleton />;
     }
 
     if (!dialog.length) {
-        return (
-            <div
-                className={cn(
-                    "flex",
-                    "justify-center",
-                    "items-center",
-                    "h-[calc(100vh-364px)]",
-                )}
-            >
-                <Empty description="No dialog" />
-            </div>
-        );
+        return <DialogEmpty />;
     }
+
     return (
         <>
             <List
