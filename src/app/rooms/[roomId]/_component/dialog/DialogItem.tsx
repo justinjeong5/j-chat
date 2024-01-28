@@ -1,10 +1,11 @@
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
-import ComingAndOut from "@app/rooms/[roomId]/_component/dialog/item/ComingAndOut";
+import readableElapsedTime from "@lib/time/readable-elapsed-time";
 import { cn } from "@lib/utils";
 import type { FixMe } from "@t/common.type";
 import type { TMessageType } from "@t/message.type";
 import type { TUser } from "@t/user.type";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 function ItemLayout({ children }) {
@@ -34,14 +35,30 @@ export default function DialogItem({
     writer: TUser;
     createdAt: Date;
 }) {
+    const [elapsedTime, setElapsedTime] = useState("조금 전");
+
+    useEffect(() => {
+        setElapsedTime(readableElapsedTime(createdAt));
+        const timer = setInterval(() => {
+            const newElapsedTime = readableElapsedTime(createdAt);
+            if (newElapsedTime !== elapsedTime) {
+                setElapsedTime(newElapsedTime);
+            }
+        }, 1000);
+        return () => {
+            clearInterval(timer);
+        };
+    }, [createdAt]);
+
     if (["joinRoom", "leaveRoom"].includes(type)) {
         return (
             <ItemLayout>
-                <ComingAndOut
-                    type={type}
-                    createdAt={createdAt}
-                    writer={writer}
-                />
+                <div className={cn("py-4")}>
+                    <div className={cn("opacity-50")}>{elapsedTime}</div>
+                    <div>{`${writer.username}님이 ${
+                        type === "joinRoom" ? "입장" : "퇴장"
+                    }하셨습니다. `}</div>
+                </div>
             </ItemLayout>
         );
     }
@@ -63,7 +80,7 @@ export default function DialogItem({
                         <div>
                             <div>{writer.username}</div>
                             <div className={cn("opacity-50")}>
-                                {new Date(createdAt).toLocaleString()}
+                                {elapsedTime}
                             </div>
                         </div>
                         <div className={cn("flex", "gap-3", "items-center")}>
