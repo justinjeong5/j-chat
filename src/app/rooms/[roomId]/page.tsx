@@ -151,7 +151,6 @@ function RoomPage({ user }) {
                         <Dialog
                             dialog={chatRoom.dialog}
                             loading={fetchingData}
-                            autoFocus
                         />
                     }
                     typing={typingPlaceholder(typingUsers)}

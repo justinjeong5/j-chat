@@ -5,7 +5,7 @@ export type TMessage = {
     roomId: string;
     writer: TUser;
 
-    type: string;
+    type: "joinRoom" | "leaveRoom";
     content: string;
     image: string;
 
