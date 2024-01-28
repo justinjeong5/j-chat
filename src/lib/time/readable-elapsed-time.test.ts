@@ -5,7 +5,7 @@ describe("getElapsedTime 함수 테스트", () => {
         const timestamp = new Date();
         timestamp.setSeconds(timestamp.getSeconds() - 1);
         const result = getElapsedTime(timestamp);
-        expect(result).toBe("1초 전");
+        expect(result).toBe("조금 전");
     });
 
     it('1분 이상 지난 시간은 "분 전"으로 반환되어야 합니다.', () => {
