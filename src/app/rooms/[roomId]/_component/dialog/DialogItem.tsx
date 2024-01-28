@@ -9,7 +9,9 @@ import { v4 as uuidv4 } from "uuid";
 
 function ItemLayout({ children }) {
     return (
-        <div className={cn("flex", "flex-col", "gap-4", "py-4", "px-2")}>
+        <div
+            className={cn("flex", "flex-col", "gap-4", "py-4", "pl-2", "pr-6")}
+        >
             {children}
         </div>
     );
