@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { PlusOutlined, UnorderedListOutlined } from "@ant-design/icons";
-import SiderFrame from "@components/layout/SiderFrame";
+import SiderFrame from "@app/_component/SiderFrame";
 import CreateRoomModal from "@components/sider/CreateRoomModal";
 import JoinRoomModal from "@components/sider/JoinRoomModal";
 import Profile from "@components/sider/Profile";
