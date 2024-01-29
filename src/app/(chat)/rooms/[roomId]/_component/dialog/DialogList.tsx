@@ -1,4 +1,4 @@
-import DialogItem from "@app/rooms/[roomId]/_component/dialog/DialogItem";
+import DialogItem from "@app/(chat)/rooms/[roomId]/_component/dialog/DialogItem";
 import { cn } from "@lib/utils";
 import IMessage from "@t/message.type";
 import React, { useEffect, useRef } from "react";

@@ -2,10 +2,10 @@
 
 import AppFrame from "@app/_component/AppFrame";
 import WithAuth from "@app/_hoc/WithAuth";
-import ChatFrame from "@app/rooms/[roomId]/_component/ChatFrame";
-import Dialog from "@app/rooms/[roomId]/_component/Dialog";
-import RoomHeader from "@app/rooms/[roomId]/_component/RoomHeader";
-import Textator from "@app/rooms/[roomId]/_component/Textator";
+import ChatFrame from "@app/(chat)/rooms/[roomId]/_component/ChatFrame";
+import Dialog from "@app/(chat)/rooms/[roomId]/_component/Dialog";
+import RoomHeader from "@app/(chat)/rooms/[roomId]/_component/RoomHeader";
+import Textator from "@app/(chat)/rooms/[roomId]/_component/Textator";
 import Menu from "@components/sider/Menu";
 import useNotice from "@hooks/notice/notice";
 import typingPlaceholder from "@lib/string/typingPlaceholder";

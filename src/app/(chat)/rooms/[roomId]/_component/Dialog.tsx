@@ -1,6 +1,6 @@
-import DialogEmpty from "@app/rooms/[roomId]/_component/dialog/DialogEmpty";
-import DialogList from "@app/rooms/[roomId]/_component/dialog/DialogList";
-import DialogSkeleton from "@app/rooms/[roomId]/_component/dialog/DialogSkeleton";
+import DialogEmpty from "@app/(chat)/rooms/[roomId]/_component/dialog/DialogEmpty";
+import DialogList from "@app/(chat)/rooms/[roomId]/_component/dialog/DialogList";
+import DialogSkeleton from "@app/(chat)/rooms/[roomId]/_component/dialog/DialogSkeleton";
 import IMessage from "@t/message.type";
 import React from "react";
 
