@@ -1,12 +1,10 @@
 "use client";
 
-import AppFrame from "@app/_component/AppFrame";
 import WithAuth from "@app/_hoc/WithAuth";
 import ChatFrame from "@app/(chat)/rooms/[roomId]/_component/ChatFrame";
 import Dialog from "@app/(chat)/rooms/[roomId]/_component/Dialog";
 import RoomHeader from "@app/(chat)/rooms/[roomId]/_component/RoomHeader";
 import Textator from "@app/(chat)/rooms/[roomId]/_component/Textator";
-import Menu from "@components/sider/Menu";
 import useNotice from "@hooks/notice/notice";
 import typingPlaceholder from "@lib/string/typingPlaceholder";
 import MessageModel from "@models/Message";
@@ -135,36 +133,27 @@ function RoomPage({ user }) {
     return (
         <>
             {contextHolder}
-            <AppFrame
-                menu={<Menu user={user} />}
-                header={
-                    <RoomHeader
-                        room={chatRoom}
-                        loading={fetchingData}
-                        leaveRoom={handleLeaveRoom}
-                        toggleStarred={handleToggleStarred}
+            <RoomHeader
+                room={chatRoom}
+                loading={fetchingData}
+                leaveRoom={handleLeaveRoom}
+                toggleStarred={handleToggleStarred}
+            />
+            <ChatFrame
+                dialog={
+                    <Dialog dialog={chatRoom.dialog} loading={fetchingData} />
+                }
+                typing={typingPlaceholder(typingUsers)}
+                textator={
+                    <Textator
+                        placeholder={`#${chatRoom.title} 채널에서 이야기하기`}
+                        messageTour={showMessageTour}
+                        handleSubmit={handleSubmit}
+                        handleTyping={handleTyping}
+                        handleTypingDone={handleTypingDone}
                     />
                 }
-            >
-                <ChatFrame
-                    dialog={
-                        <Dialog
-                            dialog={chatRoom.dialog}
-                            loading={fetchingData}
-                        />
-                    }
-                    typing={typingPlaceholder(typingUsers)}
-                    textator={
-                        <Textator
-                            placeholder={`#${chatRoom.title} 채널에서 이야기하기`}
-                            messageTour={showMessageTour}
-                            handleSubmit={handleSubmit}
-                            handleTyping={handleTyping}
-                            handleTypingDone={handleTypingDone}
-                        />
-                    }
-                />
-            </AppFrame>
+            />
         </>
     );
 }

@@ -6,14 +6,12 @@ import {
     LikeOutlined,
     StarOutlined,
 } from "@ant-design/icons";
-import AppFrame from "@app/_component/AppFrame";
 import WithAuth from "@app/_hoc/WithAuth";
-import Menu from "@components/sider/Menu";
 import type { DescriptionsProps } from "antd";
 import { Col, Descriptions, Row, Statistic, Tabs } from "antd";
 import { usePathname, useRouter } from "next/navigation";
 
-function Detail({ user }) {
+function DetailPage({ user }) {
     const router = useRouter();
     const pathname = usePathname();
     const getLocaleString = (t: Date) => {
@@ -54,7 +52,9 @@ function Detail({ user }) {
     ];
 
     return (
-        <AppFrame menu={<Menu user={user} />} header={<div>사용자 정보</div>}>
+        <>
+            <div>사용자 정보</div>
+
             <Tabs
                 activeKey={pathname}
                 type="card"
@@ -112,8 +112,8 @@ function Detail({ user }) {
                     />
                 </Col>
             </Row>
-        </AppFrame>
+        </>
     );
 }
 
-export default WithAuth(Detail);
+export default WithAuth(DetailPage);

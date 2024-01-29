@@ -46,7 +46,7 @@ export default function ChatFrame({
     }, [scroll]);
 
     return (
-        <div className={cn("h-full")}>
+        <div className={cn("h-fit")}>
             <div id="shadow-scroll" className={dialogClass}>
                 {dialog}
             </div>

@@ -9,7 +9,8 @@ import Menu from "@components/sider/Menu";
 
 function Home({ user }) {
     return (
-        <AppFrame menu={<Menu user={user} />} header={<div>Header App</div>}>
+        <AppFrame menu={<Menu user={user} />}>
+            <div>Header App</div>
             <ChatFrame dialog={<Dialog />} textator={<Textator />} />
         </AppFrame>
     );

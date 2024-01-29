@@ -1,0 +1,11 @@
+"use client";
+
+import AppFrame from "@app/_component/AppFrame";
+import WithAuth from "@app/_hoc/WithAuth";
+import Menu from "@components/sider/Menu";
+
+function ChatLayout({ user, children }) {
+    return <AppFrame menu={<Menu user={user} />}>{children}</AppFrame>;
+}
+
+export default WithAuth(ChatLayout);
