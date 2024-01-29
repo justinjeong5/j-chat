@@ -19,62 +19,49 @@ export default function DialogSkeleton() {
         <>
             {Array.from({ length: SKELETON_COUNT }).map(() => (
                 <div
-                    className={cn("flex", "gap-4", "w-full", "mt-8")}
+                    className={cn("flex", "gap-4", "w-full", "my-8")}
                     key={uuidv4()}
                 >
-                    <div className={cn("flex", "gap-4")}>
-                        <div>
-                            <div className={cn("flex", "gap-4")}>
+                    <div className={cn("w-full")}>
+                        <div className={cn("flex", "gap-4")}>
+                            <div
+                                className={cn(
+                                    skeletonClass,
+                                    "rounded-full",
+                                    "w-10",
+                                    "h-10",
+                                )}
+                            />
+                            <div>
                                 <div
-                                    className={cn(
-                                        skeletonClass,
-                                        "rounded-full",
-                                        "w-10",
-                                        "h-10",
-                                    )}
+                                    className={cn(skeletonClass, "h-4", "w-20")}
                                 />
-                                <div>
-                                    <div
-                                        className={cn(
-                                            skeletonClass,
-                                            "h-4",
-                                            "w-20",
-                                        )}
-                                    />
-                                    <div
-                                        className={cn(
-                                            skeletonClass,
-                                            "h-4",
-                                            "w-40",
-                                        )}
-                                    />
-                                </div>
+                                <div
+                                    className={cn(skeletonClass, "h-4", "w-40")}
+                                />
                             </div>
+                        </div>
+                        <div className={cn("block")}>
                             {Array.from({ length: 3 }).map(() => (
                                 <div
                                     key={uuidv4()}
                                     className={cn(
                                         skeletonClass,
                                         "h-4",
-                                        "w-100",
+                                        "w-full",
                                         "mb-3",
                                     )}
                                 />
                             ))}
-                            <div className={cn("flex", "gap-4", "justify-end")}>
-                                {Array.from({ length: 3 }).map(() => (
-                                    <div
-                                        key={uuidv4()}
-                                        className={cn(
-                                            skeletonClass,
-                                            "h-6",
-                                            "w-12",
-                                        )}
-                                    />
-                                ))}
-                            </div>
                         </div>
-                        <div className={cn(skeletonClass, "w-20", "h-20")} />
+                        <div className={cn("flex", "gap-4", "justify-end")}>
+                            {Array.from({ length: 3 }).map(() => (
+                                <div
+                                    key={uuidv4()}
+                                    className={cn(skeletonClass, "h-6", "w-12")}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
             ))}
