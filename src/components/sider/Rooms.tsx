@@ -1,8 +1,4 @@
-import {
-    CoffeeOutlined,
-    PushpinOutlined,
-    UserOutlined,
-} from "@ant-design/icons";
+import { CoffeeOutlined, UserOutlined } from "@ant-design/icons";
 import useRooms from "@hooks/room/useRooms";
 import Room from "@models/Room";
 import IRoom, { TRoomMenu } from "@t/room.type";
@@ -45,11 +41,6 @@ export default function Rooms({
                         icon: <CoffeeOutlined />,
                     },
                     {
-                        key: Room.STAR,
-                        label: "Starred Rooms",
-                        icon: <PushpinOutlined />,
-                    },
-                    {
                         key: Room.DIRECT,
                         label: "Direct Dialog",
                         icon: <UserOutlined />,
@@ -69,7 +60,7 @@ export default function Rooms({
 
     return (
         <Menu
-            defaultOpenKeys={[Room.PUBLIC, Room.STAR]}
+            defaultOpenKeys={[Room.PUBLIC]}
             selectedKeys={[searchParams?.get("roomId") as string]}
             items={items as TRoomMenu[]}
             mode="inline"

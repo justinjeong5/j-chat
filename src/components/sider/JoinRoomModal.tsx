@@ -1,5 +1,6 @@
 import { TeamOutlined } from "@ant-design/icons";
 import useNotice from "@hooks/notice/notice";
+import RoomModel from "@models/Room";
 import RoomRepo from "@repos/Room";
 import IRoom from "@t/room.type";
 import { Avatar, Button, Divider, List, Modal, Skeleton } from "antd";
@@ -22,7 +23,7 @@ export default function JoinRoomModal({ user, onJoinRoom, children }) {
                 await RoomRepo.getRooms({
                     page,
                     users: { $ne: user.id },
-                    type: "public",
+                    type: RoomModel.PUBLIC,
                 });
             setRooms((r: IRoom[]): IRoom[] => [...r, ...roomsData]);
             setPage(p => p + 1);
