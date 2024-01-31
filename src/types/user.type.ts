@@ -1,24 +1,26 @@
-export type TUser = {
+export type TGeneralUser = {
     id?: string;
     role?: string;
 
     email?: string;
     username?: string;
-    password?: string;
-
     description?: string;
     avatar?: string;
+
+    lastLogin?: Date;
+    updatedAt?: Date;
+    createdAt?: Date;
+};
+
+export type TUser = {
+    password?: string;
 
     rooms?: Array<object>;
     dialog?: Array<object>;
     likes?: Array<object>;
     comments?: Array<object>;
     stars?: Array<object>;
-
-    lastLogin?: Date;
-    updatedAt?: Date;
-    createdAt?: Date;
-};
+} & TGeneralUser;
 
 export default interface IUser extends TUser {}
 

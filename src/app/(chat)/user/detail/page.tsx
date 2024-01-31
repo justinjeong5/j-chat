@@ -6,6 +6,7 @@ import {
     LikeOutlined,
     StarOutlined,
 } from "@ant-design/icons";
+import Header from "@app/_component/Header";
 import WithAuth from "@app/_hoc/WithAuth";
 import type { DescriptionsProps } from "antd";
 import { Col, Descriptions, Row, Statistic, Tabs } from "antd";
@@ -53,7 +54,7 @@ function DetailPage({ user }) {
 
     return (
         <>
-            <div>사용자 정보</div>
+            <Header title="사용자정보" />
 
             <Tabs
                 activeKey={pathname}

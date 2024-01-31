@@ -6,6 +6,7 @@ import {
     ReadOutlined,
     UserOutlined,
 } from "@ant-design/icons";
+import Header from "@app/_component/Header";
 import WithAuth from "@app/_hoc/WithAuth";
 import useNotice from "@hooks/notice/notice";
 import { cn } from "@lib/utils";
@@ -43,7 +44,7 @@ function EditPage({ user }) {
     return (
         <>
             {contextHolder}
-            <div>사용자 정보 수정</div>
+            <Header title="사용자 정보 수정" />
             <Tabs
                 activeKey={pathname as string}
                 type="card"

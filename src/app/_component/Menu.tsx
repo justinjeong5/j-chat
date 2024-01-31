@@ -1,13 +1,14 @@
 /* eslint-disable no-underscore-dangle */
 import { PlusOutlined, UnorderedListOutlined } from "@ant-design/icons";
+import CreateRoomModal from "@app/_component/menu/CreateRoomModal";
+import JoinRoomModal from "@app/_component/menu/JoinRoomModal";
+import Profile from "@app/_component/menu/Profile";
+import Rooms from "@app/_component/menu/PublicRooms";
 import SiderFrame from "@app/_component/SiderFrame";
-import CreateRoomModal from "@components/sider/CreateRoomModal";
-import JoinRoomModal from "@components/sider/JoinRoomModal";
-import Profile from "@components/sider/Profile";
-import Rooms from "@components/sider/Rooms";
 import useNotice from "@hooks/notice/notice";
 import { cn } from "@lib/utils";
 import RoomRepo from "@repos/Room";
+import UserRepo from "@repos/User";
 import { joinRoom } from "@socket/room";
 import IRoom from "@t/room.type";
 import type { TourProps } from "antd";
@@ -56,12 +57,9 @@ export default function Page({ user }) {
     };
 
     const fetchRooms = async () => {
-        setFetchingRooms(true);
         const { results: roomsData } = await RoomRepo.getRooms({
             users: user.id,
         });
-        setRooms(roomsData);
-        setFetchingRooms(false);
         return roomsData;
     };
 
@@ -73,6 +71,8 @@ export default function Page({ user }) {
                     return;
                 }
                 const roomsData = await fetchRooms();
+                setRooms(roomsData);
+
                 if (roomsData && !roomsData.length) {
                     setShowTour(true);
                 }
@@ -84,6 +84,17 @@ export default function Page({ user }) {
         })();
     }, [user.id]);
 
+    useEffect(() => {
+        (async () => {
+            try {
+                const t = await UserRepo.getUsers();
+                console.log(t);
+            } catch (e) {
+                errorHandler(e);
+            }
+        })();
+    }, []);
+
     return (
         <>
             {contextHolder}
@@ -92,7 +103,9 @@ export default function Page({ user }) {
                 footer={<div>J-Chat v1.0.0</div>}
             >
                 <Layout className={cn("block", "bg-[white]")} hasSider>
-                    <CreateRoomModal onCreateRoom={fetchRooms}>
+                    <CreateRoomModal
+                        onCreateRoom={r => setRooms(rs => [...rs, r])}
+                    >
                         <div ref={addRoomBtnRef}>
                             <PlusOutlined /> 대화방 생성
                         </div>
