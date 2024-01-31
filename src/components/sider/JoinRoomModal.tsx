@@ -22,6 +22,7 @@ export default function JoinRoomModal({ user, onJoinRoom, children }) {
                 await RoomRepo.getRooms({
                     page,
                     users: { $ne: user.id },
+                    type: "public",
                 });
             setRooms((r: IRoom[]): IRoom[] => [...r, ...roomsData]);
             setPage(p => p + 1);

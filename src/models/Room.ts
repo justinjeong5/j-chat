@@ -88,10 +88,6 @@ export default class Room extends BaseModel implements IRoom {
         return "public";
     }
 
-    static get STAR(): TRoomType {
-        return "star";
-    }
-
     static get DIRECT(): TRoomType {
         return "direct";
     }
