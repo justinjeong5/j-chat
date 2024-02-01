@@ -1,9 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 import { PlusOutlined, UnorderedListOutlined } from "@ant-design/icons";
-import CreateRoomModal from "@app/_component/menu/CreateRoomModal";
-import JoinRoomModal from "@app/_component/menu/JoinRoomModal";
-import Profile from "@app/_component/menu/Profile";
-import Rooms from "@app/_component/menu/PublicRooms";
+import CreateRoomModal from "@app/_component/CreateRoomModal";
+import JoinRoomModal from "@app/_component/JoinRoomModal";
+import DirectRooms from "@app/_component/menu/DirectRooms";
+import PublicRooms from "@app/_component/menu/PublicRooms";
+import Profile from "@app/_component/Profile";
 import SiderFrame from "@app/_component/SiderFrame";
 import useNotice from "@hooks/notice/notice";
 import { cn } from "@lib/utils";
@@ -11,6 +12,7 @@ import RoomRepo from "@repos/Room";
 import UserRepo from "@repos/User";
 import { joinRoom } from "@socket/room";
 import IRoom from "@t/room.type";
+import { TGeneralUser } from "@t/user.type";
 import type { TourProps } from "antd";
 import { Layout, Tour } from "antd";
 import { useRouter } from "next/navigation";
@@ -21,7 +23,8 @@ export default function Page({ user }) {
     const addRoomBtnRef = useRef(null);
     const joinRoomBtnRef = useRef(null);
 
-    const [rooms, setRooms] = useState<IRoom[]>([]);
+    const [publicRooms, setPublicRooms] = useState<IRoom[]>([]);
+    const [directRooms, setDirectRooms] = useState<TGeneralUser[]>([]);
     const [fetchingRooms, setFetchingRooms] = useState(false);
     const { errorHandler, contextHolder } = useNotice();
     const [showTour, setShowTour] = useState(false);
@@ -51,16 +54,9 @@ export default function Page({ user }) {
 
     const onJoinRoom = async (roomId: string) => {
         const room = await RoomRepo.joinRoom(roomId, user.id);
-        setRooms(r => [...r, room]);
+        setPublicRooms(r => [...r, room]);
         router.push(`/rooms/${roomId}`);
         joinRoom(roomId, user.id);
-    };
-
-    const fetchRooms = async () => {
-        const { results: roomsData } = await RoomRepo.getRooms({
-            users: user.id,
-        });
-        return roomsData;
     };
 
     useEffect(() => {
@@ -70,10 +66,15 @@ export default function Page({ user }) {
                 if (!user.id) {
                     return;
                 }
-                const roomsData = await fetchRooms();
-                setRooms(roomsData);
+                const roomsData = await RoomRepo.getRooms({
+                    users: user.id,
+                });
+                setPublicRooms(roomsData.results);
 
-                if (roomsData && !roomsData.length) {
+                const directRoomsData = await UserRepo.getUsers();
+                setDirectRooms(directRoomsData.results);
+
+                if (!roomsData?.results?.length) {
                     setShowTour(true);
                 }
             } catch (e) {
@@ -104,7 +105,7 @@ export default function Page({ user }) {
             >
                 <Layout className={cn("block", "bg-[white]")} hasSider>
                     <CreateRoomModal
-                        onCreateRoom={r => setRooms(rs => [...rs, r])}
+                        onCreateRoom={r => setPublicRooms(rs => [...rs, r])}
                     >
                         <div ref={addRoomBtnRef}>
                             <PlusOutlined /> 대화방 생성
@@ -115,7 +116,8 @@ export default function Page({ user }) {
                             <UnorderedListOutlined /> 대화방 입장
                         </div>
                     </JoinRoomModal>
-                    <Rooms loading={fetchingRooms} rooms={rooms} />
+                    <PublicRooms loading={fetchingRooms} rooms={publicRooms} />
+                    <DirectRooms loading={fetchingRooms} rooms={directRooms} />
                 </Layout>
             </SiderFrame>
             <Tour

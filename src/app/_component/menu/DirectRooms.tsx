@@ -1,8 +1,9 @@
-import { CoffeeOutlined } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import MenuFrame from "@app/_component/menu/MenuFrame";
 import MenuItem from "@app/_component/menu/MenuItem";
 import Skeleton from "@components/Skeleton";
 import { cn } from "@lib/utils";
+import { TGeneralUser } from "@t/user.type";
 import { useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 
@@ -11,12 +12,12 @@ export default function Rooms({
     rooms,
 }: {
     loading: boolean;
-    rooms: { title: string; id: string }[];
+    rooms: TGeneralUser[];
 }) {
     const router = useRouter();
 
     return (
-        <MenuFrame label="Public Rooms" icon={<CoffeeOutlined />}>
+        <MenuFrame label="Direct Messages" icon={<UserOutlined />}>
             {loading
                 ? Array.from({ length: 3 }).map(() => (
                       <Skeleton
@@ -26,7 +27,7 @@ export default function Rooms({
                   ))
                 : rooms.map(r => (
                       <MenuItem
-                          title={r.title}
+                          title={r.username}
                           onClick={() => {
                               router.push(`/rooms/${r.id}`);
                           }}
