@@ -72,7 +72,9 @@ export default function Page({ user }) {
                 setPublicRooms(roomsData.results);
 
                 const directRoomsData = await UserRepo.getUsers();
-                setDirectRooms(directRoomsData.results);
+                setDirectRooms(
+                    directRoomsData.results.filter(r => r.id !== user.id),
+                );
 
                 if (!roomsData?.results?.length) {
                     setShowTour(true);
