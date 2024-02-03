@@ -27,7 +27,9 @@ export default function Rooms({
                   ))
                 : rooms.map(r => (
                       <MenuItem
-                          title={r.username}
+                          title={r.username as string}
+                          images={[r.avatar || ""].filter(Boolean)}
+                          type="direct"
                           onClick={() => {
                               router.push(`/rooms/${r.id}`);
                           }}

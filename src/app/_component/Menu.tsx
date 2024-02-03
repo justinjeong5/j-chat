@@ -11,7 +11,7 @@ import { cn } from "@lib/utils";
 import RoomRepo from "@repos/Room";
 import UserRepo from "@repos/User";
 import { joinRoom } from "@socket/room";
-import IRoom from "@t/room.type";
+import TRoom from "@t/room.type";
 import { TGeneralUser } from "@t/user.type";
 import type { TourProps } from "antd";
 import { Layout, Tour } from "antd";
@@ -23,7 +23,7 @@ export default function Page({ user }) {
     const addRoomBtnRef = useRef(null);
     const joinRoomBtnRef = useRef(null);
 
-    const [publicRooms, setPublicRooms] = useState<IRoom[]>([]);
+    const [publicRooms, setPublicRooms] = useState<TRoom[]>([]);
     const [directRooms, setDirectRooms] = useState<TGeneralUser[]>([]);
     const [fetchingRooms, setFetchingRooms] = useState(false);
     const { errorHandler, contextHolder } = useNotice();
