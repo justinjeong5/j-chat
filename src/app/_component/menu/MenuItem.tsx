@@ -2,15 +2,29 @@ import Avatar from "@components/Avatar";
 import { cn } from "@lib/utils";
 import { TRoomType } from "@t/room.type";
 
+const activeIconClass = cn(
+    "absolute",
+    "right-[-2px]",
+    "bottom-[-1px]",
+    "rounded-full",
+    "w-2",
+    "h-2",
+    "bg-white",
+);
+
 export default function MenuItem({
     title,
     images = [],
+    selected = false,
     type = "public",
+    active = false,
     onClick,
 }: {
     title: string;
     images?: string[];
+    selected?: boolean;
     type?: TRoomType;
+    active?: boolean;
     onClick: () => void;
 }) {
     return (
@@ -28,6 +42,7 @@ export default function MenuItem({
                 "hover:bg-gray-200",
                 "transition-colors",
                 "duration-200",
+                selected && "bg-gray-100",
             )}
             role="presentation"
             onClick={onClick}
@@ -40,13 +55,14 @@ export default function MenuItem({
                     {type === "direct" && (
                         <div
                             className={cn(
-                                "absolute",
-                                "right-[-2px]",
-                                "bottom-0",
-                                "rounded-full",
-                                "w-2",
-                                "h-2",
-                                "bg-green-500",
+                                activeIconClass,
+                                active
+                                    ? "bg-green-500"
+                                    : cn(
+                                          "border-slate-500",
+                                          "border-solid",
+                                          "border-2",
+                                      ),
                             )}
                         />
                     )}

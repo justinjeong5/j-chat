@@ -4,6 +4,7 @@ import AppFrame from "@app/_component/AppFrame";
 import Header from "@app/_component/Header";
 import Menu from "@app/_component/Menu";
 import WithAuth from "@app/_hoc/WithAuth";
+import WithSocket from "@app/_hoc/WithSocket";
 import { cn } from "@lib/utils";
 
 function ContentFrame({ children }) {
@@ -28,4 +29,4 @@ function Home({ user }) {
     );
 }
 
-export default WithAuth(Home);
+export default WithSocket(WithAuth(Home));

@@ -87,17 +87,6 @@ export default function Page({ user }) {
         })();
     }, [user.id]);
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const t = await UserRepo.getUsers();
-                console.log(t);
-            } catch (e) {
-                errorHandler(e);
-            }
-        })();
-    }, []);
-
     return (
         <>
             {contextHolder}

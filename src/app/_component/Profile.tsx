@@ -9,6 +9,10 @@ export default function Profile({ user }) {
     const handleUserInformation = () => {
         router.push("/user/detail");
     };
+    const handleLogout = () => {
+        UserRepo.logout();
+        router.replace("/login");
+    };
 
     return (
         <div>
@@ -29,7 +33,7 @@ export default function Profile({ user }) {
                     <Button
                         className={cn("bg-[#1677FF]")}
                         type="primary"
-                        onClick={UserRepo.logout}
+                        onClick={handleLogout}
                     >
                         로그아웃
                     </Button>

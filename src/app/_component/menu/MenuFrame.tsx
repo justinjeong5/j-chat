@@ -3,10 +3,13 @@ import { cn } from "@lib/utils";
 import { useState } from "react";
 
 export default function MenuFrame({ label, icon, children }) {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
 
     const toggleOpen = () => {
         setOpen(prev => !prev);
+    };
+    const onClickItem = e => {
+        e.stopPropagation();
     };
 
     return (
@@ -36,7 +39,13 @@ export default function MenuFrame({ label, icon, children }) {
                 </div>
             </div>
             {open && (
-                <div className={cn("p-4", "py-1", "mx-4")}>{children}</div>
+                <div
+                    className={cn("p-4", "py-1", "mx-4")}
+                    role="presentation"
+                    onClick={onClickItem}
+                >
+                    {children}
+                </div>
             )}
         </div>
     );

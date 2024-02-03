@@ -16,7 +16,6 @@ import {
     typingChat,
     typingDone,
 } from "@socket/chatTyping";
-import { disconnectSocket, initiateSocket } from "@socket/index";
 import { enterRoom, exitRoom, leaveRoom } from "@socket/room";
 import IRoom from "@t/room.type";
 import { useParams, useRouter } from "next/navigation";
@@ -105,7 +104,6 @@ function RoomPage({ user }) {
         );
         setLocalStorageHideMessageTour(hideMessageTour);
 
-        initiateSocket();
         subscribeChat(chat => {
             setChatRoom(prev => ({ ...prev, dialog: [...prev.dialog, chat] }));
         });
@@ -126,7 +124,6 @@ function RoomPage({ user }) {
 
         return () => {
             typingDone(chatRoom.id, user.username);
-            disconnectSocket();
         };
     }, []);
 
