@@ -1,11 +1,11 @@
 "use client";
 
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import useLogin from "@hooks/login";
 import useRemember from "@hooks/login/remember";
 import useNotice from "@hooks/notice/notice";
 import getAvatarUrl from "@lib/getAvatarUrl";
 import { cn } from "@lib/utils";
+import UserRepo from "@repos/User";
 import { TUser } from "@t/user.type";
 import { Button, Checkbox, Form, Input } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
@@ -16,12 +16,11 @@ function SignUp() {
     const router = useRouter();
     const { errorHandler, contextHolder } = useNotice();
     const { userEmail, remember, forget, checked, setChecked } = useRemember();
-    const { init, signup } = useLogin();
 
     useEffect(() => {
         (async () => {
             try {
-                const user = await init();
+                const user = await UserRepo.init();
                 if (user) {
                     router.push("/");
                 }
@@ -32,7 +31,7 @@ function SignUp() {
 
     const handleFinish = async (values: TUser) => {
         try {
-            const user = await signup({
+            const user = await UserRepo.signup({
                 ...values,
                 avatar: getAvatarUrl(values.email),
             });

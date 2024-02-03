@@ -1,11 +1,10 @@
-import useLogin from "@hooks/login";
 import { cn } from "@lib/utils";
+import UserRepo from "@repos/User";
 import { Avatar, Button, Space } from "antd";
 import { useRouter } from "next/navigation";
 
 export default function Profile({ user }) {
     const router = useRouter();
-    const { logout } = useLogin();
 
     const handleUserInformation = () => {
         router.push("/user/detail");
@@ -30,7 +29,7 @@ export default function Profile({ user }) {
                     <Button
                         className={cn("bg-[#1677FF]")}
                         type="primary"
-                        onClick={logout}
+                        onClick={UserRepo.logout}
                     >
                         로그아웃
                     </Button>

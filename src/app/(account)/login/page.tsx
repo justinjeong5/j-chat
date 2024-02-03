@@ -1,10 +1,10 @@
 "use client";
 
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import useLogin from "@hooks/login";
 import useRemember from "@hooks/login/remember";
 import useNotice from "@hooks/notice/notice";
 import { cn } from "@lib/utils";
+import UserRepo from "@repos/User";
 import { TUserField } from "@t/user.type";
 import { Button, Checkbox, Form, Input } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
@@ -15,13 +15,12 @@ function Login() {
     const router = useRouter();
     const { errorHandler, contextHolder } = useNotice();
     const { userEmail, remember, forget, checked, setChecked } = useRemember();
-    const { init, login } = useLogin();
     const [form] = Form.useForm();
 
     useEffect(() => {
         (async () => {
             try {
-                const user = await init();
+                const user = await UserRepo.init();
                 if (user) {
                     router.push("/");
                 }
@@ -32,7 +31,7 @@ function Login() {
 
     const handleFinish = async (values: TUserField): Promise<void> => {
         try {
-            const ok = await login(values);
+            const ok = await UserRepo.login(values);
             if (checked) {
                 remember(values.email);
             } else {
