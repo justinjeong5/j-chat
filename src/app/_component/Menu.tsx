@@ -75,8 +75,12 @@ export default function Page({ user }) {
                     users: { $in: user.id },
                     type: RoomModel.DIRECT,
                 });
+
+                // DM과 관련된 로직은 서버에 별도의 API를 두는 것이 좋을 것 같다.
                 setDirectRooms(
-                    directRoomsData.results.filter(r => r.id !== user.id),
+                    directRoomsData.results
+                        .filter(r => r.id !== user.id)
+                        .map(rr => ({ ...rr, username: rr.title })),
                 );
 
                 if (!roomsData?.results?.length) {
