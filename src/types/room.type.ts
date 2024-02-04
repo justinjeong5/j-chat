@@ -34,9 +34,11 @@ export type TRoomMenu = {
 };
 
 export type TRoomField = {
+    id?: string;
     title: string;
     type: string;
     description: string;
+    users?: Array<string>;
 };
 
 export type TRoomType = "public" | "direct";

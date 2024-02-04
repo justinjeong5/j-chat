@@ -1,53 +1,41 @@
-import { TeamOutlined } from "@ant-design/icons";
 import useNotice from "@hooks/notice/notice";
+import getDirectRoomId from "@lib/string/getDirectRoomId";
 import { cn } from "@lib/utils";
 import RoomModel from "@models/Room";
 import RoomRepo from "@repos/Room";
-import IRoom from "@t/room.type";
-import {
-    Avatar,
-    Button,
-    Divider,
-    Form,
-    Input,
-    List,
-    Modal,
-    Skeleton,
-} from "antd";
+import UserRepo from "@repos/User";
+import { TGeneralUser } from "@t/user.type";
+import { Avatar, Button, Divider, List, Modal, Skeleton } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
-};
-
 export default function JoinDirectRoomModal({
     user,
     ref,
-    onJoinRoom,
     onCreateRoom,
     children,
 }) {
     const { errorHandler, contextHolder } = useNotice();
     const router = useRouter();
-    const [form] = Form.useForm();
 
     const [page, setPage] = useState(0);
-    const [rooms, setRooms] = useState([] as IRoom[]);
+    const [directRooms, setDirectRooms] = useState([] as TGeneralUser[]);
     const [open, setOpen] = useState(false);
     const [hasMore, setHasMore] = useState(true);
 
-    const fetchRooms = async () => {
+    const fetchDirectRooms = async () => {
         try {
             const { results: roomsData, hasMore: more } =
-                await RoomRepo.getRooms({
+                await UserRepo.getUsers({
                     page,
-                    users: { $ne: user.id },
-                    type: RoomModel.PUBLIC,
+                    _id: { $ne: user.id },
+                    type: RoomModel.DIRECT,
                 });
-            setRooms((r: IRoom[]): IRoom[] => [...r, ...roomsData]);
+            setDirectRooms((r: TGeneralUser[]): TGeneralUser[] => [
+                ...r,
+                ...roomsData,
+            ]);
             setPage(p => p + 1);
             setHasMore(more);
         } catch (e) {
@@ -56,35 +44,32 @@ export default function JoinDirectRoomModal({
     };
 
     const handleOpenModal = () => {
-        fetchRooms();
+        fetchDirectRooms();
         setOpen(true);
     };
 
-    const handleJoinRoom = (roomId: string | null) => {
-        onJoinRoom(roomId);
-        setRooms([]);
-        setPage(0);
-        setHasMore(true);
-        setOpen(false);
-    };
-
-    const handleCreateRoom = async () => {
-        const data = form.getFieldsValue();
+    const handleCreateRoom = async userId => {
         try {
             const room = await RoomRepo.createRoom({
-                title: data.title,
-                description: data.description,
-                type: "public",
+                id: getDirectRoomId(userId, user.id),
+                title: "DM Test",
+                description: "Description",
+                type: RoomModel.DIRECT,
+                users: [userId, user.id],
             });
             onCreateRoom(room);
+
+            setDirectRooms([]);
+            setPage(0);
+            setHasMore(true);
             setOpen(false);
         } catch (e) {
             errorHandler(e);
         }
     };
 
-    const handleRoute = (roomId: string | null) => {
-        router.push(`/rooms/${roomId}`);
+    const handleRoute = (userId: string) => {
+        router.push(`/rooms/${getDirectRoomId(userId, user.id)}`);
     };
 
     return (
@@ -108,42 +93,17 @@ export default function JoinDirectRoomModal({
             <Modal
                 title="대화 참여하기"
                 open={open}
-                okText="대화방 생성"
+                // okText 제거하기
                 cancelText="취소"
-                onOk={handleCreateRoom}
                 onCancel={() => setOpen(false)}
             >
-                <div>대화방 생성</div>
-                <Form
-                    {...layout}
-                    form={form}
-                    name="control-hooks"
-                    onFinish={handleCreateRoom}
-                    style={{ maxWidth: 600 }}
-                >
-                    <Form.Item
-                        name="title"
-                        label="대화방 이름"
-                        rules={[{ required: true }]}
-                    >
-                        <Input />
-                    </Form.Item>
-                    <Form.Item
-                        name="description"
-                        label="설명"
-                        rules={[{ required: true }]}
-                    >
-                        <Input />
-                    </Form.Item>
-                </Form>
-                <div>대화방 목록</div>
                 <div
                     id="scrollableDiv"
                     style={{ height: "50vh", overflow: "auto" }}
                 >
                     <InfiniteScroll
-                        dataLength={rooms.length}
-                        next={fetchRooms}
+                        dataLength={directRooms.length}
+                        next={fetchDirectRooms}
                         hasMore={hasMore}
                         loader={
                             <Skeleton avatar paragraph={{ rows: 1 }} active />
@@ -157,10 +117,10 @@ export default function JoinDirectRoomModal({
                     >
                         <List
                             itemLayout="horizontal"
-                            dataSource={rooms}
-                            renderItem={(item: IRoom) => (
+                            dataSource={directRooms}
+                            renderItem={(u: TGeneralUser) => (
                                 <List.Item
-                                    onClick={() => handleJoinRoom(item.id)}
+                                    onClick={() => handleCreateRoom(u.id)}
                                 >
                                     <List.Item.Meta
                                         avatar={
@@ -172,39 +132,23 @@ export default function JoinDirectRoomModal({
                                                     backgroundColor: "#fde3cf",
                                                 }}
                                             >
-                                                {item.users.length ? (
-                                                    item.users.map(u => {
-                                                        return (
-                                                            <Avatar
-                                                                key={u.id}
-                                                                src={u.avatar}
-                                                            />
-                                                        );
-                                                    })
-                                                ) : (
-                                                    <Avatar
-                                                        icon={<TeamOutlined />}
-                                                        style={{
-                                                            backgroundColor:
-                                                                "#f56a00",
-                                                        }}
-                                                    >
-                                                        N/A
-                                                    </Avatar>
-                                                )}
+                                                <Avatar
+                                                    key={u.id}
+                                                    src={u.avatar}
+                                                />
                                             </Avatar.Group>
                                         }
                                         title={
                                             <div
                                                 role="presentation"
                                                 onClick={() =>
-                                                    handleRoute(item.id)
+                                                    handleRoute(u.id as string)
                                                 }
                                             >
-                                                {item.title}
+                                                {u.username}
                                             </div>
                                         }
-                                        description={item.description}
+                                        description={u.description}
                                     />
                                 </List.Item>
                             )}

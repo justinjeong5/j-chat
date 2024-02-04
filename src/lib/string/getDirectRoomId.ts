@@ -8,5 +8,5 @@ export default function getDirectRoomId(
         userId > otherUserId
             ? `${userId}-${otherUserId}`
             : `${otherUserId}-${userId}`;
-    return md5(concatenated);
+    return md5(concatenated).slice(0, 12);
 }

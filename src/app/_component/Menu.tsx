@@ -7,8 +7,8 @@ import Profile from "@app/_component/Profile";
 import SiderFrame from "@app/_component/SiderFrame";
 import useNotice from "@hooks/notice/notice";
 import { cn } from "@lib/utils";
+import RoomModel from "@models/Room";
 import RoomRepo from "@repos/Room";
-import UserRepo from "@repos/User";
 import { joinRoom } from "@socket/room";
 import TRoom from "@t/room.type";
 import { TGeneralUser } from "@t/user.type";
@@ -58,14 +58,6 @@ export default function Page({ user }) {
         joinRoom(roomId, user.id);
     };
 
-    const onJoinDirectRoom = async (roomId: string) => {
-        console.log("onJoinDirectRoom", roomId);
-        // const room = await RoomRepo.joinRoom(roomId, user.id);
-        // setDirectRooms(r => [...r, room]);
-        // router.push(`/rooms/${roomId}`);
-        // joinRoom(roomId, user.id);
-    };
-
     useEffect(() => {
         (async () => {
             try {
@@ -74,11 +66,15 @@ export default function Page({ user }) {
                     return;
                 }
                 const roomsData = await RoomRepo.getRooms({
-                    users: user.id,
+                    users: { $in: user.id },
+                    type: RoomModel.PUBLIC,
                 });
                 setPublicRooms(roomsData.results);
 
-                const directRoomsData = await UserRepo.getUsers();
+                const directRoomsData = await RoomRepo.getRooms({
+                    users: { $in: user.id },
+                    type: RoomModel.DIRECT,
+                });
                 setDirectRooms(
                     directRoomsData.results.filter(r => r.id !== user.id),
                 );
@@ -115,15 +111,10 @@ export default function Page({ user }) {
                             <PlusOutlined /> 대화방 입장
                         </JoinPublicRoomModal>
                     </PublicRooms>
-                    <DirectRooms
-                        loading={fetchingRooms}
-                        rooms={directRooms}
-                        userId={user.id}
-                    >
+                    <DirectRooms loading={fetchingRooms} rooms={directRooms}>
                         <JoinDirectRoomModal
                             user={user}
                             ref={addDirectRoomBtnRef}
-                            onJoinRoom={onJoinDirectRoom}
                             onCreateRoom={r => setDirectRooms(rs => [...rs, r])}
                         >
                             <PlusOutlined /> DM 시작

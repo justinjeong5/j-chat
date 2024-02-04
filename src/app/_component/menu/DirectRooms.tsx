@@ -2,7 +2,6 @@ import { UserOutlined } from "@ant-design/icons";
 import MenuFrame from "@app/_component/menu/MenuFrame";
 import MenuItem from "@app/_component/menu/MenuItem";
 import Skeleton from "@components/Skeleton";
-import getDirectRoomId from "@lib/string/getDirectRoomId";
 import { cn } from "@lib/utils";
 import { subscribeUserLogin, subscribeUserLogout } from "@socket/user";
 import { TGeneralUser } from "@t/user.type";
@@ -11,12 +10,10 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 export default function Rooms({
-    userId,
     loading,
     rooms,
     children,
 }: {
-    userId: string;
     loading: boolean;
     rooms: TGeneralUser[];
     children?: React.ReactNode;
@@ -66,12 +63,7 @@ export default function Rooms({
                           type="direct"
                           active={r.active}
                           onClick={() => {
-                              router.push(
-                                  `/rooms/${getDirectRoomId(
-                                      r.id as string,
-                                      userId,
-                                  )}`,
-                              );
+                              router.push(`/rooms/${r.id}`);
                           }}
                       />
                   ))}

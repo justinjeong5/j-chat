@@ -61,8 +61,16 @@ class RoomRepo extends BaseRepo {
         return roomData.setDialog(dialog);
     }
 
-    async createRoom({ title, type, description }: TRoomField): Promise<IRoom> {
-        return this.create(Room.createItem({ title, type, description }));
+    async createRoom({
+        id,
+        title,
+        type,
+        description,
+        users = [],
+    }: TRoomField): Promise<IRoom> {
+        return this.create(
+            Room.createItem({ id, title, type, description, users }),
+        );
     }
 
     async joinRoom(roomId, userId): Promise<IRoom> {

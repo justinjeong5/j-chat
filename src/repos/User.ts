@@ -34,10 +34,11 @@ class UserRepo extends BaseRepo {
 
     async getUsers(
         query = {},
-    ): Promise<{ results: TGeneralUser[]; count: number }> {
+    ): Promise<{ results: TGeneralUser[]; count: number; hasMore: boolean }> {
         return this.client.get("/users", query).then(({ data }) => ({
             results: data.results.map(u => new GeneralUser(u)),
             count: data.count,
+            hasMore: data.hasMore,
         }));
     }
 }
