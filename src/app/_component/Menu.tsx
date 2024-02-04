@@ -114,6 +114,7 @@ export default function Page({ user }) {
                     <DirectRooms loading={fetchingRooms} rooms={directRooms}>
                         <JoinDirectRoomModal
                             user={user}
+                            rooms={directRooms}
                             ref={addDirectRoomBtnRef}
                             onCreateRoom={r => setDirectRooms(rs => [...rs, r])}
                         >

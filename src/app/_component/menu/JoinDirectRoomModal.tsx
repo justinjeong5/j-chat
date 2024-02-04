@@ -12,6 +12,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function JoinDirectRoomModal({
     user,
+    rooms,
     ref,
     onCreateRoom,
     children,
@@ -29,12 +30,19 @@ export default function JoinDirectRoomModal({
             const { results: roomsData, hasMore: more } =
                 await UserRepo.getUsers({
                     page,
-                    _id: { $ne: user.id },
+                    id: { $ne: user.id },
                     type: RoomModel.DIRECT,
                 });
+
+            // DM 찾는 로직은 서버에 별도의 API를 두는 것이 좋을 것 같다.
             setDirectRooms((r: TGeneralUser[]): TGeneralUser[] => [
                 ...r,
-                ...roomsData,
+                ...roomsData.filter(u =>
+                    rooms.every(
+                        (rr: { users: { id: string }[] }) =>
+                            !rr.users.some(({ id }) => id === (u.id as string)),
+                    ),
+                ),
             ]);
             setPage(p => p + 1);
             setHasMore(more);
@@ -48,14 +56,14 @@ export default function JoinDirectRoomModal({
         setOpen(true);
     };
 
-    const handleCreateRoom = async userId => {
+    const handleCreateRoom = async otherUser => {
         try {
             const room = await RoomRepo.createRoom({
-                id: getDirectRoomId(userId, user.id),
-                title: "DM Test",
-                description: "Description",
+                id: getDirectRoomId(otherUser.id, user.id),
+                title: `${otherUser.username} & ${user.username}`,
+                description: `${otherUser.username}님과 ${user.username} 님의 DM`,
                 type: RoomModel.DIRECT,
-                users: [userId, user.id],
+                users: [otherUser.id, user.id],
             });
             onCreateRoom(room);
 
@@ -119,9 +127,7 @@ export default function JoinDirectRoomModal({
                             itemLayout="horizontal"
                             dataSource={directRooms}
                             renderItem={(u: TGeneralUser) => (
-                                <List.Item
-                                    onClick={() => handleCreateRoom(u.id)}
-                                >
+                                <List.Item onClick={() => handleCreateRoom(u)}>
                                     <List.Item.Meta
                                         avatar={
                                             <Avatar.Group
