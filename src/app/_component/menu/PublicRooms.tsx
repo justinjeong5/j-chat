@@ -10,9 +10,11 @@ import { v4 as uuidv4 } from "uuid";
 export default function Rooms({
     loading,
     rooms,
+    children,
 }: {
     loading: boolean;
     rooms: TRoom[];
+    children?: React.ReactNode;
 }) {
     const pathname = usePathname();
     const router = useRouter();
@@ -40,6 +42,7 @@ export default function Rooms({
                           }}
                       />
                   ))}
+            {children}
         </MenuFrame>
     );
 }

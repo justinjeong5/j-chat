@@ -16,7 +16,6 @@ export const detectError = () => {
     }
 };
 export const initiateSocket = () => {
-    console.log("initiateSocket");
     socket = io(process.env.NEXT_PUBLIC_SOCKET_API as string, {
         withCredentials: true,
         transports: ["websocket"],

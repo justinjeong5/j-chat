@@ -1,16 +1,38 @@
 import { TeamOutlined } from "@ant-design/icons";
 import useNotice from "@hooks/notice/notice";
+import { cn } from "@lib/utils";
 import RoomModel from "@models/Room";
 import RoomRepo from "@repos/Room";
 import IRoom from "@t/room.type";
-import { Avatar, Button, Divider, List, Modal, Skeleton } from "antd";
+import {
+    Avatar,
+    Button,
+    Divider,
+    Form,
+    Input,
+    List,
+    Modal,
+    Skeleton,
+} from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-export default function JoinRoomModal({ user, onJoinRoom, children }) {
+const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 },
+};
+
+export default function JoinPublicRoomModal({
+    user,
+    ref,
+    onJoinRoom,
+    onCreateRoom,
+    children,
+}) {
     const { errorHandler, contextHolder } = useNotice();
     const router = useRouter();
+    const [form] = Form.useForm();
 
     const [page, setPage] = useState(0);
     const [rooms, setRooms] = useState([] as IRoom[]);
@@ -46,6 +68,21 @@ export default function JoinRoomModal({ user, onJoinRoom, children }) {
         setOpen(false);
     };
 
+    const handleCreateRoom = async () => {
+        const data = form.getFieldsValue();
+        try {
+            const room = await RoomRepo.createRoom({
+                title: data.title,
+                description: data.description,
+                type: "public",
+            });
+            onCreateRoom(room);
+            setOpen(false);
+        } catch (e) {
+            errorHandler(e);
+        }
+    };
+
     const handleRoute = (roomId: string | null) => {
         router.push(`/rooms/${roomId}`);
     };
@@ -53,14 +90,53 @@ export default function JoinRoomModal({ user, onJoinRoom, children }) {
     return (
         <>
             {contextHolder}
-            <Button block type="text" onClick={handleOpenModal}>
+            <Button
+                block
+                type="text"
+                ref={ref}
+                className={cn(
+                    "flex",
+                    "gap-1",
+                    "items-center",
+                    "px-6",
+                    "cursor-pointer",
+                )}
+                onClick={handleOpenModal}
+            >
                 {children}
             </Button>
             <Modal
-                title="대화방 목록"
+                title="대화 참여하기"
                 open={open}
+                okText="대화방 생성"
+                cancelText="취소"
+                onOk={handleCreateRoom}
                 onCancel={() => setOpen(false)}
             >
+                <div>대화방 생성</div>
+                <Form
+                    {...layout}
+                    form={form}
+                    name="control-hooks"
+                    onFinish={handleCreateRoom}
+                    style={{ maxWidth: 600 }}
+                >
+                    <Form.Item
+                        name="title"
+                        label="대화방 이름"
+                        rules={[{ required: true }]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item
+                        name="description"
+                        label="설명"
+                        rules={[{ required: true }]}
+                    >
+                        <Input />
+                    </Form.Item>
+                </Form>
+                <div>대화방 목록</div>
                 <div
                     id="scrollableDiv"
                     style={{ height: "50vh", overflow: "auto" }}

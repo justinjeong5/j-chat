@@ -105,7 +105,10 @@ function RoomPage({ user }) {
         setLocalStorageHideMessageTour(hideMessageTour);
 
         subscribeChat(chat => {
-            setChatRoom(prev => ({ ...prev, dialog: [...prev.dialog, chat] }));
+            setChatRoom(prev => ({
+                ...prev,
+                dialog: [...(prev.dialog || []), chat],
+            }));
         });
         subscribeTyping((username: string) => {
             if (username === user.username) {

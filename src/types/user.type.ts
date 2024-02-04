@@ -10,6 +10,7 @@ export type TGeneralUser = {
     lastLogin?: Date;
     updatedAt?: Date;
     createdAt?: Date;
+    active?: boolean;
 };
 
 export type TUser = {

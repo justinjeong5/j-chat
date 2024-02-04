@@ -19,6 +19,8 @@ export default class GeneralUser {
 
     createdAt: Date;
 
+    active: boolean;
+
     constructor(config: TGeneralUser) {
         this.id = config.id || "";
         this.role = config.role || "";
@@ -31,5 +33,6 @@ export default class GeneralUser {
         this.lastLogin = config.lastLogin || new Date();
         this.updatedAt = config.updatedAt || new Date();
         this.createdAt = config.createdAt || new Date();
+        this.active = config.active || false;
     }
 }

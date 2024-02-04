@@ -1,8 +1,7 @@
-/* eslint-disable no-underscore-dangle */
-import { PlusOutlined, UnorderedListOutlined } from "@ant-design/icons";
-import CreateRoomModal from "@app/_component/CreateRoomModal";
-import JoinRoomModal from "@app/_component/JoinRoomModal";
+import { PlusOutlined } from "@ant-design/icons";
 import DirectRooms from "@app/_component/menu/DirectRooms";
+import JoinDirectRoomModal from "@app/_component/menu/JoinDirectRoomModal";
+import JoinPublicRoomModal from "@app/_component/menu/JoinPublicRoomModal";
 import PublicRooms from "@app/_component/menu/PublicRooms";
 import Profile from "@app/_component/Profile";
 import SiderFrame from "@app/_component/SiderFrame";
@@ -20,8 +19,8 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Page({ user }) {
     const router = useRouter();
-    const addRoomBtnRef = useRef(null);
-    const joinRoomBtnRef = useRef(null);
+    const addPublicRoomBtnRef = useRef(null);
+    const addDirectRoomBtnRef = useRef(null);
 
     const [publicRooms, setPublicRooms] = useState<TRoom[]>([]);
     const [directRooms, setDirectRooms] = useState<TGeneralUser[]>([]);
@@ -41,22 +40,30 @@ export default function Page({ user }) {
             ),
         },
         {
-            title: "대화방 생성",
-            description: "대화방을 만들고 사람들을 초대해보세요.",
-            target: () => addRoomBtnRef.current,
+            title: "대화방 들어가기",
+            description: "대화방을 들어가서 대화를 나눠보세요.",
+            target: () => addPublicRoomBtnRef.current,
         },
         {
-            title: "대화방 들어가기",
-            description: "대화방에 들어가서 대화를 나눠보세요.",
-            target: () => joinRoomBtnRef.current,
+            title: "DM으로 대화하기",
+            description: "사람들과 1:1 대화를 나눠보세요.",
+            target: () => addDirectRoomBtnRef.current,
         },
     ];
 
-    const onJoinRoom = async (roomId: string) => {
+    const onJoinPublicRoom = async (roomId: string) => {
         const room = await RoomRepo.joinRoom(roomId, user.id);
         setPublicRooms(r => [...r, room]);
         router.push(`/rooms/${roomId}`);
         joinRoom(roomId, user.id);
+    };
+
+    const onJoinDirectRoom = async (roomId: string) => {
+        console.log("onJoinDirectRoom", roomId);
+        // const room = await RoomRepo.joinRoom(roomId, user.id);
+        // setDirectRooms(r => [...r, room]);
+        // router.push(`/rooms/${roomId}`);
+        // joinRoom(roomId, user.id);
     };
 
     useEffect(() => {
@@ -94,21 +101,34 @@ export default function Page({ user }) {
                 profile={<Profile user={user} />}
                 footer={<div>J-Chat v1.0.0</div>}
             >
-                <Layout className={cn("block", "bg-[white]")} hasSider>
-                    <CreateRoomModal
-                        onCreateRoom={r => setPublicRooms(rs => [...rs, r])}
+                <Layout
+                    className={cn("relative", "block", "bg-[white]")}
+                    hasSider
+                >
+                    <PublicRooms loading={fetchingRooms} rooms={publicRooms}>
+                        <JoinPublicRoomModal
+                            user={user}
+                            ref={addPublicRoomBtnRef}
+                            onJoinRoom={onJoinPublicRoom}
+                            onCreateRoom={r => setPublicRooms(rs => [...rs, r])}
+                        >
+                            <PlusOutlined /> 대화방 입장
+                        </JoinPublicRoomModal>
+                    </PublicRooms>
+                    <DirectRooms
+                        loading={fetchingRooms}
+                        rooms={directRooms}
+                        userId={user.id}
                     >
-                        <div ref={addRoomBtnRef}>
-                            <PlusOutlined /> 대화방 생성
-                        </div>
-                    </CreateRoomModal>
-                    <JoinRoomModal user={user} onJoinRoom={onJoinRoom}>
-                        <div ref={joinRoomBtnRef}>
-                            <UnorderedListOutlined /> 대화방 입장
-                        </div>
-                    </JoinRoomModal>
-                    <PublicRooms loading={fetchingRooms} rooms={publicRooms} />
-                    <DirectRooms loading={fetchingRooms} rooms={directRooms} />
+                        <JoinDirectRoomModal
+                            user={user}
+                            ref={addDirectRoomBtnRef}
+                            onJoinRoom={onJoinDirectRoom}
+                            onCreateRoom={r => setDirectRooms(rs => [...rs, r])}
+                        >
+                            <PlusOutlined /> DM 시작
+                        </JoinDirectRoomModal>
+                    </DirectRooms>
                 </Layout>
             </SiderFrame>
             <Tour
