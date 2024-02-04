@@ -38,7 +38,7 @@ export type TRoomField = {
     title: string;
     type: string;
     description: string;
-    users?: Array<string>;
+    users?: Array<TUser>;
 };
 
 export type TRoomType = "public" | "direct";
