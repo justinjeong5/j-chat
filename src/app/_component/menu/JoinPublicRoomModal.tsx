@@ -25,7 +25,6 @@ const layout = {
 
 export default function JoinPublicRoomModal({
     user,
-    ref,
     onJoinRoom,
     onCreateRoom,
     children,
@@ -93,14 +92,7 @@ export default function JoinPublicRoomModal({
             <Button
                 block
                 type="text"
-                ref={ref}
-                className={cn(
-                    "flex",
-                    "gap-1",
-                    "items-center",
-                    "px-6",
-                    "cursor-pointer",
-                )}
+                className={cn("flex", "px-6", "cursor-pointer")}
                 onClick={handleOpenModal}
             >
                 {children}

@@ -1,9 +1,18 @@
-import { initiateSocket } from "@socket/index";
+"use client";
+
+import { disconnectSocket, initiateSocket } from "@socket/index";
+import { useEffect } from "react";
 
 export default function WithSocket(WrappedComponent) {
-    initiateSocket();
-
     return function ChildComponent(props) {
+        useEffect(() => {
+            console.log("initiateSocket");
+            initiateSocket();
+            return () => {
+                console.log("disconnectSocket");
+                disconnectSocket();
+            };
+        }, []);
         return <WrappedComponent {...props} />;
     };
 }

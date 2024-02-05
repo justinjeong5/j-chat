@@ -13,7 +13,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 export default function JoinDirectRoomModal({
     user,
     rooms,
-    ref,
     onCreateRoom,
     children,
 }) {
@@ -86,14 +85,7 @@ export default function JoinDirectRoomModal({
             <Button
                 block
                 type="text"
-                ref={ref}
-                className={cn(
-                    "flex",
-                    "gap-1",
-                    "items-center",
-                    "px-6",
-                    "cursor-pointer",
-                )}
+                className={cn("flex", "px-6", "cursor-pointer")}
                 onClick={handleOpenModal}
             >
                 {children}

@@ -108,21 +108,29 @@ export default function Page({ user }) {
                     <PublicRooms loading={fetchingRooms} rooms={publicRooms}>
                         <JoinPublicRoomModal
                             user={user}
-                            ref={addPublicRoomBtnRef}
                             onJoinRoom={onJoinPublicRoom}
                             onCreateRoom={r => setPublicRooms(rs => [...rs, r])}
                         >
-                            <PlusOutlined /> 대화방 입장
+                            <div
+                                ref={addDirectRoomBtnRef}
+                                className={cn("flex", "items-center", "gap-2")}
+                            >
+                                <PlusOutlined /> 대화방 입장
+                            </div>
                         </JoinPublicRoomModal>
                     </PublicRooms>
                     <DirectRooms loading={fetchingRooms} rooms={directRooms}>
                         <JoinDirectRoomModal
                             user={user}
                             rooms={directRooms}
-                            ref={addDirectRoomBtnRef}
                             onCreateRoom={r => setDirectRooms(rs => [...rs, r])}
                         >
-                            <PlusOutlined /> DM 시작
+                            <div
+                                ref={addDirectRoomBtnRef}
+                                className={cn("flex", "items-center", "gap-2")}
+                            >
+                                <PlusOutlined /> DM 시작
+                            </div>
                         </JoinDirectRoomModal>
                     </DirectRooms>
                 </Layout>
