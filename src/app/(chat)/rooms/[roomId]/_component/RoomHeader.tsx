@@ -35,7 +35,13 @@ export default function RoomHeader({
         {
             label: "나가기",
             key: uuidv4(),
-            onClick: () => leaveRoom(room.id),
+            onClick: () => {
+                if (room.type === "public") {
+                    leaveRoom(room.id);
+                } else {
+                    console.log("DM 나가기는 아직 구현되지 않았습니다.");
+                }
+            },
         },
     ];
 

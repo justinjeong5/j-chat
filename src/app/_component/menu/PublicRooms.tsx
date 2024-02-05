@@ -3,6 +3,7 @@ import MenuFrame from "@app/_component/menu/MenuFrame";
 import MenuItem from "@app/_component/menu/MenuItem";
 import Skeleton from "@components/Skeleton";
 import { cn } from "@lib/utils";
+import RoomModel from "@models/Room";
 import { TRoom } from "@t/room.type";
 import { usePathname, useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
@@ -36,7 +37,7 @@ export default function Rooms({
                               .map(user => user.avatar as string)
                               .filter(Boolean)}
                           selected={pathname === `/rooms/${r.id}`}
-                          type="public"
+                          type={RoomModel.PUBLIC}
                           onClick={() => {
                               router.push(`/rooms/${r.id}`);
                           }}

@@ -3,11 +3,14 @@ import MenuFrame from "@app/_component/menu/MenuFrame";
 import MenuItem from "@app/_component/menu/MenuItem";
 import Skeleton from "@components/Skeleton";
 import { cn } from "@lib/utils";
+import RoomModel from "@models/Room";
 import { subscribeUserLogin, subscribeUserLogout } from "@socket/user";
 import { TGeneralUser } from "@t/user.type";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+
+type TDirectRoom = TGeneralUser & { roomId: string };
 
 export default function Rooms({
     loading,
@@ -15,12 +18,12 @@ export default function Rooms({
     children,
 }: {
     loading: boolean;
-    rooms: TGeneralUser[];
+    rooms: TDirectRoom[];
     children?: React.ReactNode;
 }) {
     const pathname = usePathname();
     const router = useRouter();
-    const [directRooms, setDirectRooms] = useState<TGeneralUser[]>(rooms);
+    const [directRooms, setDirectRooms] = useState<TDirectRoom[]>(rooms);
 
     useEffect(() => {
         setDirectRooms(rooms);
@@ -29,18 +32,28 @@ export default function Rooms({
     useEffect(() => {
         subscribeUserLogin(id => {
             setDirectRooms(prev =>
-                prev.map(r => ({
-                    ...r,
-                    active: r.id === id,
-                })),
+                prev.map(r => {
+                    if (r.id === id) {
+                        return {
+                            ...r,
+                            active: true,
+                        };
+                    }
+                    return r;
+                }),
             );
         });
         subscribeUserLogout(id => {
             setDirectRooms(prev =>
-                prev.map(r => ({
-                    ...r,
-                    active: r.id === id,
-                })),
+                prev.map(r => {
+                    if (r.id === id) {
+                        return {
+                            ...r,
+                            active: false,
+                        };
+                    }
+                    return r;
+                }),
             );
         });
     }, []);
@@ -59,11 +72,11 @@ export default function Rooms({
                           key={uuidv4()}
                           title={r.username as string}
                           images={[r.avatar || ""].filter(Boolean)}
-                          selected={pathname === `/rooms/${r.id}`}
-                          type="direct"
+                          selected={pathname === `/rooms/${r.roomId}`}
+                          type={RoomModel.DIRECT}
                           active={r.active}
                           onClick={() => {
-                              router.push(`/rooms/${r.id}`);
+                              router.push(`/rooms/${r.roomId}`);
                           }}
                       />
                   ))}

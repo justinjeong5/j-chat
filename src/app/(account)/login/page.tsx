@@ -5,7 +5,6 @@ import useRemember from "@hooks/login/remember";
 import useNotice from "@hooks/notice/notice";
 import { cn } from "@lib/utils";
 import UserRepo from "@repos/User";
-import { emitUserLogin } from "@socket/user";
 import { TUserField } from "@t/user.type";
 import { Button, Checkbox, Form, Input } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
@@ -23,7 +22,6 @@ function Login() {
             try {
                 const user = await UserRepo.init();
                 if (user) {
-                    emitUserLogin(user);
                     router.push("/");
                 }
                 // eslint-disable-next-line no-empty
@@ -33,14 +31,13 @@ function Login() {
 
     const handleFinish = async (values: TUserField): Promise<void> => {
         try {
-            const user = await UserRepo.login(values);
+            await UserRepo.login(values);
             if (checked) {
                 remember(values.email);
             } else {
                 forget();
             }
 
-            emitUserLogin(user);
             router.push("/");
         } catch (err) {
             errorHandler(err);

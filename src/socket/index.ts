@@ -16,16 +16,18 @@ export const detectError = () => {
     }
 };
 export const initiateSocket = () => {
-    socket = io(process.env.NEXT_PUBLIC_SOCKET_API as string, {
-        withCredentials: true,
-        transports: ["websocket"],
-    });
+    if (!socket || !socket.connected) {
+        socket = io(process.env.NEXT_PUBLIC_SOCKET_API as string, {
+            withCredentials: true,
+            transports: ["websocket"],
+        });
 
-    registerChatSocket(socket);
-    registerChatTypingSocket(socket);
-    registerRoomSocket(socket);
-    registerUserSocket(socket);
-    detectError();
+        registerChatSocket(socket);
+        registerChatTypingSocket(socket);
+        registerRoomSocket(socket);
+        registerUserSocket(socket);
+        detectError();
+    }
 };
 export const disconnectSocket = () => {
     if (socket) {

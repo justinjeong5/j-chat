@@ -6,13 +6,13 @@ export default function registerUserSocket(s) {
 
 export const emitUserLogin = data => {
     if (socket) {
-        socket.emit("userLogin", data);
+        socket.emit("emitLogin", data);
     }
 };
 
 export const subscribeUserLogin = callback => {
     if (socket) {
-        socket.on("userLogin", ({ user }) => {
+        socket.on("returnLogin", ({ user }) => {
             callback(user);
         });
     }
@@ -20,13 +20,13 @@ export const subscribeUserLogin = callback => {
 
 export const emitUserLogout = data => {
     if (socket) {
-        socket.emit("userLogout", data);
+        socket.emit("emitLogout", data);
     }
 };
 
 export const subscribeUserLogout = callback => {
     if (socket) {
-        socket.on("userLogout", ({ user }) => {
+        socket.on("returnLogout", ({ user }) => {
             callback(user);
         });
     }

@@ -1,5 +1,6 @@
 import { cn } from "@lib/utils";
 import UserRepo from "@repos/User";
+import { emitUserLogout } from "@socket/user";
 import { Avatar, Button, Space } from "antd";
 import { useRouter } from "next/navigation";
 
@@ -10,6 +11,7 @@ export default function Profile({ user }) {
         router.push("/user/detail");
     };
     const handleLogout = () => {
+        emitUserLogout(user);
         UserRepo.logout();
         router.replace("/login");
     };

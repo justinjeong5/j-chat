@@ -64,7 +64,7 @@ export default function JoinDirectRoomModal({
                 type: RoomModel.DIRECT,
                 users: [otherUser.id, user.id],
             });
-            onCreateRoom(room);
+            onCreateRoom({ ...room, username: otherUser.username });
 
             setDirectRooms([]);
             setPage(0);

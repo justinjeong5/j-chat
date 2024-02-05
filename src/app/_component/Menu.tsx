@@ -23,7 +23,9 @@ export default function Page({ user }) {
     const addDirectRoomBtnRef = useRef(null);
 
     const [publicRooms, setPublicRooms] = useState<TRoom[]>([]);
-    const [directRooms, setDirectRooms] = useState<TGeneralUser[]>([]);
+    const [directRooms, setDirectRooms] = useState<
+        (TGeneralUser & { roomId: string })[]
+    >([]);
     const [fetchingRooms, setFetchingRooms] = useState(false);
     const { errorHandler, contextHolder } = useNotice();
     const [showTour, setShowTour] = useState(false);
@@ -78,9 +80,11 @@ export default function Page({ user }) {
 
                 // DM과 관련된 로직은 서버에 별도의 API를 두는 것이 좋을 것 같다.
                 setDirectRooms(
-                    directRoomsData.results
-                        .filter(r => r.id !== user.id)
-                        .map(rr => ({ ...rr, username: rr.title })),
+                    directRoomsData.results.map(rr => ({
+                        ...rr.users.find(u => u.id !== user.id),
+                        roomId: rr.id,
+                        users: rr.users,
+                    })),
                 );
 
                 if (!roomsData?.results?.length) {

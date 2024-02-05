@@ -3,7 +3,7 @@
 import LottieLayout from "@app/_component/LottieLayout";
 import { Player } from "@lottiefiles/react-lottie-player";
 import UserRepo from "@repos/User";
-import { emitUserLogin } from "@socket/user";
+import { emitUserLogin, emitUserLogout } from "@socket/user";
 import { TUser } from "@t/user.type";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -26,6 +26,9 @@ export default function WithAuth(WrappedComponent) {
                     router.push("/login");
                 }
             })();
+            return () => {
+                emitUserLogout(user);
+            };
         }, []);
 
         if (!user.email) {
