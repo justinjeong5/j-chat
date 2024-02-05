@@ -9,4 +9,4 @@ export default interface IRooms extends TRooms {
     isEmpty(): boolean;
 }
 
-export type TRoomType = "public" | "star" | "direct";
+export type TRoomType = "public" | "direct";

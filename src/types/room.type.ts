@@ -1,5 +1,5 @@
 import IMessage from "@t/message.type";
-import { TUser } from "@t/user.type";
+import { TGeneralUser, TUser } from "@t/user.type";
 
 export type TRoom = {
     id: string;
@@ -29,14 +29,16 @@ export type TRoomMenu = {
     description: string;
     type: string;
     starred: boolean;
-    users: Array<object>;
+    users: Array<TGeneralUser>;
     dialog: Array<IMessage>;
 };
 
 export type TRoomField = {
+    id?: string;
     title: string;
     type: string;
     description: string;
+    users?: Array<TUser>;
 };
 
-export type TRoomType = "public" | "star" | "direct";
+export type TRoomType = "public" | "direct";

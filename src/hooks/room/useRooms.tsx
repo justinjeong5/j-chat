@@ -1,17 +1,10 @@
-import {
-    CoffeeOutlined,
-    PushpinOutlined,
-    UserOutlined,
-} from "@ant-design/icons";
+import { CoffeeOutlined, UserOutlined } from "@ant-design/icons";
 import Room from "@models/Room";
 import IRoom from "@t/room.type";
 import { TRoomType } from "@t/rooms.type";
 
 export default function useRooms() {
     const getTypeOf = (list: IRoom[], type: TRoomType): IRoom[] => {
-        if (type === Room.STAR) {
-            return list.filter(r => !!r.starred);
-        }
         return list.filter(r => !r.starred && r.type === type);
     };
 
@@ -22,12 +15,6 @@ export default function useRooms() {
                 label: "Public Rooms",
                 icon: <CoffeeOutlined />,
                 children: getTypeOf(rooms, Room.PUBLIC).map(r => r.toMenu()),
-            },
-            {
-                key: Room.STAR,
-                label: "Starred Rooms",
-                icon: <PushpinOutlined />,
-                children: getTypeOf(rooms, Room.STAR).map(r => r.toMenu()),
             },
             {
                 key: Room.DIRECT,

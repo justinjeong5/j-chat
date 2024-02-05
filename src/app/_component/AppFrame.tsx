@@ -1,9 +1,9 @@
 import { cn } from "@lib/utils";
 import { Layout } from "antd";
 
-const { Sider, Content, Header } = Layout;
+const { Sider, Content } = Layout;
 
-export default function AppFrame({ menu, header, children }) {
+export default function AppFrame({ menu, children }) {
     return (
         <div className={cn("my-0", "mx-auto", "max-w-[1400px]")}>
             <Layout className={cn("bg-[white]")} hasSider>
@@ -25,9 +25,6 @@ export default function AppFrame({ menu, header, children }) {
                     {menu}
                 </Sider>
                 <Layout>
-                    <Header className={cn("bg-[white]", "h-[89px]")}>
-                        {header}
-                    </Header>
                     <Content className={cn("bg-[white]", "p-4")}>
                         {children}
                     </Content>

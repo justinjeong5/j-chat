@@ -1,18 +1,32 @@
 "use client";
 
 import AppFrame from "@app/_component/AppFrame";
+import Header from "@app/_component/Header";
+import Menu from "@app/_component/Menu";
 import WithAuth from "@app/_hoc/WithAuth";
-import ChatFrame from "@app/rooms/[roomId]/_component/ChatFrame";
-import Dialog from "@app/rooms/[roomId]/_component/Dialog";
-import Textator from "@app/rooms/[roomId]/_component/Textator";
-import Menu from "@components/sider/Menu";
+import WithSocket from "@app/_hoc/WithSocket";
+import { cn } from "@lib/utils";
+
+function ContentFrame({ children }) {
+    return <div className={cn("m-2")}>{children}</div>;
+}
 
 function Home({ user }) {
     return (
-        <AppFrame menu={<Menu user={user} />} header={<div>Header App</div>}>
-            <ChatFrame dialog={<Dialog />} textator={<Textator />} />
+        <AppFrame menu={<Menu user={user} />}>
+            <Header title="첫 페이지">
+                <div>페이지 설명?</div>
+            </Header>
+            <ContentFrame>
+                <div>페이지 내용</div>
+                <div>페이지 내용</div>
+                <div>페이지 내용</div>
+                <div>페이지 내용</div>
+                <div>페이지 내용</div>
+                <div>페이지 내용</div>
+            </ContentFrame>
         </AppFrame>
     );
 }
 
-export default WithAuth(Home);
+export default WithSocket(WithAuth(Home));

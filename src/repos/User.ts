@@ -1,6 +1,7 @@
+import GeneralUser from "@models/GeneralUser";
 import User from "@models/User";
 import BaseRepo from "@repos/BaseRepo";
-import IUser, { TUser, TUserField } from "@t/user.type";
+import IUser, { TGeneralUser, TUser, TUserField } from "@t/user.type";
 
 class UserRepo extends BaseRepo {
     async init(): Promise<IUser> {
@@ -29,6 +30,16 @@ class UserRepo extends BaseRepo {
         return this.client
             .patch(this.buildUrl("update", query, { id }), user)
             .then(({ data }) => new User(data));
+    }
+
+    async getUsers(
+        query = {},
+    ): Promise<{ results: TGeneralUser[]; count: number; hasMore: boolean }> {
+        return this.client.get("/users", query).then(({ data }) => ({
+            results: data.results.map(u => new GeneralUser(u)),
+            count: data.count,
+            hasMore: data.hasMore,
+        }));
     }
 }
 
