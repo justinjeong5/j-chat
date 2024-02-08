@@ -13,13 +13,27 @@ export default function DialogSkeleton() {
                     key={uuidv4()}
                 >
                     <div className={cn("w-full")}>
-                        <div className={cn("flex", "gap-4")}>
-                            <Skeleton
-                                className={cn("rounded-full", "w-10", "h-10")}
-                            />
-                            <div>
-                                <Skeleton className={cn("h-4", "w-20")} />
-                                <Skeleton className={cn("h-4", "w-20")} />
+                        <div className={cn("flex", "justify-between")}>
+                            <div className={cn("flex", "gap-4")}>
+                                <Skeleton
+                                    className={cn(
+                                        "rounded-full",
+                                        "w-10",
+                                        "h-10",
+                                    )}
+                                />
+                                <div>
+                                    <Skeleton className={cn("h-4", "w-20")} />
+                                    <Skeleton className={cn("h-4", "w-32")} />
+                                </div>
+                            </div>
+                            <div className={cn("flex", "gap-4", "justify-end")}>
+                                {Array.from({ length: 3 }).map(() => (
+                                    <Skeleton
+                                        key={uuidv4()}
+                                        className={cn("h-6", "w-12")}
+                                    />
+                                ))}
                             </div>
                         </div>
                         <div className={cn("block")}>
@@ -27,14 +41,6 @@ export default function DialogSkeleton() {
                                 <Skeleton
                                     key={uuidv4()}
                                     className={cn("h-4", "w-full", "mb-3")}
-                                />
-                            ))}
-                        </div>
-                        <div className={cn("flex", "gap-4", "justify-end")}>
-                            {Array.from({ length: 3 }).map(() => (
-                                <Skeleton
-                                    key={uuidv4()}
-                                    className={cn("h-6", "w-12")}
                                 />
                             ))}
                         </div>
