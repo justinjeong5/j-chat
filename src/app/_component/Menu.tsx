@@ -5,7 +5,7 @@ import JoinPublicRoomModal from "@app/_component/menu/JoinPublicRoomModal";
 import PublicRooms from "@app/_component/menu/PublicRooms";
 import Profile from "@app/_component/Profile";
 import SiderFrame from "@app/_component/SiderFrame";
-import useNotice from "@hooks/notice/notice";
+import useNotice from "@hooks/notice";
 import { cn } from "@lib/utils";
 import RoomModel from "@models/Room";
 import RoomRepo from "@repos/Room";

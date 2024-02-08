@@ -5,7 +5,7 @@ import ChatFrame from "@app/(chat)/rooms/[roomId]/_component/ChatFrame";
 import Dialog from "@app/(chat)/rooms/[roomId]/_component/Dialog";
 import RoomHeader from "@app/(chat)/rooms/[roomId]/_component/RoomHeader";
 import Textator from "@app/(chat)/rooms/[roomId]/_component/Textator";
-import useNotice from "@hooks/notice/notice";
+import useNotice from "@hooks/notice";
 import typingPlaceholder from "@lib/placeholder/typing-placeholder";
 import MessageModel from "@models/Message";
 import RoomRepo from "@repos/Room";

@@ -2,7 +2,7 @@
 
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import useRemember from "@hooks/login/remember";
-import useNotice from "@hooks/notice/notice";
+import useNotice from "@hooks/notice";
 import { cn } from "@lib/utils";
 import UserRepo from "@repos/User";
 import { TUserField } from "@t/user.type";

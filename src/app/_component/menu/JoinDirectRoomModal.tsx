@@ -1,4 +1,4 @@
-import useNotice from "@hooks/notice/notice";
+import useNotice from "@hooks/notice";
 import combineDirectRoomId from "@lib/string/combine-direct-room-id";
 import { cn } from "@lib/utils";
 import RoomModel from "@models/Room";
