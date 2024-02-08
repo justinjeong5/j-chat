@@ -1,4 +1,4 @@
-import typingPlaceholder from "./typingPlaceholder";
+import typingPlaceholder from "./typing-placeholder";
 
 describe("string/typingPlaceholder", () => {
     [

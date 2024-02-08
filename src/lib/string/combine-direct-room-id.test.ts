@@ -1,13 +1,13 @@
 import md5 from "md5";
 
-import getDirectRoomId from "./getDirectRoomId";
+import combineDirectRoomId from "./combine-direct-room-id";
 
-describe("getDirectRoomId 함수 테스트", () => {
+describe("combineDirectRoomId 함수 테스트", () => {
     it("Hash된 문자열의 길이는 12", () => {
         const userId = "user1";
         const otherUserId = "user2";
 
-        const result = getDirectRoomId(userId, otherUserId);
+        const result = combineDirectRoomId(userId, otherUserId);
 
         expect(result.length).toEqual(12);
     });
@@ -16,7 +16,7 @@ describe("getDirectRoomId 함수 테스트", () => {
         const otherUserId = "user2";
         const hashedValue = md5(`${otherUserId}-${userId}`);
 
-        const result = getDirectRoomId(userId, otherUserId);
+        const result = combineDirectRoomId(userId, otherUserId);
 
         expect(hashedValue.includes(result)).toBeTruthy();
     });
@@ -26,7 +26,7 @@ describe("getDirectRoomId 함수 테스트", () => {
         const otherUserId = "user1";
         const hashedValue = md5(`${userId}-${otherUserId}`);
 
-        const result = getDirectRoomId(userId, otherUserId);
+        const result = combineDirectRoomId(userId, otherUserId);
 
         expect(hashedValue.includes(result)).toBeTruthy();
     });

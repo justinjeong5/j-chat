@@ -6,7 +6,7 @@ import Dialog from "@app/(chat)/rooms/[roomId]/_component/Dialog";
 import RoomHeader from "@app/(chat)/rooms/[roomId]/_component/RoomHeader";
 import Textator from "@app/(chat)/rooms/[roomId]/_component/Textator";
 import useNotice from "@hooks/notice/notice";
-import typingPlaceholder from "@lib/string/typingPlaceholder";
+import typingPlaceholder from "@lib/placeholder/typing-placeholder";
 import MessageModel from "@models/Message";
 import RoomRepo from "@repos/Room";
 import { sendChat, subscribeChat } from "@socket/chat";

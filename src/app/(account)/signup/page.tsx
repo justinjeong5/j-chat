@@ -3,7 +3,7 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import useRemember from "@hooks/login/remember";
 import useNotice from "@hooks/notice/notice";
-import getAvatarUrl from "@lib/getAvatarUrl";
+import getAvatarUrl from "@lib/get-avatar-url";
 import { cn } from "@lib/utils";
 import UserRepo from "@repos/User";
 import { TUser } from "@t/user.type";
