@@ -8,18 +8,24 @@ const useLoginRemember = () => {
     const [checked, internalSetChecked] = useState(
         JSON.parse(LocalStorage.getItem(rememberCheckedKey) || "false"),
     );
-    const userEmail = LocalStorage.getItem(rememberKey);
+    const [userEmail, setUserEmail] = useState(
+        LocalStorage.getItem(rememberKey),
+    );
 
     const remember = (email: string) => {
         LocalStorage.setItem(rememberKey, email);
     };
     const forget = () => {
+        setUserEmail("");
         LocalStorage.removeItem(rememberKey);
     };
 
-    const setChecked = v => {
-        internalSetChecked(v);
-        LocalStorage.setItem(rememberCheckedKey, JSON.stringify(v));
+    const setChecked = c => {
+        internalSetChecked(c);
+        LocalStorage.setItem(rememberCheckedKey, JSON.stringify(c));
+        if (!c) {
+            forget();
+        }
     };
 
     return {
