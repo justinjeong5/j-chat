@@ -1,3 +1,4 @@
+import useTourRemember from "@hooks/page/tour";
 import { cn } from "@lib/utils";
 import type { TourProps } from "antd";
 import { Button, Input, Space, Tour } from "antd";
@@ -11,21 +12,14 @@ export default function Textator({
     handleTyping = () => {},
     handleTypingDone = () => {},
     placeholder = "대화를 시작해 보세요.",
-    messageTour = false,
     sending = false,
 }) {
     const searchParams = useSearchParams();
+    const { messageTour, forgetTour } = useTourRemember();
     const textAreaRef = useRef(null);
     const fileBtnRef = useRef(null);
     const sendBtnRef = useRef(null);
-    const [showTour, setShowTour] = useState(false);
     const [message, setMessage] = useState("");
-
-    useEffect(() => {
-        if (messageTour) {
-            setShowTour(true);
-        }
-    }, [messageTour]);
 
     useEffect(() => {
         if (message.trim().length) {
@@ -49,6 +43,7 @@ export default function Textator({
             title: "메세지 작성",
             description: "나누고 싶은 이야기를 작성해 보세요.",
             placement: "top",
+            nextButtonProps: { className: cn("bg-[#1677FF]") },
             cover: (
                 <img
                     alt="tour.png"
@@ -61,20 +56,17 @@ export default function Textator({
             title: "파일 첨부",
             description: "그림과 동영상을 이용하여 다채롭게 이야기해 보세요.",
             placement: "top",
+            nextButtonProps: { className: cn("bg-[#1677FF]") },
             target: () => fileBtnRef.current,
         },
         {
             title: "메세지 전송",
             description: "이야기를 전송하여 대화를 시작해 보세요.",
             placement: "top",
+            nextButtonProps: { className: cn("bg-[#1677FF]") },
             target: () => sendBtnRef.current,
         },
     ];
-
-    const handleTourClose = () => {
-        localStorage.setItem("j-chat-hide-message-tour", JSON.stringify(true));
-        setShowTour(false);
-    };
 
     const handleSend = e => {
         e.preventDefault();
@@ -123,7 +115,12 @@ export default function Textator({
                 </Space>
             </div>
 
-            <Tour open={showTour} onClose={handleTourClose} steps={steps} />
+            <Tour
+                className={cn("bg-blue")}
+                open={messageTour}
+                onClose={forgetTour}
+                steps={steps}
+            />
         </>
     );
 }

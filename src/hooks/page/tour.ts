@@ -1,20 +1,20 @@
 import LocalStorage from "@lib/local-storage";
+import { useState } from "react";
 
-const rememberKey = "j-chat-hide-message-tour";
+const hideKey = "j-chat-message-tour";
 
 const useTourRemember = () => {
-    const tour = LocalStorage.getItem(rememberKey);
+    const [messageTour, setMessageTour] = useState(
+        JSON.parse(LocalStorage.getItem(hideKey) || "true"),
+    );
 
-    const rememberTour = (email: string) => {
-        LocalStorage.setItem(rememberKey, email);
-    };
     const forgetTour = () => {
-        LocalStorage.removeItem(rememberKey);
+        LocalStorage.setItem(hideKey, "false");
+        setMessageTour(false);
     };
 
     return {
-        tour,
-        rememberTour,
+        messageTour,
         forgetTour,
     };
 };

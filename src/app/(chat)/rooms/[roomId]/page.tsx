@@ -6,6 +6,7 @@ import Dialog from "@app/(chat)/rooms/[roomId]/_component/Dialog";
 import RoomHeader from "@app/(chat)/rooms/[roomId]/_component/RoomHeader";
 import Textator from "@app/(chat)/rooms/[roomId]/_component/Textator";
 import useNotice from "@hooks/notice";
+import usePageRemember from "@hooks/page/remember";
 import typingPlaceholder from "@lib/placeholder/typing-placeholder";
 import MessageModel from "@models/Message";
 import RoomRepo from "@repos/Room";
@@ -25,13 +26,11 @@ function RoomPage({ user }) {
     const router = useRouter();
     const params = useParams();
     const { errorHandler, contextHolder } = useNotice();
+    const { rememberPage } = usePageRemember();
     const [chatRoom, setChatRoom] = useState({} as IRoom);
 
     const [typingUsers, setTypingUsers] = useState([] as string[]);
     const [fetchingData, setFetchingData] = useState(false);
-    const [showMessageTour, setShowMessageTour] = useState(false);
-    const [localStorageHideMessageTour, setLocalStorageHideMessageTour] =
-        useState(false);
 
     const handleSubmit = async content => {
         const message = MessageModel.createItem({
@@ -74,10 +73,6 @@ function RoomPage({ user }) {
                 typingDone(roomId, user.username);
                 const room = await RoomRepo.get(roomId);
                 setChatRoom(room);
-
-                if (!localStorageHideMessageTour && !room.dialog.length) {
-                    setShowMessageTour(true);
-                }
             } catch (e) {
                 errorHandler(e);
             } finally {
@@ -89,6 +84,7 @@ function RoomPage({ user }) {
     useEffect(() => {
         if (chatRoom.id) {
             enterRoom(chatRoom.id);
+            rememberPage(chatRoom.id);
         }
         return () => {
             if (chatRoom.id) {
@@ -99,11 +95,6 @@ function RoomPage({ user }) {
     }, [chatRoom.id]);
 
     useEffect(() => {
-        const hideMessageTour = JSON.parse(
-            localStorage.getItem("j-chat-hide-message-tour") || "true",
-        );
-        setLocalStorageHideMessageTour(hideMessageTour);
-
         subscribeChat(chat => {
             setChatRoom(prev => ({
                 ...prev,
@@ -147,7 +138,6 @@ function RoomPage({ user }) {
                 textator={
                     <Textator
                         placeholder={`#${chatRoom.title} 채널에서 이야기하기`}
-                        messageTour={showMessageTour}
                         handleSubmit={handleSubmit}
                         handleTyping={handleTyping}
                         handleTypingDone={handleTypingDone}
