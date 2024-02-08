@@ -173,6 +173,15 @@ function SignUp() {
                         회원가입 하기
                     </Button>
                 </Form.Item>
+
+                <Form.Item>
+                    <Button
+                        className={cn("w-full")}
+                        onClick={() => router.push("/login")}
+                    >
+                        돌아가기
+                    </Button>
+                </Form.Item>
             </Form>
         </>
     );

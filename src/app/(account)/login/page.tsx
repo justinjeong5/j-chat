@@ -117,7 +117,14 @@ function Login() {
                     >
                         로그인하기
                     </Button>
-                    또는 <a href="/signup">회원 가입</a>하기
+                </Form.Item>
+                <Form.Item>
+                    <Button
+                        className={cn("w-full")}
+                        onClick={() => router.push("/signup")}
+                    >
+                        회원가입 하기
+                    </Button>
                 </Form.Item>
             </Form>
         </>
