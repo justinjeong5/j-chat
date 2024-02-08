@@ -1,7 +1,7 @@
 "use client";
 
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import useRemember from "@hooks/login/remember";
+import useLoginRemember from "@hooks/login/remember";
 import useNotice from "@hooks/notice";
 import getAvatarUrl from "@lib/get-avatar-url";
 import { cn } from "@lib/utils";
@@ -15,7 +15,8 @@ import { useEffect, useMemo } from "react";
 function SignUp() {
     const router = useRouter();
     const { errorHandler, contextHolder } = useNotice();
-    const { userEmail, remember, forget, checked, setChecked } = useRemember();
+    const { userEmail, remember, forget, checked, setChecked } =
+        useLoginRemember();
 
     useEffect(() => {
         (async () => {

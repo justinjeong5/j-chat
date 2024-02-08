@@ -4,7 +4,7 @@ import { useState } from "react";
 const rememberKey = "j-chat-user-remember";
 const rememberCheckedKey = "j-chat-user-remember-checked";
 
-const useRemember = () => {
+const useLoginRemember = () => {
     const [checked, internalSetChecked] = useState(
         JSON.parse(LocalStorage.getItem(rememberCheckedKey) || "false"),
     );
@@ -31,4 +31,4 @@ const useRemember = () => {
     };
 };
 
-export default useRemember;
+export default useLoginRemember;

@@ -1,7 +1,7 @@
 "use client";
 
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import useRemember from "@hooks/login/remember";
+import useLoginRemember from "@hooks/login/remember";
 import useNotice from "@hooks/notice";
 import { cn } from "@lib/utils";
 import UserRepo from "@repos/User";
@@ -14,7 +14,8 @@ import { useEffect } from "react";
 function Login() {
     const router = useRouter();
     const { errorHandler, contextHolder } = useNotice();
-    const { userEmail, remember, forget, checked, setChecked } = useRemember();
+    const { userEmail, remember, forget, checked, setChecked } =
+        useLoginRemember();
     const [form] = Form.useForm();
 
     useEffect(() => {
