@@ -1,5 +1,5 @@
 import { TeamOutlined } from "@ant-design/icons";
-import useNotice from "@hooks/notice/notice";
+import useNotice from "@hooks/notice";
 import { cn } from "@lib/utils";
 import RoomModel from "@models/Room";
 import RoomRepo from "@repos/Room";

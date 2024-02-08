@@ -1,8 +1,8 @@
 "use client";
 
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import useRemember from "@hooks/login/remember";
-import useNotice from "@hooks/notice/notice";
+import useLoginRemember from "@hooks/login/remember";
+import useNotice from "@hooks/notice";
 import { cn } from "@lib/utils";
 import UserRepo from "@repos/User";
 import { TUserField } from "@t/user.type";
@@ -14,7 +14,8 @@ import { useEffect } from "react";
 function Login() {
     const router = useRouter();
     const { errorHandler, contextHolder } = useNotice();
-    const { userEmail, remember, forget, checked, setChecked } = useRemember();
+    const { userEmail, remember, forget, checked, setChecked } =
+        useLoginRemember();
     const [form] = Form.useForm();
 
     useEffect(() => {
@@ -116,7 +117,14 @@ function Login() {
                     >
                         로그인하기
                     </Button>
-                    또는 <a href="/signup">회원 가입</a>하기
+                </Form.Item>
+                <Form.Item>
+                    <Button
+                        className={cn("w-full")}
+                        onClick={() => router.push("/signup")}
+                    >
+                        회원가입 하기
+                    </Button>
                 </Form.Item>
             </Form>
         </>

@@ -1,5 +1,5 @@
-import useNotice from "@hooks/notice/notice";
-import getDirectRoomId from "@lib/string/getDirectRoomId";
+import useNotice from "@hooks/notice";
+import combineDirectRoomId from "@lib/string/combine-direct-room-id";
 import { cn } from "@lib/utils";
 import RoomModel from "@models/Room";
 import RoomRepo from "@repos/Room";
@@ -58,7 +58,7 @@ export default function JoinDirectRoomModal({
     const handleCreateRoom = async otherUser => {
         try {
             const room = await RoomRepo.createRoom({
-                id: getDirectRoomId(otherUser.id, user.id),
+                id: combineDirectRoomId(otherUser.id, user.id),
                 title: `${otherUser.username} & ${user.username}`,
                 description: `${otherUser.username}님과 ${user.username} 님의 DM`,
                 type: RoomModel.DIRECT,
@@ -76,7 +76,7 @@ export default function JoinDirectRoomModal({
     };
 
     const handleRoute = (userId: string) => {
-        router.push(`/rooms/${getDirectRoomId(userId, user.id)}`);
+        router.push(`/rooms/${combineDirectRoomId(userId, user.id)}`);
     };
 
     return (

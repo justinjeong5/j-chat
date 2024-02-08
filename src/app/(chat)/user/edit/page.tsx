@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import Header from "@app/_component/Header";
 import WithAuth from "@app/_hoc/WithAuth";
-import useNotice from "@hooks/notice/notice";
+import useNotice from "@hooks/notice";
 import { cn } from "@lib/utils";
 import UserRepo from "@repos/User";
 import { TUser } from "@t/user.type";

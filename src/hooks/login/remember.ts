@@ -1,22 +1,31 @@
-import LocalStorage from "@hooks/login/localStorage";
+import LocalStorage from "@lib/local-storage";
 import { useState } from "react";
 
-const useRemember = () => {
+const rememberKey = "j-chat-user-remember";
+const rememberCheckedKey = "j-chat-user-remember-checked";
+
+const useLoginRemember = () => {
     const [checked, internalSetChecked] = useState(
-        JSON.parse(LocalStorage.getItem("j-user-remember-checked") || "false"),
+        JSON.parse(LocalStorage.getItem(rememberCheckedKey) || "false"),
     );
-    const userEmail = LocalStorage.getItem("j-user-remember");
+    const [userEmail, setUserEmail] = useState(
+        LocalStorage.getItem(rememberKey),
+    );
 
     const remember = (email: string) => {
-        LocalStorage.setItem("j-user-remember", email);
+        LocalStorage.setItem(rememberKey, email);
     };
     const forget = () => {
-        LocalStorage.removeItem("j-user-remember");
+        setUserEmail("");
+        LocalStorage.removeItem(rememberKey);
     };
 
-    const setChecked = v => {
-        internalSetChecked(v);
-        LocalStorage.setItem("j-user-remember-checked", JSON.stringify(v));
+    const setChecked = c => {
+        internalSetChecked(c);
+        LocalStorage.setItem(rememberCheckedKey, JSON.stringify(c));
+        if (!c) {
+            forget();
+        }
     };
 
     return {
@@ -28,4 +37,4 @@ const useRemember = () => {
     };
 };
 
-export default useRemember;
+export default useLoginRemember;

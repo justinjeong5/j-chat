@@ -1,14 +1,10 @@
 "use client";
 
-import LottieLayout from "@app/_component/LottieLayout";
-import { Player } from "@lottiefiles/react-lottie-player";
 import UserRepo from "@repos/User";
 import { emitUserLogin, emitUserLogout } from "@socket/user";
 import { TUser } from "@t/user.type";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
-import Lottie from "../../../public/lottie/loading.json";
 
 export default function WithAuth(WrappedComponent) {
     return function ChildComponent(props) {
@@ -31,13 +27,6 @@ export default function WithAuth(WrappedComponent) {
             };
         }, []);
 
-        if (!user.email) {
-            return (
-                <LottieLayout>
-                    <Player src={Lottie} autoplay loop />
-                </LottieLayout>
-            );
-        }
         return <WrappedComponent {...props} user={user} />;
     };
 }
