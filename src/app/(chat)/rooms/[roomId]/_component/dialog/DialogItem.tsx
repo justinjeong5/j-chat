@@ -74,7 +74,6 @@ export default function DialogItem({
                     width={32}
                     height={32}
                     blurDataURL={writer.avatar}
-                    placeholder="blur"
                 />
                 <div className={cn("w-full")}>
                     <div className={cn("flex", "justify-between")}>
