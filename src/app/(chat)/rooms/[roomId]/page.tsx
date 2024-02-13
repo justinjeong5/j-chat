@@ -33,6 +33,11 @@ function RoomPage({ user }) {
     const [typingUsers, setTypingUsers] = useState([] as TTypingUser[]);
     const [fetchingData, setFetchingData] = useState(false);
 
+    const typings = useMemo(
+        () => typingPlaceholder(typingUsers),
+        [typingUsers],
+    );
+
     const handleLeaveRoom = useCallback(
         async roomId => {
             await RoomRepo.leaveRoom(roomId, user.id);
@@ -129,10 +134,6 @@ function RoomPage({ user }) {
             }
         };
     }, [chatRoom.id, user]);
-
-    const typings = useMemo(() => {
-        return typingPlaceholder(typingUsers);
-    }, [typingUsers]);
 
     return (
         <>
