@@ -35,10 +35,11 @@ export default function DialogItem({
     writer: TUser;
     createdAt: Date;
 }) {
-    const [elapsedTime, setElapsedTime] = useState("조금 전");
+    const [elapsedTime, setElapsedTime] = useState(
+        readableElapsedTime(createdAt),
+    );
 
     useEffect(() => {
-        setElapsedTime(readableElapsedTime(createdAt));
         const timer = setInterval(() => {
             const newElapsedTime = readableElapsedTime(createdAt);
             if (newElapsedTime !== elapsedTime) {
@@ -79,7 +80,7 @@ export default function DialogItem({
                     <div className={cn("flex", "justify-between")}>
                         <div>
                             <div>{writer.username}</div>
-                            <div className={cn("opacity-50")}>
+                            <div className={cn("opacity-50", "h-4")}>
                                 {elapsedTime}
                             </div>
                         </div>

@@ -12,9 +12,7 @@ export default function Header({
     return (
         <div className={cn("flex", "justify-between", "mb-4")}>
             <div className={cn("flex", "flex-col", "gap-2")}>
-                <div className={cn("font-semibold", "text-lg")}>
-                    Header{title}
-                </div>
+                <div className={cn("font-semibold", "text-lg")}>{title}</div>
                 <div>{children}</div>
             </div>
             <div className={cn("mx-2")}>{actions}</div>

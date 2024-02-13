@@ -29,3 +29,8 @@ export type TUserField = {
     email: string;
     password: string;
 };
+
+export type TTypingUser = {
+    id: string;
+    username: string;
+};

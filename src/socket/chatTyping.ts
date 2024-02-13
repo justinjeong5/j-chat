@@ -4,9 +4,9 @@ export default function registerChatTypingSocket(s) {
     socket = s;
 }
 
-export const typingChat = (roomId, username) => {
+export const typingChat = (roomId, user) => {
     if (socket) {
-        socket.emit("typingMessage", { roomId, username });
+        socket.emit("typingMessage", { roomId, user });
     }
 };
 
@@ -18,9 +18,9 @@ export const subscribeTyping = callback => {
     }
 };
 
-export const typingDone = (roomId, username) => {
+export const typingDone = (roomId, user) => {
     if (socket) {
-        socket.emit("typingDone", { roomId, username });
+        socket.emit("typingDone", { roomId, user });
     }
 };
 
