@@ -13,14 +13,6 @@ export type TRoom = {
     dialog: Array<IMessage>;
 };
 
-export default interface IRoom extends TRoom {
-    toMenu(): TRoomMenu;
-    setDialog(dialog: Array<IMessage>): IRoom;
-    addMessage(message: IMessage): IRoom;
-    toggleStarred(): IRoom;
-    toExternal(): TRoom;
-}
-
 export type TRoomMenu = {
     key: string;
     label: string;

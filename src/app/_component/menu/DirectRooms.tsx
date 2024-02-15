@@ -4,6 +4,7 @@ import MenuItem from "@app/_component/menu/MenuItem";
 import Skeleton from "@components/Skeleton";
 import { cn } from "@lib/utils";
 import RoomModel from "@models/Room";
+import { subscribeRoomPosted } from "@socket/room";
 import { subscribeUserLogin, subscribeUserLogout } from "@socket/user";
 import { TDirectRoom } from "@t/room.type";
 import { usePathname, useRouter } from "next/navigation";
@@ -26,6 +27,17 @@ export default function DirectRooms({
     useEffect(() => {
         setDirectRooms(rooms);
     }, [rooms]);
+
+    useEffect(() => {
+        setDirectRooms(prev => {
+            return prev.map(r => {
+                if (pathname.includes(r.roomId)) {
+                    return { ...r, unread: false };
+                }
+                return r;
+            });
+        });
+    }, [pathname]);
 
     useEffect(() => {
         subscribeUserLogin(id => {
@@ -54,6 +66,21 @@ export default function DirectRooms({
                 }),
             );
         });
+        subscribeRoomPosted(room => {
+            if (room.type === RoomModel.DIRECT) {
+                setDirectRooms(prev =>
+                    prev.map(r => {
+                        if (
+                            r.roomId === room.id &&
+                            !pathname.includes(room.id)
+                        ) {
+                            return { ...r, unread: true };
+                        }
+                        return r;
+                    }),
+                );
+            }
+        });
     }, []);
 
     return (
@@ -70,7 +97,7 @@ export default function DirectRooms({
                           key={uuidv4()}
                           title={r.username as string}
                           images={[r.avatar || ""].filter(Boolean)}
-                          selected={pathname === `/rooms/${r.roomId}`}
+                          selected={pathname.includes(r.roomId)}
                           type={RoomModel.DIRECT}
                           unread={r.unread}
                           active={r.active}

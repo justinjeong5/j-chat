@@ -17,8 +17,8 @@ import {
     typingChat,
     typingDone,
 } from "@socket/chatTyping";
-import { enterRoom, exitRoom, leaveRoom } from "@socket/room";
-import IRoom from "@t/room.type";
+import { enterRoom, exitRoom, leaveRoom, roomPosting } from "@socket/room";
+import { TRoom } from "@t/room.type";
 import { TTypingUser } from "@t/user.type";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -28,7 +28,7 @@ function RoomPage({ user }) {
     const params = useParams();
     const { errorHandler, contextHolder } = useNotice();
     const { rememberPage } = usePageRemember();
-    const [chatRoom, setChatRoom] = useState({} as IRoom);
+    const [chatRoom, setChatRoom] = useState({} as TRoom);
 
     const [typingUsers, setTypingUsers] = useState([] as TTypingUser[]);
     const [fetchingData, setFetchingData] = useState(false);
@@ -48,9 +48,9 @@ function RoomPage({ user }) {
     );
 
     const handleToggleStarred = useCallback(async () => {
-        const room = await RoomRepo.toggleStarred(chatRoom.id);
-        setChatRoom(room);
-    }, [chatRoom.id]);
+        // eslint-disable-next-line no-console
+        console.log("toggle starred");
+    }, []);
 
     const handleSubmit = useCallback(
         async content => {
@@ -61,6 +61,7 @@ function RoomPage({ user }) {
             });
 
             sendChat(message);
+            roomPosting(chatRoom);
         },
         [chatRoom.id, user.id],
     );
