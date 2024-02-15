@@ -11,6 +11,7 @@ let socket;
 export const detectError = () => {
     if (socket) {
         socket.on("SocketError", error => {
+            // eslint-disable-next-line no-console
             console.error(error);
         });
     }

@@ -22,11 +22,13 @@ export default function RoomHeader({
         {
             label: "1st menu item",
             key: uuidv4(),
+            // eslint-disable-next-line no-console
             onClick: () => console.log("1st menu item"),
         },
         {
             label: "2nd menu item",
             key: uuidv4(),
+            // eslint-disable-next-line no-console
             onClick: () => console.log("2nd menu item"),
         },
         {
@@ -39,6 +41,7 @@ export default function RoomHeader({
                 if (room.type === "public") {
                     leaveRoom(room.id);
                 } else {
+                    // eslint-disable-next-line no-console
                     console.log("DM 나가기는 아직 구현되지 않았습니다.");
                 }
             },

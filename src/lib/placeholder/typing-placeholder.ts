@@ -1,16 +1,22 @@
+import { TTypingUser } from "@t/user.type";
+
 const placeholder = "대화를 입력중입니다.";
 
-const typingPlaceholder = (users: string[]): string => {
+const getName = (user: TTypingUser): string => {
+    return user.username;
+};
+
+const typingPlaceholder = (users: TTypingUser[]): string => {
     if (users.length === 0) {
         return "";
     }
     if (users.length === 1) {
-        return `${users[0]}님이 ${placeholder}`;
+        return `${getName(users[0])}님이 ${placeholder}`;
     }
     if (users.length === 2) {
-        return `${users[0]}, ${users[1]}님이 ${placeholder}`;
+        return `${getName(users[0])}, ${getName(users[1])}님이 ${placeholder}`;
     }
-    return `${users[0]}, ${users[1]}님 외 ${
+    return `${getName(users[0])}, ${getName(users[1])}님 외 ${
         users.length - 2
     }명이 ${placeholder}`;
 };

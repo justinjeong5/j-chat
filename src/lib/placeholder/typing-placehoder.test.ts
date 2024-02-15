@@ -7,19 +7,32 @@ describe("string/typingPlaceholder", () => {
             expected: "",
         },
         {
-            users: ["Alice"],
+            users: [{ id: "1", username: "Alice" }],
             expected: "Alice님이 대화를 입력중입니다.",
         },
         {
-            users: ["Alice", "Bob"],
+            users: [
+                { id: "1", username: "Alice" },
+                { id: "2", username: "Bob" },
+            ],
             expected: "Alice, Bob님이 대화를 입력중입니다.",
         },
         {
-            users: ["Alice", "Bob", "Charlie"],
+            users: [
+                { id: "1", username: "Alice" },
+                { id: "2", username: "Bob" },
+                { id: "3", username: "Charlie" },
+            ],
             expected: "Alice, Bob님 외 1명이 대화를 입력중입니다.",
         },
         {
-            users: ["Alice", "Bob", "Charlie", "Dane", "Echo"],
+            users: [
+                { id: "1", username: "Alice" },
+                { id: "2", username: "Bob" },
+                { id: "3", username: "Charlie" },
+                { id: "4", username: "Dane" },
+                { id: "5", username: "Echo" },
+            ],
             expected: "Alice, Bob님 외 3명이 대화를 입력중입니다.",
         },
     ].forEach(({ users, expected }) => {

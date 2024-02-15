@@ -4,15 +4,14 @@ import MenuItem from "@app/_component/menu/MenuItem";
 import Skeleton from "@components/Skeleton";
 import { cn } from "@lib/utils";
 import RoomModel from "@models/Room";
+import { subscribeRoomPosted } from "@socket/room";
 import { subscribeUserLogin, subscribeUserLogout } from "@socket/user";
-import { TGeneralUser } from "@t/user.type";
+import { TDirectRoom } from "@t/room.type";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-type TDirectRoom = TGeneralUser & { roomId: string };
-
-export default function Rooms({
+export default function DirectRooms({
     loading,
     rooms,
     children,
@@ -28,6 +27,17 @@ export default function Rooms({
     useEffect(() => {
         setDirectRooms(rooms);
     }, [rooms]);
+
+    useEffect(() => {
+        setDirectRooms(prev => {
+            return prev.map(r => {
+                if (pathname.includes(r.roomId)) {
+                    return { ...r, unread: false };
+                }
+                return r;
+            });
+        });
+    }, [pathname]);
 
     useEffect(() => {
         subscribeUserLogin(id => {
@@ -56,6 +66,21 @@ export default function Rooms({
                 }),
             );
         });
+        subscribeRoomPosted(room => {
+            if (room.type === RoomModel.DIRECT) {
+                setDirectRooms(prev =>
+                    prev.map(r => {
+                        if (
+                            r.roomId === room.id &&
+                            !pathname.includes(room.id)
+                        ) {
+                            return { ...r, unread: true };
+                        }
+                        return r;
+                    }),
+                );
+            }
+        });
     }, []);
 
     return (
@@ -72,8 +97,9 @@ export default function Rooms({
                           key={uuidv4()}
                           title={r.username as string}
                           images={[r.avatar || ""].filter(Boolean)}
-                          selected={pathname === `/rooms/${r.roomId}`}
+                          selected={pathname.includes(r.roomId)}
                           type={RoomModel.DIRECT}
+                          unread={r.unread}
                           active={r.active}
                           onClick={() => {
                               router.push(`/rooms/${r.roomId}`);

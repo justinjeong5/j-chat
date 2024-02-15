@@ -17,49 +17,62 @@ import {
     typingChat,
     typingDone,
 } from "@socket/chatTyping";
-import { enterRoom, exitRoom, leaveRoom } from "@socket/room";
-import IRoom from "@t/room.type";
+import { enterRoom, exitRoom, leaveRoom, roomPosting } from "@socket/room";
+import { TRoom } from "@t/room.type";
+import { TTypingUser } from "@t/user.type";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 function RoomPage({ user }) {
     const router = useRouter();
     const params = useParams();
     const { errorHandler, contextHolder } = useNotice();
     const { rememberPage } = usePageRemember();
-    const [chatRoom, setChatRoom] = useState({} as IRoom);
+    const [chatRoom, setChatRoom] = useState({} as TRoom);
 
-    const [typingUsers, setTypingUsers] = useState([] as string[]);
+    const [typingUsers, setTypingUsers] = useState([] as TTypingUser[]);
     const [fetchingData, setFetchingData] = useState(false);
 
-    const handleSubmit = async content => {
-        const message = MessageModel.createItem({
-            content,
-            writer: user.id,
-            roomId: chatRoom.id,
-        });
+    const typings = useMemo(
+        () => typingPlaceholder(typingUsers),
+        [typingUsers],
+    );
 
-        sendChat(message);
-    };
+    const handleLeaveRoom = useCallback(
+        async roomId => {
+            await RoomRepo.leaveRoom(roomId, user.id);
+            router.replace("/");
+            leaveRoom(roomId, user.id);
+        },
+        [user.id],
+    );
 
-    const handleLeaveRoom = async roomId => {
-        await RoomRepo.leaveRoom(roomId, user.id);
-        router.replace("/");
-        leaveRoom(roomId, user.id);
-    };
+    const handleToggleStarred = useCallback(async () => {
+        // eslint-disable-next-line no-console
+        console.log("toggle starred");
+    }, []);
 
-    const handleToggleStarred = async () => {
-        const room = await RoomRepo.toggleStarred(chatRoom.id);
-        setChatRoom(room);
-    };
+    const handleSubmit = useCallback(
+        async content => {
+            const message = MessageModel.createItem({
+                content,
+                writer: user.id,
+                roomId: chatRoom.id,
+            });
 
-    const handleTyping = () => {
-        typingChat(chatRoom.id, user.username);
-    };
+            sendChat(message);
+            roomPosting(chatRoom);
+        },
+        [chatRoom.id, user.id],
+    );
 
-    const handleTypingDone = () => {
-        typingDone(chatRoom.id, user.username);
-    };
+    const handleTyping = useCallback(() => {
+        typingChat(chatRoom.id, user);
+    }, [chatRoom.id, user]);
+
+    const handleTypingDone = useCallback(() => {
+        typingDone(chatRoom.id, user);
+    }, [chatRoom.id, user]);
 
     useEffect(() => {
         (async () => {
@@ -70,7 +83,7 @@ function RoomPage({ user }) {
                 }
 
                 setFetchingData(true);
-                typingDone(roomId, user.username);
+                typingDone(roomId, user);
                 const room = await RoomRepo.get(roomId);
                 setChatRoom(room);
             } catch (e) {
@@ -79,47 +92,49 @@ function RoomPage({ user }) {
                 setFetchingData(false);
             }
         })();
-    }, []);
+    }, [params.roomId, user]);
 
     useEffect(() => {
         if (chatRoom.id) {
             enterRoom(chatRoom.id);
             rememberPage(chatRoom.id);
         }
-        return () => {
-            if (chatRoom.id) {
-                typingDone(chatRoom.id, user.username);
-                exitRoom(chatRoom.id);
-            }
-        };
-    }, [chatRoom.id]);
+        if (user.id) {
+            subscribeTyping((u: TTypingUser) => {
+                if (u.id === user.id) {
+                    return;
+                }
+                setTypingUsers((prev: TTypingUser[]) => {
+                    if (prev.find(p => p.id === u.id)) {
+                        return prev;
+                    }
+                    return [...prev, u];
+                });
+            });
+        }
 
-    useEffect(() => {
         subscribeChat(chat => {
             setChatRoom(prev => ({
                 ...prev,
                 dialog: [...(prev.dialog || []), chat],
             }));
         });
-        subscribeTyping((username: string) => {
-            if (username === user.username) {
-                return;
-            }
-            setTypingUsers((prev: string[]) => {
-                if (prev.includes(username)) {
-                    return prev;
+        subscribeTypingDone((u: TTypingUser) => {
+            setTypingUsers((prev: TTypingUser[]) => {
+                if (prev.find(p => p.id === u.id)) {
+                    return prev.filter(p => p.id !== u.id);
                 }
-                return [...prev, username];
+                return prev;
             });
-        });
-        subscribeTypingDone(username => {
-            setTypingUsers(prev => prev.filter(u => u !== username));
         });
 
         return () => {
-            typingDone(chatRoom.id, user.username);
+            if (chatRoom.id) {
+                typingDone(chatRoom.id, user);
+                exitRoom(chatRoom.id);
+            }
         };
-    }, []);
+    }, [chatRoom.id, user]);
 
     return (
         <>
@@ -134,7 +149,7 @@ function RoomPage({ user }) {
                 dialog={
                     <Dialog dialog={chatRoom.dialog} loading={fetchingData} />
                 }
-                typing={typingPlaceholder(typingUsers)}
+                typing={typings}
                 textator={
                     <Textator
                         placeholder={`#${chatRoom.title} 채널에서 이야기하기`}

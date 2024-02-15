@@ -17,6 +17,7 @@ export default function MenuItem({
     images = [],
     selected = false,
     type = "public",
+    unread = false,
     active = false,
     onClick,
 }: {
@@ -24,6 +25,7 @@ export default function MenuItem({
     images?: string[];
     selected?: boolean;
     type?: TRoomType;
+    unread: boolean;
     active?: boolean;
     onClick: () => void;
 }) {
@@ -68,7 +70,7 @@ export default function MenuItem({
                     )}
                 </div>
             </div>
-            <div>{title}</div>
+            <div className={cn(unread && "font-semibold")}>{title}</div>
         </div>
     );
 }

@@ -3,7 +3,7 @@ import useNotice from "@hooks/notice";
 import { cn } from "@lib/utils";
 import RoomModel from "@models/Room";
 import RoomRepo from "@repos/Room";
-import IRoom from "@t/room.type";
+import { TPublicRoom } from "@t/room.type";
 import {
     Avatar,
     Button,
@@ -28,13 +28,18 @@ export default function JoinPublicRoomModal({
     onJoinRoom,
     onCreateRoom,
     children,
+}: {
+    user: { id: string; avatar: string };
+    onJoinRoom: (roomId: string | null) => void;
+    onCreateRoom: (room: TPublicRoom) => void;
+    children: React.ReactNode;
 }) {
     const { errorHandler, contextHolder } = useNotice();
     const router = useRouter();
     const [form] = Form.useForm();
 
     const [page, setPage] = useState(0);
-    const [rooms, setRooms] = useState([] as IRoom[]);
+    const [rooms, setRooms] = useState([] as TPublicRoom[]);
     const [open, setOpen] = useState(false);
     const [hasMore, setHasMore] = useState(true);
 
@@ -46,7 +51,10 @@ export default function JoinPublicRoomModal({
                     users: { $ne: user.id },
                     type: RoomModel.PUBLIC,
                 });
-            setRooms((r: IRoom[]): IRoom[] => [...r, ...roomsData]);
+            setRooms((r: TPublicRoom[]): TPublicRoom[] => [
+                ...r,
+                ...roomsData.map(rr => ({ ...rr, unread: false })),
+            ]);
             setPage(p => p + 1);
             setHasMore(more);
         } catch (e) {
@@ -75,7 +83,7 @@ export default function JoinPublicRoomModal({
                 description: data.description,
                 type: "public",
             });
-            onCreateRoom(room);
+            onCreateRoom({ ...room, unread: false });
             setOpen(false);
         } catch (e) {
             errorHandler(e);
@@ -150,7 +158,7 @@ export default function JoinPublicRoomModal({
                         <List
                             itemLayout="horizontal"
                             dataSource={rooms}
-                            renderItem={(item: IRoom) => (
+                            renderItem={(item: TPublicRoom) => (
                                 <List.Item
                                     onClick={() => handleJoinRoom(item.id)}
                                 >

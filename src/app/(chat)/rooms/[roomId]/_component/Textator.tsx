@@ -3,7 +3,7 @@ import { cn } from "@lib/utils";
 import type { TourProps } from "antd";
 import { Button, Input, Space, Tour } from "antd";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const { TextArea } = Input;
 
@@ -38,55 +38,64 @@ export default function Textator({
         };
     }, [searchParams]);
 
-    const steps: TourProps["steps"] = [
-        {
-            title: "메세지 작성",
-            description: "나누고 싶은 이야기를 작성해 보세요.",
-            placement: "top",
-            nextButtonProps: { className: cn("bg-[#1677FF]") },
-            cover: (
-                <img
-                    alt="tour.png"
-                    src="https://user-images.githubusercontent.com/5378891/197385811-55df8480-7ff4-44bd-9d43-a7dade598d70.png"
-                />
-            ),
-            target: () => textAreaRef.current,
-        },
-        {
-            title: "파일 첨부",
-            description: "그림과 동영상을 이용하여 다채롭게 이야기해 보세요.",
-            placement: "top",
-            nextButtonProps: { className: cn("bg-[#1677FF]") },
-            target: () => fileBtnRef.current,
-        },
-        {
-            title: "메세지 전송",
-            description: "이야기를 전송하여 대화를 시작해 보세요.",
-            placement: "top",
-            nextButtonProps: { className: cn("bg-[#1677FF]") },
-            target: () => sendBtnRef.current,
-        },
-    ];
+    const steps: TourProps["steps"] = useMemo(
+        () => [
+            {
+                title: "메세지 작성",
+                description: "나누고 싶은 이야기를 작성해 보세요.",
+                placement: "top",
+                nextButtonProps: { className: cn("bg-[#1677FF]") },
+                cover: (
+                    <img
+                        alt="tour.png"
+                        src="https://user-images.githubusercontent.com/5378891/197385811-55df8480-7ff4-44bd-9d43-a7dade598d70.png"
+                    />
+                ),
+                target: () => textAreaRef.current,
+            },
+            {
+                title: "파일 첨부",
+                description:
+                    "그림과 동영상을 이용하여 다채롭게 이야기해 보세요.",
+                placement: "top",
+                nextButtonProps: { className: cn("bg-[#1677FF]") },
+                target: () => fileBtnRef.current,
+            },
+            {
+                title: "메세지 전송",
+                description: "이야기를 전송하여 대화를 시작해 보세요.",
+                placement: "top",
+                nextButtonProps: { className: cn("bg-[#1677FF]") },
+                target: () => sendBtnRef.current,
+            },
+        ],
+        [],
+    );
 
-    const handleSend = e => {
-        e.preventDefault();
-        setMessage("");
-
-        const trimmedMessage = message.trim();
-        if (!trimmedMessage.length) {
-            return;
-        }
-        handleSubmit(trimmedMessage);
-    };
-
-    const handleChange = e => {
-        if (e.target.value.includes("\n")) {
+    const handleSend = useCallback(
+        e => {
             e.preventDefault();
-            handleSend(e);
-            return;
-        }
-        setMessage(e.target.value);
-    };
+            const trimmedMessage = message.trim();
+            if (!trimmedMessage.length) {
+                return;
+            }
+            handleSubmit(trimmedMessage);
+            setMessage("");
+        },
+        [message, handleSubmit],
+    );
+
+    const handleChange = useCallback(
+        e => {
+            if (e.target.value.includes("\n")) {
+                e.preventDefault();
+                handleSend(e);
+                return;
+            }
+            setMessage(e.target.value);
+        },
+        [handleSend],
+    );
 
     return (
         <>
