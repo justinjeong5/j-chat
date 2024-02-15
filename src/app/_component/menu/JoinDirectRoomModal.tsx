@@ -4,6 +4,7 @@ import { cn } from "@lib/utils";
 import RoomModel from "@models/Room";
 import RoomRepo from "@repos/Room";
 import UserRepo from "@repos/User";
+import { TDirectRoom } from "@t/room.type";
 import { TGeneralUser } from "@t/user.type";
 import { Avatar, Button, Divider, List, Modal, Skeleton } from "antd";
 import { useRouter } from "next/navigation";
@@ -15,6 +16,11 @@ export default function JoinDirectRoomModal({
     rooms,
     onCreateRoom,
     children,
+}: {
+    user: TGeneralUser;
+    rooms: TDirectRoom[];
+    onCreateRoom: (room: TDirectRoom) => void;
+    children: React.ReactNode;
 }) {
     const { errorHandler, contextHolder } = useNotice();
     const router = useRouter();
@@ -58,13 +64,20 @@ export default function JoinDirectRoomModal({
     const handleCreateRoom = async otherUser => {
         try {
             const room = await RoomRepo.createRoom({
-                id: combineDirectRoomId(otherUser.id, user.id),
+                id: combineDirectRoomId(otherUser.id, user.id as string),
                 title: `${otherUser.username} & ${user.username}`,
                 description: `${otherUser.username}님과 ${user.username} 님의 DM`,
                 type: RoomModel.DIRECT,
                 users: [otherUser.id, user.id],
             });
-            onCreateRoom({ ...room, username: otherUser.username });
+            onCreateRoom({
+                ...room,
+                username: otherUser.username,
+                roomId: room.id,
+                users: room.users as { id: string }[],
+                active: false,
+                unread: false,
+            });
 
             setDirectRooms([]);
             setPage(0);
@@ -76,7 +89,7 @@ export default function JoinDirectRoomModal({
     };
 
     const handleRoute = (userId: string) => {
-        router.push(`/rooms/${combineDirectRoomId(userId, user.id)}`);
+        router.push(`/rooms/${combineDirectRoomId(userId, user.id as string)}`);
     };
 
     return (

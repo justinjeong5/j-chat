@@ -10,8 +10,7 @@ import { cn } from "@lib/utils";
 import RoomModel from "@models/Room";
 import RoomRepo from "@repos/Room";
 import { joinRoom } from "@socket/room";
-import TRoom from "@t/room.type";
-import { TGeneralUser } from "@t/user.type";
+import { TDirectRoom, TPublicRoom } from "@t/room.type";
 import type { TourProps } from "antd";
 import { Layout, Tour } from "antd";
 import { useRouter } from "next/navigation";
@@ -22,10 +21,8 @@ export default function Page({ user }) {
     const addPublicRoomBtnRef = useRef(null);
     const addDirectRoomBtnRef = useRef(null);
 
-    const [publicRooms, setPublicRooms] = useState<TRoom[]>([]);
-    const [directRooms, setDirectRooms] = useState<
-        (TGeneralUser & { roomId: string })[]
-    >([]);
+    const [publicRooms, setPublicRooms] = useState<TPublicRoom[]>([]);
+    const [directRooms, setDirectRooms] = useState<TDirectRoom[]>([]);
     const [fetchingRooms, setFetchingRooms] = useState(false);
     const { errorHandler, contextHolder } = useNotice();
     const [showTour, setShowTour] = useState(false);
@@ -55,7 +52,7 @@ export default function Page({ user }) {
 
     const onJoinPublicRoom = async (roomId: string) => {
         const room = await RoomRepo.joinRoom(roomId, user.id);
-        setPublicRooms(r => [...r, room]);
+        setPublicRooms(r => [...r, { ...room, unread: false }]);
         router.push(`/rooms/${roomId}`);
         joinRoom(roomId, user.id);
     };
@@ -71,7 +68,9 @@ export default function Page({ user }) {
                     users: { $in: user.id },
                     type: RoomModel.PUBLIC,
                 });
-                setPublicRooms(roomsData.results);
+                setPublicRooms(
+                    roomsData.results.map(rr => ({ ...rr, unread: false })),
+                );
 
                 const directRoomsData = await RoomRepo.getRooms({
                     users: { $in: user.id },
@@ -83,7 +82,9 @@ export default function Page({ user }) {
                     directRoomsData.results.map(rr => ({
                         ...rr.users.find(u => u.id !== user.id),
                         roomId: rr.id,
-                        users: rr.users,
+                        users: rr.users as { id: string }[],
+                        active: false,
+                        unread: false,
                     })),
                 );
 

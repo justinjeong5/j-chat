@@ -8,13 +8,13 @@ import { TRoom } from "@t/room.type";
 import { usePathname, useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 
-export default function Rooms({
+export default function PublicRooms({
     loading,
     rooms,
     children,
 }: {
     loading: boolean;
-    rooms: TRoom[];
+    rooms: (TRoom & { unread: boolean })[];
     children?: React.ReactNode;
 }) {
     const pathname = usePathname();
@@ -38,6 +38,7 @@ export default function Rooms({
                               .filter(Boolean)}
                           selected={pathname === `/rooms/${r.id}`}
                           type={RoomModel.PUBLIC}
+                          unread={r.unread}
                           onClick={() => {
                               router.push(`/rooms/${r.id}`);
                           }}

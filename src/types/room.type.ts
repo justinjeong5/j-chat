@@ -42,3 +42,11 @@ export type TRoomField = {
 };
 
 export type TRoomType = "public" | "direct";
+
+export type TDirectRoom = TGeneralUser & {
+    roomId: string;
+    users: { id: string }[];
+    unread: boolean;
+    active: boolean;
+};
+export type TPublicRoom = TRoom & { unread: boolean };

@@ -5,14 +5,12 @@ import Skeleton from "@components/Skeleton";
 import { cn } from "@lib/utils";
 import RoomModel from "@models/Room";
 import { subscribeUserLogin, subscribeUserLogout } from "@socket/user";
-import { TGeneralUser } from "@t/user.type";
+import { TDirectRoom } from "@t/room.type";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-type TDirectRoom = TGeneralUser & { roomId: string };
-
-export default function Rooms({
+export default function DirectRooms({
     loading,
     rooms,
     children,
@@ -74,6 +72,7 @@ export default function Rooms({
                           images={[r.avatar || ""].filter(Boolean)}
                           selected={pathname === `/rooms/${r.roomId}`}
                           type={RoomModel.DIRECT}
+                          unread={r.unread}
                           active={r.active}
                           onClick={() => {
                               router.push(`/rooms/${r.roomId}`);
