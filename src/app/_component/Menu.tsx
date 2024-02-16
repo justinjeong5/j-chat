@@ -136,7 +136,7 @@ export default function Page({ user }) {
                             onCreateRoom={r => setPublicRooms(rs => [...rs, r])}
                         >
                             <div
-                                ref={addDirectRoomBtnRef}
+                                ref={addPublicRoomBtnRef}
                                 className={cn("flex", "items-center", "gap-2")}
                             >
                                 <PlusOutlined /> 대화방 입장
