@@ -4,6 +4,7 @@ import AppFrame from "@app/_component/AppFrame";
 import Header from "@app/_component/Header";
 import Menu from "@app/_component/Menu";
 import WithAuth from "@app/_hoc/WithAuth";
+import WithLottie from "@app/_hoc/WithLottie";
 import WithSocket from "@app/_hoc/WithSocket";
 import usePageRemember from "@hooks/page/remember";
 import { cn } from "@lib/utils";
@@ -41,4 +42,4 @@ function Home({ user }) {
     );
 }
 
-export default WithSocket(WithAuth(Home));
+export default WithSocket(WithAuth(WithLottie(Home)));
