@@ -1,5 +1,5 @@
 import UserRepo from "@repos/User";
-import { TUser, TUserField } from "@t/user.type";
+import { TUserField, TUserSignupField } from "@t/user.type";
 import { useRouter } from "next/navigation";
 
 const useLogin = () => {
@@ -7,7 +7,7 @@ const useLogin = () => {
 
     const init = () => UserRepo.init();
 
-    const signup = (user: TUser) => UserRepo.signup(user);
+    const signup = (user: TUserSignupField) => UserRepo.signup(user);
 
     const login = (userField: TUserField) => {
         const { email, password } = userField;

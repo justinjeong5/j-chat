@@ -25,7 +25,7 @@ class UserRepo extends BaseRepo {
         return this.client.post("/logout");
     }
 
-    async signup(user: TUserSignupField & { avatar?: string }): Promise<IUser> {
+    async signup(user: TUserSignupField): Promise<IUser> {
         return this.client.post("/signup", user).then(({ data }) => {
             return new User(data);
         });
