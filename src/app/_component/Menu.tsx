@@ -33,6 +33,7 @@ export default function Page({ user }) {
             {
                 title: "환영합니다.",
                 description: "다양한 사람과 재미있는 이야기를 나누어 보세요.",
+                nextButtonProps: { className: cn("bg-[#1677FF]") },
                 cover: (
                     <img
                         alt="tour.png"
@@ -43,11 +44,13 @@ export default function Page({ user }) {
             {
                 title: "대화방 들어가기",
                 description: "대화방을 들어가서 대화를 나눠보세요.",
+                nextButtonProps: { className: cn("bg-[#1677FF]") },
                 target: () => addPublicRoomBtnRef.current,
             },
             {
                 title: "DM으로 대화하기",
                 description: "사람들과 1:1 대화를 나눠보세요.",
+                nextButtonProps: { className: cn("bg-[#1677FF]") },
                 target: () => addDirectRoomBtnRef.current,
             },
         ],
