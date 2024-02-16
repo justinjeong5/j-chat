@@ -30,10 +30,11 @@ const useNotice = () => {
         setNotices([...notices, notice]);
     };
 
-    const errorHandler = (e: TError) => {
+    const errorHandler = (e: TError, msg?: string) => {
         const content =
             e.response.data.message ||
             e.response.data.error ||
+            msg ||
             "알 수 없는 에러가 발생했습니다.";
         pushNotice({ type: "error", content });
     };
