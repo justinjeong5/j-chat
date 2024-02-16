@@ -32,6 +32,13 @@ export type TUserField = {
     password: string;
 };
 
+export type TUserSignupField = {
+    username: string;
+    code: string;
+    passwordConfirm: string;
+    avatar?: string;
+} & TUserField;
+
 export type TTypingUser = {
     id: TUserId;
     username: string;

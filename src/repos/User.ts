@@ -1,7 +1,12 @@
 import GeneralUser from "@models/GeneralUser";
 import User from "@models/User";
 import BaseRepo from "@repos/BaseRepo";
-import IUser, { TGeneralUser, TUser, TUserField } from "@t/user.type";
+import IUser, {
+    TGeneralUser,
+    TUser,
+    TUserField,
+    TUserSignupField,
+} from "@t/user.type";
 
 class UserRepo extends BaseRepo {
     async init(): Promise<IUser> {
@@ -20,7 +25,7 @@ class UserRepo extends BaseRepo {
         return this.client.post("/logout");
     }
 
-    async signup(user: TUser): Promise<IUser> {
+    async signup(user: TUserSignupField): Promise<IUser> {
         return this.client.post("/signup", user).then(({ data }) => {
             return new User(data);
         });
@@ -40,6 +45,10 @@ class UserRepo extends BaseRepo {
             count: data.count,
             hasMore: data.hasMore,
         }));
+    }
+
+    async authCode(email: string): Promise<void> {
+        return this.client.post("/auth/email", { email });
     }
 }
 
