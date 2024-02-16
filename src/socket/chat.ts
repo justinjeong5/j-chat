@@ -17,3 +17,9 @@ export const subscribeChat = callback => {
         });
     }
 };
+
+export const unsubscribeChat = () => {
+    if (socket) {
+        socket.off("returnMessage");
+    }
+};

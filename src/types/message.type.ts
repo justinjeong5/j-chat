@@ -17,12 +17,6 @@ export type TMessage = {
     updatedAt: Date;
 };
 
-export default interface IMessage extends TMessage {
-    getCount(type: string): number;
-}
-
-export type TCountType = "stars" | "likes" | "comments";
-
 export type TMessageField = {
     roomId: string;
     writer: TUser;

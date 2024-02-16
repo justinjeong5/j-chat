@@ -10,7 +10,7 @@ import usePageRemember from "@hooks/page/remember";
 import typingPlaceholder from "@lib/placeholder/typing-placeholder";
 import MessageModel from "@models/Message";
 import RoomRepo from "@repos/Room";
-import { sendChat, subscribeChat } from "@socket/chat";
+import { sendChat, subscribeChat, unsubscribeChat } from "@socket/chat";
 import {
     subscribeTyping,
     subscribeTypingDone,
@@ -18,6 +18,7 @@ import {
     typingDone,
 } from "@socket/chatTyping";
 import { enterRoom, exitRoom, leaveRoom, roomPosting } from "@socket/room";
+import { TMessage } from "@t/message.type";
 import { TRoom } from "@t/room.type";
 import { TTypingUser } from "@t/user.type";
 import { useParams, useRouter } from "next/navigation";
@@ -95,29 +96,13 @@ function RoomPage({ user }) {
     }, [params.roomId, user]);
 
     useEffect(() => {
-        if (chatRoom.id) {
-            enterRoom(chatRoom.id);
-            rememberPage(chatRoom.id);
-        }
-        if (user.id) {
-            subscribeTyping((u: TTypingUser) => {
-                if (u.id === user.id) {
-                    return;
-                }
-                setTypingUsers((prev: TTypingUser[]) => {
-                    if (prev.find(p => p.id === u.id)) {
-                        return prev;
-                    }
-                    return [...prev, u];
-                });
-            });
-        }
-
-        subscribeChat(chat => {
-            setChatRoom(prev => ({
-                ...prev,
-                dialog: [...(prev.dialog || []), chat],
-            }));
+        subscribeChat((chat: TMessage) => {
+            setChatRoom(
+                (prev: TRoom): TRoom => ({
+                    ...prev,
+                    dialog: [...(prev.dialog || []), chat],
+                }),
+            );
         });
         subscribeTypingDone((u: TTypingUser) => {
             setTypingUsers((prev: TTypingUser[]) => {
@@ -127,6 +112,29 @@ function RoomPage({ user }) {
                 return prev;
             });
         });
+        return () => {
+            unsubscribeChat();
+        };
+    }, []);
+
+    useEffect(() => {
+        if (chatRoom.id) {
+            enterRoom(chatRoom.id);
+            rememberPage(chatRoom.id);
+        }
+        if (user.id) {
+            subscribeTyping((u: TTypingUser) => {
+                if (u.id === user.id) {
+                    return;
+                }
+                setTypingUsers((prev: TTypingUser[]): TTypingUser[] => {
+                    if (prev.find(p => p.id === u.id)) {
+                        return prev;
+                    }
+                    return [...prev, u];
+                });
+            });
+        }
 
         return () => {
             if (chatRoom.id) {

@@ -1,10 +1,10 @@
 import DialogItem from "@app/(chat)/rooms/[roomId]/_component/dialog/DialogItem";
 import { cn } from "@lib/utils";
-import IMessage from "@t/message.type";
+import { TMessage } from "@t/message.type";
 import React, { useEffect, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-export default function DialogList({ dialog }: { dialog: Array<IMessage> }) {
+export default function DialogList({ dialog }: { dialog: Array<TMessage> }) {
     const dialogFocus = useRef<HTMLInputElement>(null);
 
     useEffect(() => {

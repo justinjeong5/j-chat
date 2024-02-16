@@ -1,5 +1,5 @@
 import BaseModel from "@models/BaseModel";
-import IMessage from "@t/message.type";
+import { TMessage } from "@t/message.type";
 import { TRoom, TRoomField, TRoomType } from "@t/room.type";
 
 export default class Room extends BaseModel {
@@ -19,7 +19,7 @@ export default class Room extends BaseModel {
 
     users: Array<object>;
 
-    dialog: Array<IMessage>;
+    dialog: Array<TMessage>;
 
     constructor(config: TRoom) {
         super();

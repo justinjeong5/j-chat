@@ -1,4 +1,4 @@
-import IMessage from "@t/message.type";
+import { TMessage } from "@t/message.type";
 import { TGeneralUser, TUser } from "@t/user.type";
 
 export type TRoomId = string;
@@ -12,7 +12,7 @@ export type TRoom = {
     createdAt: Date;
     updatedAt: Date;
     users: TUser[];
-    dialog: Array<IMessage>;
+    dialog: Array<TMessage>;
 };
 
 export type TRoomMenu = {
@@ -24,7 +24,7 @@ export type TRoomMenu = {
     type: string;
     starred: boolean;
     users: Array<TGeneralUser>;
-    dialog: Array<IMessage>;
+    dialog: Array<TMessage>;
 };
 
 export type TRoomField = {

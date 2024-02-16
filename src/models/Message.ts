@@ -2,16 +2,10 @@
 import BaseModel from "@models/BaseModel";
 import UserModel from "@models/User";
 import type { FixMe } from "@t/common.type";
-import type IMessage from "@t/message.type";
-import type {
-    TCountType,
-    TMessage,
-    TMessageField,
-    TMessageType,
-} from "@t/message.type";
+import type { TMessage, TMessageField, TMessageType } from "@t/message.type";
 import type { TUser } from "@t/user.type";
 
-export default class Message extends BaseModel implements IMessage {
+export default class Message extends BaseModel {
     id: string;
 
     roomId: string;
@@ -49,10 +43,6 @@ export default class Message extends BaseModel implements IMessage {
 
         this.createdAt = new Date(config.createdAt || new Date());
         this.updatedAt = new Date(config.updatedAt || new Date());
-    }
-
-    getCount(type: TCountType): number {
-        return this[type].length;
     }
 
     static createItem(config: TMessageField): TMessage {
