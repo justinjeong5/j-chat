@@ -1,5 +1,7 @@
+export type TUserId = string;
+
 export type TGeneralUser = {
-    id?: string;
+    id?: TUserId;
     role?: string;
 
     email?: string;
@@ -31,6 +33,6 @@ export type TUserField = {
 };
 
 export type TTypingUser = {
-    id: string;
+    id: TUserId;
     username: string;
 };

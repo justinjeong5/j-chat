@@ -10,11 +10,12 @@ import { cn } from "@lib/utils";
 import RoomModel from "@models/Room";
 import RoomRepo from "@repos/Room";
 import { joinRoom } from "@socket/room";
-import { TDirectRoom, TPublicRoom } from "@t/room.type";
+import { TDirectRoom, TPublicRoom, TRoom, TRoomId } from "@t/room.type";
+import { TGeneralUser } from "@t/user.type";
 import type { TourProps } from "antd";
 import { Layout, Tour } from "antd";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 export default function Page({ user }) {
     const router = useRouter();
@@ -27,35 +28,44 @@ export default function Page({ user }) {
     const { errorHandler, contextHolder } = useNotice();
     const [showTour, setShowTour] = useState(false);
 
-    const steps: TourProps["steps"] = [
-        {
-            title: "환영합니다.",
-            description: "다양한 사람과 재미있는 이야기를 나누어 보세요.",
-            cover: (
-                <img
-                    alt="tour.png"
-                    src="https://user-images.githubusercontent.com/5378891/197385811-55df8480-7ff4-44bd-9d43-a7dade598d70.png"
-                />
-            ),
-        },
-        {
-            title: "대화방 들어가기",
-            description: "대화방을 들어가서 대화를 나눠보세요.",
-            target: () => addPublicRoomBtnRef.current,
-        },
-        {
-            title: "DM으로 대화하기",
-            description: "사람들과 1:1 대화를 나눠보세요.",
-            target: () => addDirectRoomBtnRef.current,
-        },
-    ];
+    const steps: TourProps["steps"] = useMemo(
+        () => [
+            {
+                title: "환영합니다.",
+                description: "다양한 사람과 재미있는 이야기를 나누어 보세요.",
+                cover: (
+                    <img
+                        alt="tour.png"
+                        src="https://user-images.githubusercontent.com/5378891/197385811-55df8480-7ff4-44bd-9d43-a7dade598d70.png"
+                    />
+                ),
+            },
+            {
+                title: "대화방 들어가기",
+                description: "대화방을 들어가서 대화를 나눠보세요.",
+                target: () => addPublicRoomBtnRef.current,
+            },
+            {
+                title: "DM으로 대화하기",
+                description: "사람들과 1:1 대화를 나눠보세요.",
+                target: () => addDirectRoomBtnRef.current,
+            },
+        ],
+        [addPublicRoomBtnRef, addDirectRoomBtnRef],
+    );
 
-    const onJoinPublicRoom = async (roomId: string) => {
-        const room = await RoomRepo.joinRoom(roomId, user.id);
-        setPublicRooms(r => [...r, { ...room, unread: false }]);
-        router.push(`/rooms/${roomId}`);
-        joinRoom(roomId, user.id);
-    };
+    const onJoinPublicRoom = useCallback(
+        async (roomId: TRoomId) => {
+            const room = await RoomRepo.joinRoom(roomId, user.id);
+            setPublicRooms((prev: TPublicRoom[]): TPublicRoom[] => [
+                ...prev,
+                { ...room, unread: false } as TPublicRoom,
+            ]);
+            joinRoom(roomId, user.id);
+            router.push(`/rooms/${roomId}`);
+        },
+        [user.id],
+    );
 
     useEffect(() => {
         (async () => {
@@ -64,28 +74,34 @@ export default function Page({ user }) {
                 if (!user.id) {
                     return;
                 }
+
                 const roomsData = await RoomRepo.getRooms({
                     users: { $in: user.id },
                     type: RoomModel.PUBLIC,
                 });
                 setPublicRooms(
-                    roomsData.results.map(rr => ({ ...rr, unread: false })),
+                    roomsData.results.map(
+                        (rr: TRoom): TPublicRoom => ({
+                            ...rr,
+                            unread: false,
+                        }),
+                    ) as TPublicRoom[],
                 );
 
                 const directRoomsData = await RoomRepo.getRooms({
                     users: { $in: user.id },
                     type: RoomModel.DIRECT,
                 });
-
-                // DM과 관련된 로직은 서버에 별도의 API를 두는 것이 좋을 것 같다.
                 setDirectRooms(
-                    directRoomsData.results.map(rr => ({
-                        ...rr.users.find(u => u.id !== user.id),
-                        roomId: rr.id,
-                        users: rr.users as { id: string }[],
-                        active: false,
-                        unread: false,
-                    })),
+                    directRoomsData.results.map(
+                        (rr: TRoom): TDirectRoom => ({
+                            ...rr.users.find(u => u.id !== user.id),
+                            roomId: rr.id,
+                            users: rr.users as TGeneralUser[],
+                            active: false,
+                            unread: false,
+                        }),
+                    ) as TDirectRoom[],
                 );
 
                 if (!roomsData?.results?.length) {

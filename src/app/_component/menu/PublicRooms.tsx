@@ -5,7 +5,7 @@ import Skeleton from "@components/Skeleton";
 import { cn } from "@lib/utils";
 import RoomModel from "@models/Room";
 import { subscribeRoomPosted } from "@socket/room";
-import { TRoom } from "@t/room.type";
+import { TPublicRoom } from "@t/room.type";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -16,7 +16,7 @@ export default function PublicRooms({
     children,
 }: {
     loading: boolean;
-    rooms: (TRoom & { unread: boolean })[];
+    rooms: TPublicRoom[];
     children?: React.ReactNode;
 }) {
     const pathname = usePathname();
@@ -28,8 +28,8 @@ export default function PublicRooms({
     }, [rooms]);
 
     useEffect(() => {
-        setPublicRooms(prev => {
-            return prev.map(r => {
+        setPublicRooms((prev: TPublicRoom[]): TPublicRoom[] => {
+            return prev.map((r: TPublicRoom) => {
                 if (pathname.includes(r.id)) {
                     return { ...r, unread: false };
                 }
@@ -40,10 +40,14 @@ export default function PublicRooms({
 
     useEffect(() => {
         subscribeRoomPosted(room => {
-            if (room.type === RoomModel.PUBLIC) {
-                setPublicRooms(prev =>
-                    prev.map(r => {
-                        if (r.id === room.id && !pathname.includes(room.id)) {
+            if (
+                room.type === RoomModel.PUBLIC &&
+                !pathname.includes(room.id) &&
+                publicRooms.find(r => r.id === room.id)
+            ) {
+                setPublicRooms((prev: TPublicRoom[]): TPublicRoom[] =>
+                    prev.map((r: TPublicRoom) => {
+                        if (r.id === room.id) {
                             return { ...r, unread: true };
                         }
                         return r;
@@ -51,7 +55,7 @@ export default function PublicRooms({
                 );
             }
         });
-    }, []);
+    }, [publicRooms, pathname]);
 
     return (
         <MenuFrame label="Public Rooms" icon={<CoffeeOutlined />}>
@@ -62,7 +66,7 @@ export default function PublicRooms({
                           className={cn("h-5", "w-full", "cursor-pointer")}
                       />
                   ))
-                : publicRooms.map(r => (
+                : publicRooms.map((r: TPublicRoom) => (
                       <MenuItem
                           key={uuidv4()}
                           title={r.title as string}

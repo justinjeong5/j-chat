@@ -5,10 +5,10 @@ import RoomModel from "@models/Room";
 import RoomRepo from "@repos/Room";
 import UserRepo from "@repos/User";
 import { TDirectRoom } from "@t/room.type";
-import { TGeneralUser } from "@t/user.type";
+import { TGeneralUser, TUserId } from "@t/user.type";
 import { Avatar, Button, Divider, List, Modal, Skeleton } from "antd";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function JoinDirectRoomModal({
@@ -26,11 +26,11 @@ export default function JoinDirectRoomModal({
     const router = useRouter();
 
     const [page, setPage] = useState(0);
-    const [directRooms, setDirectRooms] = useState([] as TGeneralUser[]);
+    const [users, setUsers] = useState([] as TGeneralUser[]);
     const [open, setOpen] = useState(false);
     const [hasMore, setHasMore] = useState(true);
 
-    const fetchDirectRooms = async () => {
+    const fetchDirectRooms = useCallback(async () => {
         try {
             const { results: roomsData, hasMore: more } =
                 await UserRepo.getUsers({
@@ -40,12 +40,12 @@ export default function JoinDirectRoomModal({
                 });
 
             // DM 찾는 로직은 서버에 별도의 API를 두는 것이 좋을 것 같다.
-            setDirectRooms((r: TGeneralUser[]): TGeneralUser[] => [
+            setUsers((r: TGeneralUser[]): TGeneralUser[] => [
                 ...r,
                 ...roomsData.filter(u =>
                     rooms.every(
-                        (rr: { users: { id: string }[] }) =>
-                            !rr.users.some(({ id }) => id === (u.id as string)),
+                        (rr: { users: TGeneralUser[] }) =>
+                            !rr.users.some(({ id }) => id === u.id),
                     ),
                 ),
             ]);
@@ -54,43 +54,54 @@ export default function JoinDirectRoomModal({
         } catch (e) {
             errorHandler(e);
         }
-    };
+    }, [user.id, rooms, page]);
 
-    const handleOpenModal = () => {
+    const handleCreateRoom = useCallback(
+        async (otherUser: TGeneralUser) => {
+            try {
+                const room = await RoomRepo.createRoom({
+                    id: combineDirectRoomId(
+                        otherUser.id as TUserId,
+                        user.id as TUserId,
+                    ),
+                    title: `${otherUser.username} & ${user.username}`,
+                    description: `${otherUser.username}님과 ${user.username} 님의 DM`,
+                    type: RoomModel.DIRECT,
+                    users: [otherUser.id, user.id] as TGeneralUser[],
+                });
+                onCreateRoom({
+                    ...room,
+                    username: otherUser.username,
+                    roomId: room.id,
+                    users: room.users as TGeneralUser[],
+                    active: false,
+                    unread: false,
+                } as TDirectRoom);
+
+                setUsers([]);
+                setPage(0);
+                setHasMore(true);
+                setOpen(false);
+            } catch (e) {
+                errorHandler(e);
+            }
+        },
+        [user.id, user.username, onCreateRoom],
+    );
+
+    const handleRoute = useCallback(
+        (userId: TUserId) => {
+            router.push(
+                `/rooms/${combineDirectRoomId(userId, user.id as TUserId)}`,
+            );
+        },
+        [user.id],
+    );
+
+    const handleOpenModal = useCallback(() => {
         fetchDirectRooms();
         setOpen(true);
-    };
-
-    const handleCreateRoom = async otherUser => {
-        try {
-            const room = await RoomRepo.createRoom({
-                id: combineDirectRoomId(otherUser.id, user.id as string),
-                title: `${otherUser.username} & ${user.username}`,
-                description: `${otherUser.username}님과 ${user.username} 님의 DM`,
-                type: RoomModel.DIRECT,
-                users: [otherUser.id, user.id],
-            });
-            onCreateRoom({
-                ...room,
-                username: otherUser.username,
-                roomId: room.id,
-                users: room.users as { id: string }[],
-                active: false,
-                unread: false,
-            });
-
-            setDirectRooms([]);
-            setPage(0);
-            setHasMore(true);
-            setOpen(false);
-        } catch (e) {
-            errorHandler(e);
-        }
-    };
-
-    const handleRoute = (userId: string) => {
-        router.push(`/rooms/${combineDirectRoomId(userId, user.id as string)}`);
-    };
+    }, []);
 
     return (
         <>
@@ -115,7 +126,7 @@ export default function JoinDirectRoomModal({
                     style={{ height: "50vh", overflow: "auto" }}
                 >
                     <InfiniteScroll
-                        dataLength={directRooms.length}
+                        dataLength={users.length}
                         next={fetchDirectRooms}
                         hasMore={hasMore}
                         loader={
@@ -130,7 +141,7 @@ export default function JoinDirectRoomModal({
                     >
                         <List
                             itemLayout="horizontal"
-                            dataSource={directRooms}
+                            dataSource={users}
                             renderItem={(u: TGeneralUser) => (
                                 <List.Item onClick={() => handleCreateRoom(u)}>
                                     <List.Item.Meta
@@ -153,7 +164,7 @@ export default function JoinDirectRoomModal({
                                             <div
                                                 role="presentation"
                                                 onClick={() =>
-                                                    handleRoute(u.id as string)
+                                                    handleRoute(u.id as TUserId)
                                                 }
                                             >
                                                 {u.username}

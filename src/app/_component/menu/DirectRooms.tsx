@@ -6,7 +6,8 @@ import { cn } from "@lib/utils";
 import RoomModel from "@models/Room";
 import { subscribeRoomPosted } from "@socket/room";
 import { subscribeUserLogin, subscribeUserLogout } from "@socket/user";
-import { TDirectRoom } from "@t/room.type";
+import { TDirectRoom, TRoom } from "@t/room.type";
+import { TUserId } from "@t/user.type";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -29,8 +30,8 @@ export default function DirectRooms({
     }, [rooms]);
 
     useEffect(() => {
-        setDirectRooms(prev => {
-            return prev.map(r => {
+        setDirectRooms((prev: TDirectRoom[]): TDirectRoom[] => {
+            return prev.map((r: TDirectRoom) => {
                 if (pathname.includes(r.roomId)) {
                     return { ...r, unread: false };
                 }
@@ -40,9 +41,28 @@ export default function DirectRooms({
     }, [pathname]);
 
     useEffect(() => {
-        subscribeUserLogin(id => {
-            setDirectRooms(prev =>
-                prev.map(r => {
+        subscribeRoomPosted((room: TRoom) => {
+            if (
+                room.type === RoomModel.DIRECT &&
+                !pathname.includes(room.id) &&
+                directRooms.find(r => r.roomId === room.id)
+            ) {
+                setDirectRooms((prev: TDirectRoom[]): TDirectRoom[] =>
+                    prev.map((r: TDirectRoom) => {
+                        if (r.roomId === room.id) {
+                            return { ...r, unread: true };
+                        }
+                        return r;
+                    }),
+                );
+            }
+        });
+    }, [directRooms, pathname]);
+
+    useEffect(() => {
+        subscribeUserLogin((id: TUserId) => {
+            setDirectRooms((prev: TDirectRoom[]): TDirectRoom[] =>
+                prev.map((r: TDirectRoom) => {
                     if (r.id === id) {
                         return {
                             ...r,
@@ -53,9 +73,9 @@ export default function DirectRooms({
                 }),
             );
         });
-        subscribeUserLogout(id => {
-            setDirectRooms(prev =>
-                prev.map(r => {
+        subscribeUserLogout((id: TUserId) => {
+            setDirectRooms((prev: TDirectRoom[]): TDirectRoom[] =>
+                prev.map((r: TDirectRoom) => {
                     if (r.id === id) {
                         return {
                             ...r,
@@ -65,21 +85,6 @@ export default function DirectRooms({
                     return r;
                 }),
             );
-        });
-        subscribeRoomPosted(room => {
-            if (room.type === RoomModel.DIRECT) {
-                setDirectRooms(prev =>
-                    prev.map(r => {
-                        if (
-                            r.roomId === room.id &&
-                            !pathname.includes(room.id)
-                        ) {
-                            return { ...r, unread: true };
-                        }
-                        return r;
-                    }),
-                );
-            }
         });
     }, []);
 
@@ -92,11 +97,11 @@ export default function DirectRooms({
                           className={cn("h-5", "w-full", "cursor-pointer")}
                       />
                   ))
-                : directRooms.map(r => (
+                : directRooms.map((r: TDirectRoom) => (
                       <MenuItem
                           key={uuidv4()}
                           title={r.username as string}
-                          images={[r.avatar || ""].filter(Boolean)}
+                          images={[r.avatar as string]}
                           selected={pathname.includes(r.roomId)}
                           type={RoomModel.DIRECT}
                           unread={r.unread}

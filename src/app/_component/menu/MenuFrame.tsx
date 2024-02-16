@@ -1,16 +1,17 @@
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { cn } from "@lib/utils";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 export default function MenuFrame({ label, icon, children }) {
     const [open, setOpen] = useState(true);
 
-    const toggleOpen = () => {
+    const toggleOpen = useCallback(() => {
         setOpen(prev => !prev);
-    };
-    const onClickItem = e => {
+    }, []);
+
+    const onClickItem = useCallback(e => {
         e.stopPropagation();
-    };
+    }, []);
 
     return (
         <div className={cn()} role="presentation" onClick={toggleOpen}>

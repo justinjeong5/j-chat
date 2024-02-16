@@ -1,8 +1,10 @@
 import IMessage from "@t/message.type";
 import { TGeneralUser, TUser } from "@t/user.type";
 
+export type TRoomId = string;
+
 export type TRoom = {
-    id: string;
+    id: TRoomId;
     title: string;
     description: string;
     type: string;
@@ -16,7 +18,7 @@ export type TRoom = {
 export type TRoomMenu = {
     key: string;
     label: string;
-    id: string;
+    id: TRoomId;
     title: string;
     description: string;
     type: string;
@@ -26,18 +28,18 @@ export type TRoomMenu = {
 };
 
 export type TRoomField = {
-    id?: string;
+    id?: TRoomId;
     title: string;
     type: string;
     description: string;
-    users?: Array<TUser>;
+    users?: Array<TGeneralUser>;
 };
 
 export type TRoomType = "public" | "direct";
 
 export type TDirectRoom = TGeneralUser & {
-    roomId: string;
-    users: { id: string }[];
+    roomId: TRoomId;
+    users: TGeneralUser[];
     unread: boolean;
     active: boolean;
 };

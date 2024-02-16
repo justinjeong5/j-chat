@@ -3,7 +3,8 @@ import useNotice from "@hooks/notice";
 import { cn } from "@lib/utils";
 import RoomModel from "@models/Room";
 import RoomRepo from "@repos/Room";
-import { TPublicRoom } from "@t/room.type";
+import { TPublicRoom, TRoomId } from "@t/room.type";
+import { TGeneralUser } from "@t/user.type";
 import {
     Avatar,
     Button,
@@ -15,7 +16,7 @@ import {
     Skeleton,
 } from "antd";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const layout = {
@@ -29,8 +30,8 @@ export default function JoinPublicRoomModal({
     onCreateRoom,
     children,
 }: {
-    user: { id: string; avatar: string };
-    onJoinRoom: (roomId: string | null) => void;
+    user: TGeneralUser;
+    onJoinRoom: (roomId: TRoomId) => void;
     onCreateRoom: (room: TPublicRoom) => void;
     children: React.ReactNode;
 }) {
@@ -38,12 +39,12 @@ export default function JoinPublicRoomModal({
     const router = useRouter();
     const [form] = Form.useForm();
 
-    const [page, setPage] = useState(0);
     const [rooms, setRooms] = useState([] as TPublicRoom[]);
     const [open, setOpen] = useState(false);
+    const [page, setPage] = useState(0);
     const [hasMore, setHasMore] = useState(true);
 
-    const fetchRooms = async () => {
+    const fetchRooms = useCallback(async () => {
         try {
             const { results: roomsData, hasMore: more } =
                 await RoomRepo.getRooms({
@@ -60,22 +61,9 @@ export default function JoinPublicRoomModal({
         } catch (e) {
             errorHandler(e);
         }
-    };
+    }, [user.id, page]);
 
-    const handleOpenModal = () => {
-        fetchRooms();
-        setOpen(true);
-    };
-
-    const handleJoinRoom = (roomId: string | null) => {
-        onJoinRoom(roomId);
-        setRooms([]);
-        setPage(0);
-        setHasMore(true);
-        setOpen(false);
-    };
-
-    const handleCreateRoom = async () => {
+    const handleCreateRoom = useCallback(async () => {
         const data = form.getFieldsValue();
         try {
             const room = await RoomRepo.createRoom({
@@ -88,11 +76,27 @@ export default function JoinPublicRoomModal({
         } catch (e) {
             errorHandler(e);
         }
-    };
+    }, [onCreateRoom]);
 
-    const handleRoute = (roomId: string | null) => {
+    const handleOpenModal = useCallback(() => {
+        fetchRooms();
+        setOpen(true);
+    }, [fetchRooms]);
+
+    const handleJoinRoom = useCallback(
+        (roomId: TRoomId) => {
+            onJoinRoom(roomId);
+            setRooms([]);
+            setPage(0);
+            setHasMore(true);
+            setOpen(false);
+        },
+        [onJoinRoom],
+    );
+
+    const handleRoute = useCallback((roomId: TRoomId) => {
         router.push(`/rooms/${roomId}`);
-    };
+    }, []);
 
     return (
         <>
