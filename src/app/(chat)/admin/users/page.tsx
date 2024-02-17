@@ -87,7 +87,7 @@ const columns: TableProps<TUser>["columns"] = [
     },
 ];
 
-function AdminPage() {
+function AdminUsersPage() {
     const { errorHandler, contextHolder } = useNotice();
     const [users, setUsers] = useState<TUser[]>([]);
 
@@ -105,9 +105,9 @@ function AdminPage() {
     return (
         <>
             {contextHolder}
-            <Table columns={columns} dataSource={users} />;
+            <Table columns={columns} dataSource={users} />
         </>
     );
 }
 
-export default AdminPage;
+export default AdminUsersPage;

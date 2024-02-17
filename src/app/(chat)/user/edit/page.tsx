@@ -15,7 +15,7 @@ import { Button, Card, Form, Input } from "antd";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-function EditPage({ user }: { user: TUser }) {
+function UserEditPage({ user }: { user: TUser }) {
     const router = useRouter();
     const { errorHandler, contextHolder } = useNotice();
     const [form] = Form.useForm();
@@ -120,4 +120,4 @@ function EditPage({ user }: { user: TUser }) {
     );
 }
 
-export default WithAuth(EditPage);
+export default WithAuth(UserEditPage);

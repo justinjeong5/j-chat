@@ -11,7 +11,7 @@ import { TUser } from "@t/user.type";
 import type { DescriptionsProps } from "antd";
 import { Col, Descriptions, Row, Statistic } from "antd";
 
-function DetailPage({ user }: { user: TUser }) {
+function UserDetailPage({ user }: { user: TUser }) {
     const getLocaleString = (t: Date) => {
         return new Date(t).toLocaleDateString("ko-KR");
     };
@@ -93,4 +93,4 @@ function DetailPage({ user }: { user: TUser }) {
     );
 }
 
-export default WithAuth(DetailPage);
+export default WithAuth(UserDetailPage);
