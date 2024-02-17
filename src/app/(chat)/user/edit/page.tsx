@@ -6,19 +6,17 @@ import {
     ReadOutlined,
     UserOutlined,
 } from "@ant-design/icons";
-import Header from "@app/_component/Header";
 import WithAuth from "@app/_hoc/WithAuth";
 import useNotice from "@hooks/notice";
 import { cn } from "@lib/utils";
 import UserRepo from "@repos/User";
 import { TUser } from "@t/user.type";
-import { Button, Card, Form, Input, Tabs } from "antd";
-import { usePathname, useRouter } from "next/navigation";
+import { Button, Card, Form, Input } from "antd";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-function EditPage({ user }) {
+function EditPage({ user }: { user: TUser }) {
     const router = useRouter();
-    const pathname = usePathname();
     const { errorHandler, contextHolder } = useNotice();
     const [form] = Form.useForm();
 
@@ -44,26 +42,6 @@ function EditPage({ user }) {
     return (
         <>
             {contextHolder}
-            <Header title="사용자 정보 수정" />
-            <Tabs
-                activeKey={pathname as string}
-                type="card"
-                onTabClick={key => router.push(key)}
-                items={[
-                    {
-                        label: "회원 정보",
-                        key: "/user/detail",
-                    },
-                    {
-                        label: "정보 수정",
-                        key: "/user/edit",
-                    },
-                    {
-                        label: "참여 내역",
-                        key: "/user/history",
-                    },
-                ]}
-            />
             <Card className={cn("p-4", "m-4", "max-w-[480px]")}>
                 <Form name="normal_login" form={form} onFinish={handleFinish}>
                     <Form.Item

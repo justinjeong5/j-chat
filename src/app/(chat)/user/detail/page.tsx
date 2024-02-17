@@ -6,15 +6,12 @@ import {
     LikeOutlined,
     StarOutlined,
 } from "@ant-design/icons";
-import Header from "@app/_component/Header";
 import WithAuth from "@app/_hoc/WithAuth";
+import { TUser } from "@t/user.type";
 import type { DescriptionsProps } from "antd";
-import { Col, Descriptions, Row, Statistic, Tabs } from "antd";
-import { usePathname, useRouter } from "next/navigation";
+import { Col, Descriptions, Row, Statistic } from "antd";
 
-function DetailPage({ user }) {
-    const router = useRouter();
-    const pathname = usePathname();
+function DetailPage({ user }: { user: TUser }) {
     const getLocaleString = (t: Date) => {
         return new Date(t).toLocaleDateString("ko-KR");
     };
@@ -38,43 +35,22 @@ function DetailPage({ user }) {
         {
             key: "lastlogin",
             label: "마지막 접속",
-            children: getLocaleString(user.lastLogin),
+            children: getLocaleString(user.lastLogin as Date),
         },
         {
             key: "createdAt",
             label: "가입일",
-            children: getLocaleString(user.createdAt),
+            children: getLocaleString(user.createdAt as Date),
         },
         {
             key: "updatedAt",
             label: "최근 수정일",
-            children: getLocaleString(user.updatedAt),
+            children: getLocaleString(user.updatedAt as Date),
         },
     ];
 
     return (
         <>
-            <Header title="사용자정보" />
-
-            <Tabs
-                activeKey={pathname}
-                type="card"
-                onTabClick={key => router.push(key)}
-                items={[
-                    {
-                        label: "회원 정보",
-                        key: "/user/detail",
-                    },
-                    {
-                        label: "정보 수정",
-                        key: "/user/edit",
-                    },
-                    {
-                        label: "참여 내역",
-                        key: "/user/history",
-                    },
-                ]}
-            />
             <Descriptions items={items} />
             <Row gutter={16}>
                 <Col span={4}>

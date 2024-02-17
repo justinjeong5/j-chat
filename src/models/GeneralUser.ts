@@ -1,9 +1,9 @@
-import { TGeneralUser } from "@t/user.type";
+import { TGeneralUser, TRole } from "@t/user.type";
 
 export default class GeneralUser {
     id: string;
 
-    role: string;
+    role?: TRole;
 
     email: string;
 
@@ -22,8 +22,8 @@ export default class GeneralUser {
     active: boolean;
 
     constructor(config: TGeneralUser) {
-        this.id = config.id || "";
-        this.role = config.role || "";
+        this.id = config.id;
+        this.role = config.role || ["common"];
 
         this.email = config.email || "";
         this.username = config.username || "";

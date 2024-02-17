@@ -2,7 +2,7 @@
 
 import UserRepo from "@repos/User";
 import { emitUserLogin, emitUserLogout } from "@socket/user";
-import { TUser } from "@t/user.type";
+import { TGeneralUser } from "@t/user.type";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -10,7 +10,10 @@ export default function WithAuth(WrappedComponent) {
     return function ChildComponent(props) {
         const router = useRouter();
 
-        const [user, setUser] = useState({ email: "", username: "" } as TUser);
+        const [user, setUser] = useState({
+            email: "",
+            username: "",
+        } as TGeneralUser);
 
         useEffect(() => {
             (async () => {

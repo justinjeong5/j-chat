@@ -51,25 +51,17 @@ class RoomRepo extends BaseRepo {
         return { results, hasMore };
     }
 
-    async createRoom({
-        id,
-        title,
-        type,
-        description,
-        users = [],
-    }: TRoomField): Promise<TRoom> {
-        return this.create(
-            Room.createItem({ id, title, type, description, users }),
-        );
+    async createRoom(obj: TRoomField): Promise<TRoom> {
+        return this.create(new Room(obj));
     }
 
-    async joinRoom(roomId, userId): Promise<TRoom> {
+    async joinRoom(roomId: string, userId: string): Promise<TRoom> {
         return this.client
             .post(`/${roomId}/users`, { users: [userId] })
             .then(({ data }) => new Room(data));
     }
 
-    async leaveRoom(roomId, userId): Promise<TRoom> {
+    async leaveRoom(roomId: string, userId: string): Promise<TRoom> {
         return this.client
             .patch(withQS(`/${roomId}/users`, { $pull: true }), {
                 users: userId,

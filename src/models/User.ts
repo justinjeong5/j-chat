@@ -1,10 +1,10 @@
 import BaseModel from "@models/BaseModel";
-import { TUser } from "@t/user.type";
+import { TRole, TUser } from "@t/user.type";
 
 export default class User extends BaseModel {
     id: string;
 
-    role: string;
+    role?: TRole;
 
     email: string;
 
@@ -33,7 +33,7 @@ export default class User extends BaseModel {
     constructor(config: TUser) {
         super();
         this.id = config.id || "";
-        this.role = config.role || "";
+        this.role = config.role || ["common"];
 
         this.email = config.email || "";
         this.username = config.username || "";
@@ -50,29 +50,6 @@ export default class User extends BaseModel {
         this.lastLogin = config.lastLogin || new Date();
         this.updatedAt = config.updatedAt || new Date();
         this.createdAt = config.createdAt || new Date();
-    }
-
-    static createItem(config: TUser = {}): TUser {
-        return {
-            id: "",
-            role: config.role,
-
-            email: config.email,
-            username: config.username || "",
-            description: config.description,
-            avatar: config.avatar,
-
-            rooms: config.rooms || [],
-            likes: config.likes || [],
-
-            dialog: config.dialog || [],
-            comments: config.comments || [],
-            stars: config.stars || [],
-
-            lastLogin: config.lastLogin || new Date(),
-            updatedAt: config.updatedAt || new Date(),
-            createdAt: config.createdAt || new Date(),
-        };
     }
 
     toExternal(): TUser {

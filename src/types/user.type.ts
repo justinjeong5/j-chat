@@ -1,8 +1,10 @@
 export type TUserId = string;
 
+export type TRole = ("common" | "admin")[];
+
 export type TGeneralUser = {
-    id?: TUserId;
-    role?: string;
+    id: TUserId;
+    role?: TRole;
 
     email?: string;
     username?: string;

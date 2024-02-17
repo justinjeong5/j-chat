@@ -1,3 +1,4 @@
+import { FixMe } from "@t/common.type";
 import { message } from "antd";
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
@@ -42,8 +43,7 @@ const useNotice = () => {
     useEffect(() => {
         if (notices.length > 0) {
             const notice = popNotice();
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            messageApi.open(notice as any);
+            messageApi.open(notice as FixMe);
         }
     }, [notices]);
 

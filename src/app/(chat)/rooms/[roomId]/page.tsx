@@ -20,11 +20,11 @@ import {
 import { enterRoom, exitRoom, leaveRoom, roomPosting } from "@socket/room";
 import { TMessage } from "@t/message.type";
 import { TRoom } from "@t/room.type";
-import { TTypingUser } from "@t/user.type";
+import { TTypingUser, TUser } from "@t/user.type";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-function RoomPage({ user }) {
+function RoomPage({ user }: { user: TUser }) {
     const router = useRouter();
     const params = useParams();
     const { errorHandler, contextHolder } = useNotice();
