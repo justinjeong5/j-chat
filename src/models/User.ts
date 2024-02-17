@@ -1,10 +1,10 @@
 import BaseModel from "@models/BaseModel";
-import { TUser } from "@t/user.type";
+import { TRole, TUser } from "@t/user.type";
 
 export default class User extends BaseModel {
     id: string;
 
-    role: string;
+    role?: TRole;
 
     email: string;
 
@@ -33,7 +33,7 @@ export default class User extends BaseModel {
     constructor(config: TUser) {
         super();
         this.id = config.id || "";
-        this.role = config.role || "";
+        this.role = config.role || ["common"];
 
         this.email = config.email || "";
         this.username = config.username || "";
