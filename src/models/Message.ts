@@ -33,7 +33,7 @@ export default class Message extends BaseModel {
         this.id = config.id || "";
         this.roomId = config.roomId || "";
 
-        this.writer = config.writer || UserModel.createItem();
+        this.writer = new UserModel(config.writer);
         this.content = config.content || "";
         this.image = config.image || "";
 
@@ -45,15 +45,8 @@ export default class Message extends BaseModel {
         this.updatedAt = new Date(config.updatedAt || new Date());
     }
 
-    static createItem(config: TMessageField): TMessage {
+    static createItem(config: TMessageField): TMessageField {
         return {
-            image: "",
-            type: "plain",
-            stars: [],
-            likes: [],
-            comments: [],
-            createdAt: new Date(),
-            updatedAt: new Date(),
             ...config,
         };
     }

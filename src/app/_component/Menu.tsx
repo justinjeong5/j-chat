@@ -99,6 +99,7 @@ export default function Page({ user }) {
                     directRoomsData.results.map(
                         (rr: TRoom): TDirectRoom => ({
                             ...rr.users.find(u => u.id !== user.id),
+                            id: rr.id,
                             roomId: rr.id,
                             users: rr.users as TGeneralUser[],
                             active: false,

@@ -19,7 +19,7 @@ export type TMessage = {
 
 export type TMessageField = {
     roomId: string;
-    writer: TUser;
+    writer: string;
     content: string;
 };
 

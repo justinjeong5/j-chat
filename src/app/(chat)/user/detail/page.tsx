@@ -8,11 +8,12 @@ import {
 } from "@ant-design/icons";
 import Header from "@app/_component/Header";
 import WithAuth from "@app/_hoc/WithAuth";
+import { TUser } from "@t/user.type";
 import type { DescriptionsProps } from "antd";
 import { Col, Descriptions, Row, Statistic, Tabs } from "antd";
 import { usePathname, useRouter } from "next/navigation";
 
-function DetailPage({ user }) {
+function DetailPage({ user }: { user: TUser }) {
     const router = useRouter();
     const pathname = usePathname();
     const getLocaleString = (t: Date) => {
@@ -38,17 +39,17 @@ function DetailPage({ user }) {
         {
             key: "lastlogin",
             label: "마지막 접속",
-            children: getLocaleString(user.lastLogin),
+            children: getLocaleString(user.lastLogin as Date),
         },
         {
             key: "createdAt",
             label: "가입일",
-            children: getLocaleString(user.createdAt),
+            children: getLocaleString(user.createdAt as Date),
         },
         {
             key: "updatedAt",
             label: "최근 수정일",
-            children: getLocaleString(user.updatedAt),
+            children: getLocaleString(user.updatedAt as Date),
         },
     ];
 

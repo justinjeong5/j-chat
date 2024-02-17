@@ -1,5 +1,5 @@
 import { TMessage } from "@t/message.type";
-import { TGeneralUser, TUser } from "@t/user.type";
+import { TGeneralUser } from "@t/user.type";
 
 export type TRoomId = string;
 
@@ -11,7 +11,7 @@ export type TRoom = {
     starred: boolean;
     createdAt: Date;
     updatedAt: Date;
-    users: TUser[];
+    users: TGeneralUser[];
     dialog: Array<TMessage>;
 };
 
@@ -32,7 +32,7 @@ export type TRoomField = {
     title: string;
     type: string;
     description: string;
-    users?: Array<TGeneralUser>;
+    users?: Array<string>;
 };
 
 export type TRoomType = "public" | "direct";

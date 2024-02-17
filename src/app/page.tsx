@@ -8,6 +8,7 @@ import WithLottie from "@app/_hoc/WithLottie";
 import WithSocket from "@app/_hoc/WithSocket";
 import usePageRemember from "@hooks/page/remember";
 import { cn } from "@lib/utils";
+import { TUser } from "@t/user.type";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -15,7 +16,7 @@ function ContentFrame({ children }) {
     return <div className={cn("m-2")}>{children}</div>;
 }
 
-function Home({ user }) {
+function Home({ user }: { user: TUser }) {
     const router = useRouter();
     const { lastPage } = usePageRemember();
 

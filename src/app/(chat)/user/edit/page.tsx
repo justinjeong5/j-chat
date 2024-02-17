@@ -16,7 +16,7 @@ import { Button, Card, Form, Input, Tabs } from "antd";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-function EditPage({ user }) {
+function EditPage({ user }: { user: TUser }) {
     const router = useRouter();
     const pathname = usePathname();
     const { errorHandler, contextHolder } = useNotice();

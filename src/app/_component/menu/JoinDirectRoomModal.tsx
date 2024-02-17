@@ -5,7 +5,7 @@ import RoomModel from "@models/Room";
 import RoomRepo from "@repos/Room";
 import UserRepo from "@repos/User";
 import { TDirectRoom } from "@t/room.type";
-import { TGeneralUser, TUserId } from "@t/user.type";
+import { TGeneralUser, TUser, TUserId } from "@t/user.type";
 import { Avatar, Button, Divider, List, Modal, Skeleton } from "antd";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
@@ -17,7 +17,7 @@ export default function JoinDirectRoomModal({
     onCreateRoom,
     children,
 }: {
-    user: TGeneralUser;
+    user: TUser;
     rooms: TDirectRoom[];
     onCreateRoom: (room: TDirectRoom) => void;
     children: React.ReactNode;
@@ -67,7 +67,7 @@ export default function JoinDirectRoomModal({
                     title: `${otherUser.username} & ${user.username}`,
                     description: `${otherUser.username}님과 ${user.username} 님의 DM`,
                     type: RoomModel.DIRECT,
-                    users: [otherUser.id, user.id] as TGeneralUser[],
+                    users: [otherUser.id, user.id],
                 });
                 onCreateRoom({
                     ...room,

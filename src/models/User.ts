@@ -52,29 +52,6 @@ export default class User extends BaseModel {
         this.createdAt = config.createdAt || new Date();
     }
 
-    static createItem(config: TUser = {}): TUser {
-        return {
-            id: "",
-            role: config.role,
-
-            email: config.email,
-            username: config.username || "",
-            description: config.description,
-            avatar: config.avatar,
-
-            rooms: config.rooms || [],
-            likes: config.likes || [],
-
-            dialog: config.dialog || [],
-            comments: config.comments || [],
-            stars: config.stars || [],
-
-            lastLogin: config.lastLogin || new Date(),
-            updatedAt: config.updatedAt || new Date(),
-            createdAt: config.createdAt || new Date(),
-        };
-    }
-
     toExternal(): TUser {
         return {
             ...this,

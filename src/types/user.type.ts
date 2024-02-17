@@ -1,7 +1,7 @@
 export type TUserId = string;
 
 export type TGeneralUser = {
-    id?: TUserId;
+    id: TUserId;
     role?: string;
 
     email?: string;

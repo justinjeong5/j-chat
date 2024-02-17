@@ -1,10 +1,11 @@
 import { cn } from "@lib/utils";
 import UserRepo from "@repos/User";
 import { emitUserLogout } from "@socket/user";
+import { TUser } from "@t/user.type";
 import { Avatar, Button, Space } from "antd";
 import { useRouter } from "next/navigation";
 
-export default function Profile({ user }) {
+export default function Profile({ user }: { user: TUser }) {
     const router = useRouter();
 
     const handleUserInformation = () => {
