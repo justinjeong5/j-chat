@@ -18,7 +18,9 @@ import { Button, Checkbox } from "antd";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
-const initErrorState = {
+const FIVE_MINUTES = 1000 * 60 * 5;
+
+const initFormData = {
     email: "",
     username: "",
     code: "",
@@ -36,25 +38,23 @@ type TFieldValidation = {
 function SignUp() {
     const router = useRouter();
     const { errorHandler, contextHolder } = useNotice();
-    const { userEmail, remember, forget, checked, setChecked } =
-        useLoginRemember();
-    const [email, setEmail] = useState<string>(userEmail || "");
-    const [username, setUsername] = useState<string>("");
-    const [code, setCode] = useState<string>("");
+    const { remember, forget, checked, setChecked } = useLoginRemember();
+
+    const [prevFormData, setPrevFormData] =
+        useState<TUserSignupField>(initFormData);
+    const [formData, setFormData] = useState<TUserSignupField>(initFormData);
     const [codeSent, setCodeSent] = useState<boolean>(false);
-    const [password, setPassword] = useState<string>("");
-    const [passwordConfirm, setPasswordConfirm] = useState<string>("");
-    const [error, setError] = useState<TUserSignupField>(initErrorState);
+    const [error, setError] = useState<TUserSignupField>(initFormData);
     const [codeExpireDate, setCodeExpireDate] = useState<Date | null>(null);
     const [codeExpirationMsg, setCodeExpirationMsg] = useState<string>("");
     const [isExpired, setIsExpired] = useState<boolean>(false);
 
-    const handleCodeSend = useCallback(async () => {
-        if (!email) {
+    const handleCodeSend = useCallback(() => {
+        if (!formData.email) {
             setError(prev => ({ ...prev, email: "이메일을 입력해 주세요." }));
             return;
         }
-        if (!emailValidation(email)) {
+        if (!emailValidation(formData.email)) {
             setError(prev => ({
                 ...prev,
                 email: "이메일 형식을 확인해 주세요.",
@@ -62,15 +62,15 @@ function SignUp() {
             return;
         }
 
-        UserRepo.authCode(email)
+        UserRepo.authCode(formData.email)
             .then(() => {
                 setCodeSent(true);
-                setCodeExpireDate(new Date(Date.now() + 1000 * 60 * 5));
+                setCodeExpireDate(new Date(Date.now() + FIVE_MINUTES));
             })
             .catch(err => {
                 errorHandler(err);
             });
-    }, [email, setCodeSent, setCodeExpireDate, errorHandler]);
+    }, [formData.email]);
 
     useEffect(() => {
         if (!codeExpireDate) {
@@ -94,27 +94,26 @@ function SignUp() {
 
         // eslint-disable-next-line consistent-return
         return () => clearInterval(interval);
-    }, [codeExpireDate, setCodeExpireDate, setCodeExpirationMsg, setIsExpired]);
+    }, [codeExpireDate]);
 
     useEffect(() => {
-        setError(prev => ({ ...prev, email: "" }));
-    }, [email, setError]);
+        setFormData(prev => {
+            setPrevFormData(prev);
+            return prev;
+        });
+    }, [formData]);
 
     useEffect(() => {
-        setError(prev => ({ ...prev, username: "" }));
-    }, [username, setError]);
-
-    useEffect(() => {
-        setError(prev => ({ ...prev, code: "" }));
-    }, [code, setError]);
-
-    useEffect(() => {
-        setError(prev => ({ ...prev, password: "" }));
-    }, [password, setError]);
-
-    useEffect(() => {
-        setError(prev => ({ ...prev, passwordConfirm: "" }));
-    }, [passwordConfirm, setError]);
+        setError(prev => {
+            const newErrors = { ...prev };
+            Object.keys(formData).forEach(field => {
+                if (prevFormData[field] !== formData[field]) {
+                    newErrors[field] = "";
+                }
+            });
+            return newErrors;
+        });
+    }, [formData, prevFormData]);
 
     useEffect(() => {
         (async () => {
@@ -127,63 +126,67 @@ function SignUp() {
                 /* empty */
             }
         })();
-    }, [router]);
+    }, []);
+
+    const handleChange = useCallback((field: string, value: string) => {
+        setFormData(prev => ({ ...prev, [field]: value }));
+    }, []);
 
     const fieldValidations = useCallback((): TFieldValidation | null => {
         const isRequired = v => !!v;
 
-        const fields: TFieldValidation[] = [
+        const validators: TFieldValidation[] = [
             {
-                value: username,
+                value: formData.username,
                 field: "username",
                 condition: isRequired,
                 msg: "사용자 이름을 입력해 주세요.",
             },
             {
-                value: code,
+                value: formData.code,
                 field: "code",
                 condition: isRequired,
                 msg: "인증 코드를 입력해 주세요.",
             },
             {
-                value: code,
+                value: formData.code,
                 field: "code",
                 condition: v => String(v).length === 6,
                 msg: "인증 번호를 확인해 주세요.",
             },
             {
-                value: password,
+                value: formData.password,
                 field: "password",
                 condition: isRequired,
                 msg: "비밀번호를 입력해 주세요.",
             },
             {
-                value: passwordConfirm,
+                value: formData.passwordConfirm,
                 field: "passwordConfirm",
                 condition: isRequired,
                 msg: "비밀번호 확인을 입력해 주세요.",
             },
             {
-                value: passwordConfirm,
+                value: formData.passwordConfirm,
                 field: "passwordConfirm",
-                condition: (v: string) => v === password,
+                condition: (v: string) => v === formData.password,
                 msg: "비밀번호가 일치하지 않습니다.",
             },
         ];
 
         return (
-            fields.find((f: TFieldValidation) => {
+            validators.find((f: TFieldValidation) => {
                 if (f.condition) {
                     return !f.condition(f.value);
                 }
                 return false;
             }) || null
         );
-    }, [email, username, code, password, passwordConfirm]);
+    }, [formData]);
 
     const handleFinish = useCallback(async () => {
         try {
-            setError(initErrorState);
+            setError(initFormData);
             const validation = fieldValidations();
             if (validation) {
                 setError(prev => ({
@@ -194,16 +197,12 @@ function SignUp() {
             }
 
             await UserRepo.signup({
-                email,
-                username,
-                code,
-                password,
-                passwordConfirm,
-                avatar: getAvatarUrl(email),
+                ...formData,
+                avatar: getAvatarUrl(formData.email),
             });
 
             if (checked) {
-                remember(email);
+                remember(formData.email);
             } else {
                 forget();
             }
@@ -212,52 +211,61 @@ function SignUp() {
         } catch (err) {
             errorHandler(err);
         }
-    }, [remember, checked, forget, router, fieldValidations, errorHandler]);
+    }, [checked, fieldValidations]);
 
     return (
         <>
             {contextHolder}
             <div className={cn("flex", "flex-col", "gap-6", "mb-2")}>
                 <FieldInput
-                    value={email}
+                    value={formData.email}
                     disabled={codeSent}
                     placeholder="이메일"
                     error={error.email}
                     icon={<MailOutlined />}
-                    onChange={e => setEmail(e.target.value.trim())}
+                    onChange={e => handleChange("email", e.target.value.trim())}
                 />
                 {codeSent ? (
                     <>
                         <FieldInput
-                            value={username}
+                            value={formData.username}
                             placeholder="사용자 이름"
                             error={error.username}
                             icon={<UserOutlined />}
-                            onChange={e => setUsername(e.target.value)}
+                            onChange={e =>
+                                handleChange("username", e.target.value)
+                            }
                         />
                         <FieldInput
-                            value={code}
+                            value={formData.code}
                             placeholder="인증 코드"
                             error={error.code}
                             icon={<SafetyCertificateOutlined />}
-                            onChange={e => setCode(e.target.value.trim())}
+                            onChange={e =>
+                                handleChange("code", e.target.value.trim())
+                            }
                         />
                         <FieldInput
-                            value={password}
+                            value={formData.password}
                             placeholder="비밀번호"
                             type="password"
                             error={error.password}
                             icon={<LockOutlined />}
-                            onChange={e => setPassword(e.target.value.trim())}
+                            onChange={e =>
+                                handleChange("password", e.target.value.trim())
+                            }
                         />
                         <FieldInput
-                            value={passwordConfirm}
+                            value={formData.passwordConfirm}
                             placeholder="비밀번호 확인"
                             type="password"
                             error={error.passwordConfirm}
                             icon={<LockOutlined />}
                             onChange={e =>
-                                setPasswordConfirm(e.target.value.trim())
+                                handleChange(
+                                    "passwordConfirm",
+                                    e.target.value.trim(),
+                                )
                             }
                         />
                         <div className={cn("flex", "justify-between")}>
