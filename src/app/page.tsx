@@ -23,6 +23,10 @@ function Home({ user }: { user: TUser }) {
         }
     }, [lastPage]);
 
+    const throwError = () => {
+        throw new Error("Test Error");
+    };
+
     return (
         <AppFrame menu={<Menu user={user} />}>
             <Header title="JChat에 오신 것을 환영합니다.">
@@ -49,6 +53,9 @@ function Home({ user }: { user: TUser }) {
                         loop
                     />
                     <div className={cn("m-4")}>대화를 시작해 보세요.</div>
+                    <button type="button" onClick={throwError}>
+                        에러 발생시키기
+                    </button>
                 </div>
             </div>
         </AppFrame>
