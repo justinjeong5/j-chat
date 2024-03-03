@@ -3,7 +3,7 @@ export default function readableElapsedTime(timestamp: Date = new Date()) {
     const HOUR = 60 * MINUTE;
     const DAY = 24 * HOUR;
     const WEEK = 7 * DAY;
-    const MONTH = 30 * DAY;
+    const MONTH = 4 * WEEK;
     const YEAR = 365 * DAY;
 
     const currentTime = new Date().getTime();
