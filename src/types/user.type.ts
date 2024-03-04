@@ -41,6 +41,12 @@ export type TUserSignupField = {
     avatar?: string;
 } & TUserField;
 
+export type TUserEditField = {
+    username: string;
+    description: string;
+    avatar?: string;
+} & TUserField;
+
 export type TTypingUser = {
     id: TUserId;
     username: string;

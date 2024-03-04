@@ -3,7 +3,7 @@ import User from "@models/User";
 import BaseRepo from "@repos/BaseRepo";
 import IUser, {
     TGeneralUser,
-    TUser,
+    TUserEditField,
     TUserField,
     TUserSignupField,
 } from "@t/user.type";
@@ -31,7 +31,11 @@ class UserRepo extends BaseRepo {
         });
     }
 
-    async editProfile(id: string, user: TUser, query = {}): Promise<IUser> {
+    async editProfile(
+        id: string,
+        user: TUserEditField,
+        query = {},
+    ): Promise<IUser> {
         return this.client
             .patch(this.buildUrl("update", query, { id }), user)
             .then(({ data }) => new User(data));

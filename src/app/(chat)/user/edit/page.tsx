@@ -7,114 +7,148 @@ import {
     UserOutlined,
 } from "@ant-design/icons";
 import WithAuth from "@app/_hoc/WithAuth";
+import FieldInput from "@components/form/FieldInput";
 import useNotice from "@hooks/notice";
 import { cn } from "@lib/utils";
 import UserRepo from "@repos/User";
-import { TUser } from "@t/user.type";
-import { Button, Card, Form, Input } from "antd";
+import { TUser, TUserEditField } from "@t/user.type";
+import { Button, Card } from "antd";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
+
+const initFormData = {
+    email: "",
+    username: "",
+    description: "",
+    password: "",
+};
+
+type TFieldValidation = {
+    value: string;
+    field: string;
+    condition?: (v: string) => boolean;
+    msg: string;
+};
 
 function UserEditPage({ user }: { user: TUser }) {
     const router = useRouter();
     const { errorHandler, contextHolder } = useNotice();
-    const [form] = Form.useForm();
 
-    useEffect(() => {
-        form.setFieldsValue({
-            username: user.username,
-            description: user.description,
-            email: user.email,
-            avatar: user.avatar,
-            password: null,
-        });
-    }, [user]);
+    const [formData, setFormData] = useState<TUserEditField>({
+        email: user.email as string,
+        username: user.username as string,
+        description: user.description || "",
+        password: "",
+    });
+    const [error, setError] = useState<TUserEditField>(initFormData);
 
-    const handleFinish = async (values: TUser): Promise<void> => {
+    const fieldValidations = useCallback((): TFieldValidation | null => {
+        const isRequired = v => !!v;
+
+        const validators: TFieldValidation[] = [
+            {
+                value: formData.username,
+                field: "username",
+                condition: isRequired,
+                msg: "사용자 이름을 입력해 주세요.",
+            },
+            {
+                value: formData.password,
+                field: "password",
+                condition: isRequired,
+                msg: "비밀번호를 입력해 주세요.",
+            },
+        ];
+
+        return (
+            validators.find((f: TFieldValidation) => {
+                if (f.condition) {
+                    return !f.condition(f.value);
+                }
+                return false;
+            }) || null
+        );
+    }, [formData]);
+
+    const handleChange = useCallback((field: string, value: string) => {
+        setFormData(prev => ({ ...prev, [field]: value }));
+    }, []);
+
+    const handleFinish = useCallback(async (): Promise<void> => {
         try {
-            await UserRepo.editProfile(user.id, values);
+            setError(initFormData);
+            const validation = fieldValidations();
+            if (validation) {
+                setError(prev => ({
+                    ...prev,
+                    [validation.field]: validation.msg,
+                }));
+                return;
+            }
+
+            await UserRepo.editProfile(user.id, formData);
             router.push("/user/detail");
         } catch (err) {
             errorHandler(err);
         }
-    };
+    }, [user.id, formData]);
+
+    useEffect(() => {
+        if (user) {
+            setFormData({
+                email: user.email as string,
+                username: user.username as string,
+                description: user.description || "",
+                password: "",
+            });
+        }
+    }, [user]);
 
     return (
         <>
             {contextHolder}
             <Card className={cn("p-4", "m-4", "max-w-[480px]")}>
-                <Form name="normal_login" form={form} onFinish={handleFinish}>
-                    <Form.Item
-                        name="email"
-                        rules={[
-                            {
-                                required: true,
-                                message: "사용자 이름을 입력해 주세요.",
-                            },
-                        ]}
-                    >
-                        <Input
-                            disabled
-                            prefix={<MailOutlined />}
-                            placeholder="이메일"
-                        />
-                    </Form.Item>
-                    <Form.Item
-                        name="username"
-                        rules={[
-                            {
-                                required: true,
-                                message: "비밀번호를 입력해 주세요.",
-                            },
-                        ]}
-                    >
-                        <Input
-                            prefix={<UserOutlined />}
-                            placeholder="사용자 이름"
-                        />
-                    </Form.Item>
-                    <Form.Item
-                        name="description"
-                        rules={[
-                            {
-                                message: "자기 소개를 입력해 주세요.",
-                            },
-                        ]}
-                    >
-                        <Input
-                            prefix={<ReadOutlined />}
-                            placeholder="사용자 소개"
-                        />
-                    </Form.Item>
-                    <Form.Item
-                        name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: "비밀번호를 입력해 주세요.",
-                            },
-                        ]}
-                    >
-                        <Input
-                            prefix={<LockOutlined />}
-                            type="password"
-                            placeholder="비밀번호"
-                        />
-                    </Form.Item>
+                <div className={cn("flex", "flex-col", "gap-6", "mb-2")}>
+                    <FieldInput
+                        value={formData.email as string}
+                        disabled
+                        icon={<MailOutlined />}
+                    />
 
-                    <Form.Item>
-                        <Button
-                            type="primary"
-                            htmlType="submit"
-                            style={{
-                                display: "flex",
-                                justifyContent: "end",
-                            }}
-                        >
-                            변경하기
-                        </Button>
-                    </Form.Item>
-                </Form>
+                    <FieldInput
+                        value={formData.username}
+                        placeholder="사용자 이름"
+                        error={error.username}
+                        icon={<UserOutlined />}
+                        onChange={e => handleChange("username", e.target.value)}
+                    />
+                    <FieldInput
+                        value={formData.description}
+                        placeholder="소개"
+                        error={error.description}
+                        icon={<ReadOutlined />}
+                        onChange={e =>
+                            handleChange("description", e.target.value)
+                        }
+                    />
+                    <FieldInput
+                        value={formData.password}
+                        placeholder="비밀번호"
+                        type="password"
+                        error={error.password}
+                        icon={<LockOutlined />}
+                        onChange={e =>
+                            handleChange("password", e.target.value.trim())
+                        }
+                    />
+                    <Button
+                        className={cn("bg-[#1677FF]", "w-fit", "self-end")}
+                        type="primary"
+                        onClick={handleFinish}
+                    >
+                        수정하기
+                    </Button>
+                </div>
             </Card>
         </>
     );

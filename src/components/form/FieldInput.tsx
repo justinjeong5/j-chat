@@ -6,14 +6,14 @@ export default function FieldInput({
     disabled,
     onChange,
     type = "text",
-    error = "비밀번호가 일치하지 않습니다.",
+    error = "",
     icon,
     placeholder,
 }: {
     className?: string;
     value: string;
     disabled?: boolean;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     type?: "text" | "password";
     error?: string | null;
     icon?: React.ReactNode;
