@@ -10,7 +10,6 @@ import WithAuth from "@app/_hoc/WithAuth";
 import { TUser } from "@t/user.type";
 import type { DescriptionsProps } from "antd";
 import { Col, Descriptions, Row, Statistic } from "antd";
-import { useEffect } from "react";
 
 function UserDetailPage({ user }: { user: TUser }) {
     const getLocaleString = (t: Date) => {
@@ -49,10 +48,6 @@ function UserDetailPage({ user }: { user: TUser }) {
             children: getLocaleString(user.updatedAt as Date),
         },
     ];
-
-    useEffect(() => {
-        console.log("user", user);
-    }, [user]);
 
     return (
         <>
